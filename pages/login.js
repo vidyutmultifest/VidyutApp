@@ -157,7 +157,7 @@ const LoginPage = (props) => {
                                 clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
                                 authCallback={loginWithMicrosoft}
                                 debug="true"
-                                redirectUri="http://localhost:3000/login"
+                                redirectUri="https://vidyut.netlify.com/login/"
                                 children={<button className="login-button-microsoft">
                                     <img src={require('../images/logos/microsoft.png')} />
                                     Login with Amrita ID
