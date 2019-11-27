@@ -1,0 +1,288 @@
+@keyframes iconmotion
+  50%
+    transform: translateY(2vh)
+
+
+@keyframes gradientBG
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 50%
+  100%
+    background-position: 0% 50%
+
+.bg-gradient
+  background: linear-gradient(-45deg, #00838F, #1565C0, #6A1B9A, #AD1457)!important
+  animation: gradientBG 30s ease infinite!important
+  background-size: 400vh 400vw!important
+
+section
+  min-height: 100vh
+  display: flex
+  align-items: center
+  background: white
+  padding: 5vh 5vw
+  font-family: 'Montserrat', sans-serif
+  h3
+    text-transform: uppercase
+    font-family: 'Montserrat', sans-serif
+    font-size: calc(1.2rem + 2.5vw)
+    font-weight: 700
+    span
+      display: block
+      font-size: calc(1rem + 0.5vw)
+
+#about-theme
+  h3
+    background: linear-gradient(#006064, #00BFA5)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+  img
+    animation: iconmotion 2s infinite
+    transition: 1s
+
+#about-amrita
+  h3
+    background: linear-gradient(#880E4F, #E65100)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+#about-multifest
+  h3
+    background: linear-gradient(#D32F2F, #D50000)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+#about-vidyut
+  background: #eee
+  padding: 5vh 0
+  h3
+    background: linear-gradient(#4A148C, #3D5AFE)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+
+@keyframes loadingScreen
+  0%
+    height: 100vh
+    width: 100vw
+  95%
+    height: 100vh
+    width: 100vw
+
+@keyframes loadingContent
+  0%
+    height: 0
+  95%
+    height: 0
+
+#content
+  height: auto
+  animation: loadingContent 5s
+
+#page-loader
+  position: absolute
+  background: black
+  top: 0
+  left: 0
+  height: 0
+  width: 0
+  z-index: 2000
+  display: flex
+  align-items: center
+  justify-content: center
+  animation: loadingScreen 5s
+  video
+    width: 75%
+
+.moving-bg-wrapper
+  background-color: #fff8d0
+  width: 100%
+  height: 40vmin
+  overflow-x: hidden
+  .moving-bg
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+    transition: 0.5s
+  h2
+    position: fixed
+    top: 0
+
+#theme-logo-container
+  position: absolute
+  top: 0
+  left:
+  width: 100%
+  z-index: 99
+  img
+    max-height: 300px
+    height: 15vh
+
+#theme-landing
+  width: 100vw
+  height: 100vh
+  transform-style: preserve-3d
+  background-image: url('../images/assets/landing_headers/after.jpg')
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+
+#theme-pic
+  width: 100vw
+  height: 100vh
+  transition: 1s
+  background-position: center
+  background-size: cover
+
+
+#moments-slider
+  .col-4
+    padding: 0
+    margin: 0
+  video
+    width: 100%
+    margin: 0
+
+#sponsor-list
+  min-height: 50vh
+  background: #eeeeee
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  h2
+    font-family: 'Montserrat', sans-serif
+    font-weight: 700
+    text-align: center
+    margin: 5vh 0
+  img
+    max-height: 90px
+    height: 8vw
+    margin: 0.5rem
+    filter: grayscale(100%)
+    transition: 1s
+  img:hover
+    filter: grayscale(0)
+
+#speakers-list
+  min-height: 50vh
+  background: black
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  padding: 10vh 5vw
+  h2
+    color: white
+    font-family: 'Montserrat', sans-serif
+    font-weight: 700
+    text-align: center
+    margin: 5vh 0
+  .speaker-array
+    .col-6
+      background-size: cover
+      object-fit: contain
+      background-position: center
+      height: 30vh
+      width: 100%
+      background-repeat: no-repeat
+      filter: grayscale(100%)
+      display: flex
+      align-items: flex-end
+      padding: 0.5rem
+      line-height: 1
+      justify-content: start
+      color: white
+      font-weight: 700
+      transition: 0.5s
+      span
+        background: rgba(0,0,0,0.8)
+        padding: 0.5rem
+        font-size: calc(1rem + 0.3vw)
+        text-align: center
+    .col-6:hover
+      filter: grayscale(0%)
+      content: inherit
+      justify-content: center
+      text-shadow: 2px 2px 2px rgba(0,0,0,0.8)
+      padding-bottom: 1rem
+
+#stats-area
+  font-family: 'Montserrat', sans-serif
+  .col-6
+    padding: 1rem
+  h5
+    font-size: calc(1.25rem + 3vmax)
+    font-weight: 700
+    background: linear-gradient(#4A148C, #3D5AFE)
+    -webkit-background-clip: text
+    -webkit-text-fill-color: transparent
+    span
+      font-size: calc(1.25rem + 1.5vw)
+  div
+    font-size: calc(1rem + 0.5vw)
+    line-height: 1
+
+#registration-button
+  position: absolute
+  font-family: 'Montserrat', sans-serif
+  top: 5vh
+  right: 5vw
+  text-decoration: none
+  color: white
+  font-weight: 600
+  border: 2px solid
+  padding: 0.5rem 1rem
+
+#registration-button:hover
+  background: white
+  color: black
+
+
+footer
+  color: white
+  .col-md-4
+    display: flex
+    align-items: center
+    justify-content: center
+    padding: 1rem
+  img
+    max-height: 50px
+    margin: 0
+  .footer-text
+    font-size: calc(1.2rem + 0.5vw)
+    text-align: center
+
+.simple-nav
+  a
+    color: inherit
+    padding-right: 0.5rem
+    text-decoration: none
+
+#footer-menu
+  position: relative
+  min-height: 60vh
+  background: linear-gradient(60deg, #ee7752, #FFF176, #23a6d5, #26C6DA, #FBC02D, #EF6C00)
+  overflow-x: hidden
+  text-align: center
+  background-size: 600% 600%
+  animation: gradientBG 15s ease infinite
+  .row
+    margin: 8vh 0
+  .pyramid-wrapper
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
+    overflow-y: hidden
+    display: flex
+    justify-content: center
+    .pyramid-bg
+      height: 30vmin
+      width: 80%
+      margin: 0
+      overflow-x: hidden
+  .simple-nav
+    border-right:
+    a
+      color: black
+    a:last-child
+      border-right: none

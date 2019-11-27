@@ -1,0 +1,100 @@
+#dashboard-wrapper
+  .section-heading
+    font-size: calc(1rem + 0.3vw)
+    color: #666
+    margin: 1rem 0
+    font-weight: 900
+
+#dashboard-header
+  min-height: 40vh
+  width: 100%
+  background: blue
+  color: white
+  padding: 10vh 5vw
+  display: flex
+  align-items: center
+  justify-content: center
+  span
+    padding: 1rem
+    h1
+      color: white
+      font-weight: 900
+      margin-bottom: 0.5rem
+    p
+      font-size: calc(1rem + 0.2vw)
+      max-width: 900px
+
+
+.profile-completion-item
+  display: flex
+  padding: 1.2rem
+  cursor: pointer
+  box-shadow: 0px 1px 1px rgba(0,0,0,0.3)
+
+  div:first-child
+    width: 15%
+    display: flex
+    align-items: center
+    justify-content: center
+
+  div:last-child
+    width: 80%
+    padding: 0 0.8rem
+    h6
+      font-size: calc(1rem + 0.3vw)
+      font-weight: 900
+      margin-bottom: 0.5rem
+    p
+      font-size: 0.8rem
+      margin-bottom: 0
+
+.profile-completion-item:hover
+  box-shadow: 1px 6px 4px rgba(0,0,0,0.3)
+
+.quick-action-card
+  background: white
+  border: 0
+  padding: calc(1rem + 0.5vw)
+  height: 100%
+  border-radius: 1rem
+  position: relative
+  transition: 1s
+  .offer
+    position: absolute
+    left: -0.5rem
+    top: 1.5rem
+    padding: 0.3rem 0.8rem
+    font-size: calc(0.6rem + 0.3vw)
+    border-radius: 5px
+    background: green
+    color: white
+  img
+    max-width: 128px
+  h6
+    font-weight: 900
+    font-size: calc(1rem + 0.3vw)
+    margin-bottom: 0.5rem
+  p
+    font-size: 0.8rem
+    margin: 0
+
+
+.quick-action-card:hover
+  transform: translateY(-1vh)
+  transition: 1s
+
+@keyframes gradientBG
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 50%
+  100%
+    background-position: 0% 50%
+
+.bg-gradient
+  background: linear-gradient(to right, #0052D4, #8E54E9, #2657eb)!important
+  animation: gradientBG 5s ease infinite!important
+  background-size: 1000vh 300vw!important
+
+footer
+  padding: 5vh 2vw
