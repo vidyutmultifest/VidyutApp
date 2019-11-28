@@ -6,12 +6,6 @@ const videos = require('next-videos');
 
 const withSourceMaps = require( '@zeit/next-source-maps' );
 
-const nextConfig = {
-    experimental: {
-        exportTrailingSlash: false
-    }
-};
-
 module.exports = withPlugins([
     [withSourceMaps],
     [css],
@@ -20,4 +14,4 @@ module.exports = withPlugins([
     [sass, {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp4)$/,
     }],
-], nextConfig);
+]);

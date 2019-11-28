@@ -1,9 +1,38 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../../styles/purchase/cart.sass';
 import CartItem from "../../components/purchase/cartItem";
 import PaymentSummaryItem from "../../components/purchase/PaymentSummaryItem";
+import Modal from "react-modal";
+import QRCode from "qrcode.react";
+import dataFetch from "../../utils/dataFetch";
 
-const CartView = () => {
+const CartView = ({ products }) => {
+
+    const [isQueried, setQueried] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
+    const [showModal, setModal] = useState(false);
+    const [vidyutID, setVidyutID] = useState();
+
+    const vidQuery = `{
+      myProfile
+      {
+        vidyutID
+       }
+    }`;
+
+    const getVIDQuery = async () => await dataFetch({ query: vidQuery });
+
+    useEffect(() => {
+        if(!isQueried) {
+            getVIDQuery().then((response) => {
+                setQueried(true);
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setVidyutID(response.data.myProfile.vidyutID);
+                    setLoaded(true);
+                }
+            })
+        }
+    });
 
     const promotions = (
         <div className="promocode-card card-shadow">
@@ -33,18 +62,59 @@ const CartView = () => {
         </div>
     );
 
+    const createHash = () => {
+        let hashCode = '';
+        hashCode = 'products=[';
+        products.map(p => hashCode += p.id + ',');
+        hashCode += ']';
+        hashCode += vidyutID;
+        return hashCode;
+    };
+
+    const payAtCounter = (
+        <Modal
+            isOpen={showModal}
+            contentLabel="Payment at Counter"
+            onRequestClose={() => setModal(false)}
+            className="qr-modal"
+            overlayClassName="qr-overlay"
+        >
+            <h4>Show at Counter</h4>
+            <div>VIDYUT ID: {isLoaded ? vidyutID : null}</div>
+            <QRCode value={isLoaded ? createHash() : null} size={256} />
+            <sub>{isLoaded ? createHash() : null}</sub>
+        </Modal>
+    );
+
+    const calcTotalPrice = () => {
+        let price = 0;
+        products.map(p => price += p.price);
+        return price;
+    };
+
+    const totalPrice = calcTotalPrice();
+
+
+    const calcGST = (price) => {
+        return price * 0.18;
+    };
+
     return (
         <div id="cart-view" className="card-shadow">
             <div className="row m-0">
                 <div className="col-md-8">
                     <h4>In Your Cart</h4>
-                    <CartItem
-                        photo={require('../../images/icons/tickets-qa.png')}
-                        qty="1"
-                        title="Vidyut 2020 - Proshow Ticket"
-                        text="Entry tickets to Vidyut 2020 Proshows"
-                        price="Rs. 1000"
-                    />
+                    {
+                        products.map(p => (
+                            <CartItem
+                                photo={p.photo}
+                                qty={p.qty}
+                                title={p.name}
+                                text="No description available"
+                                price={`Rs. ${p.price}`}
+                            />
+                        ))
+                    }
                     <h4 className="mt-4">Apply Promotion</h4>
                     {promotions}
                     <h4 className="mt-4">Apply Referral</h4>
@@ -54,27 +124,24 @@ const CartView = () => {
                     <h4>Purchase Summary</h4>
                     <div>
                         <PaymentSummaryItem
-                            cartValue={1000}
+                            cartValue={totalPrice - calcGST(totalPrice) - 20}
                             charges={[
                                 {
                                     'name': "GST @ 18%",
-                                    'price': 180
+                                    'price': calcGST(totalPrice)
                                 },
                                 {
                                     'name': "Internet Handling Fee",
                                     'price': 20
                                 },
                             ]}
-                            deductions={[
-                                {
-                                    'name': "Promocode",
-                                    'price': 100,
-                                }
-                            ]}
+                            deductions={[]}
                         />
                         <div className="fix-bottom">
-                            <button className="payment-button card-shadow">Proceed to Pay</button>
+                            <button className="payment-button card-shadow">Pay Online</button>
+                            <button onClick={() => setModal(true)} className="payment-button card-shadow">Pay at Counter</button>
                         </div>
+                        {payAtCounter}
                     </div>
                 </div>
             </div>

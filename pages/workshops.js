@@ -20,6 +20,7 @@ const Workshops = () => {
         description
         fee
         slug
+        productID
       }
     }`;
 
@@ -47,7 +48,7 @@ const Workshops = () => {
                 isNew
                 isRecommended
                 detailsURL={`/workshop/${w.slug}`}
-                registerURL={`/purchase/?workshop=${w.slug}`}
+                registerURL={`/purchase?product=${w.productID}`}
             />
         </div>
     );

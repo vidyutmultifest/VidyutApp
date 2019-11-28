@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
@@ -13,9 +13,9 @@ import LoginPageWrapper from "../wrappers/LoginPage"
 
 const cookies = new Cookies();
 
-const LoginPage = (props) => {
+function LoginPage(props) {
     const router = useRouter();
-
+    const [url, setURL] = useState();
     const [isLoading, setLoading] = useState(false);
     const [authFail, setAuthFail] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -51,6 +51,7 @@ const LoginPage = (props) => {
     }`;
 
     useEffect(() => {
+        setURL(window.location.href);
         const token = cookies.get('token');
         if (token != null) {
             router.push('/dashboard');
@@ -109,47 +110,11 @@ const LoginPage = (props) => {
         });
     };
 
-    const { getFieldDecorator } = props.form;
-
     return <LoginPageWrapper>
        {
            !isLoading ? (<div id="login-card">
                <img src={require('../images/logos/vidyut-dark-logo.png')} />
                {authFail ? errorMessage : null}
-               <Form className="login-form" onSubmit={handleSubmit}>
-                   <Form.Item >
-                       {getFieldDecorator('username', {
-                           rules: [{ required: true, message: 'Please input your username!' }],
-                       })(
-                           <Input
-                               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                               placeholder="Username"
-                           />,
-                       )}
-                   </Form.Item>
-                   <Form.Item>
-                       {getFieldDecorator('password', {
-                           rules: [{ required: true, message: 'Please input your Password!' }],
-                       })(
-                           <Input.Password
-                               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                               type="password"
-                               placeholder="Password"
-                           />,
-                       )}
-                   </Form.Item>
-                   <Form.Item>
-                       {getFieldDecorator('remember', {
-                           valuePropName: 'checked',
-                           initialValue: true,
-                       })(<Checkbox>Remember me</Checkbox>)}
-                   </Form.Item>
-                   <Form.Item>
-                       <Button type="primary" htmlType="submit" className="btn-block login-form-button">
-                           Log in
-                       </Button>
-                   </Form.Item>
-               </Form>
                 <div className="social-login-buttons">
                     <div>
                         <NoSSR>
@@ -157,7 +122,7 @@ const LoginPage = (props) => {
                                 clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
                                 authCallback={loginWithMicrosoft}
                                 debug="true"
-                                redirectUri="https://vidyut.netlify.com/login/"
+                                redirectUri={url}
                                 children={<button className="login-button-microsoft">
                                     <img src={require('../images/logos/microsoft.png')} />
                                     Login with Amrita ID
@@ -182,7 +147,6 @@ const LoginPage = (props) => {
            </div>) : <h1>Loading</h1>
        }
     </LoginPageWrapper>
+}
 
-};
-
-export default Form.create({ name: 'normal_login' })(LoginPage)
+export default LoginPage;

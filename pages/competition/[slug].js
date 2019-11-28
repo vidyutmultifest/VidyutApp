@@ -24,6 +24,7 @@ const Workshop = () => {
         details
         description
         fee
+        productID
       }
     }`;
 
@@ -61,7 +62,7 @@ const Workshop = () => {
                     name={data.name}
                     price={data.fee}
                     text={data.description}
-                    registerURL={`/purchase/?competition=${data.slug}`}
+                    registerURL={`/purchase?product=${data.productID}`}
                 />
                 {eventDetails()}
                 <ShareCard />

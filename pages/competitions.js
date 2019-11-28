@@ -20,6 +20,7 @@ const Competitions = () => {
         description
         fee
         slug
+        productID
       }
     }`;
 
@@ -47,7 +48,7 @@ const Competitions = () => {
                 isNew
                 isRecommended
                 detailsURL={`/competitions/${c.slug}`}
-                registerURL={`/purchase/?competitions=${c.slug}`}
+                registerURL={`/purchase?product=${c.productID}`}
             />
         </div>
     );
