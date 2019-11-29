@@ -1,6 +1,7 @@
 import React from 'react'
 import { useScrollPercentage } from "react-scroll-percentage"
-import "../styles/landing.sass"
+import "../styles/landing.sass";
+import "../styles/bootstrap.sass";
 import Head from "next/head";
 
 
@@ -36,16 +37,18 @@ const HomePage = () => {
         <Head>
             <title>Discover Vidyut  - National Level Multi Fest | Amrita Vishwa Vidyapeetham, Amritapuri</title>
         </Head>
-        <LandingHeader />
-        <div ref={ref}>
-            <AboutTheme />
-            <AboutVidyut />
-            <AboutMultifest />
-            {movingbg}
-            <AboutAmrita />
-            <SponsorsList />
+        <div id="landing-page-content">
+            <LandingHeader />
+            <div ref={ref}>
+                <AboutTheme />
+                <AboutVidyut />
+                <AboutMultifest />
+                {movingbg}
+                <AboutAmrita />
+                <SponsorsList />
+            </div>
+            <Footer />
         </div>
-        <Footer />
     </Base>
 };
 

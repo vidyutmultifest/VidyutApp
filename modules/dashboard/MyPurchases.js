@@ -16,7 +16,6 @@ const MyPurchases = () => {
         products
         {
           name
-          photo
           price
           qty
         }

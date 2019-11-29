@@ -1,13 +1,13 @@
-import React from 'react'
-import 'antd/dist/antd.css';
+import React, {useState} from 'react'
 import Head from "next/head";
 
 import '../styles/style.sass';
 
 import ProtectedPage from "./protected";
+import dataFetch from "../utils/dataFetch";
 
 
-const Base = ({ children, loginRequired }) => {
+const Base = ({ children, loginRequired, adminRequired }) => {
 
     const page = (
         <React.Fragment>
@@ -17,6 +17,7 @@ const Base = ({ children, loginRequired }) => {
             {children}
         </React.Fragment>
     );
+
 
     return loginRequired ?
         <ProtectedPage>

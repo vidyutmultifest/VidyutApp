@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
+import '../styles/bootstrap.sass';
+
 const TitleBar = () => {
     return <nav>
         <div className="row m-0">

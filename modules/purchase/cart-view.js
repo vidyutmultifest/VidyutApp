@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import '../../styles/purchase/cart.sass';
 import CartItem from "../../components/purchase/cartItem";
 import PaymentSummaryItem from "../../components/purchase/PaymentSummaryItem";
 import Modal from "react-modal";
 import QRCode from "qrcode.react";
 import dataFetch from "../../utils/dataFetch";
+import '../../styles/purchase/cart.sass';
+
 
 const CartView = ({ products }) => {
 
