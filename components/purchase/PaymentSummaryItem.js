@@ -30,8 +30,14 @@ const CartItem = ({ charges, deductions, cartValue }) => {
                 <span className="col-4 px-0 charge-amount">Rs. {cartValue}</span>
                 <div className="col-12 px-0 pt-4 font-weight-bold">Charges</div>
                 {charges.map( c => renderCharge(c.name, c.price))}
-                <div className="col-12 px-0 pt-4 font-weight-bold">Deductions</div>
-                {deductions.map( c => renderDeduction(c.name, c.price))}
+                {
+                    deductions && deductions.length > 0 ?
+                        <React.Fragment>
+                            <div className="col-12 px-0 pt-4 font-weight-bold">Deductions</div>
+                            {deductions.map( c => renderDeduction(c.name, c.price))}
+                        </React.Fragment>
+                   : null
+                }
             </div>
             <div className="total my-4">
                 <div>Total</div>

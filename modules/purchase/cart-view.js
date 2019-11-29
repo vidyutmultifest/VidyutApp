@@ -13,13 +13,21 @@ const CartView = ({ products }) => {
     const [isLoaded, setLoaded] = useState(false);
     const [showModal, setModal] = useState(false);
     const [vidyutID, setVidyutID] = useState();
+    const [status, setStatus] = useState();
     const [transactionID, setTransactionID] = useState();
 
     const vidQuery = `{
       myProfile
       {
         vidyutID
-       }
+      }
+      status
+      {
+         onlinePayment
+         offlinePayment
+         promocodes
+         referrals
+      } 
     }`;
 
     const getVIDQuery = async () => await dataFetch({ query: vidQuery });
@@ -30,13 +38,14 @@ const CartView = ({ products }) => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setVidyutID(response.data.myProfile.vidyutID);
+                    setStatus(response.data.status);
                     setLoaded(true);
                 }
             })
         }
     });
 
-    const promotions = (
+    const promotions = isLoaded && status.promocodes ? (
         <div className="promocode-card card-shadow">
             <div className="row m-0">
                 <div className="col-md-6">
@@ -48,9 +57,9 @@ const CartView = ({ products }) => {
                 </div>
             </div>
         </div>
-    );
+    ) : null;
 
-    const referrals = (
+    const referrals = isLoaded && status.referrals ? (
         <div className="referral-card card-shadow">
             <div className="row m-0">
                 <div className="col-md-6">
@@ -62,7 +71,7 @@ const CartView = ({ products }) => {
                 </div>
             </div>
         </div>
-    );
+    ) : null;
 
     const initiateOrderMutation = `mutation initiateOrder($products:ProductsInput!)
     {
@@ -164,9 +173,9 @@ const CartView = ({ products }) => {
                             ]}
                             deductions={[]}
                         />
-                        <div className="fix-bottom">
-                            <button className="payment-button card-shadow">Pay Online</button>
-                            <button onClick={() => { createOrder(); setModal(true); }} className="payment-button card-shadow">Pay at Counter</button>
+                        <div>
+                            { isLoaded && status.onlinePayment ? <button className="payment-button card-shadow">Pay Online</button> : null }
+                            { isLoaded && status.offlinePayment ? <button onClick={() => { createOrder(); setModal(true); }} className="payment-button card-shadow">Pay at Counter</button> : null}
                         </div>
                         {payAtCounter}
                     </div>
