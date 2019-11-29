@@ -62,6 +62,7 @@ const PurchasePage = () => {
                         products={[
                             {
                                 name: data.product.name,
+                                productID: router.query.product,
                                 price: data.product.price,
                                 photo: data.product.photo,
                                 id: router.query.product,

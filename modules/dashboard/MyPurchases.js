@@ -15,16 +15,17 @@ const MyPurchases = () => {
         timestamp
         products
         {
-          product
-          {
-            name
-          }
+          name
+          photo
+          price
+          qty
         }
         transaction
         {
           transactionID
           timestamp
           amount
+          isSuccessful
         }
       }
     }`;
@@ -61,6 +62,7 @@ const MyPurchases = () => {
         <PurchasedItem
             orderID={o.orderID}
             amount={o.transaction.amount}
+            isSuccessful={o.transaction.isSuccessful}
             timestamp={o.timestamp}
             products={o.products}
         />
@@ -75,7 +77,7 @@ const MyPurchases = () => {
             {
                 isLoaded ?
                         data.length > 0 ?
-                            data.map(d => Purchases(d))
+                            <div className="w-100">{data.map(d => Purchases(d))}</div>
                             : NotRegistered
                     : null
             }

@@ -12,6 +12,7 @@ const CartView = ({ products }) => {
     const [isLoaded, setLoaded] = useState(false);
     const [showModal, setModal] = useState(false);
     const [vidyutID, setVidyutID] = useState();
+    const [transactionID, setTransactionID] = useState();
 
     const vidQuery = `{
       myProfile
@@ -62,13 +63,34 @@ const CartView = ({ products }) => {
         </div>
     );
 
-    const createHash = () => {
-        let hashCode = '';
-        hashCode = 'products=[';
-        products.map(p => hashCode += p.id + ',');
-        hashCode += ']';
-        hashCode += vidyutID;
-        return hashCode;
+    const initiateOrderMutation = `mutation initiateOrder($products:ProductsInput!)
+    {
+      initiateOrder(products: $products)
+      {
+        transactionID
+      }
+    }`;
+
+    const initiateOrder = async variables => await dataFetch({ query: initiateOrderMutation, variables });
+
+    const createOrder = () => {
+        const productsList = [];
+        products.map( p => {
+           productsList.push({
+               "productID": p.productID,
+               "qty": p.qty
+           })
+        });
+        console.log(productsList);
+        const variables = {
+            "products": {
+                "products": productsList
+            }
+        };
+        initiateOrder(variables).then((response) => {
+            setTransactionID(response.data.initiateOrder.transactionID);
+            setLoaded(true);
+        })
     };
 
     const payAtCounter = (
@@ -79,10 +101,14 @@ const CartView = ({ products }) => {
             className="qr-modal"
             overlayClassName="qr-overlay"
         >
-            <h4>Show at Counter</h4>
-            <div>VIDYUT ID: {isLoaded ? vidyutID : null}</div>
-            <QRCode value={isLoaded ? createHash() : null} size={256} />
-            <sub>{isLoaded ? createHash() : null}</sub>
+            {isLoaded ? <div>
+                    <h4>Show at Counter</h4>
+                    <div>VIDYUT ID: {vidyutID}</div>
+                    { transactionID ? <QRCode value={transactionID} size={256}/> : null }
+                    <sub>{transactionID}</sub>
+                </div>
+                : null
+            }
         </Modal>
     );
 
@@ -139,7 +165,7 @@ const CartView = ({ products }) => {
                         />
                         <div className="fix-bottom">
                             <button className="payment-button card-shadow">Pay Online</button>
-                            <button onClick={() => setModal(true)} className="payment-button card-shadow">Pay at Counter</button>
+                            <button onClick={() => { createOrder(); setModal(true); }} className="payment-button card-shadow">Pay at Counter</button>
                         </div>
                         {payAtCounter}
                     </div>

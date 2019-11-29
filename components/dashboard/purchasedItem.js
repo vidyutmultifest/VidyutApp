@@ -3,7 +3,7 @@ import '../../styles/dashboard/purchase.sass';
 import Modal from "react-modal";
 import QRCode from "qrcode.react";
 
-const PurchasedItem = ({ orderID, products, amount, timestamp }) => {
+const PurchasedItem = ({ orderID, products, amount, timestamp, isSuccessful }) => {
     const [isOpen, setOpen] = useState(false);
 
     return (
@@ -11,13 +11,17 @@ const PurchasedItem = ({ orderID, products, amount, timestamp }) => {
             <div onClick={()=> setOpen(true)} className="purchased-item">
                 <div className="row m-0">
                     <div className="col-9 px-2">
-                        {products.map(p => <h6>{p.product.name}</h6>)}
+                        {products.map(p => <h6>{p.name}</h6>)}
                     </div>
                     <div className="col px-2">
                         <div className="amount">₹{amount}</div>
                     </div>
                 </div>
-                <div className="purchase-description px-2">{timestamp.toString()}</div>
+                <div className="purchase-description px-2">{timestamp.toString()} | {
+                    isSuccessful ?
+                        <div className="badge badge-success">Payment Successful</div>
+                        : <div className="badge badge-danger">Payment Failed</div>
+                } </div>
             </div>
             <Modal
                 isOpen={isOpen}
@@ -34,7 +38,7 @@ const PurchasedItem = ({ orderID, products, amount, timestamp }) => {
                         <h4>Order Details</h4>
                         <ul>
                             {products.map(p =>
-                                <li>{p.product.name}</li>
+                                <li>{p.name}</li>
                             )}
                         </ul>
                     </div>
