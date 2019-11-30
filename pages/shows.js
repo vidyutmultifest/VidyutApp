@@ -48,7 +48,7 @@ const Shows = () => {
                 isNew
                 isRecommended
                 detailsURL={`/show/${w.slug}`}
-                registerURL={`/purchase?product=${w.productID}`}
+                registerURL={`/purchase?product=${w.productID}&promocode=EARLYBIRD`}
             />
         </div>
     );

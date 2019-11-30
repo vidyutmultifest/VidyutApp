@@ -69,7 +69,7 @@ const PurchasePage = () => {
                                 qty: 1
                             }
                         ]}
-                        vidyutID="sss"
+                        promocode={router.query.promocode}
                     /> : null
                 }
             </div>

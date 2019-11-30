@@ -20,6 +20,20 @@ function LoginPage(props) {
     const [authFail, setAuthFail] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const [isQueried, setQueried] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
+    const [status, setStatus] = useState(false);
+
+    const query = `{
+      status
+      {
+        googleSignIn
+      }
+    }`;
+
+    const getStatus = async () => await dataFetch({ query });
+
+
     const NormalLogin = `mutation TokenAuth($username: String!, $password: String!) {
         tokenAuth(username: $username, password: $password) {
             token
@@ -51,6 +65,16 @@ function LoginPage(props) {
     }`;
 
     useEffect(() => {
+        if(!isQueried)
+        {
+            getStatus().then(  response => {
+                setQueried(true);
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setStatus(response.data.status);
+                    setLoaded(true);
+                }
+            })
+        }
         setURL(window.location.href);
         const token = cookies.get('token');
         if (token != null) {
@@ -112,8 +136,8 @@ function LoginPage(props) {
 
     return <LoginPageWrapper>
        {
-           !isLoading ? (<div id="login-card">
-               <img src={require('../images/logos/vidyut-dark-logo.png')} />
+           !isLoading && isLoaded ? (<div id="login-card">
+               <img src={require('../images/logos/vidyut-dark-logo.png')}  className="logo" style={{ width: '100%' }}/>
                {authFail ? errorMessage : null}
                 <div className="social-login-buttons">
                     <div>
@@ -121,7 +145,6 @@ function LoginPage(props) {
                             <MicrosoftLogin
                                 clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
                                 authCallback={loginWithMicrosoft}
-                                debug="true"
                                 redirectUri={url}
                                 children={<button className="login-button-microsoft">
                                     <img src={require('../images/logos/microsoft.png')} />
@@ -131,17 +154,21 @@ function LoginPage(props) {
                         </NoSSR>
                     </div>
                     <div>
-                        <GoogleLogin
-                            clientId="74361786264-v858k0po050aon4fqf27ehrcin9un4ga.apps.googleusercontent.com"
-                            onSuccess={loginWithGoogle}
-                            icon={false}
-                            cookiePolicy={'single_host_origin'}
-                            className="login-button-google"
-                            children={<div>
-                                <img src={require('../images/logos/google.png')} />
-                                Login with Google
-                            </div>}
-                        />
+                    {
+                        status.googleSignIn ? (
+                            <GoogleLogin
+                                clientId="74361786264-v858k0po050aon4fqf27ehrcin9un4ga.apps.googleusercontent.com"
+                                onSuccess={loginWithGoogle}
+                                icon={false}
+                                cookiePolicy={'single_host_origin'}
+                                className="login-button-google"
+                                children={<div>
+                                    <img src={require('../images/logos/google.png')} />
+                                    Login with Google
+                                </div>}
+                            />
+                        ) : null
+                    }
                     </div>
                 </div>
            </div>) : <h1>Loading</h1>

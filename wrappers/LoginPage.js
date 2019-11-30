@@ -10,8 +10,8 @@ export default ({ children }) => (
         <div className="container">
             <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh'}}>
                 <div className="row m-0 w-100">
-                    <div className="col-md-8"/>
-                    <div className="col-md-4">
+                    <div className="col-lg-8 col-md-6"/>
+                    <div className="col-lg-4 col-md-6">
                         {children}
                     </div>
                 </div>

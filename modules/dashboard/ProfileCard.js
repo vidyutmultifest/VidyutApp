@@ -1,5 +1,4 @@
 import React from 'react'
-import QRCode from "qrcode.react"
 import '../../styles/dashboard/profilecard.sass'
 import ProfileCompletionItems from "../../components/dashboard/ProfileCompletionItems";
 
@@ -59,8 +58,6 @@ const ProfileCard = ({ data }) => {
             {phoneCompletion}
         </React.Fragment>
     );
-
-    console.log(hasCompleted());
 
     return (
         <div id="participant-profile-card" className="card-shadow">

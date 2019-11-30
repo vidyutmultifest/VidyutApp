@@ -2,18 +2,19 @@ import React, {useEffect, useState} from "react";
 import CartItem from "../../components/purchase/cartItem";
 import PaymentSummaryItem from "../../components/purchase/PaymentSummaryItem";
 import Modal from "react-modal";
-import QRCode from "qrcode.react";
 import dataFetch from "../../utils/dataFetch";
 import '../../styles/purchase/cart.sass';
+import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
 
 
-const CartView = ({ products }) => {
+const CartView = ({ products, promocode }) => {
 
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [showModal, setModal] = useState(false);
     const [vidyutID, setVidyutID] = useState();
     const [status, setStatus] = useState();
+    const [orderVars, setOrderVars] = useState();
     const [transactionID, setTransactionID] = useState();
 
     const vidQuery = `{
@@ -51,9 +52,9 @@ const CartView = ({ products }) => {
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Enter Promocode</label>
-                        <input className="form-control"  disabled={!status.promocodes} />
+                        <input className="form-control" value={promocode} disabled={!status.promocodes} />
                     </div>
-                    <button className="btn btn-primary">Apply</button>
+                    { status.promocodes ? <button className="btn btn-primary">Apply</button> : null }
                 </div>
             </div>
         </div>
@@ -96,10 +97,14 @@ const CartView = ({ products }) => {
                 "products": productsList
             }
         };
-        initiateOrder(variables).then((response) => {
-            setTransactionID(response.data.initiateOrder.transactionID);
-            setLoaded(true);
-        })
+        if(orderVars!==variables)
+        {
+            initiateOrder(variables).then((response) => {
+                setTransactionID(response.data.initiateOrder.transactionID);
+                setOrderVars(variables);
+                setLoaded(true);
+            })
+        }
     };
 
     const payAtCounter = (
@@ -110,12 +115,7 @@ const CartView = ({ products }) => {
             className="qr-modal"
             overlayClassName="qr-overlay"
         >
-            {isLoaded ? <div>
-                    <h4>Show at Counter</h4>
-                    <div>VIDYUT ID: {vidyutID}</div>
-                    { transactionID ? <QRCode value={transactionID} size={256}/> : null }
-                    <sub>{transactionID}</sub>
-                </div>
+            {isLoaded ? <PayAtCounterQR transactionID={transactionID} vidyutID={vidyutID} />
                 : null
             }
         </Modal>

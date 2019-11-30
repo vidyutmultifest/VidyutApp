@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
+import Head from 'next/head'
+import dynamic from "next/dynamic";
+
+import { osName, mobileVendor, mobileModel, browserName } from 'react-device-detect';
+import { geolocated } from "react-geolocated";
 
 import NoSSR from "../../components/noSSR";
 import TitleBar from "../../components/titleBar";
 import Base from "../../components/base";
-import dynamic from "next/dynamic";
 import dataFetch from "../../utils/dataFetch";
 import DashboardFooter from "../../modules/dashboard/footer";
-import { osName, mobileVendor, mobileModel, browserName } from 'react-device-detect';
-import { geolocated } from "react-geolocated";
 
 import "../../styles/restricted/acceptPayment.sass"
 import CartItem from "../../components/purchase/cartItem";
@@ -190,6 +192,9 @@ const AcceptPayment = (props) => {
     );
 
     return <Base loginRequired>
+        <Head>
+            <title>Accept Payment | Admin | Vidyut 2020</title>
+        </Head>
         <TitleBar/>
         <AdminRequired>
         {
