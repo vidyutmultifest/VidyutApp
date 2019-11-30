@@ -45,13 +45,13 @@ const CartView = ({ products }) => {
         }
     });
 
-    const promotions = isLoaded && status.promocodes ? (
+    const promotions = isLoaded ? (
         <div className="promocode-card card-shadow">
             <div className="row m-0">
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Enter Promocode</label>
-                        <input className="form-control" />
+                        <input className="form-control"  disabled={!status.promocodes} />
                     </div>
                     <button className="btn btn-primary">Apply</button>
                 </div>
@@ -59,13 +59,13 @@ const CartView = ({ products }) => {
         </div>
     ) : null;
 
-    const referrals = isLoaded && status.referrals ? (
+    const referrals = isLoaded ? (
         <div className="referral-card card-shadow">
             <div className="row m-0">
                 <div className="col-md-6">
                     <div className="form-group">
                         <label>Enter Referral Code [ VidyutID of Referrer ]</label>
-                        <input className="form-control" />
+                        <input className="form-control" disabled={!status.referral} />
                     </div>
                     <button className="btn btn-primary">Apply</button>
                 </div>
@@ -91,7 +91,6 @@ const CartView = ({ products }) => {
                "qty": p.qty
            })
         });
-        console.log(productsList);
         const variables = {
             "products": {
                 "products": productsList

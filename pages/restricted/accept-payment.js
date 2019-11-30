@@ -6,12 +6,14 @@ import Base from "../../components/base";
 import dynamic from "next/dynamic";
 import dataFetch from "../../utils/dataFetch";
 import DashboardFooter from "../../modules/dashboard/footer";
+import { osName, mobileVendor, mobileModel, browserName } from 'react-device-detect';
+import { geolocated } from "react-geolocated";
 
 import "../../styles/restricted/acceptPayment.sass"
 import CartItem from "../../components/purchase/cartItem";
 import AdminRequired from "../../components/adminRequired";
 
-const AcceptPayment = () => {
+const AcceptPayment = (props) => {
 
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState();
@@ -21,9 +23,9 @@ const AcceptPayment = () => {
     const [qrScanned, setQrScanned] = useState(false);
     const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false});
 
-    const collectTransactionMutation = `mutation collectPayment($transactionID: String!)
+    const collectTransactionMutation = `mutation collectPayment($transactionID: String!, $deviceDetails: String!, $location: String!)
     {
-      collectPayment(transactionID: $transactionID)
+      collectPayment(transactionID: $transactionID, deviceDetails: $deviceDetails, location: $location)
       {
         status
       }
@@ -74,7 +76,11 @@ const AcceptPayment = () => {
     };
 
     const confirmPayment = (transactionID) => {
-        collectTransactionPayment({ transactionID: transactionID }).then((response) =>{
+        collectTransactionPayment({
+            transactionID: transactionID,
+            location: `${props.coords.latitude}, ${props.coords.longitude}`,
+            deviceDetails: `${browserName}, ${osName}, ${mobileVendor}, ${mobileModel}`
+        }).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 setPaymentStatus(response.data.collectPayment.status);
                 setPaid(true);
@@ -187,7 +193,11 @@ const AcceptPayment = () => {
         <TitleBar/>
         <AdminRequired>
         {
-            isPaid ? renderPaymentStatusConfirmation() : qrScanned ? (
+            !props.isGeolocationAvailable ? (
+                <div>Your browser does not support Geolocation</div>
+            ) : !props.isGeolocationEnabled ? (
+                <div>Geolocation is not enabled</div>
+            ) : isPaid ? renderPaymentStatusConfirmation() : qrScanned ? (
                 <div className="container p-4">
                     <div id="accept-payment-card" className="card-shadow">
                         {isLoaded && data ? renderTransactionDetails() : null}
@@ -216,4 +226,9 @@ const AcceptPayment = () => {
     </Base>
 };
 
-export default AcceptPayment;
+export default geolocated({
+    positionOptions: {
+        enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 5000,
+})(AcceptPayment);
