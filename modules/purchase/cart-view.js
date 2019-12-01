@@ -97,6 +97,7 @@ const CartView = ({ products, promocode }) => {
                 "products": productsList
             }
         };
+        // console.log( _.isEqual(orderVars!=variables);
         if(orderVars!==variables)
         {
             initiateOrder(variables).then((response) => {

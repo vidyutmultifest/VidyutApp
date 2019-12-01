@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
-import MicrosoftLogin from "react-microsoft-login";
 import NoSSR from '../components/noSSR';
+import MicrosoftLogin from "react-microsoft-login";
 
 import '../styles/login.sass'
 
 import dataFetch from "../utils/dataFetch"
 import LoginPageWrapper from "../wrappers/LoginPage"
+import LoadingScreen from "../components/loadingScreen";
 
 const cookies = new Cookies();
 
@@ -30,6 +30,8 @@ function LoginPage(props) {
         googleSignIn
       }
     }`;
+
+
 
     const getStatus = async () => await dataFetch({ query });
 
@@ -89,14 +91,15 @@ function LoginPage(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 Login(NormalLogin, values).then( response => {
+                    cookies.set('token', response.data.tokenAuth.token, { path: '/' });
+                    cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
+                    cookies.set('username', values.username, { path: '/' });
+                    router.push('/dashboard');
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        cookies.set('token', response.data.tokenAuth.token, { path: '/' });
-                        cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
-                        cookies.set('username', values.username, { path: '/' });
-                        router.push('/dashboard');
+
                     } else {
                         setAuthFail(true);
-                        setErrorMessage('Login has failed');
+                        console.log(response);
                         setLoading(false);
                     }
                 });
@@ -119,9 +122,9 @@ function LoginPage(props) {
         });
     };
 
-    const loginWithMicrosoft = (err, data) => {
+    const loginWithMicrosoft =  (err, data) => {
         const variables = { accessToken: data.authResponseWithAccessToken.accessToken };
-        Login(MicrosoftAuthLogin, variables).then( response => {
+        Login(MicrosoftAuthLogin, variables).then(response => {
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 cookies.set('token', response.data.socialAuth.token, { path: '/' });
                 cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
@@ -134,13 +137,12 @@ function LoginPage(props) {
         });
     };
 
-    return <LoginPageWrapper>
-       {
-           !isLoading && isLoaded ? (<div id="login-card">
+    return !isLoading && isLoaded ? (<LoginPageWrapper>
+               <div id="login-card">
                <img src={require('../images/logos/vidyut-dark-logo.png')}  className="logo" style={{ width: '100%' }}/>
                {authFail ? errorMessage : null}
                 <div className="social-login-buttons">
-                    <div>
+                    <div onClick={() => setLoading(true)}>
                         <NoSSR>
                             <MicrosoftLogin
                                 clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
@@ -171,9 +173,9 @@ function LoginPage(props) {
                     }
                     </div>
                 </div>
-           </div>) : <h1>Loading</h1>
-       }
-    </LoginPageWrapper>
+           </div>
+    </LoginPageWrapper>) : <LoadingScreen text={setQueried ? "Logging you in" : "Hold on, while we are opening the login page"} />
+
 }
 
 export default LoginPage;

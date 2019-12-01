@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
+import LoadingScreen from "./loadingScreen";
 
 const cookies = new Cookies();
 
@@ -21,7 +22,7 @@ const ProtectedPage = ({ children }) => {
     });
 
     return <div>
-        { hasVerified ? children : <h1>Checking if you are logged-in</h1>}
+        { hasVerified ? children : <LoadingScreen text="Checking if you have permissions"/>}
     </div>
 
 };

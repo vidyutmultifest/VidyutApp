@@ -20,9 +20,11 @@ const ProfileCard = ({ data }) => {
             title="Selfie Uploaded"
             text="We will never share your photo with anyone."
             photo={require('../../images/icons/checked.png')}
+            link="/profile/upload-selfie"
         /> : <ProfileCompletionItems
             title="Upload Selfie"
             text="Due to security reasons, uploading your selfie is mandatory for attending Vidyut."
+            link="/profile/update-selfie"
             photo={require('../../images/icons/selfie.png')}
         />;
 
@@ -54,8 +56,6 @@ const ProfileCard = ({ data }) => {
              <h4>Complete Your Profile</h4>
             </div>
             {photoCompletion}
-            {collegeCompletion}
-            {phoneCompletion}
         </React.Fragment>
     );
 

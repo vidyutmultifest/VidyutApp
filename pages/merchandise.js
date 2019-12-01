@@ -4,6 +4,7 @@ import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
 
 import '../styles/events/style.sass';
+import '../styles/bootstrap.sass';
 import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 
@@ -47,8 +48,8 @@ const Shows = () => {
                 price={w.fee}
                 isNew
                 isRecommended
-                detailsURL={`/merchandise/${w.slug}`}
                 registerURL={`/purchase?product=${w.productID}`}
+                registerText="Buy Now"
             />
         </div>
     );

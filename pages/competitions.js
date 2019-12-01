@@ -4,6 +4,7 @@ import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
 
 import '../styles/events/style.sass';
+import '../styles/bootstrap.sass';
 import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 
@@ -49,6 +50,7 @@ const Competitions = () => {
                 isRecommended
                 detailsURL={`/competitions/${c.slug}`}
                 registerURL={`/purchase?product=${c.productID}`}
+                registerText="Register Now"
             />
         </div>
     );
@@ -60,7 +62,6 @@ const Competitions = () => {
         <TitleBar />
         <div className="row m-0">
             <div className="col-lg-3">
-                <h4>Filters</h4>
             </div>
             <div id="event-listing" className="col-lg-9">
                 <h3>Organizing {data.length} Competitions</h3>

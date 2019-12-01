@@ -7,6 +7,8 @@ import DashboardHeader from "../components/dashboard/dashboardHeader";
 import dataFetch from "../utils/dataFetch";
 
 import '../styles/dashboard/style.sass'
+import '../styles/bootstrap.sass';
+import LoadingScreen from "../components/loadingScreen";
 
 const AdminDashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -101,7 +103,7 @@ const AdminDashboard = () => {
                             </div>
                         </div>
                     </div>
-                ) : null
+                ) : <LoadingScreen text="Loading Dashboard"/>
         }
 
     </Base>

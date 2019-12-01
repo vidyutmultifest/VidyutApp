@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
 import dataFetch from "../utils/dataFetch";
+import LoadingScreen from "./loadingScreen";
 
 const cookies = new Cookies();
 
@@ -39,7 +40,7 @@ const AdminRequired = ({ children }) => {
     return <div>
         { isAdmin ? children : hasQueried ?
             <h1>You don't have permission to view this page</h1> :
-            <h1>We are checking your permissions</h1>
+            <LoadingScreen text="We are checking your permissions"/>
         }
     </div>
 

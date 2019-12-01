@@ -7,6 +7,7 @@ import Footer from "../modules/dashboard/footer";
 import Base from "../components/base";
 import CartView from "../modules/purchase/cart-view";
 import dataFetch from "../utils/dataFetch";
+import '../styles/bootstrap.sass';
 
 
 const PurchasePage = () => {

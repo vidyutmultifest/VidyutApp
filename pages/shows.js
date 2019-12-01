@@ -4,6 +4,7 @@ import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
 
 import '../styles/events/style.sass';
+import '../styles/bootstrap.sass';
 import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 
@@ -47,8 +48,8 @@ const Shows = () => {
                 price={w.fee}
                 isNew
                 isRecommended
-                detailsURL={`/show/${w.slug}`}
                 registerURL={`/purchase?product=${w.productID}&promocode=EARLYBIRD`}
+                registerText="Buy Now"
             />
         </div>
     );
@@ -60,14 +61,13 @@ const Shows = () => {
         <TitleBar />
         <div className="row m-0">
             <div className="col-lg-3">
-                <h4>Filters</h4>
             </div>
             <div id="event-listing" className="col-lg-9">
                 <h3>Conducting {data.length} Shows</h3>
                 <div className="row m-0">
                     {
                         isLoaded ?
-                            data.map(s => renderShowCard(s))
+                            data.reverse().map(s => renderShowCard(s))
                             : null
                     }
                 </div>

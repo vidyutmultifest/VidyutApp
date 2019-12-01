@@ -24,7 +24,9 @@ const MyPurchases = () => {
           transactionID
           timestamp
           amount
-          isSuccessful
+          isPaid
+          isPending
+          isProcessed
         }
       }
     }`;
@@ -60,8 +62,16 @@ const MyPurchases = () => {
     const Purchases = o => (
         <PurchasedItem
             orderID={o.orderID}
+            transactionID={o.transaction.transactionID}
+            isPaid={o.transaction.isPaid}
             amount={o.transaction.amount}
-            isSuccessful={o.transaction.isSuccessful}
+            status={
+                o.transaction.isPaid ?
+                <div className="badge badge-success">Paid</div>
+                : o.transaction.isPending ?
+                    <div className="badge badge-warning">Pending</div>
+                    : <div className="badge badge-danger">Failed</div>
+            }
             timestamp={o.timestamp}
             products={o.products}
         />

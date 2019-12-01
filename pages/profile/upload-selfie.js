@@ -1,0 +1,185 @@
+import React, {useState} from "react";
+
+import Base from "../../components/base";
+import TitleBar from "../../components/titleBar";
+import Footer from "../../modules/dashboard/footer";
+import Webcam from "react-webcam";
+import fileUpload from "../../utils/fileUpload";
+import Boundingbox from "react-bounding-box";
+
+import '../../styles/profile/selfie.sass';
+import '../../styles/style.sass';
+import LoadingScreen from "../../components/loadingScreen";
+import Link from "next/link";
+
+const UploadSelfie = () => {
+    const [isUploading, setUploading] = useState(false);
+    const [isUploaded, setUploaded] = useState(false);
+    const [isClicked, setClicked] = useState(false);
+    const [photoBS4, setPhoto] = useState();
+    const [box, setBox] = useState(false);
+    const [recData, setRecData] = useState(false);
+
+    const dataURItoBlob = (dataURI) => {
+        let byteString = atob(dataURI.split(',')[1]);
+        let ab = new ArrayBuffer(byteString.length);
+        let ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        let bb = new Blob([ab]);
+        return  new File([bb], "selfie.jpg");
+    };
+
+    const uploadFile = async data => await fileUpload(data);
+
+    const handleImageUpload = (file) => {
+        const data = new FormData();
+        const mutation = `mutation updateProfile{
+          updateProfile
+          {
+            status
+          }
+        }`;
+        data.append('profilePhoto', file);
+        data.append('query', mutation);
+        setUploading(true);
+        uploadFile({data}).then((response) => {
+            setUploaded(true);
+        });
+    };
+
+    const sendToAmazon = (file) => {
+        const data = new FormData();
+        const query = `{
+          detectFace
+          {
+            jsonData
+          }
+        }`;
+        data.append('photo', dataURItoBlob(file));
+        data.append('query', query);
+        uploadFile({data}).then((response) => {
+            const data = JSON.parse(response.data.detectFace.jsonData.replace(/\'/g, '"')).FaceDetails;
+            getBox(file,data).then((response) => setBox(response));
+            setRecData(data);
+        });
+    };
+
+    const webcamRef = React.useRef(null);
+
+    const onUpload = () => {
+        const imageSrc = dataURItoBlob(photoBS4);
+        handleImageUpload(imageSrc);
+    };
+
+    const capture = React.useCallback(
+        () => {
+            const imagebs64 = webcamRef.current.getScreenshot();
+            sendToAmazon(imagebs64);
+            setPhoto(imagebs64);
+            setClicked(true);
+        },
+        [webcamRef]
+    );
+
+    const getSize = (photo) => {
+        return new Promise (function (resolved, rejected) {
+            let i = new Image();
+            i.onload = function(){
+                resolved({w: i.width, h: i.height})
+            };
+            i.src = photo
+        })
+    };
+
+    const getBox = async (photo, response) => {
+        if(response.length === 0)
+            return null;
+        const data = response[0].BoundingBox;
+        const img = await getSize(photo);
+        const h = img.h;
+        const w = img.w;
+        const x = data.Left * w;
+        const y = data.Top * h;
+        const width = data.Width * w;
+        const height = data.Height * h;
+        return [x, y, width, height];
+    };
+
+    const renderOnSuccess = (
+        <div className="p-4 m-2 card-shadow">
+            <h4>Profile picture successfully updated</h4>
+            <Link href="/dashboard">
+                <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
+            </Link>
+        </div>
+    );
+    
+    return <Base loginRequired>
+        { isClicked && !recData ?
+            <LoadingScreen text="Validating your photo with Face Detection Engine." />
+        : isUploading ?
+            <LoadingScreen text="Uploading Photo" />
+         : <React.Fragment>
+        <TitleBar />
+            <div id="update-selfie-page" className="container my-4">
+                <div className="selfie-card card-shadow text-center">
+                    { isUploaded ?
+                        renderOnSuccess
+                        : !isClicked ?
+                        <div>
+                            <Webcam
+                                audio={false}
+                                mirrored={true}
+                                style={{ maxWidth: "100%"}}
+                                videoConstraints={{facingMode: "user"}}
+                                ref={webcamRef}
+                                minScreenshotHeight="75vh"
+                                screenshotFormat="image/jpeg"
+                                screenshotQuality="0.92"
+                            />
+                            <div className="text-center">
+                                <button className="btn btn-primary" onClick={capture}>Capture photo</button>
+                            </div>
+                        </div> : <div>
+                            <div>
+                                {
+                                    photoBS4 && getBox ? <Boundingbox
+                                        image={photoBS4}
+                                        boxes={[box]} /> : null
+                                }
+
+                            </div>
+                            <div className="text-center">
+                                <div className="card-shadow p-2">
+                                    {
+                                        recData ?
+                                            recData.length === 1 && recData[0].Quality.Brightness < 50 && recData[0].Quality.Sharpness < 40 ?
+                                                    "We have detected a face in this photo. However, this photo seems to be unclear or/and too dim. Please try again."
+                                                : recData.length === 1 ?
+                                                "We have detected a face in this photo. If this photo still hides or manipulates your face, we reserve the right to deny entry to you."
+                                                    : recData.length === 0 ?
+                                                    "We have not detected any face in this photo. Please try again"
+                                                        : "We have recognized more than one face in this photo. Please try again"
+                                                : null
+                                    }
+                                </div>
+                                <button className="btn btn-primary m-2" onClick={() => { setClicked(false); setRecData(false); }}>Retake photo</button>
+                                {
+                                    recData !== false && recData.length === 1 && recData[0].Quality.Brightness > 50 && recData[0].Quality.Sharpness > 40 ?
+                                        <button className="btn btn-primary m-2" onClick={onUpload}>Upload photo</button> : null
+                                }
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        <Footer />
+        </React.Fragment>
+        }
+    </Base>
+};
+
+export default UploadSelfie;

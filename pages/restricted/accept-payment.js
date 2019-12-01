@@ -20,14 +20,15 @@ const AcceptPayment = (props) => {
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState();
     const [isPaid, setPaid] = useState(false);
+    const [transactionStatus, setTransactionStatus] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(false);
     const [transactionID, setTransaction] = useState();
     const [qrScanned, setQrScanned] = useState(false);
     const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false});
 
-    const collectTransactionMutation = `mutation collectPayment($transactionID: String!, $deviceDetails: String!, $location: String!)
+    const collectTransactionMutation = `mutation collectPayment($status: String!, $transactionID: String!, $deviceDetails: String!, $location: String!)
     {
-      collectPayment(transactionID: $transactionID, deviceDetails: $deviceDetails, location: $location)
+      collectPayment(status: $status, transactionID: $transactionID, deviceDetails: $deviceDetails, location: $location)
       {
         status
       }
@@ -39,7 +40,7 @@ const AcceptPayment = (props) => {
       {
         timestamp
         amount
-        isSuccessful
+        isPaid
         issuer
         {
            firstName
@@ -77,14 +78,16 @@ const AcceptPayment = (props) => {
         });
     };
 
-    const confirmPayment = (transactionID) => {
+    const confirmPayment = (transactionID, status) => {
         collectTransactionPayment({
+            status: status,
             transactionID: transactionID,
             location: `${props.coords.latitude}, ${props.coords.longitude}`,
             deviceDetails: `${browserName}, ${osName}, ${mobileVendor}, ${mobileModel}`
         }).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 setPaymentStatus(response.data.collectPayment.status);
+                setTransactionStatus(status);
                 setPaid(true);
             }
         });
@@ -102,7 +105,7 @@ const AcceptPayment = (props) => {
     const renderTransactionDetails = () => (
         <div id="accept-payment-confirmation">
             {
-                !data.isSuccessful ? (
+                !data.isPaid ? (
                     <div>
                         <div className="p-4">
                             <h1 className="mb-0">Collect ₹{data.amount} from {data.user.firstName}</h1>
@@ -123,14 +126,22 @@ const AcceptPayment = (props) => {
                         <div className="accept-payment-actions p-4">
                             <button
                                 className="btn btn-success py-2 m-2 px-4"
-                                onClick={() => confirmPayment(transactionID)}
+                                onClick={() => confirmPayment(transactionID, "paid")}
                             >
                                 Confirm Payment
                             </button>
                             <button
+                                className="btn btn-success py-2 m-2 px-4"
+                                onClick={() => confirmPayment(transactionID, "pending")}
+                            >
+                                Pending Payment
+                            </button>
+                            <button
                                 className="btn btn-danger py-2 m-2 px-4"
                                 onClick={() => {
+                                    confirmPayment(transactionID, "reject");
                                     setQrScanned(false);
+                                    setTransactionStatus(false);
                                     setLoaded(false);
                                 }}
                             >
@@ -169,11 +180,32 @@ const AcceptPayment = (props) => {
                 {
                     paymentStatus ? (
                         <div>
-                            <h1>Transaction Successful</h1>
-                            <p>It has been recorded that you have collected ₹{data.amount} from {data.user.firstName} {data.user.lastName}</p>
-                            <ul>
-                                <li><b>Transaction ID:</b> {transactionID}</li>
-                            </ul>
+                            {
+                                transactionStatus ?
+                                    transactionStatus === "paid" ?
+                                        <React.Fragment>
+                                            <h1>Transaction Successful</h1>
+                                            <p>It has been recorded that you have collected ₹{data.amount} from {data.user.firstName} {data.user.lastName}</p>
+                                            <ul>
+                                                <li><b>Transaction ID:</b> {transactionID}</li>
+                                            </ul>
+                                        </React.Fragment> :
+                                    transactionStatus === "reject" ?
+                                        <React.Fragment>
+                                            <h1>Transaction Rejected</h1>
+                                            <ul>
+                                                <li><b>Transaction ID:</b> {transactionID}</li>
+                                            </ul>
+                                        </React.Fragment> :
+                                        <React.Fragment>
+                                            <h1>Transaction Pending</h1>
+                                            <p>The collection of payment of ₹{data.amount} from {data.user.firstName} {data.user.lastName} has been recorded as pending.</p>
+                                            <ul>
+                                                <li><b>Transaction ID:</b> {transactionID}</li>
+                                            </ul>
+                                        </React.Fragment> : null
+                            }
+
                         </div>
                     ) : <h1>Transaction Failed Unexpectedly</h1>
                 }

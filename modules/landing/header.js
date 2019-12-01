@@ -1,5 +1,6 @@
 import React from 'react'
 import Tilt from 'react-parallax-tilt';
+import Link from "next/link";
 
 
 const LandingHeader = () => {
@@ -10,6 +11,7 @@ const LandingHeader = () => {
             className="d-flex p-4"
         >
             <img src={require('../../images/logos/heal-the-world-light.png')} className="logo" />
+            <Link href="/dashboard" id="registration-button">Dashboard</Link>
         </div>
         <div id="theme-landing">
             <Tilt

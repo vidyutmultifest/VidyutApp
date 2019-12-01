@@ -13,6 +13,7 @@ import QuickActionCard from "../components/dashboard/QuickActionCard";
 import TitleBar from "../components/titleBar";
 import DashboardFooter from "../modules/dashboard/footer";
 import DashboardHeader from "../components/dashboard/dashboardHeader";
+import LoadingScreen from "../components/loadingScreen";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -63,9 +64,11 @@ const Dashboard = () => {
             <Head>
                 <title>Dashboard | Vidyut 2020</title>
             </Head>
-            <TitleBar />
+
             {
                 isLoaded ? (
+                    <div>
+                    <TitleBar />
                     <div id="dashboard-wrapper">
                         <DashboardHeader
                             name={data.myProfile.firstName}
@@ -83,7 +86,7 @@ const Dashboard = () => {
                             }
                             <div>
                                 <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
-                                <div className="row m-0 p-4">
+                                <div className="row m-0 p-0">
                                     <div className="col-md-3 col-6 p-2">
                                         <QuickActionCard
                                             photo={require('../images/icons/tickets-qa.png')}
@@ -131,9 +134,10 @@ const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                ) : <h1>Loading</h1>
+                    <DashboardFooter />
+                    </div>
+                ) : <LoadingScreen text="Loading Dashboard"/>
             }
-            <DashboardFooter />
         </Base>
 };
 
