@@ -22,6 +22,8 @@ const Competitions = () => {
         fee
         slug
         productID
+        isNew
+        isRecommended
       }
     }`;
 
@@ -46,8 +48,8 @@ const Competitions = () => {
                 text={c.description}
                 cover={c.cover}
                 price={c.fee}
-                isNew
-                isRecommended
+                isNew={c.isNew}
+                isRecommended={c.isRecommended}
                 detailsURL={`/competitions/${c.slug}`}
                 registerURL={`/purchase?product=${c.productID}`}
                 registerText="Register Now"

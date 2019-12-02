@@ -11,7 +11,11 @@ const CartItem = ({ charges, deductions, cartValue }) => {
     const renderDeduction = (name, price) => (
         <React.Fragment>
             <div className="col-8 px-0 charge-name">{name}</div>
-            <span className="col-4 px-0 charge-amount">-Rs. {price}</span>
+            {
+                price == 0 ?
+                    <span className="col-4 px-0 charge-amount">INC.</span>
+                    : <span className="col-4 px-0 charge-amount">-Rs. {price}</span>
+            }
         </React.Fragment>
     );
 

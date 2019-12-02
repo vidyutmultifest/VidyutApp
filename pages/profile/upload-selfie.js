@@ -11,6 +11,7 @@ import '../../styles/profile/selfie.sass';
 import '../../styles/style.sass';
 import LoadingScreen from "../../components/loadingScreen";
 import Link from "next/link";
+import Head from "next/head";
 
 const UploadSelfie = () => {
     const [isUploading, setUploading] = useState(false);
@@ -139,6 +140,9 @@ const UploadSelfie = () => {
     );
 
     return <Base loginRequired>
+        <Head>
+            <title>Upload Selfie | Profile Updation | Vidyut 2020</title>
+        </Head>
         { isClicked && !recData ?
             <LoadingScreen text="Validating your photo with Face Detection Engine." />
         : isUploading ?

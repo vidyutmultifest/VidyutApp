@@ -171,7 +171,12 @@ const CartView = ({ products, promocode }) => {
                                     'price': 20
                                 },
                             ]}
-                            deductions={[]}
+                            deductions={[
+                                {
+                                    name : "Promocode - EARLYBIRD",
+                                    price: 0
+                                }
+                            ]}
                         />
                         <div>
                             { isLoaded && status.onlinePayment ? <button className="payment-button card-shadow">Pay Online</button> : null }

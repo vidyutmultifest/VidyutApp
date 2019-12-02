@@ -22,6 +22,8 @@ const Shows = () => {
         fee
         slug
         productID
+        isNew
+        isRecommended
       }
     }`;
 
@@ -46,8 +48,8 @@ const Shows = () => {
                 text={w.description}
                 cover={w.cover}
                 price={w.fee}
-                isNew
-                isRecommended
+                isNew={w.isNew}
+                isRecommended={w.isRecommended}
                 registerURL={`/purchase?product=${w.productID}&promocode=EARLYBIRD`}
                 registerText="Buy Now"
             />
@@ -63,7 +65,7 @@ const Shows = () => {
             <div className="col-lg-3">
             </div>
             <div id="event-listing" className="col-lg-9">
-                <h3>Conducting {data.length} Shows</h3>
+                <h3>Buy Passes for Shows at Vidyut 2020 ({data.length})</h3>
                 <div className="row m-0">
                     {
                         isLoaded ?

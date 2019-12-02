@@ -21,6 +21,8 @@ const Shows = () => {
         description
         fee
         slug
+        isRecommended
+        isNew
         productID
       }
     }`;
@@ -46,8 +48,8 @@ const Shows = () => {
                 text={w.description}
                 cover={w.cover}
                 price={w.fee}
-                isNew
-                isRecommended
+                isNew={w.isNew}
+                isRecommended={w.isRecommended}
                 registerURL={`/purchase?product=${w.productID}`}
                 registerText="Buy Now"
             />
@@ -61,10 +63,9 @@ const Shows = () => {
         <TitleBar />
         <div className="row m-0">
             <div className="col-lg-3">
-                <h4>Filters</h4>
             </div>
             <div id="event-listing" className="col-lg-9">
-                <h3>Conducting {data.length} Merchandise</h3>
+                <h3>Selling {data.length} Merchandise</h3>
                 <div className="row m-0">
                     {
                         isLoaded ?

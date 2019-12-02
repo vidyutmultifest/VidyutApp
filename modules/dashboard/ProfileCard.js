@@ -24,19 +24,21 @@ const ProfileCard = ({ data }) => {
         /> : <ProfileCompletionItems
             title="Upload Selfie"
             text="Due to security reasons, uploading your selfie is mandatory for attending Vidyut."
-            link="/profile/update-selfie"
+            link="/profile/upload-selfie"
             photo={require('../../images/icons/selfie.png')}
         />;
 
-    const collegeCompletion = data.college != null ?
+    const collegeCompletion = data.college != null || data.rollNo != null ?
         <ProfileCompletionItems
             title="College Detail Updated"
             text="Vidyut is open only to college students, thank you for co-operating."
+            link="/profile/upload-collegeID"
             photo={require('../../images/icons/checked.png')}
         /> : <ProfileCompletionItems
             title="Update College Details"
             text="We need to verify that you are student of a college before we can allow you at Vidyut"
             photo={require('../../images/icons/student-center.png')}
+            link="/profile/upload-collegeID"
         />;
 
     const phoneCompletion = data.phone != null ?
@@ -56,6 +58,7 @@ const ProfileCard = ({ data }) => {
              <h4>Complete Your Profile</h4>
             </div>
             {photoCompletion}
+            {collegeCompletion}
         </React.Fragment>
     );
 

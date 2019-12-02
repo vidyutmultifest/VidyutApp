@@ -31,7 +31,9 @@ const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, times
                 <div className="row m-0">
                     <div className="col-md-4 order-md-1 order-2 p-4">
                         { !isPaid ? <div className="retry-prompt">Show this QR to retry payment</div> : null }
-                        <div className="card-shadow p-4"><QRCode value={transactionID} size={256} style={{ width: '100%', height: '100%' }} /></div>
+                        <div className="card-shadow p-4 text-center">
+                            <QRCode value={transactionID} size={256} style={{ width: '100%', height: '100%', maxWidth: '256px', maxHeight: '256px' }} />
+                        </div>
                     </div>
                     <div className="order-details-section order-md-2 order-1 col-md-8 p-4">
                         <h4>Order Summary</h4>

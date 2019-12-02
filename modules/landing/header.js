@@ -11,7 +11,7 @@ const LandingHeader = () => {
             className="d-flex p-4"
         >
             <img src={require('../../images/logos/heal-the-world-light.png')} className="logo" />
-            <Link href="/dashboard" id="registration-button">Dashboard</Link>
+            <Link href="/dashboard"><a id="registration-button">Dashboard</a></Link>
         </div>
         <div id="theme-landing">
             <Tilt
