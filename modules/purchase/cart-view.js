@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 import '../../styles/purchase/cart.sass';
 import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
+const _ = require('lodash');
 
 
 const CartView = ({ products, promocode }) => {
@@ -97,8 +98,7 @@ const CartView = ({ products, promocode }) => {
                 "products": productsList
             }
         };
-        // console.log( _.isEqual(orderVars!=variables);
-        if(orderVars!==variables)
+        if(!_.isEqual(orderVars, variables))
         {
             initiateOrder(variables).then((response) => {
                 setTransactionID(response.data.initiateOrder.transactionID);

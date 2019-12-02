@@ -29,11 +29,11 @@ const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, times
                 overlayClassName="order-modal-overlay"
             >
                 <div className="row m-0">
-                    <div className="col-md-4 p-4">
+                    <div className="col-md-4 order-md-1 order-2 p-4">
                         { !isPaid ? <div className="retry-prompt">Show this QR to retry payment</div> : null }
                         <div className="card-shadow p-4"><QRCode value={transactionID} size={256} style={{ width: '100%', height: '100%' }} /></div>
                     </div>
-                    <div className="order-details-section col-md-8 p-4">
+                    <div className="order-details-section order-md-2 order-1 col-md-8 p-4">
                         <h4>Order Summary</h4>
                         <div className="order-meta"><b>Order #:</b> {orderID} | <b>Transaction #:</b> {transactionID} | {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}</div>
                         {products.map(p =>

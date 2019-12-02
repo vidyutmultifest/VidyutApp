@@ -44,19 +44,21 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
         }
     });
 
-    return !transactionStatus.isPaid && !transactionStatus.isPending  ? (
+    const renderQR = (
         <div>
             <h4>Show at Counter</h4>
             {
                 data && data.issuer ?
-                <h6>Your transaction is being now handled by {data.issuer.firstName} {data.issuer.lastName}</h6>
-                : <h6>We are awaiting confirmation for the payment</h6>
+                    <h6>Your transaction is being now handled by {data.issuer.firstName} {data.issuer.lastName}</h6>
+                    : <h6>We are awaiting confirmation for the payment</h6>
             }
             <div>VIDYUT ID: {vidyutID}</div>
             { transactionID ? <QRCode value={transactionID} size={256}/> : null }
             <sub>{transactionID}</sub>
         </div>
-    ) : transactionStatus.isPaid ? (
+    );
+
+    const renderTransactionSuccess = () => (
         <div>
             <h4>Transaction Successful</h4>
             <div>
@@ -70,7 +72,9 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
                 <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
             </Link>
         </div>
-    ) : transactionStatus.isPending && transactionStatus.isProcessed ?  (
+    );
+
+    const renderTransactionPending = () => (
         <div>
             <h4>Transaction Pending</h4>
             <div>It may take few hours to days for this transaction to be successful. You can see the status in your dashboard</div>
@@ -85,7 +89,9 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
                 <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
             </Link>
         </div>
-    ) : transactionStatus.isProcessed && !transactionStatus.isPending ? (
+    );
+
+    const renderTransactionFailed = () => (
         <div>
             <h4>Transaction Failed</h4>
             <div>You may retry this transaction again showing the below QR</div>
@@ -97,7 +103,19 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
                 <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
             </Link>
         </div>
-    ) : null
+    );
+
+    const renderTransaction = () => {
+        if(transactionStatus.isPaid)
+            return renderTransactionSuccess();
+        else if(transactionStatus.isProcessed)
+            if(transactionStatus.isPending)
+                return  renderTransactionPending();
+            else return  renderTransactionFailed();
+        return renderQR
+    };
+
+    return renderTransaction()
 };
 
 export default PayAtCounterQR;
