@@ -61,7 +61,7 @@ const UploadSelfie = () => {
         data.append('query', query);
         uploadFile({data}).then((response) => {
             const data = JSON.parse(response.data.detectFace.jsonData.replace(/\'/g, '"')).FaceDetails;
-            getBox(file,data).then((response) => setBox(response));
+            getBox(file,data).then((response) => { setBox(response); });
             setRecData(data);
         });
     };
@@ -96,15 +96,19 @@ const UploadSelfie = () => {
     const getBox = async (photo, response) => {
         if(response.length === 0)
             return null;
-        const data = response[0].BoundingBox;
+        let arr  = [];
         const img = await getSize(photo);
         const h = img.h;
         const w = img.w;
-        const x = data.Left * w;
-        const y = data.Top * h;
-        const width = data.Width * w;
-        const height = data.Height * h;
-        return [x, y, width, height];
+        response.map(a => {
+            const data = a.BoundingBox;
+            const x = data.Left * w;
+            const y = data.Top * h;
+            const width = data.Width * w;
+            const height = data.Height * h;
+            arr.push([x, y, width, height]);
+        });
+        return arr;
     };
 
     const renderOnSuccess = (
@@ -115,7 +119,25 @@ const UploadSelfie = () => {
             </Link>
         </div>
     );
-    
+
+    const renderWebcam = (
+        <div>
+            <Webcam
+                audio={false}
+                mirrored={true}
+                style={{ maxWidth: "100%"}}
+                videoConstraints={{facingMode: "user"}}
+                ref={webcamRef}
+                minScreenshotHeight="75vh"
+                screenshotFormat="image/jpeg"
+                screenshotQuality="0.92"
+            />
+            <div className="text-center">
+                <button className="btn btn-primary" onClick={capture}>Capture photo</button>
+            </div>
+        </div>
+    );
+
     return <Base loginRequired>
         { isClicked && !recData ?
             <LoadingScreen text="Validating your photo with Face Detection Engine." />
@@ -127,29 +149,13 @@ const UploadSelfie = () => {
                 <div className="selfie-card card-shadow text-center">
                     { isUploaded ?
                         renderOnSuccess
-                        : !isClicked ?
-                        <div>
-                            <Webcam
-                                audio={false}
-                                mirrored={true}
-                                style={{ maxWidth: "100%"}}
-                                videoConstraints={{facingMode: "user"}}
-                                ref={webcamRef}
-                                minScreenshotHeight="75vh"
-                                screenshotFormat="image/jpeg"
-                                screenshotQuality="0.92"
-                            />
-                            <div className="text-center">
-                                <button className="btn btn-primary" onClick={capture}>Capture photo</button>
-                            </div>
-                        </div> : <div>
+                        : !isClicked ? renderWebcam : <div>
                             <div>
                                 {
                                     photoBS4 && getBox ? <Boundingbox
                                         image={photoBS4}
-                                        boxes={[box]} /> : null
+                                        boxes={box} /> : null
                                 }
-
                             </div>
                             <div className="text-center">
                                 <div className="card-shadow p-2">
