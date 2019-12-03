@@ -134,7 +134,7 @@ const UploadSelfie = () => {
                 screenshotQuality="0.92"
             />
             <div className="text-center">
-                <button className="btn btn-primary" onClick={capture}>Capture photo</button>
+                <button className="btn btn-primary py-4 px-4" onClick={capture}>Capture Selfie</button>
             </div>
         </div>
     );
@@ -150,6 +150,7 @@ const UploadSelfie = () => {
          : <React.Fragment>
         <TitleBar />
             <div id="update-selfie-page" className="container my-4">
+                <h3>Upload Selfie</h3>
                 <div className="selfie-card card-shadow text-center">
                     { isUploaded ?
                         renderOnSuccess
@@ -175,10 +176,10 @@ const UploadSelfie = () => {
                                                 : null
                                     }
                                 </div>
-                                <button className="btn btn-primary m-2" onClick={() => { setClicked(false); setRecData(false); }}>Retake photo</button>
+                                <button className="btn btn-primary px-4 py-4 m-2" onClick={() => { setClicked(false); setRecData(false); }}>Retake Selfie</button>
                                 {
                                     recData !== false && recData.length === 1 && recData[0].Quality.Brightness > 50 && recData[0].Quality.Sharpness > 40 ?
-                                        <button className="btn btn-primary m-2" onClick={onUpload}>Upload photo</button> : null
+                                        <button className="btn btn-primary m-2" onClick={onUpload}>Upload Selfie</button> : null
                                 }
 
                             </div>

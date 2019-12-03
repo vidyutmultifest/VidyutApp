@@ -1,4 +1,7 @@
 import React, {useEffect, useState} from "react";
+import Head from "next/head";
+const _ = require('lodash');
+
 import dataFetch from "../../utils/dataFetch";
 
 import Base from "../../components/base";
@@ -8,11 +11,13 @@ import Webcam from "react-webcam";
 import fileUpload from "../../utils/fileUpload";
 import Boundingbox from "react-bounding-box";
 import LoadingScreen from "../../components/loadingScreen";
-import Head from "next/head";
-const _ = require('lodash');
+
+import '../../styles/profile/college-id.sass';
+import Link from "next/link";
 
 const UploadCollegeID = () => {
     const [isSubmitting, setSubmission] = useState(false);
+    const [isUpdated, setUpdation] = useState(false);
     const [isQueried, setQueried] = useState(false);
     const [isProfileLoaded, setProfileLoaded] = useState(false);
     const [profileData, setProfileData] = useState();
@@ -20,6 +25,7 @@ const UploadCollegeID = () => {
     const [photo, setPhoto] = useState();
     const [box, setBox] = useState(false);
     const [rollNo, setRollNo] = useState('');
+    const [showError, setError] = useState(false);
 
     const dataURItoBlob = (dataURI) => {
         let byteString = atob(dataURI.split(',')[1]);
@@ -91,6 +97,7 @@ const UploadCollegeID = () => {
             uploadFile({data}).then((response) => {
                 setQueried(false);
                 setSubmission(false);
+                setUpdation(true);
             });
         });
 
@@ -113,7 +120,13 @@ const UploadCollegeID = () => {
                 getBox(file, processed).then((response) => {
                     setBox(response);
                 });
-
+            else if(data.length==0){
+                setBox(false);
+                setClicked(false);
+                setError(true);
+            } else {
+                setBox([]);
+            }
         });
     };
 
@@ -135,7 +148,6 @@ const UploadCollegeID = () => {
         const f1 = filtered.filter(p => _.some(supplymentary, (el) => _.includes(p.DetectedText.toUpperCase(), el)));
         const f2 = f1.filter(p => _.some(nums, (el) => _.includes(p.DetectedText.toUpperCase(), el)));
         const f3 = f2.filter(p => _.some(rejected, (el) => !_.includes(p.DetectedText.toUpperCase(), el)));
-        console.log(f3);
         if(f3.length!==0)
         {
             setRollNo(f3[0].DetectedText);
@@ -159,6 +171,7 @@ const UploadCollegeID = () => {
     const webcamRef = React.useRef(null);
     const capture = React.useCallback(
         () => {
+            setError(false);
             const imagebs64 = webcamRef.current.getScreenshot();
             sendToAmazon(imagebs64);
             setPhoto(imagebs64);
@@ -193,16 +206,23 @@ const UploadCollegeID = () => {
             <title>Upload CollegeID | Profile Updation | Vidyut 2020</title>
         </Head>
         {
-            isSubmitting ?
+            isClicked && !box ?
+                <LoadingScreen text="Processing image using Text Detection Engine" />
+                : isSubmitting ?
                 <LoadingScreen text="Saving changes" />
                 : !isProfileLoaded ? <LoadingScreen text="Loading your profile" /> : (
                 <React.Fragment>
                     <TitleBar />
-                    <div className="container my-4 ">
-                        <div className="card-shadow p-4">
+                    <div id="update-college-page" className="container my-4 ">
+                        <div className="badge badge-primary">Experimental Feature</div>
+                        <h3>Update College Profile</h3>
+                        <div className="update-card card-shadow p-0">
                             <div className="row m-0">
-                                <div className="col-12"><h3>Update College Profile</h3></div>
-                                <div className="col-md-4 p-2">
+                                <div className="click-row col-md-6 p-4">
+                                    <h5>Capture your ID Card</h5>
+                                    {
+                                        showError ? <div className="failed-alert alert alert-warning m-2">Failed Recognizing any text in data</div> : false
+                                    }
                                     {
                                         isClicked ?
                                         <Boundingbox
@@ -213,30 +233,41 @@ const UploadCollegeID = () => {
                                     <div className="text-center">
                                         {
                                             isClicked ?
-                                                <button className="btn btn-primary" onClick={() => { setClicked(false); }}>Retry</button>
-                                                : <button className="btn btn-primary" onClick={capture}>Capture photo</button>
+                                                <button className="btn btn-primary" onClick={() => { setClicked(false); setBox(false); }}>Retry</button>
+                                                : <button className="btn btn-primary px-4 py-4" onClick={capture}>
+                                                    { showError ? "Retry" : "Capture Photo" }
+                                                </button>
                                         }
                                     </div>
                                 </div>
                                 <div className="col p-2">
                                     {
+                                        isUpdated ? (
+                                            <div className="alert alert-success p-2">
+                                                <div className="pb-2">Profile Updated</div>
+                                                <Link href="/dashboard">
+                                                    <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
+                                                </Link>
+                                            </div>
+                                        ) : null
+                                    }
+                                    {
                                         profileData.isAmritapurian ? (
-                                            <div>
+                                            <div className="p-4">
                                                 <div className="form-group">
                                                     <label htmlFor="rollNo">Roll No.</label>
                                                     <input
                                                         name="rollNo"
                                                         value={getRollNo()}
+                                                        disabled={!box}
                                                         onChange={(e) => setRollNo(e.target.value)}
                                                         className="form-control"
                                                     />
                                                 </div>
+                                                <button className="btn btn-primary" onClick={submitRollNoUpdate}>Save</button>
                                             </div>
                                         ) : null
                                     }
-                                </div>
-                                <div className="col-12 m-0">
-                                    <button className="btn btn-primary" onClick={submitRollNoUpdate}>Save</button>
                                 </div>
                             </div>
                         </div>
