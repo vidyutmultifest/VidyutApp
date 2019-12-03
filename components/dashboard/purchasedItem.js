@@ -36,8 +36,15 @@ const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, times
                         </div>
                     </div>
                     <div className="order-details-section order-md-2 order-1 col-md-8 p-4">
-                        <h4>Order Summary</h4>
-                        <div className="order-meta"><b>Order #:</b> {orderID} | <b>Transaction #:</b> {transactionID} | {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                        <h4 className="mb-0">Order Summary</h4>
+                        <div className="d-flex">
+                            {status}
+
+                        </div>
+                        <div className="order-meta mt-2">
+                            <b>Order #:</b> {orderID} | <b>Transaction #:</b> {transactionID} | {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}
+                            { issuer ? (<span>| <b>Payment Handled by </b> { issuer }</span>): null }
+                        </div>
                         {products.map(p =>
                             <CartItem
                                 qty={p.qty}

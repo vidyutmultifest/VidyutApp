@@ -27,7 +27,12 @@ const MyPurchases = () => {
           isPaid
           isPending
           isProcessed
+                issuer
+        {
+          firstName
         }
+        }
+  
       }
     }`;
 
@@ -74,6 +79,7 @@ const MyPurchases = () => {
             }
             timestamp={o.timestamp}
             products={o.products}
+            issuer={o.transaction.issuer ? o.transaction.issuer.firstName : null}
         />
     );
 

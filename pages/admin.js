@@ -9,6 +9,8 @@ import dataFetch from "../utils/dataFetch";
 import '../styles/dashboard/style.sass'
 import '../styles/bootstrap.sass';
 import LoadingScreen from "../components/loadingScreen";
+import PaymentCollectionSummary from "../components/admin/PaymentCollectionSummary";
+import DashboardFooter from "../modules/dashboard/footer";
 
 const AdminDashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -23,6 +25,7 @@ const AdminDashboard = () => {
       }
       getAmountCollected
       getTransactionsApprovedCount
+      getTransactionsPendingCount
       status
       {
         offlinePayment
@@ -85,17 +88,11 @@ const AdminDashboard = () => {
                                     {
                                         data.myPermissions.canAcceptPayment ? (
                                             <div className="col-md-6 py-2">
-                                                <div className="card-shadow">
-                                                    <h3>Transactions Summary</h3>
-                                                    <div className="row m-0">
-                                                        <div className="col-md-6">
-                                                            Rs. {data.getAmountCollected}
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            {data.getTransactionsApprovedCount}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <PaymentCollectionSummary
+                                                    amount={data.getAmountCollected}
+                                                    transactionCount={data.getTransactionsApprovedCount}
+                                                    pendingCount={data.getTransactionsPendingCount}
+                                                />
                                             </div>
                                         ) : null
                                     }
@@ -105,7 +102,7 @@ const AdminDashboard = () => {
                     </div>
                 ) : <LoadingScreen text="Loading Dashboard"/>
         }
-
+        <DashboardFooter />
     </Base>
 };
 
