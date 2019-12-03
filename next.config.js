@@ -21,6 +21,10 @@ const nextConfig = {
             '/shows': {page: '/shows'},
             '/purchase': {page: '/purchase'},
             '/workshops': {page: '/workshops'},
+            '/restricted/accept-payment': {page: '/restricted/accept-payment'},
+            '/profile/upload-collegeID': {page: '/profile/upload-collegeID'},
+            '/profile/upload-selfie': {page: '/profile/upload-selfie'},
+
         };
 
         return paths;
