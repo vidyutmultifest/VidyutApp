@@ -13,17 +13,11 @@ const LogoutPage = () => {
     useEffect(() => {
         if(!loggedOut)
         {
-            const token = cookies.get('token');
-            if(token == null)
-                router.back();
-            else
-            {
-                cookies.remove('token');
-                cookies.remove('refreshToken');
-                cookies.remove('username');
-                localStorage.clear();
-                router.push('/login');
-            }
+            cookies.remove('token');
+            cookies.remove('refreshToken');
+            cookies.remove('username');
+            localStorage.clear();
+            router.push('/login');
             logOut(true);
         }
     });
