@@ -45,7 +45,7 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
     });
 
     const renderQR = (
-        <div>
+        <div className="m-2">
             <div className="title-section">
             {
                 data && data.issuer ?
@@ -71,7 +71,7 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
     );
 
     const renderTransactionSuccess = () => (
-        <div>
+        <div className="m-2">
             <div className="title-section">
                 <h4>Transaction Successful</h4>
                 <div>You will also shortly receive an official confirmation email from us.</div>
@@ -90,7 +90,7 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
     );
 
     const renderTransactionPending = () => (
-        <div>
+        <div className="m-2">
             <div className="title-section">
                 <h4>Transaction Pending</h4>
                 <div>It may take few hours to days for this transaction to be successful. You can see the status in your dashboard</div>
@@ -109,7 +109,7 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
     );
 
     const renderTransactionFailed = () => (
-        <div>
+        <div className="m-2">
             <div className="title-section">
                 <h4>Transaction Failed</h4>
                 <div>You may retry this transaction again showing the below QR</div>
