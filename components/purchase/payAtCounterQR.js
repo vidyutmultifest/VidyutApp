@@ -46,62 +46,81 @@ const PayAtCounterQR = ({ vidyutID, transactionID }) => {
 
     const renderQR = (
         <div>
-            <h4>Show at Counter</h4>
+            <div className="title-section">
             {
                 data && data.issuer ?
-                    <h6>Your transaction is being now handled by {data.issuer.firstName} {data.issuer.lastName}</h6>
-                    : <h6>We are awaiting confirmation for the payment</h6>
+                    (
+                        <React.Fragment>
+                            <h4>Awaiting Approval</h4>
+                            <h6>Your transaction is being now handled by {data.issuer.firstName} {data.issuer.lastName}</h6>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <h4>Show at Counter</h4>
+                            <h6>Approach a registration desk with this QR code</h6>
+                        </React.Fragment>
+                    )
             }
-            <div>VIDYUT ID: {vidyutID}</div>
-            { transactionID ? <QRCode value={transactionID} size={256}/> : null }
-            <sub>{transactionID}</sub>
+            </div>
+            <div className="text-center p-4">
+                <div>VIDYUT ID: {vidyutID}</div>
+                { transactionID ? <QRCode value={transactionID} size={256} style={{width: "100%", height: "auto"}} /> : null }
+                <sub>{transactionID}</sub>
+            </div>
         </div>
     );
 
     const renderTransactionSuccess = () => (
         <div>
-            <h4>Transaction Successful</h4>
-            <div>
+            <div className="title-section">
+                <h4>Transaction Successful</h4>
+                <div>You will also shortly receive an official confirmation email from us.</div>
+            </div>
+            <div className="p-4">
                 <ul>
                     <li><b>Issuer</b>: {data.issuer.firstName} {data.issuer.lastName}</li>
                     <li><b>Timestamp</b>: {data.timestamp}</li>
                     <li><b>Location</b>: {data.issuer.location}</li>
                 </ul>
+                <Link href="/dashboard">
+                    <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
+                </Link>
             </div>
-            <Link href="/dashboard">
-                <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
-            </Link>
         </div>
     );
 
     const renderTransactionPending = () => (
         <div>
-            <h4>Transaction Pending</h4>
-            <div>It may take few hours to days for this transaction to be successful. You can see the status in your dashboard</div>
-            <div>
+            <div className="title-section">
+                <h4>Transaction Pending</h4>
+                <div>It may take few hours to days for this transaction to be successful. You can see the status in your dashboard</div>
+            </div>
+            <div className="p-4">
                 <ul>
                     <li><b>Issuer</b>: {data.issuer.firstName} {data.issuer.lastName}</li>
                     <li><b>Timestamp</b>: {data.timestamp}</li>
                     <li><b>Location</b>: {data.issuer.location}</li>
                 </ul>
+                <Link href="/dashboard">
+                    <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
+                </Link>
             </div>
-            <Link href="/dashboard">
-                <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
-            </Link>
         </div>
     );
 
     const renderTransactionFailed = () => (
         <div>
-            <h4>Transaction Failed</h4>
-            <div>You may retry this transaction again showing the below QR</div>
-            <div>
+            <div className="title-section">
+                <h4>Transaction Failed</h4>
+                <div>You may retry this transaction again showing the below QR</div>
+            </div>
+            <div className="p-4 text-center">
                 <QRCode value={transactionID} size={256}/>
                 <button className="btn btn-primary px-4 py-2 my-2" onClick={() => setProcessed(false)}>Refresh</button>
+                <Link href="/dashboard">
+                    <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
+                </Link>
             </div>
-            <Link href="/dashboard">
-                <button className="btn btn-primary px-4 py-2">Go to Dashboard</button>
-            </Link>
         </div>
     );
 
