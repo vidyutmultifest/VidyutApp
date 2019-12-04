@@ -91,12 +91,12 @@ function LoginPage(props) {
         props.form.validateFields((err, values) => {
             if (!err) {
                 Login(NormalLogin, values).then( response => {
-                    cookies.set('token', response.data.tokenAuth.token, { path: '/' });
-                    cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
-                    cookies.set('username', values.username, { path: '/' });
-                    router.push('/dashboard');
+                    console.log(response);
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-
+                        cookies.set('token', response.data.tokenAuth.token, { path: '/' });
+                        cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
+                        cookies.set('username', values.username, { path: '/' });
+                        router.push('/dashboard');
                     } else {
                         setAuthFail(true);
                         console.log(response);
