@@ -123,9 +123,12 @@ function LoginPage(props) {
     };
 
     const loginWithMicrosoft =  (err, data) => {
+        console.log('Microsoft Login Error', err);
+        console.log('Microsoft Auth Data', data);
         const variables = { accessToken: data.authResponseWithAccessToken.accessToken };
         Login(MicrosoftAuthLogin, variables).then(response => {
-            if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+            console.log('Server Response', response);
+            if(!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 cookies.set('token', response.data.socialAuth.token, { path: '/' });
                 cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
                 router.push('/dashboard');
