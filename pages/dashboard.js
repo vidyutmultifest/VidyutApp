@@ -98,7 +98,11 @@ const Dashboard = () => {
                                 !data.isProfileComplete ? (
                                     <div id="profile-completion-prompt" className="card-shadow">
                                         <h3>Complete your profile</h3>
-                                        <p>We need to know a little bit more about you, just in case :)</p>
+                                        <p>
+                                            You need to complete your profile with the required data,
+                                            without which your Vidyut ID or purchases/registrations wont
+                                            be active.
+                                        </p>
                                             {
                                                 !data.myProfile.photo ?
                                                     <Link href="profile/upload-selfie">
