@@ -177,7 +177,7 @@ function LoginPage(props) {
                     </div>
                 </div>
            </div>
-    </LoginPageWrapper>) : <LoadingScreen text={setQueried ? "Logging you in" : "Hold on, while we are opening the login page"} />
+    </LoginPageWrapper>) : <LoadingScreen text={setQueried ? "Logging you in. If it takes too long, please try again later." : "Hold on, while we are opening the login page"} />
 
 }
 

@@ -163,7 +163,7 @@ const UploadSelfie = () => {
                                 }
                             </div>
                             <div className="text-center">
-                                <div className="card-shadow p-2">
+                                <div className="card-shadow p-2 m-2">
                                     {
                                         recData ?
                                             recData.length === 1 && recData[0].Quality.Brightness < 50 && recData[0].Quality.Sharpness < 40 ?
@@ -176,12 +176,13 @@ const UploadSelfie = () => {
                                                 : null
                                     }
                                 </div>
-                                <button className="btn btn-primary px-4 py-4 m-2" onClick={() => { setClicked(false); setRecData(false); }}>Retake Selfie</button>
-                                {
-                                    recData !== false && recData.length === 1 && recData[0].Quality.Brightness > 50 && recData[0].Quality.Sharpness > 40 ?
-                                        <button className="btn btn-primary m-2" onClick={onUpload}>Upload Selfie</button> : null
-                                }
-
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn btn-primary px-4 py-4 m-2" onClick={() => { setClicked(false); setRecData(false); }}>Retake Selfie</button>
+                                    {
+                                        recData !== false && recData.length === 1 && recData[0].Quality.Brightness > 50 && recData[0].Quality.Sharpness > 40 ?
+                                            <button className="btn btn-primary px-4 py-4 m-2" onClick={onUpload}>Upload Selfie</button> : null
+                                    }
+                                </div>
                             </div>
                         </div>
                     }

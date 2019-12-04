@@ -56,53 +56,56 @@ const AdminDashboard = () => {
         <Head>
             <title>Admin Dashboard | Vidyut 2020</title>
         </Head>
-        <TitleBar />
         {
             isLoaded && data.myPermissions.adminAccess ?
                 (
-                    <div>
-                        <DashboardHeader
-                            name={data.myProfile.firstName}
-                            message="Thank you for volunteering for Vidyut 2020. Let's work together, and strive hard to make Vidyut 2020 a grand success."
-                        />
-                        <div className="container p-0">
-                            <div>
-                                <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
-                                <div className="row m-0 pb-4">
-                                {
-                                    data.status.offlinePayment && data.myPermissions.canAcceptPayment ?
-                                        <div className="col-md-3 col-6 p-2">
-                                            <QuickActionCard
-                                                photo={require('../images/icons/receive-cash.png')}
-                                                text="Scan & Accept Payment"
-                                                title="Accept Payment"
-                                                link="/restricted/accept-payment"
-                                            />
-                                        </div> : null
-                                }
-                                </div>
-                            </div>
-                            <div>
-                                <h4 className="px-4 section-heading">Profile</h4>
-                                <div className="row m-0">
+                    <React.Fragment>
+                        <TitleBar />
+                        <div>
+                            <DashboardHeader
+                                name={data.myProfile.firstName}
+                                message="Thank you for volunteering for Vidyut 2020. Let's work together, and strive hard to make Vidyut 2020 a grand success."
+                            />
+                            <div className="container p-0">
+                                <div>
+                                    <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
+                                    <div className="row m-0 pb-4">
                                     {
-                                        data.myPermissions.canAcceptPayment ? (
-                                            <div className="col-md-6 py-2">
-                                                <PaymentCollectionSummary
-                                                    amount={data.getAmountCollected}
-                                                    transactionCount={data.getTransactionsApprovedCount}
-                                                    pendingCount={data.getTransactionsPendingCount}
+                                        data.status.offlinePayment && data.myPermissions.canAcceptPayment ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/receive-cash.png')}
+                                                    text="Scan & Accept Payment"
+                                                    title="Accept Payment"
+                                                    link="/restricted/accept-payment"
                                                 />
-                                            </div>
-                                        ) : null
+                                            </div> : null
                                     }
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="px-4 section-heading">Profile</h4>
+                                    <div className="row m-0">
+                                        {
+                                            data.myPermissions.canAcceptPayment ? (
+                                                <div className="col-md-6 py-2">
+                                                    <PaymentCollectionSummary
+                                                        amount={data.getAmountCollected}
+                                                        transactionCount={data.getTransactionsApprovedCount}
+                                                        pendingCount={data.getTransactionsPendingCount}
+                                                    />
+                                                </div>
+                                            ) : null
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ) : <LoadingScreen text="Loading Dashboard"/>
+                        <DashboardFooter />
+                    </React.Fragment>
+                ) : <LoadingScreen text="Loading Admin Dashboard"/>
         }
-        <DashboardFooter />
+
     </Base>
 };
 
