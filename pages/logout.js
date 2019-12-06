@@ -22,7 +22,7 @@ const LogoutPage = () => {
         }
     });
 
-    return !loggedOut ? <LoadingScreen text="Logging you out"/> : <LoadingScreen text="You have been logged-out"/>;
+    return !loggedOut ? <LoadingScreen text="Logging you out"/> : <LoadingScreen text="You have been logged-out. Please wait while we redirect you to the login page"/>;
 };
 
 export default LogoutPage

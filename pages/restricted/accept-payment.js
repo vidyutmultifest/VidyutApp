@@ -57,6 +57,7 @@ const AcceptPayment = (props) => {
           firstName
           lastName
           vidyutID
+          photo
         }
       }
     }`;

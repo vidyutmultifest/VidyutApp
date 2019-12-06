@@ -114,7 +114,7 @@ const CartView = ({ products, promocode }) => {
             contentLabel="Payment at Counter"
             onRequestClose={() => setModal(false)}
             className="pay-at-counter-modal qr-modal card-shadow"
-            overlayClassName="qr-overlay"
+            overlayClassName="qr-overlay p-2"
         >
             {isLoaded ? <PayAtCounterQR transactionID={transactionID} vidyutID={vidyutID} />
                 : null

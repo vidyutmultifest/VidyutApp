@@ -3,6 +3,7 @@ import { useScrollPercentage } from "react-scroll-percentage"
 import "../styles/landing.sass";
 import "../styles/bootstrap.sass";
 import Head from "next/head";
+import Link from "next/link";
 
 
 import Base from "../components/base";
@@ -39,6 +40,12 @@ const HomePage = () => {
         </Head>
         <div id="landing-page-content">
             <LandingHeader />
+            <section id="landing-dates">
+                <div className="w-100">
+                    <h2>January 30 - February 1, 2020</h2>
+                    <Link href="/login"><button className="btn btn-primary px-4 py-2">Register Now</button></Link>
+                </div>
+            </section>
             <div ref={ref}>
                 <AboutTheme />
                 <AboutVidyut />

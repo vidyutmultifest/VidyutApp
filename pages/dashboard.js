@@ -103,77 +103,78 @@ const Dashboard = () => {
                                             without which your Vidyut ID or purchases/registrations wont
                                             be active.
                                         </p>
-                                            {
-                                                !data.myProfile.photo ?
-                                                    <Link href="profile/upload-selfie">
-                                                        <button className="btn btn-primary px-4 py-2">Upload Selfie</button>
-                                                    </Link>
-                                                    : !data.myProfile.rollNo ?
-                                                    <Link href="profile/upload-collegeID">
-                                                        <button className="btn btn-primary px-4 py-2">Update College Profile</button>
-                                                    </Link> :
-                                                    <Link href="profile/update-phone">
-                                                        <button className="btn btn-primary px-4 py-2">Update Phone</button>
-                                                    </Link>
-                                            }
+                                        {
+                                            !data.myProfile.photo ?
+                                                <Link href="profile/upload-selfie">
+                                                    <button className="btn btn-primary px-4 py-2">Upload Selfie</button>
+                                                </Link>
+                                                : !data.myProfile.rollNo ?
+                                                <Link href="profile/upload-collegeID">
+                                                    <button className="btn btn-primary px-4 py-2">Update College
+                                                        Profile
+                                                    </button>
+                                                </Link> :
+                                                <Link href="profile/update-phone">
+                                                    <button className="btn btn-primary px-4 py-2">Update Phone</button>
+                                                </Link>
+                                        }
                                     </div>
-                                ) : (
-                                    <div>
-                                        <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
-                                        <div className="row m-0 p-0">
-                                        {
-                                            data.status.enableTicketing ? (
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/tickets-qa.png')}
-                                                        text="Concert, Choreo, Expo & More"
-                                                        title="Buy Passes"
-                                                        offer="Early Bird Offer"
-                                                        link="/shows"
-                                                />
-                                                </div>
-                                            ) : null
-                                        }
-                                        {
-                                            data.status.enableCompetitionRegistration ? (
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/trophy-events.png')}
-                                                        text="100+ Competitions, starting at Rs.100"
-                                                        title="Participate in Competitions"
-                                                        link="/competitions"
-                                                    />
-                                                </div>
-                                            ) : null
-                                        }
-                                        {
-                                            data.status.enableWorkshopRegistration ? (
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/classroom.png')}
-                                                        text="50+ Workshops, starting at Rs.500"
-                                                        title="Register for Workshops"
-                                                        link="/workshops"
-                                                    />
-                                                </div>
-                                            ) : null
-                                        }
-                                        {
-                                            data.status.enableMerchandiseShopping ? (
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/t-shirt.png')}
-                                                        text="T-shirts, goodies and more"
-                                                        title="Buy Merchandise"
-                                                        link="/merchandise"
-                                                    />
-                                                </div>
-                                            ) : null
-                                        }
-                                        </div>
-                                    </div>
-                                )
+                                ) : null
                             }
+                            <div>
+                                <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
+                                <div className="row m-0 p-0">
+                                {
+                                    data.status.enableTicketing ? (
+                                        <div className="col-md-3 col-6 p-2">
+                                            <QuickActionCard
+                                                photo={require('../images/icons/tickets-qa.png')}
+                                                text="Concert, Choreo, Expo & More"
+                                                title="Buy Passes"
+                                                offer="Early Bird Offer"
+                                                link="/shows"
+                                        />
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    data.status.enableCompetitionRegistration ? (
+                                        <div className="col-md-3 col-6 p-2">
+                                            <QuickActionCard
+                                                photo={require('../images/icons/trophy-events.png')}
+                                                text="100+ Competitions, starting at Rs.100"
+                                                title="Participate in Competitions"
+                                                link="/competitions"
+                                            />
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    data.status.enableWorkshopRegistration ? (
+                                        <div className="col-md-3 col-6 p-2">
+                                            <QuickActionCard
+                                                photo={require('../images/icons/classroom.png')}
+                                                text="50+ Workshops, starting at Rs.500"
+                                                title="Register for Workshops"
+                                                link="/workshops"
+                                            />
+                                        </div>
+                                    ) : null
+                                }
+                                {
+                                    data.status.enableMerchandiseShopping ? (
+                                        <div className="col-md-3 col-6 p-2">
+                                            <QuickActionCard
+                                                photo={require('../images/icons/t-shirt.png')}
+                                                text="T-shirts, goodies and more"
+                                                title="Buy Merchandise"
+                                                link="/merchandise"
+                                            />
+                                        </div>
+                                    ) : null
+                                }
+                                </div>
+                            </div>
                             <div>
                                 <h4 className="px-4 section-heading">Profile</h4>
                                 <div className="row m-0">
