@@ -1,5 +1,6 @@
 import React from "react";
-import Link from "next/link";
+
+import '../../styles/dashboard/style.sass';
 
 const Card = ({ title, footer, content }) => (
     <div className="srx-card card-shadow">

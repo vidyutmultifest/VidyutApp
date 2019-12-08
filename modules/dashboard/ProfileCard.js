@@ -5,17 +5,6 @@ import QuickListCard from "../../components/dashboard/QuickListCard";
 
 const ProfileCard = ({ data }) => {
 
-    const hasCompleted = () =>
-    {
-        return data.photo != null && data.phone != null && data.college != null && data.location != null;
-    };
-
-    const profileCompleteCard = (
-        <React.Fragment>
-            <h4>Profile Complete</h4>
-        </React.Fragment>
-    );
-
 
     const photoCompletion = data.photo != null ?
         <ProfileCompletionItems

@@ -14,8 +14,8 @@ const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, 
     const query = `{
       colleges
       {
-        id
-        name
+        value: id
+        label: name
       }
     }`;
 
@@ -64,10 +64,7 @@ const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, 
             getCollegeList().then((response) =>{
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    const list = response.data.colleges.length > 0 ? response.data.colleges.map(i => {
-                        return { value: i.id, label: i.name }
-                    }) : null;
-                    setCollegeList(list);
+                    setCollegeList(response.data.colleges);
                 }
             })
         }
