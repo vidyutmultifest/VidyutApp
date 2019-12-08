@@ -9,7 +9,7 @@ const cookies = new Cookies();
 const TitleBar = () => {
     const token = cookies.get('token');
     const isLoggedIn = token != null;
-    return <nav>
+    return <nav id="titlebar">
         <div className="row m-0">
             <div className="col-lg-2 col-md-3 col-8">
                 <Link href="/dashboard"><img src={require('../images/logos/vidyut-dark-logo.png')} /></Link>

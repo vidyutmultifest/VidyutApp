@@ -1,6 +1,7 @@
 import React from 'react'
 import '../../styles/dashboard/profilecard.sass'
 import ProfileCompletionItems from "../../components/dashboard/ProfileCompletionItems";
+import QuickListCard from "../../components/dashboard/QuickListCard";
 
 const ProfileCard = ({ data }) => {
 
@@ -15,6 +16,7 @@ const ProfileCard = ({ data }) => {
         </React.Fragment>
     );
 
+
     const photoCompletion = data.photo != null ?
         <ProfileCompletionItems
             title="Selfie Uploaded"
@@ -28,7 +30,7 @@ const ProfileCard = ({ data }) => {
             photo={require('../../images/icons/selfie.png')}
         />;
 
-    const collegeCompletion = data.college != null || data.rollNo != null ?
+    const collegeCompletion = data.college != null && data.rollNo != null ?
         <ProfileCompletionItems
             title="College Detail Updated"
             text="Vidyut is open only to college students, thank you for co-operating."
@@ -41,33 +43,32 @@ const ProfileCard = ({ data }) => {
             link="/profile/upload-collegeID"
         />;
 
-    const phoneCompletion = data.phone != null ?
+    const phoneCompletion = data.phone !== '' && data.phone != null ?
         <ProfileCompletionItems
             title="Phone Number Updated"
             text="Thank you for sharing your phone number, we will not become telemarketers :P"
             photo={require('../../images/icons/checked.png')}
+            link="/profile/edit-profile"
         /> : <ProfileCompletionItems
             title="Update Phone Number"
             text="We need to know your phone number for communication regarding Vidyut"
+            link="/profile/edit-profile"
             photo={require('../../images/icons/ringing-phone.png')}
         />;
 
-    const profileProgressCard = (
-        <React.Fragment>
-            <div className="title-area">
-             <h4>Complete Your Profile</h4>
-            </div>
-            {photoCompletion}
-            {collegeCompletion}
-        </React.Fragment>
-    );
-
     return (
-        <div id="participant-profile-card" className="card-shadow">
-            {
-                hasCompleted() ? profileCompleteCard : profileProgressCard
-            }
-        </div>
+        <QuickListCard
+            title="Complete Your Profile"
+            items={[
+                photoCompletion,
+                collegeCompletion,
+                phoneCompletion
+            ]}
+            showMoreButton={{
+                "link": "/profile/edit-profile",
+                "text": "Edit Profile"
+            }}
+        />
     )
 
 };

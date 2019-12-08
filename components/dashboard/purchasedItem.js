@@ -16,7 +16,7 @@ const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, times
                         {products.map(p => <h6>{p.name}</h6>)}
                     </div>
                     <div className="col px-2">
-                        <div className="amount">₹{amount}</div>
+                        <div className="amount"><b>₹{amount}</b></div>
                     </div>
                 </div>
                 <div className="purchase-description px-2">{moment(timestamp).fromNow()} | {status} </div>

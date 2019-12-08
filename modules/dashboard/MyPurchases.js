@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../../styles/dashboard/registrationoverview.sass'
 import dataFetch from "../../utils/dataFetch";
 import PurchasedItem from "../../components/dashboard/purchasedItem";
+import QuickListCard from "../../components/dashboard/QuickListCard";
 
 const MyPurchases = () => {
     const [isQueried, setQueried] = useState(false);
@@ -21,18 +22,17 @@ const MyPurchases = () => {
         }
         transaction
         {
-          transactionID
-          timestamp
-          amount
-          isPaid
-          isPending
-          isProcessed
-                issuer
-        {
-          firstName
+            transactionID
+            timestamp
+            amount
+            isPaid
+            isPending
+            isProcessed
+            issuer
+            {
+              firstName
+            }
         }
-        }
-  
       }
     }`;
 
@@ -83,22 +83,16 @@ const MyPurchases = () => {
         />
     );
 
-    return (
-        <div id="dashboard-registrations-overview" className="card-shadow">
-            <div className="title-area">
-                <h4>My Purchases</h4>
-            </div>
-            <div className="content-area">
-            {
-                isLoaded ?
-                        data.length > 0 ?
-                            <div className="w-100">{data.map(d => Purchases(d))}</div>
-                            : NotRegistered
-                    : null
-            }
-            </div>
-        </div>
-    )
+    return isLoaded ?
+        <QuickListCard
+            items={[data.map(d => Purchases(d))]}
+            title="My Purchase History"
+            renderWhenEmpty={NotRegistered}
+            showMoreButton={{
+                    "link": "/payment/view-transactions",
+                    "text": "View All Transactions"
+            }}
+        /> : null;
 };
 
 export default MyPurchases
