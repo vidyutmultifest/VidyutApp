@@ -100,6 +100,7 @@ const UpdateProfile = () => {
                     collegeName={data.myProfile.college.name}
                     graduationYear={data.myProfile.graduationYear}
                     degreeType={data.myProfile.degreeType}
+                    rollNo={data.myProfile.rollNo}
                 />
             </div>
             <div className="col-md-6 p-3">

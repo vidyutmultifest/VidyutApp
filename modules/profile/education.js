@@ -3,12 +3,13 @@ import CreatableSelect from 'react-select/creatable';
 import dataFetch from "../../utils/dataFetch";
 
 
-const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, graduationYear, degreeType }) => {
+const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, rollNo, graduationYear, degreeType }) => {
     const [isQueried, setQueried] = useState(false);
     const [CollegeList, setCollegeList] = useState(false);
 
     const [dType, setDegree] = useState(degreeType);
     const [gradYear, setGradYear] = useState(graduationYear);
+    const [rno, setRNo] = useState(rollNo);
     const [cid, setCID] = useState({ value: collegeID, label: collegeName });
     const [isSaving, setSaveState] = useState(false);
     const query = `{
@@ -43,7 +44,8 @@ const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, 
             "details": {
                 "degreeType": dType,
                 "graduationYear": gradYear,
-                "collegeID": parseInt(cid.value)
+                "collegeID": parseInt(cid.value),
+                "rollNo": rno
             }
         };
         setSaveState(true);
@@ -128,6 +130,16 @@ const EducationDetails = ({ collegeID, collegeName, isAmritian, isAmritapurian, 
                         <option value="2027">2027</option>
                         <option value="2028">2028</option>
                     </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="rno-input">Roll Number (Required for Amritians)</label>
+                    <input
+                        id="rno-input"
+                        name="rno-input"
+                        className="form-control"
+                        value={rno}
+                        onChange={(e) => setRNo(e.target.value)}
+                    />
                 </div>
                 {
                     !isSaving ? <button onClick={handleSave} className="btn px-4 py-2">Save</button>
