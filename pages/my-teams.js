@@ -1,35 +1,27 @@
 import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import Head from "next/head";
+import Link from "next/link";
 
-import Base from "../../components/base";
-import DashboardFooter from "../../modules/dashboard/footer";
-import TitleBar from "../../components/titleBar";
-import Card from "../../components/dashboard/Card";
-import Select from 'react-select';
-import dataFetch from "../../utils/dataFetch";
-import LoadingScreen from "../../components/loadingScreen";
+import Base from "../components/base";
+import DashboardFooter from "../modules/dashboard/footer";
+import TitleBar from "../components/titleBar";
+import Card from "../components/dashboard/Card";
+import dataFetch from "../utils/dataFetch";
+import LoadingScreen from "../components/loadingScreen";
+import QuickListCard from "../components/dashboard/QuickListCard";
 
 
-const TeamRegistrationPage = () => {
+const MyTeamsPage = () => {
     const router = useRouter();
-
     const [isQueried, setQueried] = useState(false);
-    const [EventList, setEventList] = useState(false);
+    const [myTeams, setMyTeams] = useState(false);
     const [teamName, setTeamName] = useState(false);
     const [teamHash, setTeamHash] = useState(false);
-    const [event, setEvent] = useState(false);
     const [isCreatingTeam, setCreatingTeam] = useState(false);
 
-    const listTeamCompetitionsQuery = `{
-      listTeamCompetitions
-      {
-        label: name
-        value: productID
-      }
-    }`;
-
-    const createTeamMutation = `mutation createTeam($name:String!, $productID: String!){
-      createTeam(name: $name, productID: $productID)
+    const createTeamMutation = `mutation createTeam($name:String!){
+      createTeam(name: $name)
       {
         hash
       }
@@ -42,30 +34,35 @@ const TeamRegistrationPage = () => {
       }
     }`;
 
-    const getTeamEvents = async () => await dataFetch({ query: listTeamCompetitionsQuery });
+    const myTeamsQuery = `{
+      myTeams
+      {
+        name
+        membersCount
+        isUserLeader
+        hash
+      }
+    }`;
+
+    const getMyTeams = async () => await dataFetch({ query: myTeamsQuery });
     const createTeam = async variables => await dataFetch({ query: createTeamMutation, variables });
     const joinTeam = async variables => await dataFetch({ query: joinTeamMutation, variables });
 
-
     useEffect(() => {
-        if(!isQueried)
-        {
-            getTeamEvents().then((response) =>{
-                setQueried(true);
-                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setEventList(response.data.listTeamCompetitions);
-                }
-            })
-        }
+       if(!isQueried)
+       {
+           getMyTeams().then((response) => {
+               if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                   setQueried(true);
+                   setMyTeams(response.data.myTeams);
+               }
+           });
+       }
     });
 
     const handleCreateTeam = () => {
-        const variables = {
-            productID: event.value,
-            name: teamName
-        };
         setCreatingTeam(true);
-        createTeam(variables).then((response) =>{
+        createTeam({ name: teamName }).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 const hash = response.data.createTeam.hash;
                 router.push('/teams/view?hash=' + hash);
@@ -75,9 +72,8 @@ const TeamRegistrationPage = () => {
     };
 
     const handleJoinTeam = () => {
-        const variables = {teamHash};
         setCreatingTeam(true);
-        joinTeam(variables).then((response) =>{
+        joinTeam({teamHash}).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 const hash = response.data.joinTeam.hash;
                 router.push('/teams/view?hash=' + hash);
@@ -94,18 +90,6 @@ const TeamRegistrationPage = () => {
                     title="Create a Team"
                     content={
                         <div className="px-4 py-2">
-                            <div className="form-group">
-                                <label htmlFor="team-name-input">Select Event</label>
-                                {
-                                    EventList ?
-                                        <Select
-                                            isSearchable
-                                            options={EventList}
-                                            value={event ? event : null}
-                                            onChange={(newValue) => setEvent(newValue)}
-                                        /> : null
-                                }
-                            </div>
                             <div className="form-group">
                                 <label htmlFor="team-name-input">Team Name</label>
                                 <input
@@ -146,14 +130,32 @@ const TeamRegistrationPage = () => {
         </div>
     );
 
+    const renderMyTeams = () => (
+        <div className="p-2">
+            <QuickListCard
+                title="My Teams"
+                items={myTeams.map(t => (
+                    <Link href={`/teams/view?hash=${t.hash}`}>
+                        <button className="btn w-100 card-shadow d-block text-left p-3">
+                            <h4>{t.name}</h4>
+                            { t.isUserLeader ? <span className="badge badge-warning px-3 py-2 mr-2">Leader</span> : null}
+                            <span className="badge badge-primary px-3 py-2">{t.membersCount} Member{t.membersCount > 1 ? 's' : null}</span>
+                        </button></Link>
+                ))}
+            />
+        </div>
+    );
 
     return isCreatingTeam ? <LoadingScreen text="Creating your team" /> : <Base loginRequired>
+        <Head>
+            <title> My Teams | Vidyut 2020 </title>
+        </Head>
         <TitleBar />
             <div className="container my-4">
-                <h1>Register as a Team</h1>
+                { isQueried && myTeams.length > 0 ? renderMyTeams() : null }
                 { renderOptions }
             </div>
         <DashboardFooter/>
     </Base>
 };
-export default TeamRegistrationPage;
+export default MyTeamsPage;
