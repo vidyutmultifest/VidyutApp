@@ -96,8 +96,8 @@ const UpdateProfile = () => {
         <div className={classNames("row m-0", selection !== 2 ? "d-none" : null)}>
             <div className="col-md-6 p-3">
                 <EducationDetails
-                    collegeID={data.myProfile.college.id}
-                    collegeName={data.myProfile.college.name}
+                    collegeID={data.myProfile.college !== null ? data.myProfile.college.id : null}
+                    collegeName={data.myProfile.college !== null ? data.myProfile.college.name : null}
                     graduationYear={data.myProfile.graduationYear}
                     degreeType={data.myProfile.degreeType}
                     rollNo={data.myProfile.rollNo}
