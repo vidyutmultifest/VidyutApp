@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import Head from "next/head";
+
 import Card from "../../components/dashboard/Card";
 import Base from "../../components/base";
 import TitleBar from "../../components/titleBar";
 import DashboardFooter from "../../modules/dashboard/footer";
 import dataFetch from "../../utils/dataFetch";
 import LoadingScreen from "../../components/loadingScreen";
-import {useRouter} from "next/router";
-import Head from "next/head";
+
 
 const TeamViewPage = () => {
     const router = useRouter();

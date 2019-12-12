@@ -10,7 +10,7 @@ const MyPurchases = () => {
     const [data, setData] = useState();
 
     const query = `{
-      myOrders
+      myOrders(limit: 5)
       {
         orderID
         timestamp

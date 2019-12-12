@@ -3,13 +3,13 @@ import {useRouter} from "next/router";
 import Head from "next/head";
 import Link from "next/link";
 
-import Base from "../components/base";
-import DashboardFooter from "../modules/dashboard/footer";
-import TitleBar from "../components/titleBar";
-import Card from "../components/dashboard/Card";
-import dataFetch from "../utils/dataFetch";
-import LoadingScreen from "../components/loadingScreen";
-import QuickListCard from "../components/dashboard/QuickListCard";
+import Base from "../../components/base";
+import DashboardFooter from "../../modules/dashboard/footer";
+import TitleBar from "../../components/titleBar";
+import Card from "../../components/dashboard/Card";
+import dataFetch from "../../utils/dataFetch";
+import LoadingScreen from "../../components/loadingScreen";
+import QuickListCard from "../../components/dashboard/QuickListCard";
 
 
 const MyTeamsPage = () => {

@@ -2,12 +2,37 @@
 #event-listing
   padding: 1rem
   h3
-    font-weight: 900
     font-size: calc(1rem + 0.3vw)
 
 
 #event-details-card
-  padding: 1rem
-  margin: 5vh 0
-  h3
+  padding: 3rem
+
+#share-card
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  background: #6A1B9A
+  border-radius: 1rem
+  .share-prompt
+    font-size: calc(1.2rem + 0.2vw)
     font-weight: 900
+    margin-bottom: 1rem
+  img
+    filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.5))
+    padding: 0 0.5rem
+
+#prizes-card
+  padding: 2rem
+  border-radius: 1rem
+  .row
+    margin: 1.2rem 0
+  .col-3
+    display: flex
+    align-items: center
+  .prizeType
+    font-weight: 900
+    color: #4A148C
+  .prizeAmount
+    font-size: calc(1.2rem + 0.5vw)

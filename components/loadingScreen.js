@@ -5,6 +5,7 @@ const LoadingScreen = ({ text }) => {
     return <div id="loading-screen">
         <div className="h-100 d-flex justify-content-center align-items-center bg-gradient">
             <div className="loading-details-container text-light p-4">
+                <img src={require('../images/logos/Vlogo.png')} className="loading-image" />
                 <h4>Loading</h4>
                 <p>{text}</p>
             </div>

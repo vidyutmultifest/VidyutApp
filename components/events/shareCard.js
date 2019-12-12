@@ -1,15 +1,45 @@
 import React from "react";
+import {
+    FacebookShareButton,
+    TelegramShareButton,
+    WhatsappShareButton,
+    LinkedinShareButton,
+    TwitterShareButton
+} from 'react-share';
 
-const ShareCard = ({ title, photo, text, offer, link }) => (
-     <div className="card-shadow">
-         <div className="row m-0">
-             <div className="col-md-6">
-                 <div className="share-prompt">Like this event? Share it with your friends!!</div>
-             </div>
-             <div className="col-md-6">
-                 <div className="share-buttons">
-                     <a href="https://facebook.com/">Fb</a>
-                 </div>
+const ShareCard = ({ title, link }) => (
+     <div id="share-card" className="card-shadow">
+         <div className="p-4">
+             <div className="d-flex">
+                 <WhatsappShareButton
+                    url={link}
+                    title={`Hey! Did you checkout ${title} at Vidyut 2020?`}
+                 >
+                     <img src={require('../../images/icons/whatsapp.png')} />
+                 </WhatsappShareButton>
+                 <FacebookShareButton
+                    url={link}
+                    qoute={`Checkout ${title} at Vidyut 2020, Multifest at Amrita Vishwa Vidyapeetham, Amritapuri Campus.`}
+                    hashtag="#Amrita#Vidyut2020"
+                 >
+                     <img src={require('../../images/icons/facebook.png')} />
+                 </FacebookShareButton>
+                 <TelegramShareButton
+                     url={link}
+                     title={`Hey! Did you checkout ${title} at Vidyut 2020?`}
+                 >
+                     <img src={require('../../images/icons/telegram.png')} />
+                 </TelegramShareButton>
+                 <LinkedinShareButton
+                    url={link}
+                 >
+                     <img src={require('../../images/icons/linkedin.png')} />
+                 </LinkedinShareButton>
+                 <TwitterShareButton
+                    url={link}
+                 >
+                     <img src={require('../../images/icons/twitter.png')} />
+                 </TwitterShareButton>
              </div>
          </div>
      </div>
