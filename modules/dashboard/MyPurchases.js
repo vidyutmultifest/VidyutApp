@@ -89,8 +89,8 @@ const MyPurchases = () => {
             title="My Purchase History"
             renderWhenEmpty={NotRegistered}
             showMoreButton={{
-                    "link": "/payment/view-transactions",
-                    "text": "View All Transactions"
+                    "link": "/payment/view-orders",
+                    "text": "View All Orders"
             }}
         /> : null;
 };

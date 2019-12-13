@@ -75,7 +75,6 @@ const Dashboard = () => {
             <Head>
                 <title>Dashboard | Vidyut 2020</title>
             </Head>
-
             {
                 isLoaded ? (
                     <div>

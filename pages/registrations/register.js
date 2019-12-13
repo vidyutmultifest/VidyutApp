@@ -152,7 +152,7 @@ const RegisterPage = () => {
                 <React.Fragment>
                     <TitleBar/>
                         < div className = "container p-0 my-4" >
-                        < h1 className="mb-4 mx-4">{data.product.name} Registration</h1>
+                        < h1 className="my-4 pt-4 mx-md-0 mx-4">{data.product.name} Registration</h1>
                     <PoseGroup>
                     {
                         !isTeamSelected ? <Shade key="teamselection">

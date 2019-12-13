@@ -15,10 +15,11 @@ const TitleBar = () => {
 
     const renderDropdownMenu = () => (
       <div id="topbar-dropdown">
-          <img src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
+          <img alt="user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
           {
               menuOpen ?
                   <div className="menu card-shadow">
+                      <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
                       <div className="link"><Link href="/profile/edit-profile"><a>Edit Profile</a></Link></div>
                       <div className="link"><Link href="/logout"><a>Logout</a></Link></div>
                   </div> : null
@@ -30,7 +31,7 @@ const TitleBar = () => {
     return <nav id="titlebar">
         <div className="row m-0">
             <div className="col-lg-2 col-md-3 col-8">
-                <Link href="/dashboard"><img src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
+                <Link href="/dashboard"><img alt="vidyut-text-logo" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
             </div>
             <div className="col text-right">
                 {
