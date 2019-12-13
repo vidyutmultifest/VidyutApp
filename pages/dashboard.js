@@ -14,6 +14,7 @@ import DashboardFooter from "../modules/dashboard/footer";
 import DashboardHeader from "../components/dashboard/dashboardHeader";
 import LoadingScreen from "../components/loadingScreen";
 import QuickActionCards from "../modules/dashboard/QuickActionCards";
+import OptionMenuCards from "../modules/dashboard/OptionMenuCards";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -122,6 +123,7 @@ const Dashboard = () => {
                                     ) : null
                                 }
                                 <QuickActionCards status={data.status} />
+                                <OptionMenuCards status={data.status} />
                                 <div>
                                     <h4 className="px-4 section-heading">Profile</h4>
                                     <div className="row m-0">
