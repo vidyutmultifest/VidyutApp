@@ -76,7 +76,7 @@ const Competitions = () => {
                         </div>
                     </div>
                 </div>
-                : <div className="container d-flex align-items-center" style={{ minHeight: '90vh' }}>
+                : <div className="container d-flex justify-content-center align-items-center" style={{ minHeight: '90vh' }}>
                     <StatusContainer
                         title="No Competitions Listed"
                         image={require('../images/illus/cleanup.png')}

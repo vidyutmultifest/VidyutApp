@@ -7,13 +7,21 @@
 
 #event-details-card
   padding: 3rem
+  .wrapper
+    max-height: 75vh
+    overflow: hidden
+    position: relative
+  .show-all
+    max-height: none!important
+  button
+    border-radius: 0
+
 
 #share-card
   display: flex
   align-items: center
   justify-content: center
   text-align: center
-  background: #6A1B9A
   border-radius: 1rem
   .share-prompt
     font-size: calc(1.2rem + 0.2vw)
@@ -22,6 +30,7 @@
   img
     filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.5))
     padding: 0 0.5rem
+    max-width: 72px
 
 #prizes-card
   padding: 2rem
@@ -36,3 +45,12 @@
     color: #4A148C
   .prizeAmount
     font-size: calc(1.2rem + 0.5vw)
+
+#purchases-card
+  button
+    border: none
+    background: #4A148C
+    color: white
+    display: block
+    padding: 1rem 1.5rem
+    font-weight: 900

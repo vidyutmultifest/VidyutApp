@@ -42,13 +42,13 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
             <React.Fragment>
                 <div className="card-shadow p-4">
                     <h4>{team.name} ({team.membersCount} Members)</h4>
-                    <ul>
+                    <ol>
                         {
-                            team.members.map( m => (
+                            team.members.map(m => (
                                 <li key={m.name}>{m.name}</li>
                             ))
                         }
-                    </ul>
+                    </ol>
                 </div>
                 <div className=" mt-4 py-2">
                     {

@@ -135,8 +135,8 @@ const RegisterPage = () => {
     };
 
     const Shade = posed.div({
-        enter: { x: -30, opacity: 1, delay: 300, delayChildren: 500, ease: 'anticipate' },
-        exit: { x: 10, opacity: 0 },
+        enter: { y: 20, opacity: 1, delay: 300, delayChildren: 500, ease: 'anticipate' },
+        exit: { y: -20, opacity: 0 },
     });
 
     return isError ?
@@ -149,8 +149,8 @@ const RegisterPage = () => {
                 <title>Register for {data.product.name} | Registration Page | Vidyut 2020</title>
             </Head>
             <TitleBar/>
-            <div className="container my-4">
-                <h1 className="mb-4">{data.product.name} Registration</h1>
+            <div className="container p-0 my-4">
+                <h1 className="mb-4 mx-4">{data.product.name} Registration</h1>
                 <PoseGroup>
                 {
                     !isTeamSelected ? <Shade key="teamselection">

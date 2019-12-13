@@ -1,16 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 
 const PurchasesItems = ({ products }) => {
 
+    const [showModel, setModalState] = useState(false);
+
     return (
-        <div id="prizes-card" className="card-shadow p-4 my-4">
-            <h4>Register</h4>
+        <div id="purchases-card">
             {
-                products.map((p) =>
+                products.length === 1 ? products.map((p) =>
                     <Link href={`/registrations/register?product=${p.productID}`}>
-                        <button className="btn btn-primary">Register Now</button>
+                        <button>Register Now</button>
                     </Link>
+                ) : (
+                    <button onClick={() => setModalState(true)}>Register Now</button>
                 )
             }
         </div>

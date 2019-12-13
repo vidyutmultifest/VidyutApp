@@ -138,6 +138,9 @@ const MyTeamsPage = () => {
                     <Link href={`/teams/view?hash=${t.hash}`}>
                         <button className="btn w-100 card-shadow d-block text-left p-3">
                             <h4>{t.name}</h4>
+                            <div className="my-2">
+                                <div>Team Code : {t.hash}</div>
+                            </div>
                             { t.isUserLeader ? <span className="badge badge-warning px-3 py-2 mr-2">Leader</span> : null}
                             <span className="badge badge-primary px-3 py-2">{t.membersCount} Member{t.membersCount > 1 ? 's' : null}</span>
                         </button></Link>
