@@ -90,9 +90,9 @@ const Competitions = () => {
                                 />
                             </div>
                     }
+                    <DashboardFooter/>
                 </React.Fragment> : <LoadingScreen text="Loading Competitions" />
         }
-        <DashboardFooter/>
     </Base>
 };
 

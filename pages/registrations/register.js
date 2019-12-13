@@ -139,79 +139,85 @@ const RegisterPage = () => {
         exit: { y: -20, opacity: 0 },
     });
 
-    return isError ?
+    return   (
+    <Base loginRequired>
+        <Head>
+            <title>Register for {isLoaded ? data.product.name : "Register for Vidyut"} | Registration Page | Vidyut 2020</title>
+        </Head>
+        {isError ?
             <LoadingScreen
                 text="We couldn't load this page due to a error. Try again later, or if this error exists, contact web@vidyut.amrita.edu."
             />
-        : isLoaded ? (
-        <Base loginRequired>
-            <Head>
-                <title>Register for {data.product.name} | Registration Page | Vidyut 2020</title>
-            </Head>
-            <TitleBar/>
-            <div className="container p-0 my-4">
-                <h1 className="mb-4 mx-4">{data.product.name} Registration</h1>
-                <PoseGroup>
-                {
-                    !isTeamSelected ? <Shade key="teamselection">
-                        {
-                            data.product.details.isTeamEvent ?
-                                <TeamSelector
-                                    onSelect={handleTeamSelection}
-                                    maxTeamSize={data.product.details.maxTeamSize}
-                                    minTeamSize={data.product.details.minTeamSize}
-                                    teamSelected={teamSelected}
-                                /> : setTeamSelected(true)
-                        }
-                    </Shade> : !isFormFilled ? <Shade key="form">
-                        {
-                            data.product.details.formFields !== null ?
-                                <EventRegistrationForm
-                                    fields={data.product.details.formFields}
-                                    onSubmit={(data) => handleFormSubmission(data)}
-                                    onClickBack={() => setTeamSelected(false)}
-                                    formData={formData}
-                                /> : setFormFilled(true)
-                        }
-                    </Shade> : !hasAgreed ?
-                    <Shade key="agreement">
-                        <UserAgreement
-                            content={data.product.details.details}
-                            onAgree={() => setAgreed(true)}
-                            onClickBack={() => setFormFilled(false)}
-                        />
-                    </Shade> : !hasRegistered ?
-                    <Shade  key="preview">
-                        <SubmissionPreview
-                            formData={formData}
-                            team={teamSelected}
-                            onSubmit={handleSubmit}
-                            onClickBack={() => setAgreed(false)}
-                        />
-                    </Shade> : <Shade  key="preview">
-                                <div className="card-shadow p-4">
-                                    <StatusContainer
-                                        image={require('../../images/illus/confirmation.png')}
-                                        title="Registered Successfully"
-                                        text="Thank you for registering, and we look forward to meet you at Vidyut 2020"
-                                        buttons={<div>
-                                            <Link href="/registrations/my-registrations">
-                                                <button className="btn btn-primary font-weight-bold mr-2">View My Registrations</button>
-                                            </Link>
-                                            <Link href="/dashboard">
-                                                <button className="btn btn-primary font-weight-bold">Open Dashboard</button>
-                                            </Link>
-                                        </div>}
+            : isLoaded ? (
+                <React.Fragment>
+                    <TitleBar/>
+                        < div className = "container p-0 my-4" >
+                        < h1 className="mb-4 mx-4">{data.product.name} Registration</h1>
+                    <PoseGroup>
+                    {
+                        !isTeamSelected ? <Shade key="teamselection">
+                            {
+                                data.product.details.isTeamEvent ?
+                                    <TeamSelector
+                                        onSelect={handleTeamSelection}
+                                        maxTeamSize={data.product.details.maxTeamSize}
+                                        minTeamSize={data.product.details.minTeamSize}
+                                        teamSelected={teamSelected}
+                                    /> : setTeamSelected(true)
+                            }
+                        </Shade> : !isFormFilled ? <Shade key="form">
+                            {
+                                data.product.details.formFields !== null ?
+                                    <EventRegistrationForm
+                                        fields={data.product.details.formFields}
+                                        onSubmit={(data) => handleFormSubmission(data)}
+                                        onClickBack={() => setTeamSelected(false)}
+                                        formData={formData}
+                                    /> : setFormFilled(true)
+                            }
+                        </Shade> : !hasAgreed ?
+                            <Shade key="agreement">
+                                <UserAgreement
+                                    content={data.product.details.details}
+                                    onAgree={() => setAgreed(true)}
+                                    onClickBack={() => setFormFilled(false)}
+                                />
+                            </Shade> : !hasRegistered ?
+                                <Shade key="preview">
+                                    <SubmissionPreview
+                                        formData={formData}
+                                        team={teamSelected}
+                                        onSubmit={handleSubmit}
+                                        onClickBack={() => setAgreed(false)}
                                     />
-                                </div>
-                    </Shade>
+                                </Shade> : <Shade key="preview">
+                                    <div className="card-shadow p-4">
+                                        <StatusContainer
+                                            image={require('../../images/illus/confirmation.png')}
+                                            title="Registered Successfully"
+                                            text="Thank you for registering, and we look forward to meet you at Vidyut 2020"
+                                            buttons={<div>
+                                                <Link href="/registrations/my-registrations">
+                                                    <button className="btn btn-primary font-weight-bold mr-2">View My
+                                                        Registrations
+                                                    </button>
+                                                </Link>
+                                                <Link href="/dashboard">
+                                                    <button className="btn btn-primary font-weight-bold">Open Dashboard</button>
+                                                </Link>
+                                            </div>}
+                                        />
+                                    </div>
+                                </Shade>
+                    }
+                    </PoseGroup>
+                    </div>
+                    <Footer/>
+                </React.Fragment>
+            ) : <LoadingScreen text="Opening registration page" />
+        }
+    </Base>);
 
-                }
-                </PoseGroup>
-            </div>
-            <Footer/>
-        </Base>
-    ) : <LoadingScreen text="Opening registration page" />;
 };
 
 export default RegisterPage;

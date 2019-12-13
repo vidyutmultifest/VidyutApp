@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import dataFetch from "../../utils/dataFetch";
+import Link from "next/link";
 
 const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
 
@@ -58,10 +59,16 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
                             <div className="alert alert-danger">
                                 Your team {team.name} only has {team.membersCount} members, you need atleast {minTeamSize - team.membersCount} members more
                                 to participate in this event. Invite others to join your team, or select a different team to continue registering.
+                                <Link href="/teams/my-teams">
+                                    <button className="btn btn-primary font-weight-bold">View My Teams</button>
+                                </Link>
                             </div> : team.membersCount > minTeamSize ?
                                 <div className="alert alert-danger">
                                     Your team {team.name} has {team.membersCount} members, you need to remove atleast {team.membersCount - maxTeamSize} members
                                     to participate in this event. Go to your team page to remove members, or select a different team to continue registering.
+                                    <Link href="/teams/my-teams">
+                                        <button className="btn btn-primary font-weight-bold">View My Teams</button>
+                                    </Link>
                                 </div> : null
                     }
                 </div>
@@ -101,7 +108,12 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
                 myTeams && myTeams.length > 0 ?
                     renderTeamSelector()
                     : myTeams.length == 0 ?
-                    <div className="alert alert-danger">You don't seem to be in any team. Please create a team.</div>
+                    <div className="alert alert-danger">
+                        You don't seem to be in any team. Please create a team.
+                        <Link href="/teams/my-teams">
+                            <button className="btn btn-primary font-weight-bold">Create/Join a Team</button>
+                        </Link>
+                    </div>
                     : <div className="alert alert-warning">Loading your teams</div>
             }
             {
