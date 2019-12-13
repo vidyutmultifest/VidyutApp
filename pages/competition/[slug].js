@@ -86,7 +86,7 @@ const Workshop = () => {
                     products={data.products}
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-9 p-md-4 my-4">
+                    <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
                         {eventDetails()}
                     </div>
                     <div className="col-md-5 col-xl-3 p-md-4 my-4">

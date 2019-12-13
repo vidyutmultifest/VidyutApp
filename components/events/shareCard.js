@@ -9,7 +9,7 @@ import {
 
 const ShareCard = ({ title, link }) => (
      <div id="share-card" className="card-shadow">
-         <div className="p-4">
+         <div className="p-4 my-4">
              <div className="d-flex">
                  <WhatsappShareButton
                     url={link}

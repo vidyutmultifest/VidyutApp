@@ -89,7 +89,7 @@ const Dashboard = () => {
                             <div className="container p-0">
                                 {
                                     data.myPermissions && data.myPermissions.adminAccess ? (
-                                        <div id="admin-access-prompt" className="card-shadow">
+                                        <div id="admin-access-prompt" className="card-shadow mx-0">
                                             <h3>You are an Admin Volunteer</h3>
                                             <Link href="/admin"><button className="btn btn-primary px-4 py-2">Go to Admin</button></Link>
                                         </div>
@@ -97,7 +97,7 @@ const Dashboard = () => {
                                 }
                                 {
                                     !data.isProfileComplete ? (
-                                        <div id="profile-completion-prompt" className="card-shadow">
+                                        <div id="profile-completion-prompt" className="card-shadow mx-0">
                                             <h3>Complete your profile</h3>
                                             <p>
                                                 You need to complete your profile with the required data,
@@ -123,9 +123,10 @@ const Dashboard = () => {
                                     ) : null
                                 }
                                 <QuickActionCards status={data.status} />
+                                <h4 className="px-4 section-heading">My Menu</h4>
                                 <OptionMenuCards status={data.status} />
                                 <div>
-                                    <h4 className="px-4 section-heading">Profile</h4>
+                                    <h4 className="px-4 section-heading">My Profile</h4>
                                     <div className="row m-0">
                                         <div className="col-md-6 py-2">
                                             <MyPurchases />

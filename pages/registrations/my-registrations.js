@@ -39,11 +39,11 @@ const MyRegistrations = () => {
             <title>My Registrations | Registrations | Vidyut 2020</title>
         </Head>
         <TitleBar />
-        <div className="container p-0">
-            <h1 className="my-4">My Registrations</h1>
-            <div className="card-shadow p-4">
-                {
-                    data && data.length > 0 ?
+        {
+            data && data.length > 0 ?
+                <div className="container p-0">
+                    <h1 className="my-4">My Registrations</h1>
+                    <div className="card-shadow p-4">
                         <table className="table table-bordered">
                             <thead>
                                 <tr>
@@ -65,14 +65,14 @@ const MyRegistrations = () => {
                                 ))
                             }
                             </tbody>
-                        </table> : <StatusContainer
-                            title="No Registrations Found"
-                            image={require('../../images/illus/sad.png')}
-                            text="Looks like you have not registered for any events for Vidyut 2020"
-                        />
-                }
-            </div>
-        </div>
+                        </table>
+                    </div>
+                </div> : <StatusContainer
+                    title="No Registrations Found"
+                    image={require('../../images/illus/sad.png')}
+                    text="Looks like you have not registered for any events for Vidyut 2020"
+                />
+        }
         <DashboardFooter />
     </Base>
 };
