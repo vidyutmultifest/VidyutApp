@@ -8,6 +8,7 @@ import TitleBar from "../../components/titleBar";
 import DashboardFooter from "../../modules/dashboard/footer";
 import dataFetch from "../../utils/dataFetch";
 import LoadingScreen from "../../components/loadingScreen";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
 
 const TeamViewPage = () => {
@@ -123,7 +124,8 @@ const TeamViewPage = () => {
                 title={`Your Team: ${teamName}`}
                 content={
                     <div className="p-4">
-                        <div className="form-group">
+                        <div>Team Code: <br />{router.query.hash}</div>
+                        <div className="form-group mt-3">
                             <label htmlFor="team-name-input">Team Name</label>
                             <input
                                 id="team-name-input"
@@ -161,9 +163,17 @@ const TeamViewPage = () => {
                     </div>
                 }
                 footer={
-                    !teamData.isUserLeader ?
-                        <button className="btn btn-primary" onClick={exitTeam}>Leave Team</button> :
-                    <button onClick={handleEditTeam} className="btn btn-primary">Save</button>
+                    <React.Fragment>
+                        {
+                            !teamData.isUserLeader ?
+                                <button className="btn btn-primary mr-2" onClick={exitTeam}>Leave Team</button> :
+                                <button onClick={handleEditTeam} className="btn btn-primary mr-2">Save</button>
+                        }
+                        <CopyToClipboard text={router.query.hash}>
+                            <button className="btn btn-warning">Copy Invite Code</button>
+                        </CopyToClipboard>
+                    </React.Fragment>
+
                 }
             />
         </div>
