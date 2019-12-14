@@ -52,6 +52,7 @@ const Dashboard = () => {
         enableWorkshopRegistration
         enableCompetitionRegistration
         enableMerchandiseShopping
+        pushNotification
       }
       isProfileComplete
     }`;
@@ -86,6 +87,17 @@ const Dashboard = () => {
                     We look forward to welcome you at Vidyut Multifest 2020, the only one of its kind college festival in India."
                         />
                             <div className="container p-0">
+                                {
+                                    data.status && data.status.pushNotification !== '' ? (
+                                        <div className="card-shadow bg-gradient p-3 my-4 mx-0">
+                                            <div className="card-shadow p-3">
+                                                <h3>Notice</h3>
+                                                {data.status.pushNotification}
+                                            </div>
+                                        </div>
+                                    ) : null
+
+                                }
                                 {
                                     data.myPermissions && data.myPermissions.adminAccess ? (
                                         <div id="admin-access-prompt" className="card-shadow mx-0">

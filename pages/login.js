@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
 import NoSSR from '../components/noSSR';
 import MicrosoftLogin from "react-microsoft-login";
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { FacebookProvider, LoginButton } from 'react-facebook';
 
 import '../styles/login.sass'
 
@@ -154,7 +154,7 @@ function LoginPage(props) {
     };
 
     const loginWithFacebook = (response) => {
-        const variables = { accessToken: response.accessToken };
+        const variables = { accessToken: response.tokenDetail.accessToken };
         Login(FacebookAuthLogin, variables).then(response => {
             console.log('Server Response', response);
             if(!Object.prototype.hasOwnProperty.call(response, 'errors')) {
@@ -188,17 +188,19 @@ function LoginPage(props) {
                         </NoSSR>
                     </div>
                     <div>{
-                            status.facebookSignIn ? (<FacebookLogin
-                            appId="1208261302617130"
-                            autoLoad
-                            callback={loginWithFacebook}
-                            render={renderProps => (
-                                <button onClick={() => renderProps.onClick} className="login-button-microsoft">
-                                    <img src={require('../images/icons/facebook.png')} />
-                                    Login with Facebook
-                                </button>
-                            )}
-                        />) : null
+                            status.facebookSignIn ? <FacebookProvider appId="2427065454211076">
+                                <LoginButton
+                                    scope="email"
+                                    onCompleted={loginWithFacebook}
+                                    onError={(e) => console.log(e)}
+                                    className="login-button-microsoft"
+                                >
+                                    <div>
+                                        <img src={require('../images/logos/facebook.png')} />
+                                        Login with Facebook
+                                    </div>
+                                </LoginButton>
+                            </FacebookProvider> : null
                     }
                     </div>
                     <div>
