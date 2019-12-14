@@ -18,7 +18,7 @@ const TitleBar = () => {
           <img alt="user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
           {
               menuOpen ?
-                  <div className="menu card-shadow">
+                  <div className="menu card-shadow" onfocusout={() => setMenuState(false)}>
                       <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
                       <div className="link"><Link href="/profile/edit-profile"><a>Edit Profile</a></Link></div>
                       <div className="link"><Link href="/logout"><a>Logout</a></Link></div>

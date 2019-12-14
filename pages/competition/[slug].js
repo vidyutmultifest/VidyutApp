@@ -70,8 +70,6 @@ const Workshop = () => {
         </div>
     );
 
-
-
     return <Base>
         <Head>
             <title> { isLoaded ? data.name : router.query.slug } - Competition | Vidyut 2020 </title>

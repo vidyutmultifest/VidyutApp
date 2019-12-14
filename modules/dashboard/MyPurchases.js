@@ -53,14 +53,14 @@ const MyPurchases = () => {
     });
 
     const NotRegistered = (
-        <div className="not-registered-prompt">
+        <div className="not-registered-prompt text-center p-4">
             <img src={require('../../images/icons/sad.png')} />
             <h6>Nothing Found</h6>
             <div>
                 You have not <i>yet</i> registered for any events.
                 But you surely can take the time to explore all the cool stuff happening at Vidyut.
             </div>
-            <button className="btn btn-primary">Explore Vidyut</button>
+            <button className="btn mt-4 btn-primary">Explore Vidyut</button>
         </div>
     );
 
@@ -85,7 +85,7 @@ const MyPurchases = () => {
 
     return isLoaded ?
         <QuickListCard
-            items={[data.map(d => Purchases(d))]}
+            items={data.length > 0 ? [data.map(d => Purchases(d))] : []}
             title="My Purchase History"
             renderWhenEmpty={NotRegistered}
             showMoreButton={{

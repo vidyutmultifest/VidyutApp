@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { GoogleLogin } from 'react-google-login';
 import NoSSR from '../components/noSSR';
 import MicrosoftLogin from "react-microsoft-login";
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
 import '../styles/login.sass'
 
@@ -28,6 +29,7 @@ function LoginPage(props) {
       status
       {
         googleSignIn
+        facebookSignIn
       }
     }`;
 
@@ -57,6 +59,17 @@ function LoginPage(props) {
 
     const MicrosoftAuthLogin = `mutation microsoftLogin($accessToken: String!){
         socialAuth(accessToken: $accessToken, provider: "microsoft-graph")
+          {
+            token
+            user
+            {
+              username
+            }
+          }
+    }`;
+
+    const FacebookAuthLogin = `mutation facebookLogin($accessToken: String!){
+        socialAuth(accessToken: $accessToken, provider: "facebook-app")
           {
             token
             user
@@ -140,8 +153,24 @@ function LoginPage(props) {
         });
     };
 
+    const loginWithFacebook = (response) => {
+        const variables = { accessToken: response.accessToken };
+        Login(FacebookAuthLogin, variables).then(response => {
+            console.log('Server Response', response);
+            if(!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                cookies.set('token', response.data.socialAuth.token, { path: '/' });
+                cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
+                router.push('/dashboard');
+            } else {
+                setAuthFail(true);
+                setErrorMessage('Login has failed');
+                setLoading(false);
+            }
+        });
+    };
+
     return !isLoading && isLoaded ? (<LoginPageWrapper>
-               <div id="login-card">
+               <div id="login-card" className="text-center">
                <img src={require('../images/logos/vidyut-dark-logo.png')}  className="logo" style={{ width: '100%' }}/>
                {authFail ? errorMessage : null}
                 <div className="social-login-buttons">
@@ -157,6 +186,20 @@ function LoginPage(props) {
                                 </button>}
                             />
                         </NoSSR>
+                    </div>
+                    <div>{
+                            status.facebookSignIn ? (<FacebookLogin
+                            appId="1208261302617130"
+                            autoLoad
+                            callback={loginWithFacebook}
+                            render={renderProps => (
+                                <button onClick={() => renderProps.onClick} className="login-button-microsoft">
+                                    <img src={require('../images/icons/facebook.png')} />
+                                    Login with Facebook
+                                </button>
+                            )}
+                        />) : null
+                    }
                     </div>
                     <div>
                     {

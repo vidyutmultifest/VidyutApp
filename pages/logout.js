@@ -11,12 +11,12 @@ const LogoutPage = () => {
     const [loggedOut, logOut] = useState(false);
 
     useEffect(() => {
+        cookies.remove('token');
+        cookies.remove('refreshToken');
+        cookies.remove('username');
+        localStorage.clear();
         if(!loggedOut)
         {
-            cookies.remove('token');
-            cookies.remove('refreshToken');
-            cookies.remove('username');
-            localStorage.clear();
             router.push('/login');
             logOut(true);
         }
