@@ -20,7 +20,7 @@ const TitleBar = () => {
               menuOpen ?
                   <div className="menu card-shadow" onfocusout={() => setMenuState(false)}>
                       <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
-                      <div className="link"><Link href="/profile/edit-profile"><a>Edit Profile</a></Link></div>
+                      <div className="link"><Link href="/profile/edit-profile"><a>Profile</a></Link></div>
                       <div className="link"><Link href="/logout"><a>Logout</a></Link></div>
                   </div> : null
           }
@@ -30,7 +30,7 @@ const TitleBar = () => {
 
     return <nav id="titlebar">
         <div className="row m-0">
-            <div className="col-lg-2 col-md-3 col-8">
+            <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
                 <Link href="/dashboard"><img alt="vidyut-text-logo" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
             </div>
             <div className="col text-right">
