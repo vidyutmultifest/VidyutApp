@@ -1,11 +1,13 @@
 import React from "react";
-import LoadingScreen from "../components/loadingScreen";
 import Base from "../components/base";
 import TitleBar from "../components/titleBar";
 import DashboardFooter from "../modules/dashboard/footer";
 
 export default () => (
     <Base>
+        <Head>
+            <title>Privacy Policy | Vidyut WebApp | Vidyut 2020 - National Level Multifest</title>
+        </Head>
         <TitleBar/>
         <div className="container">
             <div className="card-shadow p-4 mt-4">

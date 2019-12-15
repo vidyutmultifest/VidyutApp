@@ -31,7 +31,7 @@ const TitleBar = () => {
     return <nav id="titlebar">
         <div className="row m-0">
             <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
-                <Link href="/dashboard"><img alt="vidyut-text-logo" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
+                <Link href="/dashboard"><img alt="vidyut-text-logo" id="vidyut-logo-topbar" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
             </div>
             <div className="col text-right">
                 {
