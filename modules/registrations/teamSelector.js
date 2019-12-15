@@ -112,7 +112,7 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
 
     return (
         <div className="card-shadow p-4">
-            <h3>1. Select your Team</h3>
+            <h3>Select Your Team</h3>
             <p>
                 Participating in this event requires you to form a team with <b>minimum of {minTeamSize} members</b>,
                 and <b>maximum of {maxTeamSize} members</b>. You need to be leader of such a team to proceed with the registration.

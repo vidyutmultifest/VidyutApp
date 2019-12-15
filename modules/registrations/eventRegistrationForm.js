@@ -41,7 +41,7 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
 
     return data ? (
         <div className="card-shadow p-4">
-            <h3>2. Fill in Details</h3>
+            <h3>Fill in Details</h3>
             {
                 !validationError ? null : <div className="alert alert-danger">{validationError}</div>
             }

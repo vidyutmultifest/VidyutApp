@@ -2,19 +2,19 @@ import React from "react";
 
 const SubmissionPreview = ({ team, formData, onSubmit, onClickBack }) => {
 
-    const renderFormData = (
+    const renderFormData = formData ? (
         <div className="card-shadow my-4 p-4">
             <h3>Details Submitted</h3>
             {
-                formData && formData.map(f => (
-                    <div key={f.key}>
-                        <div><b>{f.label}</b></div>
-                        {f.value}
-                    </div>
-                ))
+                 formData.map(f => (
+                <div key={f.key}>
+                    <div><b>{f.label}</b></div>
+                    {f.value}
+                </div>
+            ))
             }
         </div>
-    );
+    ) : null;
 
     const renderTeamDetails = () => (
         <div className="card-shadow my-4 p-4">

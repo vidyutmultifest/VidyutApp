@@ -13,7 +13,7 @@ const EventHeaderCard = ({ name, cover, text, products }) => {
 
     return (<div className="event-header-card card-shadow">
         <div className="p-0 event-cover">
-            <img src={cover}/>
+            <img src={cover} className="w-100"/>
         </div>
         <div className="row m-0 px-2 py-4">
             <div className="event-details col-md-8 px-4">

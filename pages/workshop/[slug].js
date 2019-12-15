@@ -8,6 +8,8 @@ import EventHeaderCard from "../../components/events/headerCard";
 
 import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
+import PrizesCard from "../../modules/events/prizesCard";
+import ContactCard from "../../modules/events/contactCard";
 
 const Workshop = () => {
     const router = useRouter();
@@ -25,6 +27,16 @@ const Workshop = () => {
         description
         fee
         productID
+        products
+        {
+           productID
+        }
+        contacts 
+        {
+           name
+           email
+           phone
+        }
       }
     }`;
 
@@ -56,17 +68,28 @@ const Workshop = () => {
         </Head>
         <TitleBar />
         { isLoaded ? (
-        <div className="container p-0 my-4">
-            <EventHeaderCard
-                cover={data.cover}
-                name={data.name}
-                price={data.fee}
-                text={data.description}
-                registerURL={`/purchase?product=${data.productID}`}
-            />
-            {eventDetails()}
-            <ShareCard />
-        </div>
+            <React.Fragment>
+                <EventHeaderCard
+                    cover={data.cover}
+                    name={data.name}
+                    text={data.description}
+                    products={data.products}
+                />
+                <div className="row m-0">
+                    <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
+                        {eventDetails()}
+                    </div>
+                    <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
+                        <ContactCard
+                            contacts={data.contacts}
+                        />
+                        <ShareCard
+                            title={data.name}
+                            link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}
+                        />
+                    </div>
+                </div>
+            </React.Fragment>
         ): null}
     </Base>
 };

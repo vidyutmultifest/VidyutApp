@@ -2,6 +2,7 @@ import React from "react";
 import Base from "../components/base";
 import TitleBar from "../components/titleBar";
 import DashboardFooter from "../modules/dashboard/footer";
+import Head from "next/head";
 
 export default () => (
     <Base>

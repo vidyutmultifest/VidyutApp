@@ -21,6 +21,9 @@ const CollegeIDPhoto = ({ collegeIDPhoto }) => {
                 collegeIDPhoto ?
                     <div className="edit-body">
                         <img src={collegeIDPhoto} />
+                        <Link href="/profile/upload-collegeID">
+                            <button className="btn btn-primary px-4 py-2">Upload Again</button>
+                        </Link>
                     </div>
                     : renderNoProfilePhotoFound
             }

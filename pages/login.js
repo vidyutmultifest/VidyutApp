@@ -80,6 +80,11 @@ function LoginPage(props) {
     }`;
 
     useEffect(() => {
+        setURL(window.location.href);
+        const token = cookies.get('token');
+        if (token != null) {
+            router.push('/dashboard');
+        }
         if(!isQueried)
         {
             getStatus().then(  response => {
@@ -89,11 +94,6 @@ function LoginPage(props) {
                     setLoaded(true);
                 }
             })
-        }
-        setURL(window.location.href);
-        const token = cookies.get('token');
-        if (token != null) {
-            router.push('/dashboard');
         }
     });
 
@@ -136,8 +136,6 @@ function LoginPage(props) {
     };
 
     const loginWithMicrosoft =  (err, data) => {
-        console.log('Microsoft Login Error', err);
-        console.log('Microsoft Auth Data', data);
         const variables = { accessToken: data.authResponseWithAccessToken.accessToken };
         Login(MicrosoftAuthLogin, variables).then(response => {
             console.log('Server Response', response);

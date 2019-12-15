@@ -117,19 +117,22 @@ const Dashboard = () => {
                                             </p>
                                             {
                                                 !data.myProfile.photo ?
-                                                    <Link href="profile/upload-selfie">
-                                                        <button className="btn btn-primary px-4 py-2">Upload Selfie</button>
+                                                    <Link href="/profile/upload-selfie">
+                                                        <button className="btn btn-primary px-4 py-2 mr-2">Upload Selfie</button>
                                                     </Link>
                                                     : !data.myProfile.rollNo ?
-                                                    <Link href="profile/upload-collegeID">
-                                                        <button className="btn btn-primary px-4 py-2">Update College
+                                                    <Link href="/profile/upload-collegeID">
+                                                        <button className="btn btn-primary px-4 py-2 mr-2">Update College
                                                             Profile
                                                         </button>
                                                     </Link> :
-                                                    <Link href="profile/update-phone">
-                                                        <button className="btn btn-primary px-4 py-2">Update Phone</button>
+                                                    <Link href="/profile/update-phone">
+                                                        <button className="btn btn-primary px-4 py-2 mr-2">Update Phone</button>
                                                     </Link>
                                             }
+                                            <Link href="/profile/edit-profile">
+                                                <button className="btn btn-primary px-4 py-2">Edit Profile</button>
+                                            </Link>
                                         </div>
                                     ) : null
                                 }
