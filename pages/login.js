@@ -207,7 +207,7 @@ function LoginPage(props) {
                     {
                         status.googleSignIn ? (
                             <GoogleLogin
-                                clientId="74361786264-v858k0po050aon4fqf27ehrcin9un4ga.apps.googleusercontent.com"
+                                clientId="929385656161-b49s4q6vuqmdvt8lvapq0tggu5rlmnrc.apps.googleusercontent.com"
                                 onSuccess={loginWithGoogle}
                                 icon={false}
                                 cookiePolicy={'single_host_origin'}

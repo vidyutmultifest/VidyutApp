@@ -8,15 +8,13 @@
 #event-details-card
   padding: 3rem
   .wrapper
-    max-height: 40vh
+    max-height: 50vh
     overflow: hidden
     position: relative
   .show-all
     max-height: none!important
   button
     border-radius: 0
-
-
 
 #share-card
   display: flex
@@ -33,6 +31,10 @@
     padding: 0 0.5rem
     max-width: 64px
     width: 100%
+    transition: 1s
+  img:hover
+    transition: 1s
+    transform: translateY(-2vh)
 
 #prizes-card
   padding: 2rem
@@ -56,3 +58,25 @@
     display: block
     padding: 1rem 1.5rem
     font-weight: 900
+
+#contacts-card
+  padding: 2rem
+  border-radius: 1rem
+  .row
+    margin: 1.2rem 0
+  .col-3
+    display: flex
+    align-items: center
+  .contactName
+    font-weight: 900
+    color: #4A148C
+    margin-bottom: 0.25rem
+  .contactPhone, .contactEmail
+    font-size: 1rem
+    padding: 0.25rem
+    a
+      text-decoration: none
+      color: black
+    img
+      max-width: 24px
+      margin-right: 1rem

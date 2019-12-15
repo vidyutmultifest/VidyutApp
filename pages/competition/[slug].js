@@ -12,6 +12,7 @@ import '../../styles/events/style.sass';
 import PrizesCard from "../../modules/events/prizesCard";
 
 import DashboardFooter from "../../modules/dashboard/footer";
+import ContactCard from "../../modules/events/contactCard";
 
 const Workshop = () => {
     const router = useRouter();
@@ -37,6 +38,12 @@ const Workshop = () => {
         firstPrize
         secondPrize
         thirdPrize
+        contacts 
+        {
+           name
+           email
+           phone
+        }
       }
     }`;
 
@@ -87,11 +94,14 @@ const Workshop = () => {
                     <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
                         {eventDetails()}
                     </div>
-                    <div className="col-md-5 col-xl-3 p-md-4 my-4">
+                    <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
                         <PrizesCard
                             firstPrize={data.firstPrize}
                             secondPrize={data.secondPrize}
                             thirdPrize={data.thirdPrize}
+                        />
+                        <ContactCard
+                            contacts={data.contacts}
                         />
                         <ShareCard
                             title={data.name}

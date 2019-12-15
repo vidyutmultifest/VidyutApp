@@ -17,13 +17,13 @@ const ProfilePicture = ({ profilePhoto }) => {
     return (
         <div id="vidyut-profile-edit-card" className="profile-edit-card card-shadow">
             <h4>My Selfie</h4>
-            <div className="edit-body">
-                {
-                    profilePhoto ? <img src={profilePhoto} /> :
-                        renderNoProfilePhotoFound
-                }
-
-            </div>
+            {
+                profilePhoto ?
+                    <div className="edit-body">
+                        <img src={profilePhoto} />
+                    </div>
+                    : renderNoProfilePhotoFound
+            }
         </div>
     )
 };
