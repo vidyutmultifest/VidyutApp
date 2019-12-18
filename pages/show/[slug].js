@@ -17,7 +17,7 @@ const Workshop = () => {
     const [data, setData] = useState();
 
     const query = `{
-      getWorkshop(slug: "${router.query.slug}")
+      getTicketEvent(slug: "${router.query.slug}")
       {
         name
         slug
@@ -52,7 +52,7 @@ const Workshop = () => {
             getDetails().then((response) => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setData(response.data.getWorkshop);
+                    setData(response.data.getTicketEvent);
                     setLoaded(true);
                 }
             })
@@ -62,7 +62,7 @@ const Workshop = () => {
 
     const eventDetails = () => (
         <div id="event-details-card" className="card-shadow">
-            <h3>Workshop Details</h3>
+            <h3>Show Details</h3>
             <div dangerouslySetInnerHTML={{ __html: data.details}} />
         </div>
     );
@@ -79,6 +79,7 @@ const Workshop = () => {
                     name={data.name}
                     text={data.description}
                     products={data.products}
+                    registerText="Buy"
                 />
                 <div className="row m-0">
                     <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">

@@ -20,11 +20,15 @@ const PurchasePage = () => {
     const query = `query getProduct($productID: String!){
       getProduct(productID: $productID)
       {
+        name
+        price
         isAvailable
+        isAmritapurianOnly
+        isFacultyOnly
+        isSchoolOnly
         product
         {
           name
-          price
           slug
           type
           photo
@@ -60,15 +64,19 @@ const PurchasePage = () => {
             <div className="container my-4">
                 {
                     isLoaded ? <CartView
-                        products={[
+                        productList={[
                             {
-                                name: data.product.name,
+                                name: data.name,
                                 productID: router.query.product,
-                                price: data.product.price,
+                                price: data.price,
                                 photo: data.product.photo,
+                                isAmritapurianOnly: data.isAmritapurianOnly,
+                                isFacultyOnly: data.isFacultyOnly,
+                                isSchoolOnly: data.isSchoolOnly,
                                 id: router.query.product,
-                                qty: 1
-                            }
+                                qty: router.query.qty ? router.query.qty : 1
+
+                        }
                         ]}
                         promocode={router.query.promocode}
                     /> : null

@@ -8,8 +8,8 @@ import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
 const _ = require('lodash');
 
 
-const CartView = ({ products, promocode }) => {
-
+const CartView = ({ productList, promocode }) => {
+    const [products, setProducts] = useState(productList);
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [showModal, setModal] = useState(false);
@@ -124,7 +124,7 @@ const CartView = ({ products, promocode }) => {
 
     const calcTotalPrice = () => {
         let price = 0;
-        products.map(p => price += p.price);
+        products.map(p => price += p.price * p.qty);
         return price;
     };
 
@@ -135,19 +135,35 @@ const CartView = ({ products, promocode }) => {
         return price * 0.18;
     };
 
+    const handleQtyChange = (pindex, qty) => {
+        let newArr = [...products];
+        newArr[pindex].qty = qty;
+        setProducts(newArr);
+    };
+
     return (
         <div id="cart-view" className="card-shadow">
             <div className="row m-0">
                 <div className="col-md-8">
                     <h4>In Your Cart</h4>
                     {
-                        products.map(p => (
+                        products.map((p,i) => (
                             <CartItem
                                 photo={p.photo}
+                                key={i}
                                 qty={p.qty}
+                                onChangeQty={(qty) => handleQtyChange(i, qty)}
                                 title={p.name}
                                 text="No description available"
                                 price={`Rs. ${p.price}`}
+                                badge={
+                                    p.isAmritapurianOnly ?
+                                    <div className="badge badge-warning rounded-0">Exclusive for Amritapurians</div> :
+                                    p.isFacultyOnly ?
+                                    <div className="badge badge-warning rounded-0">Exclusive for Faculty/Industry Personnels</div> :
+                                    p.isSchoolOnly ?
+                                    <div className="badge badge-warning rounded-0">Exclusive for School Students</div> : null
+                                }
                             />
                         ))
                     }
@@ -160,7 +176,7 @@ const CartView = ({ products, promocode }) => {
                     <h4>Purchase Summary</h4>
                     <div>
                         <PaymentSummaryItem
-                            cartValue={totalPrice - calcGST(totalPrice) - 20}
+                            cartValue={totalPrice - calcGST(totalPrice) - 0}
                             charges={[
                                 {
                                     'name': "GST @ 18%",
@@ -168,7 +184,7 @@ const CartView = ({ products, promocode }) => {
                                 },
                                 {
                                     'name': "Internet Handling Fee",
-                                    'price': 20
+                                    'price': 0
                                 },
                             ]}
                             deductions={[

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const cookies = new Cookies();
 
-const EventHeaderCard = ({ name, cover, text, products }) => {
+const EventHeaderCard = ({ name, cover, text, products, registerText }) => {
     const token = cookies.get('token');
     const isLoggedIn = token != null;
 
@@ -22,9 +22,9 @@ const EventHeaderCard = ({ name, cover, text, products }) => {
             </div>
             <div className="col-md-4 px-2 align-items-center d-flex">
                 { isLoggedIn ?
-                    <PurchasesItems products={products}/> :
+                    <PurchasesItems products={products} RegisterText={registerText}/> :
                     <Link href="/login">
-                        <button className="btn btn-primary rounded-0 px-4 py-2">Login to Register</button>
+                        <button className="btn btn-primary rounded-0 px-4 py-2">Login to {registerText ? registerText : "Register"}</button>
                     </Link>
                 }
             </div>

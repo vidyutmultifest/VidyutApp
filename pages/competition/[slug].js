@@ -34,6 +34,12 @@ const Workshop = () => {
         products
         {
            productID
+           name
+           price
+           requireRegistration
+           isAmritapurianOnly
+           isFacultyOnly
+           isSchoolOnly
         }
         firstPrize
         secondPrize
