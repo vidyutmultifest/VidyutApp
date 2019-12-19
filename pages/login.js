@@ -7,6 +7,7 @@ import MicrosoftLogin from "react-microsoft-login";
 import { FacebookProvider, LoginButton } from 'react-facebook';
 
 import '../styles/login.sass'
+import '../styles/bootstrap.sass'
 
 import dataFetch from "../utils/dataFetch"
 import LoginPageWrapper from "../wrappers/LoginPage"

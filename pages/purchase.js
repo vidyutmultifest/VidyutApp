@@ -79,6 +79,7 @@ const PurchasePage = () => {
                         }
                         ]}
                         promocode={router.query.promocode}
+                        regID={router.query.regID}
                     /> : null
                 }
             </div>

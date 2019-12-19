@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import QRCode from "qrcode.react";
 import Modal from 'react-modal';
+import Lottie from 'react-lottie';
 
 const VIDCard = ({ vid, vhash }) => {
     const [isOpen, setOpen] = useState(false);
@@ -10,8 +11,15 @@ const VIDCard = ({ vid, vhash }) => {
         <p>Your VID is unique, and please mention it whenever we need to identify you</p>
         <div className="vid">
             {vid}
-            <div>
-                <QRCode onClick={() => setOpen(true)} value={vhash} size={45} />
+            <div onClick={() => setOpen(true)}>
+                <Lottie
+                    options={{
+                        loop: true,
+                        autoplay: true,
+                        animationData: require('../../images/animations/qr-scanning'),
+                    }}
+                    width={45}
+                />
             </div>
             <Modal
                 isOpen={isOpen}

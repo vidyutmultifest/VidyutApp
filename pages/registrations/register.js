@@ -193,7 +193,7 @@ const RegisterPage = () => {
                                 </Shade> : <Shade key="preview">
                                     <div className="card-shadow p-4">
                                         <StatusContainer
-                                            image={require('../../images/illus/confirmation.png')}
+                                            animation={require('../../images/animations/done-button')}
                                             title="Registered Successfully"
                                             text="Thank you for registering, and we look forward to meet you at Vidyut 2020"
                                             buttons={<div>

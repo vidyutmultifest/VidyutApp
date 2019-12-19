@@ -3,7 +3,7 @@ import React from "react";
 
 import '../../styles/events/card.sass';
 
-const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended }) => (
+const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent }) => (
         <Link href={detailsURL}>
             <div className="event-card card-shadow">
                 <div className="event-cover">
@@ -14,8 +14,8 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended 
                     </div>
                 </div>
                 <div className="event-details">
-                    <Link href={detailsURL}><h4>{name}</h4></Link>
-                    <div className="price">₹{price}</div>
+                    <h4>{name}</h4>
+                    <div className="price">₹{price}{isTeamEvent ? "/head" : null}</div>
                     <p>{text}</p>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
 const _ = require('lodash');
 
 
-const CartView = ({ productList, promocode }) => {
+const CartView = ({ productList, promocode, regID }) => {
     const [products, setProducts] = useState(productList);
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
@@ -75,9 +75,9 @@ const CartView = ({ productList, promocode }) => {
         </div>
     ) : null;
 
-    const initiateOrderMutation = `mutation initiateOrder($products:ProductsInput!)
+    const initiateOrderMutation = `mutation initiateOrder($products:ProductsInput!, $regID: String)
     {
-      initiateOrder(products: $products)
+      initiateOrder(products: $products, regID: $regID)
       {
         transactionID
       }
@@ -86,6 +86,7 @@ const CartView = ({ productList, promocode }) => {
     const initiateOrder = async variables => await dataFetch({ query: initiateOrderMutation, variables });
 
     const createOrder = () => {
+        console.log('ehhe')
         const productsList = [];
         products.map( p => {
            productsList.push({
@@ -96,7 +97,8 @@ const CartView = ({ productList, promocode }) => {
         const variables = {
             "products": {
                 "products": productsList
-            }
+            },
+            "regID": regID ? regID : null
         };
         if(!_.isEqual(orderVars, variables))
         {

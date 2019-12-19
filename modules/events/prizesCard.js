@@ -9,7 +9,7 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
             </div>
             <div className="col-9">
                 <div className="prizeType">First Prize</div>
-                <div className="prizeAmount">{firstPrize}</div>
+                <div className="prizeAmount">₹{firstPrize}</div>
             </div>
         </div>
         <div className="row">
@@ -18,7 +18,7 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
             </div>
             <div className="col-9">
                 <div className="prizeType">Second Prize</div>
-                <div className="prizeAmount">{secondPrize}</div>
+                <div className="prizeAmount">₹{secondPrize}</div>
             </div>
         </div>
         <div className="row">
@@ -27,7 +27,7 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
             </div>
             <div className="col-9">
                 <div className="prizeType">Third Prize</div>
-                <div className="prizeAmount">{thirdPrize}</div>
+                <div className="prizeAmount">₹{thirdPrize}</div>
             </div>
         </div>
     </div>

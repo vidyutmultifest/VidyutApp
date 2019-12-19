@@ -8,7 +8,7 @@ const OptionMenuCards = ({ status }) => {
             <Link href="/payment/view-orders">
                 <div className="option-menu-card card-shadow">
                     <div>
-                        <img src={require('../../images/icons/delivery-box-world.png')} />
+                        <img src={require('../../images/icons/invoice.png')} />
                         <h4>Orders</h4>
                     </div>
                 </div>
@@ -18,7 +18,7 @@ const OptionMenuCards = ({ status }) => {
             <Link href="/registrations/my-registrations">
                 <div className="option-menu-card card-shadow">
                     <div>
-                        <img src={require('../../images/icons/inspection.png')} />
+                        <img src={require('../../images/icons/check-list.png')} />
                         <h4>Registrations</h4>
                     </div>
                 </div>

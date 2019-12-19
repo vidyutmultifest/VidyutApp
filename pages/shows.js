@@ -8,6 +8,7 @@ import '../styles/bootstrap.sass';
 import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
+import LoadingScreen from "../components/loadingScreen";
 
 const Shows = () => {
     const [isQueried, setQueried] = useState(false);
@@ -59,31 +60,36 @@ const Shows = () => {
         <Head>
             <title>Shows | Vidyut 2020</title>
         </Head>
-        <TitleBar />
         {
-            isLoaded && data.length > 0 ?
-                <div className="row m-0">
-                    <div className="col-lg-3">
-                    </div>
-                    <div id="event-listing" className="col-lg-9">
+            isLoaded ?
+                <React.Fragment>
+                    <TitleBar/>
+                    {data.length > 0 ?
                         <div className="row m-0">
-                            {
-                                isLoaded ?
-                                    data.reverse().map(s => renderShowCard(s))
-                                    : null
-                            }
+                            <div className="col-lg-3">
+                            </div>
+                            <div id="event-listing" className="col-lg-9">
+                                <div className="row m-0">
+                                    {
+                                        isLoaded ?
+                                            data.reverse().map(s => renderShowCard(s))
+                                            : null
+                                    }
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                : <div className="container d-flex justify-content-center  align-items-center" style={{ minHeight: '90vh' }}>
-                    <StatusContainer
-                        title="No Shows Listed"
-                        image={require('../images/illus/cleanup.png')}
-                        text="We have not listed any shows for Vidyut 2020 at this moment, do check back later."
-                    />
-                </div>
+                        : <div className="container d-flex justify-content-center  align-items-center"
+                               style={{minHeight: '90vh'}}>
+                            <StatusContainer
+                                title="No Shows Listed"
+                                image={require('../images/illus/cleanup.png')}
+                                text="We have not listed any shows for Vidyut 2020 at this moment, do check back later."
+                            />
+                        </div>
+                    }
+                </React.Fragment>
+                : <LoadingScreen text="Loading Shows"/>
         }
-
     </Base>
 };
 
