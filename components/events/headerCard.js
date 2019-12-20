@@ -18,7 +18,7 @@ const EventHeaderCard = ({ name, cover, text, products, registerText, dept }) =>
         <div className="row m-0 px-2 py-4">
             <div className="event-details col-md-8 px-4">
                 {
-                    dept ? 
+                    dept ?
                         <div className="badge badge-warning px-4 py-2 rounded-0 mb-2">{dept}</div>
                         : null
                 }

@@ -5,10 +5,12 @@ import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 import '../../styles/purchase/cart.sass';
 import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
+import {useRouter} from "next/router";
 const _ = require('lodash');
 
 
 const CartView = ({ productList, promocode, regID }) => {
+    const router = useRouter();
     const [products, setProducts] = useState(productList);
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
@@ -86,7 +88,6 @@ const CartView = ({ productList, promocode, regID }) => {
     const initiateOrder = async variables => await dataFetch({ query: initiateOrderMutation, variables });
 
     const createOrder = () => {
-        console.log('ehhe')
         const productsList = [];
         products.map( p => {
            productsList.push({
@@ -123,6 +124,28 @@ const CartView = ({ productList, promocode, regID }) => {
             }
         </Modal>
     );
+
+    const PayOnline = () => {
+        const productsList = [];
+        products.map( p => {
+            productsList.push({
+                "productID": p.productID,
+                "qty": p.qty
+            })
+        });
+        const variables = {
+            "products": {
+                "products": productsList
+            },
+            "regID": regID ? regID : null
+        };
+        if(!_.isEqual(orderVars, variables))
+        {
+            initiateOrder(variables).then((response) => {
+                router.push(`/pay/authorize?transactionID=${response.data.initiateOrder.transactionID}`);
+            })
+        }
+    };
 
     const calcTotalPrice = () => {
         let price = 0;
@@ -197,7 +220,7 @@ const CartView = ({ productList, promocode, regID }) => {
                             ]}
                         />
                         <div>
-                            { isLoaded && status.onlinePayment ? <button className="payment-button card-shadow">Pay Online</button> : null }
+                            { isLoaded && status.onlinePayment ? <button onClick={() => { PayOnline(); }} className="payment-button card-shadow">Pay Online</button> : null }
                             { isLoaded && status.offlinePayment ? <button onClick={() => { createOrder(); setModal(true); }} className="payment-button card-shadow">Pay at Counter</button> : null}
                         </div>
                         {payAtCounter}
