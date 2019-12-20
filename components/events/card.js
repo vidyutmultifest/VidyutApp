@@ -3,9 +3,9 @@ import React from "react";
 
 import '../../styles/events/card.sass';
 
-const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent }) => (
+const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent, dept }) => (
         <Link href={detailsURL}>
-            <div className="event-card card-shadow">
+            <div className="event-card card-shadow h-100">
                 <div className="event-cover">
                    <img src={cover ? cover : require('../../images/assets/landing_headers/before.jpg')} />
                     <div className="event-card-badges">
@@ -14,6 +14,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     </div>
                 </div>
                 <div className="event-details">
+                    { dept ? <span className="dept-name bg-warning px-4 py-2 mb-2">{dept}</span> : null}
                     <h4>{name}</h4>
                     <div className="price">₹{price}{isTeamEvent ? "/head" : null}</div>
                     <p>{text}</p>

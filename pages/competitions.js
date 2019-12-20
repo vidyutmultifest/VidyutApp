@@ -64,6 +64,7 @@ const Competitions = () => {
                 cover={c.cover}
                 price={c.fee}
                 isNew={c.isNew}
+                dept={c.department.label}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
                 detailsURL={`/competition/${c.slug}`}

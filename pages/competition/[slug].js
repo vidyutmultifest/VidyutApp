@@ -31,6 +31,10 @@ const Workshop = () => {
         details
         description
         fee
+        department
+        {
+           name
+        }
         products
         {
            productID
@@ -93,6 +97,7 @@ const Workshop = () => {
                 <EventHeaderCard
                     cover={data.cover}
                     name={data.name}
+                    dept={data.department.name}
                     text={data.description}
                     products={data.products}
                 />
@@ -103,8 +108,8 @@ const Workshop = () => {
                     <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
                         <PrizesCard
                             firstPrize={data.firstPrize}
-                            secondPrize={data.secondPrize}
-                            thirdPrize={data.thirdPrize}
+                            secondPrize={data.secondPrize ? data.secondPrize : null}
+                            thirdPrize={data.thirdPrize ? data.thirdPrize : null}
                         />
                         <ContactCard
                             contacts={data.contacts}
