@@ -5,16 +5,16 @@ const CartItem = ({ charges, deductions, cartValue }) => {
     const renderCharge = (name, price) => (
         <React.Fragment>
             <div className="col-8 px-0 charge-name">{name}</div>
-            <span className="col-4 px-0 charge-amount">+Rs. {price}</span>
+            <span className="col-4 px-0 charge-amount">+Rs. {parseInt(price)}</span>
         </React.Fragment>
     );
     const renderDeduction = (name, price) => (
         <React.Fragment>
             <div className="col-8 px-0 charge-name">{name}</div>
             {
-                price == 0 ?
+                price === 0 ?
                     <span className="col-4 px-0 charge-amount">INC.</span>
-                    : <span className="col-4 px-0 charge-amount">-Rs. {price}</span>
+                    : <span className="col-4 px-0 charge-amount">-Rs. {parseInt(price)}</span>
             }
         </React.Fragment>
     );
@@ -24,7 +24,7 @@ const CartItem = ({ charges, deductions, cartValue }) => {
         let value = cartValue;
         charges.map(c => value+= c.price );
         deductions.map(d => value-= d.price);
-        return value;
+        return parseInt(value);
     };
 
     return (

@@ -14,6 +14,7 @@ const LogoutPage = () => {
         cookies.remove('token');
         cookies.remove('refreshToken');
         cookies.remove('username');
+        cookies.remove('transactionID');
         localStorage.clear();
         if(!loggedOut)
         {

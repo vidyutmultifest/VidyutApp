@@ -72,7 +72,7 @@ const Workshop = () => {
 
     });
 
-    const eventDetails = () => (
+    const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">
             <h3>Competition Details</h3>
             <div className={classNames('wrapper', showMoreState ? 'show-all' : null)}>
@@ -85,7 +85,7 @@ const Workshop = () => {
 
             }
         </div>
-    );
+    ) : null;
 
     return <Base>
         <Head>

@@ -1,24 +1,25 @@
 import React, {useEffect, useState} from "react";
 import CartItem from "../../components/purchase/cartItem";
 import PaymentSummaryItem from "../../components/purchase/PaymentSummaryItem";
-import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 import '../../styles/purchase/cart.sass';
-import PayAtCounterQR from "../../components/purchase/payAtCounterQR";
 import {useRouter} from "next/router";
+import Cookies from "universal-cookie";
+import StatusContainer from "../../components/StatusContainer";
 const _ = require('lodash');
 
 
 const CartView = ({ productList, promocode, regID }) => {
     const router = useRouter();
+    const cookies = new Cookies();
+
     const [products, setProducts] = useState(productList);
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
-    const [showModal, setModal] = useState(false);
-    const [vidyutID, setVidyutID] = useState();
+    const [isPlacingOrder, setPlacingOrder] = useState(false);
     const [status, setStatus] = useState();
-    const [orderVars, setOrderVars] = useState();
-    const [transactionID, setTransactionID] = useState();
+    const [vidyutID, setVidyutID] = useState();
+
 
     const vidQuery = `{
       myProfile
@@ -81,13 +82,22 @@ const CartView = ({ productList, promocode, regID }) => {
     {
       initiateOrder(products: $products, regID: $regID)
       {
+        orderID
+      }
+    }`;
+
+    const initiateTransactionMutation = `mutation initiateTransaction($orderID: String!, $isOnline: Boolean)
+    {
+      initiateTransaction(orderID: $orderID, isOnline: $isOnline)
+      {
         transactionID
       }
     }`;
 
     const initiateOrder = async variables => await dataFetch({ query: initiateOrderMutation, variables });
+    const initiateTransaction = async variables => await dataFetch({ query: initiateTransactionMutation, variables });
 
-    const createOrder = () => {
+    const PayNow = (isOnline) => {
         const productsList = [];
         products.map( p => {
            productsList.push({
@@ -101,56 +111,24 @@ const CartView = ({ productList, promocode, regID }) => {
             },
             "regID": regID ? regID : null
         };
-        if(!_.isEqual(orderVars, variables))
-        {
-            initiateOrder(variables).then((response) => {
-                setTransactionID(response.data.initiateOrder.transactionID);
-                setOrderVars(variables);
-                setLoaded(true);
-            })
-        }
-    };
-
-    const payAtCounter = (
-        <Modal
-            isOpen={showModal}
-            contentLabel="Payment at Counter"
-            onRequestClose={() => setModal(false)}
-            className="pay-at-counter-modal qr-modal card-shadow"
-            overlayClassName="qr-overlay p-2"
-        >
-            {isLoaded ? <PayAtCounterQR transactionID={transactionID} vidyutID={vidyutID} />
-                : null
-            }
-        </Modal>
-    );
-
-    const PayOnline = () => {
-        const productsList = [];
-        products.map( p => {
-            productsList.push({
-                "productID": p.productID,
-                "qty": p.qty
-            })
-        });
-        const variables = {
-            "products": {
-                "products": productsList
-            },
-            "regID": regID ? regID : null
-        };
-        if(!_.isEqual(orderVars, variables))
-        {
-            initiateOrder(variables).then((response) => {
-                router.push(`/pay/authorize?transactionID=${response.data.initiateOrder.transactionID}`);
-            })
-        }
+        setPlacingOrder(false);
+        initiateOrder(variables).then((orderResp) => {
+            const orderID = orderResp.data.initiateOrder.orderID;
+            initiateTransaction({orderID, isOnline}).then(transResp => {
+                const transactionID = transResp.data.initiateTransaction.transactionID;
+                cookies.set('transactionID', transactionID, {path: '/'});
+                if(isOnline)
+                    router.push(`/pay/gateway`);
+                else
+                    router.push(`/pay/qr-pay?vidyutID=${vidyutID}`);
+            });
+        })
     };
 
     const calcTotalPrice = () => {
         let price = 0;
         products.map(p => price += p.price * p.qty);
-        return price;
+        return parseInt(price);
     };
 
     const totalPrice = calcTotalPrice();
@@ -166,7 +144,7 @@ const CartView = ({ productList, promocode, regID }) => {
         setProducts(newArr);
     };
 
-    return (
+    return isPlacingOrder ? <StatusContainer animation={require('../../images/animations/radar')} title="Loading" text="Please wait while we are placing your order" /> : (
         <div id="cart-view" className="card-shadow">
             <div className="row m-0">
                 <div className="col-md-8">
@@ -201,7 +179,7 @@ const CartView = ({ productList, promocode, regID }) => {
                     <h4>Purchase Summary</h4>
                     <div>
                         <PaymentSummaryItem
-                            cartValue={totalPrice - calcGST(totalPrice) - 0}
+                            cartValue={totalPrice}
                             charges={[
                                 {
                                     'name': "GST @ 18%",
@@ -213,17 +191,16 @@ const CartView = ({ productList, promocode, regID }) => {
                                 },
                             ]}
                             deductions={[
-                                {
-                                    name : "Promocode - EARLYBIRD",
-                                    price: 0
-                                }
+                                // {
+                                //     name : "Promocode - EARLYBIRD",
+                                //     price: 0
+                                // }
                             ]}
                         />
                         <div>
-                            { isLoaded && status.onlinePayment ? <button onClick={() => { PayOnline(); }} className="payment-button card-shadow">Pay Online</button> : null }
-                            { isLoaded && status.offlinePayment ? <button onClick={() => { createOrder(); setModal(true); }} className="payment-button card-shadow">Pay at Counter</button> : null}
+                            { isLoaded && status.onlinePayment ? <button onClick={() => { PayNow(true); }} className="payment-button card-shadow">Pay Online</button> : null }
+                            { isLoaded && status.offlinePayment ? <button onClick={() => { PayNow(false); }} className="payment-button card-shadow">Pay at Counter</button> : null}
                         </div>
-                        {payAtCounter}
                     </div>
                 </div>
             </div>

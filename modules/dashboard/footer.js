@@ -20,7 +20,7 @@ const DashboardFooter = () => (
             <div className="col-md-4">
                 <a href="https://t.me/vcare2020">
                     <div id="chat-button">
-                        <img src={require('../../images/icons/telegram.png')} />
+                        <img src={require('../../images/icons/chat-support.png')} />
                     </div>
                 </a>
             </div>

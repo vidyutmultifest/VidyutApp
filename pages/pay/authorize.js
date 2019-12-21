@@ -1,33 +1,24 @@
 import React, {useEffect, useState} from "react";
+import Head from "next/head";
+
+import Lottie from "react-lottie";
+import Cookies from "universal-cookie";
+
 import Base from "../../components/base";
 import TitleBar from "../../components/titleBar";
 import dataFetch from "../../utils/dataFetch";
-import {useRouter} from "next/router";
-import Cookies from "universal-cookie";
-import LoadingScreen from "../../components/loadingScreen";
-import Lottie from "react-lottie";
-import Head from "next/head";
+
+import StatusContainer from "../../components/StatusContainer";
+import Link from "next/link";
 
 const cookies = new Cookies();
 
 const AuthorizePage = () => {
-    const router = useRouter();
     const [isQueried, setQueried] = useState(false);
-    const [isLoaded, setLoaded] = useState(false);
     const [isResponseLoaded, setResponseLoaded] = useState(false);
-    const [data, setData] = useState(false);
-    const transactionID = cookies.get('transactionID');
     const [transData, setTransData] = useState(false);
-    const [isFetchingTrans, setFetchingTrans] = useState(false);
 
-    const getTrans = `query getTrans($transactionID: String){
-      getPaymentGatewayData(transactionID: $transactionID)
-      {
-        url
-        data
-        code
-      }
-    }`;
+    const transactionID = cookies.get('transactionID');
 
     const getStatus = `query getStatus($transactionID: String){
       getOnlinePaymentStatus(transactionID: $transactionID)
@@ -37,32 +28,18 @@ const AuthorizePage = () => {
       }
     }`;
 
-    const getTransData = async variables => await dataFetch({ query: getTrans, variables });
     const getStatusData = async variables => await dataFetch({ query: getStatus, variables });
 
     useEffect(() => {
         if (!isQueried) {
-            if (router.query.transactionID === undefined) {
-                setFetchingTrans(true);
-                const transactionID =  cookies.get('transactionID');
-                getStatusData({transactionID}).then((response) => {
-                    setQueried(true);
-                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        setTransData(response.data.getOnlinePaymentStatus);
-                        setResponseLoaded(true);
-                        setFetchingTrans(false);
-                    }
-                });
-            } else {
-                cookies.set('transactionID', router.query.transactionID, {path: '/'});
-                getTransData({  transactionID: router.query.transactionID }).then(response => {
-                    setQueried(true);
-                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        setData(response.data.getPaymentGatewayData);
-                        setLoaded(true);
-                    }
-                })
-            }
+            const transactionID = cookies.get('transactionID');
+            getStatusData({transactionID}).then((response) => {
+                setQueried(true);
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setTransData(response.data.getOnlinePaymentStatus);
+                    setResponseLoaded(true);
+                }
+            });
         }
     });
 
@@ -88,10 +65,18 @@ const AuthorizePage = () => {
                 />
                 <h1>Payment Successful</h1>
                 <p>{transactionDetails.statusDesc}</p>
+                <div>
+
+                </div>
                 <div className="alert alert-success text-left">
                     <div><b>Transaction ID</b>: {transactionDetails.transactionId}</div>
                     <div><b>Amount</b>: {transactionDetails.amount} {transactionDetails.currency}</div>
                     <div><b>Bank Reference Number</b>:{ transactionDetails.bankrefno}</div>
+                </div>
+                <div className="my-4">
+                    <Link href="/dashboard">
+                        <button className="btn btn-primary px-4 py-2 rounded-0">Go to Dashboard</button>
+                    </Link>
                 </div>
                 {ACRDCredit}
             </div> : <div>
@@ -111,6 +96,11 @@ const AuthorizePage = () => {
                     <div><b>Transaction ID</b>: {transactionDetails.transactionId}</div>
                     <div><b>Amount</b>: {transactionDetails.amount} {transactionDetails.currency.toUpperCase()}</div>
                     <div><b>Bank Reference Number</b>:{transactionDetails.bankrefno}</div>
+                </div>
+                <div className="my-4">
+                    <Link href="/dashboard">
+                        <button className="btn btn-primary px-4 py-2 rounded-0">Go to Dashboard</button>
+                    </Link>
                 </div>
                 {ACRDCredit}
             </div>
@@ -134,6 +124,11 @@ const AuthorizePage = () => {
                     It might take upto few minutes for them to confirm your payment, and <b>you can check back later in
                     your dashboard to review the status of your payment.</b>
                 </p>
+                <div className="my-4">
+                    <Link href="/dashboard">
+                        <button className="btn btn-primary px-4 py-2 rounded-0">Go to Dashboard</button>
+                    </Link>
+                </div>
                 {ACRDCredit}
             </div>
         )
@@ -141,37 +136,21 @@ const AuthorizePage = () => {
 
     return <Base loginRequired>
             <Head>
-                <title>Online Payments | Powered by ACRD | Vidyut 2020</title>
+                <title>Payment Status | Online Payments | Vidyut 2020</title>
             </Head>
             <TitleBar/>
             <div className="d-flex align-items-center justify-content-center bg-gradient" style={{ minHeight: '90vh' }}>
                 <div className="card-shadow text-center p-4">
                     {
-                        isFetchingTrans ?
-                            renderFetchingTrans()
-                            : isResponseLoaded ? renderTransactionStatus(transData.data)
-                        : isLoaded && data ? (
-                            <React.Fragment>
-                                <h4>Proceed to Payment Gateway</h4>
-                                <img src={require('../../images/logos/acrd-logo.jpg')}  className="my-4" style={{ width: '300px' }} />
-                                <p style={{ maxWidth: "600px"}}>
-                                    Online Payments for Vidyut 2020 is handled by Amrita Centre for Research and Development.
-                                    On clicking proceed to pay button, you will be directed to their payment gateway that
-                                    supports debit/credit cards, and net-banking.
-                                </p>
-                                <div className="alert alert-warning">
-                                    <b>TransactionID:</b> VIDYUT{router.query.transactionID}
-                                </div>
-                                <form method="POST" action={data.url}>
-
-                                    <input type="hidden" value={data.data} name="encdata" id="encdata" />
-                                    <input type="hidden" value={data.code} name="code" id="code" />
-                                    <button className="btn btn-primary rounded-0 px-4 py-3 font-weight-bold" type="submit" id="pay">Proceed to Pay</button>
-                                </form>
-                            </React.Fragment>
-                        ) : <LoadingScreen text="Loading Payment Gateway" />
+                       isResponseLoaded ?
+                            !transData ?
+                                <StatusContainer
+                                    animation={require('../../images/animations/payment-failed')}
+                                    title="Payment Failed Unexpectedly"
+                                    text="Invalid response received from ACRD"
+                                />
+                       : renderTransactionStatus(transData.data) : renderFetchingTrans()
                     }
-
                 </div>
             </div>
         </Base>
