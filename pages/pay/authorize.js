@@ -41,26 +41,10 @@ const AuthorizePage = () => {
     const getStatusData = async variables => await dataFetch({ query: getStatus, variables });
 
     useEffect(() => {
-        if(router.query.transactionID !== undefined)
-        {
-            const variables = {
-                transactionID: router.query.transactionID
-            };
-            if(!isQueried)
-            {
-                cookies.set('transactionID', router.query.transactionID, { path: '/' });
-                getTransData(variables).then(  response => {
-                    setQueried(true);
-                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        setData(response.data.getPaymentGatewayData);
-                        setLoaded(true);
-                    }
-                })
-            }
-        } else {
-            if(!isQueried)
-            {
+        if (!isQueried) {
+            if (router.query.transactionID === undefined) {
                 setFetchingTrans(true);
+                const transactionID =  cookies.get('transactionID');
                 getStatusData({transactionID}).then((response) => {
                     setQueried(true);
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
@@ -69,6 +53,15 @@ const AuthorizePage = () => {
                         setFetchingTrans(false);
                     }
                 });
+            } else {
+                cookies.set('transactionID', router.query.transactionID, {path: '/'});
+                getTransData({  transactionID: router.query.transactionID }).then(response => {
+                    setQueried(true);
+                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                        setData(response.data.getPaymentGatewayData);
+                        setLoaded(true);
+                    }
+                })
             }
         }
     });
@@ -108,8 +101,8 @@ const AuthorizePage = () => {
                         autoplay: true,
                         animationData: require('../../images/animations/payment-failed'),
                     }}
-                    height={400}
-                    width={400}
+                    height={300}
+                    width={300}
                 />
                 <h1>Payment Failed/Pending</h1>
                 <p>{transactionDetails.statusDesc}</p>
@@ -132,8 +125,8 @@ const AuthorizePage = () => {
                         autoplay: true,
                         animationData: require('../../images/animations/search'),
                     }}
-                    height={400}
-                    width={400}
+                    height={300}
+                    width={300}
                 />
                 <h1>Fetching Transaction Details</h1>
                 <p>
@@ -160,7 +153,7 @@ const AuthorizePage = () => {
                         : isLoaded && data ? (
                             <React.Fragment>
                                 <h4>Proceed to Payment Gateway</h4>
-                                <img src={require('../../images/logos/acrd-logo.jpg')}  className="my-4" style={{ width: '300px' }}/>
+                                <img src={require('../../images/logos/acrd-logo.jpg')}  className="my-4" style={{ width: '300px' }} />
                                 <p style={{ maxWidth: "600px"}}>
                                     Online Payments for Vidyut 2020 is handled by Amrita Centre for Research and Development.
                                     On clicking proceed to pay button, you will be directed to their payment gateway that
@@ -170,6 +163,7 @@ const AuthorizePage = () => {
                                     <b>TransactionID:</b> VIDYUT{router.query.transactionID}
                                 </div>
                                 <form method="POST" action={data.url}>
+
                                     <input type="hidden" value={data.data} name="encdata" id="encdata" />
                                     <input type="hidden" value={data.code} name="code" id="code" />
                                     <button className="btn btn-primary rounded-0 px-4 py-3 font-weight-bold" type="submit" id="pay">Proceed to Pay</button>
