@@ -66,7 +66,6 @@ const Workshops = () => {
                 <div className="col-lg-3">
                 </div>
                 <div id="event-listing" className="col-lg-9">
-                    <h3>Conducting {data.length} Workshops</h3>
                     <div className="row m-0">
                         {
                             isLoaded ?
