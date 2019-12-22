@@ -36,11 +36,15 @@ const PurchasesItems = ({ products, RegisterText }) => {
     });
 
 
-    const optionButton = (p) => (
-        <button className="purchase-option-button card-shadow" disabled={!p.isAvailable}>
+    const optionButton = (p, disabled) => (
+        <button className="purchase-option-button card-shadow" disabled={disabled}>
             <h6>{p.name}</h6>
             {
-                !p.isAvailable ?
+                p.isOutsideOnly && data.isAmritapurian ?
+                    <div className="badge badge-danger rounded-0">Not Available for Amritapurians</div>
+                : p.isAmritapurianOnly && !data.isAmritapurian ?
+                    <div className="badge badge-danger rounded-0">Only Available for Amritapurians</div>
+                : !p.isAvailable ?
                     <div className="badge badge-danger rounded-0">Unavailable right now</div>
                 : p.isAmritapurianOnly ?
                     <div className="badge badge-warning rounded-0">Exclusive for Amritapurians</div> :
@@ -49,7 +53,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                         p.isSchoolOnly ?
                             <div className="badge badge-warning rounded-0">Exclusive for School Students</div> : null
             }
-            { p.isAvailable ? <div className="amount">Rs. {p.price}</div> : null }
+            { !disabled ? <div className="amount">Rs. {p.price}</div> : null }
         </button>
     );
 
@@ -93,7 +97,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                                                 `/purchase?product=${p.productID}`
                                                         }>
                                                             {optionButton(p)}
-                                                        </Link> : optionButton(p)
+                                                        </Link> : optionButton(p, true)
                                                 }
                                             </div>
                                         )
