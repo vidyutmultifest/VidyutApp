@@ -19,7 +19,7 @@ const CartView = ({ productList, promocode, regID }) => {
     const [isPlacingOrder, setPlacingOrder] = useState(false);
     const [status, setStatus] = useState();
     const [vidyutID, setVidyutID] = useState();
-
+    const [isAgreed, setAgreed] = useState(false);
 
     const vidQuery = `{
       myProfile
@@ -206,7 +206,14 @@ const CartView = ({ productList, promocode, regID }) => {
                                 // }
                             ]}
                         />
-                        { renderPaymentButtons() }
+                        {
+                            !isAgreed ? <div style={{fontSize: '1rem', lineHeight: '1.2'}}>
+                                <input type="checkbox" className="pr-2 mr-2" onChange={(e) => setAgreed(true)} />
+                                 By continuing with payment, I agree to the terms and conditions
+                                and general code of conduct of Vidyut 2020.
+                            </div> :
+                            renderPaymentButtons()
+                        }
                     </div>
                 </div>
             </div>

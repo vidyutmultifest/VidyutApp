@@ -51,7 +51,7 @@ const GatewayPage = () => {
                         <React.Fragment>
                             <h4>Proceed to Payment Gateway</h4>
                             <img src={require('../../images/logos/acrd-logo.jpg')}  className="my-4" style={{ width: '300px' }} />
-                            <p style={{ maxWidth: "600px"}}>
+                            <p className="small-text" style={{ maxWidth: "600px"}}>
                                 Online Payments for Vidyut 2020 is handled by Amrita Centre for Research and Development.
                                 On clicking proceed to pay button, you will be directed to their payment gateway that
                                 supports debit/credit cards, and net-banking.

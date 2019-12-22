@@ -119,7 +119,7 @@ const AuthorizePage = () => {
                     width={300}
                 />
                 <h1>Fetching Transaction Details</h1>
-                <p>
+                <p className="small-text">
                     We are awaiting the response from ACRD payment gateway for getting status of your transaction <b>{transactionID}</b>.
                     It might take upto few minutes for them to confirm your payment, and <b>you can check back later in
                     your dashboard to review the status of your payment.</b>

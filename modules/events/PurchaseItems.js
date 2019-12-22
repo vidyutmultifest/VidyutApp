@@ -80,7 +80,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                 className="purchase-options-modal "
                                 overlayClassName="purchase-options-overlay p-2"
                             >
-                                <h3 className="py-2 text-center">Select from Choices</h3>
+                                <h3 className="pb-2 pt-4 text-center">Select from Choices</h3>
                                 <div className="purchase-container px-4 py-2">
                                     {
                                         products.map((p, i) =>
