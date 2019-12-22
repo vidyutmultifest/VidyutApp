@@ -38,6 +38,12 @@ const Workshop = () => {
            isFacultyOnly
            isSchoolOnly
         }
+        trainers
+        {
+          name
+          about
+          photo
+        }
         contacts 
         {
            name
@@ -69,6 +75,29 @@ const Workshop = () => {
         </div>
     );
 
+    const renderTrainerCards = () => (
+        <div className="my-4">
+            <h2 className="my-4">Trainers</h2>
+        {
+            data.trainers ?
+                data.trainers.map((trainer) => (
+                    <div className="card-shadow p-4 my-2">
+                        <div className="row m-0">
+                            <div className="col-md-3 d-flex align-items-center">
+                                <img src={trainer.photo} />
+                            </div>
+                            <div className="col-md-9">
+                                <h4>{trainer.name}</h4>
+                                <div dangerouslySetInnerHTML={{ __html: trainer.about}} />
+                            </div>
+                        </div>
+
+                    </div>
+                )) : null
+        }
+        </div>
+    );
+
     return <Base>
         <Head>
             <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020</title>
@@ -85,6 +114,7 @@ const Workshop = () => {
                 <div className="row m-0">
                     <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
                         {eventDetails()}
+                        {renderTrainerCards()}
                     </div>
                     <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
                         <ContactCard
