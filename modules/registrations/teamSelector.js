@@ -73,7 +73,7 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
                                 <div className="alert alert-danger">
                                     Your team {team.name} has {team.membersCount} members, you need to remove atleast {team.membersCount - maxTeamSize} members
                                     to participate in this event. Go to your team page to remove members, or select a different team to continue registering.
-                                    <div className="mt-4">
+                                    <div className="mt-2">
                                         <Link href={`/teams/view?hash=${team.hash}`}>
                                             <button className="btn btn-primary font-weight-bold">Open Team Manager</button>
                                         </Link>

@@ -28,13 +28,16 @@ const RegisterPage = () => {
     const [hasAgreed, setAgreed] = useState(false);
     const [hasRegistered, setRegistered] = useState(false);
 
-    const [teamSelected, setTeam] = useState();
+    const [teamSelected, setTeam] = useState(false);
     const [formData, setFormData] = useState();
+
+    const [regID, setRegID] = useState();
 
     const query = `query getProduct($productID: String!){
       getProduct(productID: $productID)
       {
         isAvailable
+        requireAdvancePayment
         product
         {
           name
@@ -48,6 +51,7 @@ const RegisterPage = () => {
               isTeamEvent
               minTeamSize
               maxTeamSize
+              isTotalRate
               formFields
               {
                  key
@@ -119,6 +123,7 @@ const RegisterPage = () => {
                 "teamHash": teamSelected.hash
             };
             submitReg(TeamRegMutation, variables).then((response) => {
+                setRegID(response.data.register.regID);
                 setRegistered(true);
             })
         } else {
@@ -127,6 +132,7 @@ const RegisterPage = () => {
                 "productID": router.query.product,
             };
             submitReg(IndRegMutation, variables).then((response) => {
+                setRegID(response.data.register.regID);
                 setRegistered(true);
             })
         }
@@ -192,21 +198,37 @@ const RegisterPage = () => {
                                     />
                                 </Shade> : <Shade key="preview">
                                     <div className="card-shadow p-4">
-                                        <StatusContainer
-                                            animation={require('../../images/animations/done-button')}
-                                            title="Registered Successfully"
-                                            text="Thank you for registering, and we look forward to meet you at Vidyut 2020"
-                                            buttons={<div>
-                                                <Link href="/registrations/my-registrations">
-                                                    <button className="btn btn-primary font-weight-bold mr-2">View My
-                                                        Registrations
-                                                    </button>
-                                                </Link>
-                                                <Link href="/dashboard">
-                                                    <button className="btn btn-primary font-weight-bold">Open Dashboard</button>
-                                                </Link>
-                                            </div>}
-                                        />
+                                        {
+                                            !data.requireAdvancePayment ?
+                                                <StatusContainer
+                                                    animation={require('../../images/animations/done-button')}
+                                                    title="Registered Successfully"
+                                                    text={`Thank you for registering, and we look forward to meet you at Vidyut 2020. Your registration ID is ${regID}`}
+                                                    buttons={<div>
+                                                        <Link href={
+                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
+                                                        }>
+                                                            <button className="btn btn-primary font-weight-bold">Pay for Registration</button>
+                                                        </Link>
+                                                        <Link href="/registrations/my-registrations">
+                                                            <button className="btn btn-primary font-weight-bold mr-2">View My
+                                                                Registrations
+                                                            </button>
+                                                        </Link>
+                                                    </div>}
+                                                /> : <StatusContainer
+                                                    animation={require('../../images/animations/done-button')}
+                                                    title="Registered, Awaiting Payment"
+                                                    text={`Please click on the button below to pay for your registration. Your registration ID is ${regID}`}
+                                                    buttons={<div>
+                                                        <Link href={
+                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
+                                                        }>
+                                                            <button className="btn btn-primary font-weight-bold">Proceed to Pay</button>
+                                                        </Link>
+                                                    </div>}
+                                                />
+                                        }
                                     </div>
                                 </Shade>
                     }

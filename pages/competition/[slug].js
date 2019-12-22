@@ -74,8 +74,6 @@ const Workshop = () => {
 
     });
 
-    console.log(data.details);
-
     const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">
             <h3>Competition Details</h3>
