@@ -83,6 +83,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                             <div key={i} className="p-2">
                                                 {
                                                     p.isAvailable &&
+                                                    (!p.isAmritapurianOnly||data.isAmritapurian) &&
                                                     (!p.isOutsideOnly||!data.isAmritapurian) &&
                                                     (!p.isFacultyOnly||data.isFaculty) &&
                                                     (!p.isSchoolOnly||data.isSchoolStudent) ?
