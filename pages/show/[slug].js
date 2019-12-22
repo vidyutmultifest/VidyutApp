@@ -31,7 +31,9 @@ const Workshop = () => {
            productID
            name
            price
+           isAvailable
            requireRegistration
+           isOutsideOnly
            isAmritapurianOnly
            isFacultyOnly
            isSchoolOnly
@@ -60,12 +62,12 @@ const Workshop = () => {
 
     });
 
-    const eventDetails = () => (
+    const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">
             <h3>Show Details</h3>
             <div dangerouslySetInnerHTML={{ __html: data.details}} />
         </div>
-    );
+    ) : null;
 
     return <Base>
         <Head>

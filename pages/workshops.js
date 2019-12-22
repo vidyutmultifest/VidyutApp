@@ -22,6 +22,8 @@ const Workshops = () => {
         description
         fee
         slug
+        isRecommended
+        isNew
       }
     }`;
 
@@ -46,8 +48,8 @@ const Workshops = () => {
                 text={w.description}
                 cover={w.cover}
                 price={w.fee}
-                isNew
-                isRecommended
+                isNew={w.isNew}
+                isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
                 registerText="Register Now"
             />

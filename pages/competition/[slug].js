@@ -40,10 +40,12 @@ const Workshop = () => {
            productID
            name
            price
+           isAvailable
+           isOutsideOnly
            requireRegistration
            isAmritapurianOnly
            isFacultyOnly
-           isSchoolOnly
+           isSchoolOnly  
         }
         firstPrize
         secondPrize
@@ -71,6 +73,8 @@ const Workshop = () => {
         }
 
     });
+
+    console.log(data.details);
 
     const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">

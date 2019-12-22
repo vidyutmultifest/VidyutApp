@@ -144,6 +144,14 @@ const CartView = ({ productList, promocode, regID }) => {
         setProducts(newArr);
     };
 
+    const renderPaymentButtons = () => {
+        const flag = productList.filter(p => p.isAvailable === false).length > 0 ? true : false;
+        return !flag ? (<div>
+            { isLoaded && status.onlinePayment ? <button onClick={() => { PayNow(true); }} className="payment-button card-shadow">Pay Online</button> : null }
+            { isLoaded && status.offlinePayment ? <button onClick={() => { PayNow(false); }} className="payment-button card-shadow">Pay at Counter</button> : null}
+        </div>) : <h6>Some items in your cart are unavailable right now. You cannot proceed with this order.</h6>
+    };
+
     return isPlacingOrder ? <StatusContainer animation={require('../../images/animations/radar')} title="Loading" text="Please wait while we are placing your order" /> : (
         <div id="cart-view" className="card-shadow">
             <div className="row m-0">
@@ -154,6 +162,7 @@ const CartView = ({ productList, promocode, regID }) => {
                             <CartItem
                                 photo={p.photo}
                                 key={i}
+                                isAvailable={p.isAvailable}
                                 qty={p.qty}
                                 onChangeQty={(qty) => handleQtyChange(i, qty)}
                                 title={p.name}
@@ -197,10 +206,7 @@ const CartView = ({ productList, promocode, regID }) => {
                                 // }
                             ]}
                         />
-                        <div>
-                            { isLoaded && status.onlinePayment ? <button onClick={() => { PayNow(true); }} className="payment-button card-shadow">Pay Online</button> : null }
-                            { isLoaded && status.offlinePayment ? <button onClick={() => { PayNow(false); }} className="payment-button card-shadow">Pay at Counter</button> : null}
-                        </div>
+                        { renderPaymentButtons() }
                     </div>
                 </div>
             </div>

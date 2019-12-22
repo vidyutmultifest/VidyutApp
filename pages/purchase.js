@@ -74,8 +74,8 @@ const PurchasePage = () => {
                                 isFacultyOnly: data.isFacultyOnly,
                                 isSchoolOnly: data.isSchoolOnly,
                                 id: router.query.product,
-                                qty: router.query.qty ? router.query.qty : 1
-
+                                qty: router.query.qty ? router.query.qty : 1,
+                                isAvailable: data.isAvailable
                         }
                         ]}
                         promocode={router.query.promocode}

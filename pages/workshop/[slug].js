@@ -31,6 +31,8 @@ const Workshop = () => {
            productID
            name
            price
+           isAvailable
+           isOutsideOnly
            requireRegistration
            isAmritapurianOnly
            isFacultyOnly

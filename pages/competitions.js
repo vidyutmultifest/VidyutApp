@@ -33,6 +33,7 @@ const Competitions = () => {
         slug
         isNew
         isRecommended
+        isTotalRate
         isTeamEvent
         department
         {
@@ -67,6 +68,7 @@ const Competitions = () => {
                 dept={c.department.label}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
+                isTotalRate={c.isTotalRate}
                 detailsURL={`/competition/${c.slug}`}
                 registerText="Register Now"
             />
