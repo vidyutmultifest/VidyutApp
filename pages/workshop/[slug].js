@@ -119,7 +119,7 @@ const Workshop = () => {
                 <div className="row m-0">
                     {
                         data.trainers.map((trainer) => (
-                            <div className="col-6 col-md-4 p-2">
+                            <div className="trainer-profile-card col-6 col-md-4 p-2">
                                 <div className="card-shadow my-2">
                                     <img src={trainer.photo ? trainer.photo : null}/>
                                     <div className="p-4">

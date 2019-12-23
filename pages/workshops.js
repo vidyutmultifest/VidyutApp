@@ -29,6 +29,10 @@ const Workshops = () => {
         fee
         slug
         isRecommended
+        organizer
+        {
+          name
+        }
         isNew
         department
         {
@@ -59,6 +63,7 @@ const Workshops = () => {
                 text={w.description}
                 cover={w.cover}
                 price={w.fee}
+                organizer={w.organizer ? w.organizer.name : null}
                 isNew={w.isNew}
                 dept={w.department.label}
                 isRecommended={w.isRecommended}

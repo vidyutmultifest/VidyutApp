@@ -12,7 +12,6 @@ const QuickActionCards = ({ status }) => (
                             photo={require('../../images/icons/tickets-qa.png')}
                             text="Concert, Choreo, Expo & More"
                             title="Buy Passes"
-                            offer="Early Bird Offer"
                             link="/shows"
                         />
                     </div>

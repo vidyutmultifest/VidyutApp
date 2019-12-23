@@ -35,6 +35,10 @@ const Competitions = () => {
         isRecommended
         isTotalRate
         isTeamEvent
+        organizer
+        {
+          name
+        }
         department
         {
           label: name
@@ -66,6 +70,7 @@ const Competitions = () => {
                 price={c.fee}
                 isNew={c.isNew}
                 dept={c.department.label}
+                organizer={c.organizer ? c.organizer.name : null}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
                 isTotalRate={c.isTotalRate}
