@@ -97,7 +97,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                                                 `/purchase?product=${p.productID}`
                                                         }>
                                                             {optionButton(p)}
-                                                        </Link> : optionButton(p, true)
+                                                        </Link> : null
                                                 }
                                             </div>
                                         )
