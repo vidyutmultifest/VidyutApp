@@ -12,6 +12,7 @@ import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
 import classNames from "classnames";
+import OrganizerCard from "../../modules/events/organizerCard";
 
 const Workshop = () => {
     const router = useRouter();
@@ -32,6 +33,11 @@ const Workshop = () => {
         department
         {
            name
+        }
+        organizer
+        {
+          name
+          logo
         }
         fee
         productID
@@ -162,10 +168,11 @@ const Workshop = () => {
                         {renderTrainerCards()}
                     </div>
                     <div className="col-md-5 col-xl-4 p-md-4 mb-4">
+                        <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                        { renderSchedule() }
                         <ContactCard
                             contacts={data.contacts}
                         />
-                        { renderSchedule() }
                         <ShareCard
                             title={data.name}
                             link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}

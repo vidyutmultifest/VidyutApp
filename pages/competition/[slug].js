@@ -14,6 +14,7 @@ import PrizesCard from "../../modules/events/prizesCard";
 import DashboardFooter from "../../modules/dashboard/footer";
 import ContactCard from "../../modules/events/contactCard";
 import TeamSpecifierCard from "../../modules/events/teamSpecCard";
+import OrganizerCard from "../../modules/events/organizerCard";
 
 const Workshop = () => {
     const router = useRouter();
@@ -47,6 +48,11 @@ const Workshop = () => {
            isAmritapurianOnly
            isFacultyOnly
            isSchoolOnly  
+        }
+        organizer
+        {
+          name
+          logo
         }
         firstPrize
         secondPrize
@@ -123,6 +129,7 @@ const Workshop = () => {
                                 minTeamSize={data.minTeamSize}
                             /> : null
                         }
+                        <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
                         <ContactCard
                             contacts={data.contacts}
                         />

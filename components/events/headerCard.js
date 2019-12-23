@@ -15,8 +15,8 @@ const EventHeaderCard = ({ name, cover, text, products, registerText, dept }) =>
         <div className="p-0 event-cover">
             <img src={cover} className="w-100"/>
         </div>
-        <div className="row m-0 px-2 py-4">
-            <div className="event-details col-md-8 px-4">
+        <div className="p-4">
+            <div className="event-details">
                 {
                     dept ?
                         <div className="badge badge-warning px-4 py-2 rounded-0 mb-2">{dept}</div>
@@ -25,7 +25,7 @@ const EventHeaderCard = ({ name, cover, text, products, registerText, dept }) =>
                 <h1>{name}</h1>
                 <p>{text}</p>
             </div>
-            <div className="col-md-4 px-2 align-items-center d-flex">
+            <div>
                 { isLoggedIn ?
                     <PurchasesItems products={products} RegisterText={registerText}/> :
                     <Link href="/login">
