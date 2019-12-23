@@ -5,10 +5,12 @@ import dataFetch from "../../utils/dataFetch";
 import Head from "next/head";
 import TitleBar from "../../components/titleBar";
 import EventHeaderCard from "../../components/events/headerCard";
+import moment from "moment";
 
 import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
+import DashboardFooter from "../../modules/dashboard/footer";
 
 const Workshop = () => {
     const router = useRouter();
@@ -37,6 +39,19 @@ const Workshop = () => {
            isAmritapurianOnly
            isFacultyOnly
            isSchoolOnly
+        }
+        schedule
+        {
+          slot
+          {
+            startTime
+            endTime
+          }
+          venue
+          {
+            name
+            address
+          }
         }
         trainers
         {
@@ -83,9 +98,11 @@ const Workshop = () => {
                 data.trainers.map((trainer) => (
                     <div className="card-shadow p-4 my-2">
                         <div className="row m-0">
-                            <div className="col-md-3 d-flex align-items-center">
-                                <img src={trainer.photo} />
-                            </div>
+                            {
+                                trainer.photo ? <div className="col-md-3 d-flex align-items-center">
+                                    <img src={trainer.photo}/>
+                                </div> : null
+                            }
                             <div className="col-md-9">
                                 <h4>{trainer.name}</h4>
                                 <div dangerouslySetInnerHTML={{ __html: trainer.about}} />
@@ -97,6 +114,20 @@ const Workshop = () => {
         }
         </div>
     );
+
+    const renderSchedule = () => (
+        <div className="card-shadow rounded my-4 p-4">
+            <h4>Schedule</h4>
+            {
+                data.schedule.map((s,i) => (
+                    <div className="py-3">
+                        <div className="font-weight-bold">Day {i+1} - {moment(s.slot.startTime).format("DD/M")}</div>
+                        <div>{moment(s.slot.startTime).format("h:mm a")} - {moment(s.slot.endTime).format("h:mm a")}</div>
+                    </div>
+                ))
+            }
+        </div>
+    )
 
     return <Base>
         <Head>
@@ -120,6 +151,7 @@ const Workshop = () => {
                         <ContactCard
                             contacts={data.contacts}
                         />
+                        { renderSchedule() }
                         <ShareCard
                             title={data.name}
                             link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}
@@ -128,6 +160,7 @@ const Workshop = () => {
                 </div>
             </React.Fragment>
         ): null}
+        <DashboardFooter />
     </Base>
 };
 
