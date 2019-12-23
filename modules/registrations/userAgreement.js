@@ -7,6 +7,7 @@ const UserAgreement = ({ content, onAgree, onClickBack }) => {
     return (
         <div className="agreement-card card-shadow p-4">
             <h4>Read & Agree to Terms & Conditions</h4>
+            <p>Please read carefully the details of the event you are going to register:- </p>
             <div className="mt-4 terms-scroller" dangerouslySetInnerHTML={{ __html: content}} />
             <div className="terms-text">
                 <input type="checkbox" name="i-agree" onChange={(e) => setVal(e.target.value)}/>
