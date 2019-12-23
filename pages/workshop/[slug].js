@@ -168,7 +168,11 @@ const Workshop = () => {
                         {renderTrainerCards()}
                     </div>
                     <div className="col-md-5 col-xl-4 p-md-4 mb-4">
-                        <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                        {
+                            data.organizer ?
+                                <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                                : null
+                        }
                         { renderSchedule() }
                         <ContactCard
                             contacts={data.contacts}

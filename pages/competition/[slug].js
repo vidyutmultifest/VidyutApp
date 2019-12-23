@@ -129,7 +129,11 @@ const Workshop = () => {
                                 minTeamSize={data.minTeamSize}
                             /> : null
                         }
-                        <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                        {
+                            data.organizer ?
+                                <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                                : null
+                        }                        
                         <ContactCard
                             contacts={data.contacts}
                         />
