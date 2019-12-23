@@ -10,12 +10,15 @@ import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
+import classNames from "classnames";
 
 const Workshop = () => {
     const router = useRouter();
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState();
+
+    const [showMoreState, setShowMoreState] = useState(false);
 
     const query = `{
       getTicketEvent(slug: "${router.query.slug}")
@@ -67,7 +70,15 @@ const Workshop = () => {
     const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">
             <h3>Show Details</h3>
-            <div dangerouslySetInnerHTML={{ __html: data.details}} />
+            <div className={classNames('wrapper', showMoreState ? 'show-all' : null)}>
+                <div dangerouslySetInnerHTML={{ __html: data.details}} />
+            </div>
+            {
+                !showMoreState ?
+                    <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(true)}>Show More</div>
+                    :  <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(false)}>Show Less</div>
+
+            }
         </div>
     ) : null;
 

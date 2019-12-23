@@ -9,6 +9,8 @@ import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
 import DepartmentSelector from "../modules/events/departmentSelector";
+import DashboardFooter from "../modules/dashboard/footer";
+import LoadingScreen from "../components/loadingScreen";
 
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
@@ -96,24 +98,32 @@ const Workshops = () => {
         <Head>
             <title>Workshops | Vidyut 2020</title>
         </Head>
-        <TitleBar />
         {
-            isLoaded && data.length > 0 ? <div className="row m-0">
-                <div className="col-xl-3 col-md-4 px-lg-4 px-md-2 py-4">
-                    {renderFilters()}
-                </div>
-                <div id="event-listing" className="col-xl-9 col-md-8">
-                    <div className="row m-0">
-                        { renderWorkshops() }
-                    </div>
-                </div>
-            </div> : <div className="container d-flex justify-content-center  align-items-center" style={{ minHeight: '90vh' }}>
-                    <StatusContainer
-                        title="No Workshops Listed"
-                        image={require('../images/illus/cleanup.png')}
-                        text="We have not listed any workshops for Vidyut 2020 at this moment, do check back later."
-                    />
-            </div>
+            isLoaded ?
+                <React.Fragment>
+                    <TitleBar />
+                        {
+                            data.length > 0 ?
+                                <div className="row m-0">
+                                    <div className="col-xl-3 col-md-4 px-lg-4 px-md-2 py-4">
+                                        {renderFilters()}
+                                    </div>
+                                    <div id="event-listing" className="col-xl-9 col-md-8">
+                                        <div className="row m-0">
+                                            { renderWorkshops() }
+                                        </div>
+                                    </div>
+                            </div> :
+                            <div className="container d-flex justify-content-center  align-items-center" style={{ minHeight: '90vh' }}>
+                                <StatusContainer
+                                title="No Workshops Listed"
+                                image={require('../images/illus/cleanup.png')}
+                                text="We have not listed any workshops for Vidyut 2020 at this moment, do check back later."
+                                />
+                            </div>
+                        }
+                    <DashboardFooter />
+                </React.Fragment>: <LoadingScreen text="Loading Workshops" />
         }
     </Base>
 };

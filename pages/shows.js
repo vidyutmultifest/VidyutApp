@@ -9,6 +9,7 @@ import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
 import LoadingScreen from "../components/loadingScreen";
+import DashboardFooter from "../modules/dashboard/footer";
 
 const Shows = () => {
     const [isQueried, setQueried] = useState(false);
@@ -90,6 +91,7 @@ const Shows = () => {
                 </React.Fragment>
                 : <LoadingScreen text="Loading Shows"/>
         }
+    <DashboardFooter />
     </Base>
 };
 
