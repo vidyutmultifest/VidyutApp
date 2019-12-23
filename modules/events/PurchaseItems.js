@@ -83,23 +83,19 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                 <h3 className="pb-2 pt-4 text-center">Select from Choices</h3>
                                 <div className="purchase-container px-4 py-2">
                                     {
-                                        products.map((p, i) =>
-                                            <div key={i} className="p-2">
-                                                {
-                                                    p.isAvailable &&
-                                                    (!p.isAmritapurianOnly||data.isAmritapurian) &&
-                                                    (!p.isOutsideOnly||!data.isAmritapurian) &&
-                                                    (!p.isFacultyOnly||data.isFaculty) &&
-                                                    (!p.isSchoolOnly||data.isSchoolStudent) ?
-                                                        <Link href={
-                                                            p.requireRegistration ?
-                                                                `/registrations/register?product=${p.productID}` :
-                                                                `/purchase?product=${p.productID}`
-                                                        }>
-                                                            {optionButton(p)}
-                                                        </Link> : null
-                                                }
-                                            </div>
+                                        products.map((p, i) => p.isAvailable &&
+                                                (!p.isAmritapurianOnly||data.isAmritapurian) &&
+                                                (!p.isOutsideOnly||!data.isAmritapurian) &&
+                                                (!p.isFacultyOnly||data.isFaculty) &&
+                                                (!p.isSchoolOnly||data.isSchoolStudent) ?
+                                                    <div key={i} className="p-2">
+                                                    <Link href={
+                                                        p.requireRegistration ?
+                                                            `/registrations/register?product=${p.productID}` :
+                                                            `/purchase?product=${p.productID}`
+                                                    }>
+                                                        {optionButton(p)}
+                                                    </Link></div> : null
                                         )
                                     }
                                 </div>

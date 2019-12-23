@@ -23,7 +23,7 @@ const QuickActionCards = ({ status }) => (
                     <div className="col-md-3 col-6 p-2">
                         <QuickActionCard
                             photo={require('../../images/icons/trophy-events.png')}
-                            text="100+ Competitions, starting at Rs.100"
+                            text="Exciting Competitions with cash prizes"
                             title="Participate in Competitions"
                             link="/competitions"
                         />
@@ -35,7 +35,7 @@ const QuickActionCards = ({ status }) => (
                     <div className="col-md-3 col-6 p-2">
                         <QuickActionCard
                             photo={require('../../images/icons/classroom.png')}
-                            text="50+ Workshops, starting at Rs.500"
+                            text="Wide variety of professional workshops"
                             title="Register for Workshops"
                             link="/workshops"
                         />
