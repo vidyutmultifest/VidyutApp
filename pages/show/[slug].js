@@ -32,6 +32,7 @@ const Workshop = () => {
            name
            price
            isAvailable
+           requireEventRegistration
            requireRegistration
            isOutsideOnly
            isAmritapurianOnly

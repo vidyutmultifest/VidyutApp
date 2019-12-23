@@ -17,6 +17,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
         isAmritapurian
         isFaculty
         isSchoolStudent
+        hasEventsRegistered
       }
     }`;
 
@@ -77,13 +78,14 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                 isOpen={showModal}
                                 contentLabel="Payment at Counter"
                                 onRequestClose={() => setModalState(false)}
-                                className="purchase-options-modal "
+                                className="purchase-options-modal p-2"
                                 overlayClassName="purchase-options-overlay p-2"
                             >
                                 <h3 className="pb-2 pt-4 text-center">Select from Choices</h3>
                                 <div className="purchase-container px-4 py-2">
                                     {
                                         products.map((p, i) => p.isAvailable &&
+                                                (!p.requireEventRegistration||data.isAmritapurian||data.hasEventsRegistered) &&
                                                 (!p.isAmritapurianOnly||data.isAmritapurian) &&
                                                 (!p.isOutsideOnly||!data.isAmritapurian) &&
                                                 (!p.isFacultyOnly||data.isFaculty) &&
