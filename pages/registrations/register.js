@@ -217,7 +217,7 @@ const RegisterPage = () => {
                                                         </Link>
                                                     </div>}
                                                 /> : <StatusContainer
-                                                    animation={require('../../images/animations/done-button')}
+                                                    animation={require('../../images/animations/collect-money')}
                                                     title="Registered, Awaiting Payment"
                                                     text={`Please click on the button below to pay for your registration. Your registration ID is ${regID}`}
                                                     buttons={<div>

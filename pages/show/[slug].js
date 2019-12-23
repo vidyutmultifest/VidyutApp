@@ -88,7 +88,7 @@ const Workshop = () => {
         </Head>
         <TitleBar />
         { isLoaded ? (
-            <React.Fragment>
+            <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
                     name={data.name}
@@ -97,10 +97,10 @@ const Workshop = () => {
                     registerText="Buy"
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
+                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
                         {eventDetails()}
                     </div>
-                    <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
+                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
                         <ContactCard
                             contacts={data.contacts}
                         />
@@ -110,7 +110,7 @@ const Workshop = () => {
                         />
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         ): null}
         <DashboardFooter/>
     </Base>

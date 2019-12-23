@@ -13,6 +13,7 @@ import PrizesCard from "../../modules/events/prizesCard";
 
 import DashboardFooter from "../../modules/dashboard/footer";
 import ContactCard from "../../modules/events/contactCard";
+import TeamSpecifierCard from "../../modules/events/teamSpecCard";
 
 const Workshop = () => {
     const router = useRouter();
@@ -50,6 +51,9 @@ const Workshop = () => {
         firstPrize
         secondPrize
         thirdPrize
+        minTeamSize
+        maxTeamSize
+        isTeamEvent
         contacts 
         {
            name
@@ -95,7 +99,7 @@ const Workshop = () => {
         </Head>
         <TitleBar />
         { isLoaded ? (
-            <React.Fragment>
+            <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
                     name={data.name}
@@ -104,15 +108,21 @@ const Workshop = () => {
                     products={data.products}
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
+                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
                         {eventDetails()}
                     </div>
-                    <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
+                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
                         <PrizesCard
                             firstPrize={data.firstPrize}
                             secondPrize={data.secondPrize ? data.secondPrize : null}
                             thirdPrize={data.thirdPrize ? data.thirdPrize : null}
                         />
+                        {
+                            data.isTeamEvent ? <TeamSpecifierCard
+                                maxTeamSize={data.maxTeamSize}
+                                minTeamSize={data.minTeamSize}
+                            /> : null
+                        }
                         <ContactCard
                             contacts={data.contacts}
                         />
@@ -122,7 +132,7 @@ const Workshop = () => {
                         />
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         ): null}
         <DashboardFooter/>
     </Base>

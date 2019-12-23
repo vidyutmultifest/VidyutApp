@@ -107,25 +107,23 @@ const Workshop = () => {
 
     const renderTrainerCards = () => (
         <div className="my-4">
-            <h2 className="my-4">Trainers</h2>
+            <h2 className="px-4 mt-4 mb-2">Trainers</h2>
         {
             data.trainers ?
-                data.trainers.map((trainer) => (
-                    <div className="card-shadow p-4 my-2">
-                        <div className="row m-0">
-                            {
-                                trainer.photo ? <div className="col-md-3 d-flex align-items-center">
-                                    <img src={trainer.photo}/>
-                                </div> : null
-                            }
-                            <div className="col-md-9">
-                                <h4>{trainer.name}</h4>
-                                <div dangerouslySetInnerHTML={{ __html: trainer.about}} />
+                <div className="row m-0">
+                    {
+                        data.trainers.map((trainer) => (
+                            <div className="col-6 col-md-4 p-2">
+                                <div className="card-shadow my-2">
+                                    <img src={trainer.photo ? trainer.photo : null}/>
+                                    <div className="p-4">
+                                        <h4>{trainer.name}</h4>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                    </div>
-                )) : null
+                        ))
+                    }
+                </div>  : null
         }
         </div>
     );
@@ -150,7 +148,7 @@ const Workshop = () => {
         </Head>
         <TitleBar />
         { isLoaded ? (
-            <React.Fragment>
+            <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
                     name={data.name}
@@ -159,11 +157,11 @@ const Workshop = () => {
                     products={data.products}
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-9 p-md-4 p-0 my-4">
+                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
                         {eventDetails()}
                         {renderTrainerCards()}
                     </div>
-                    <div className="col-md-5 col-xl-3 p-md-4 my-md-4">
+                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
                         <ContactCard
                             contacts={data.contacts}
                         />
@@ -174,7 +172,7 @@ const Workshop = () => {
                         />
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         ): null}
         <DashboardFooter />
     </Base>
