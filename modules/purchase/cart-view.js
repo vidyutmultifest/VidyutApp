@@ -6,6 +6,7 @@ import '../../styles/purchase/cart.sass';
 import {useRouter} from "next/router";
 import Cookies from "universal-cookie";
 import StatusContainer from "../../components/StatusContainer";
+import Link from "next/link";
 const _ = require('lodash');
 
 
@@ -209,8 +210,8 @@ const CartView = ({ productList, promocode, regID }) => {
                         {
                             !isAgreed ? <div style={{fontSize: '1rem', lineHeight: '1.2'}}>
                                 <input type="checkbox" className="pr-2 mr-2" onChange={(e) => setAgreed(true)} />
-                                 By continuing with payment, I agree to the terms and conditions
-                                and general code of conduct of Vidyut 2020.
+                                 By continuing with payment, I agree to the <Link href="/terms"><a>terms and conditions</a></Link>
+                                and general <Link href="/coc"><a>code of conduct</a></Link> of Vidyut 2020.
                             </div> :
                             renderPaymentButtons()
                         }

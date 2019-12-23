@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import '../../styles/dashboard/style.sass';
+import Link from "next/link";
 
 const UserAgreement = ({ content, onAgree, onClickBack }) => {
     const [val, setVal] = useState(false);
@@ -11,7 +12,7 @@ const UserAgreement = ({ content, onAgree, onClickBack }) => {
             <div className="mt-4 terms-scroller" dangerouslySetInnerHTML={{ __html: content}} />
             <div className="terms-text">
                 <input type="checkbox" name="i-agree" onChange={(e) => setVal(e.target.value)}/>
-                By proceeding further with my registration, I agree to the above terms of the event and the general code of conduct of Vidyut 2020.
+                By proceeding further with my registration, I agree to the above terms of the event and the general <Link href="/coc"><a>code of conduct</a></Link> of Vidyut 2020.
             </div>
             <button className="btn btn-warning px-4 py-2 font-weight-bold mr-2" onClick={() => onClickBack()}>Go Back</button>
             { val ? <button className="btn btn-primary px-4 py-2 font-weight-bold mr-2" onClick={() => onAgree()}>Agree & Proceed</button> : null }
