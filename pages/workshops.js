@@ -8,11 +8,15 @@ import '../styles/bootstrap.sass';
 import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
+import DepartmentSelector from "../modules/events/departmentSelector";
 
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
+
+    const [deptSel, setDept] = useState('');
+    const [sQuery, setSQuery] = useState('');
 
     const query = `{
       listWorkshops
@@ -24,6 +28,11 @@ const Workshops = () => {
         slug
         isRecommended
         isNew
+        department
+        {
+          label: name
+          value: slug
+        }
       }
     }`;
 
@@ -49,12 +58,39 @@ const Workshops = () => {
                 cover={w.cover}
                 price={w.fee}
                 isNew={w.isNew}
+                dept={w.department.label}
                 isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
                 registerText="Register Now"
             />
         </div>
     );
+
+    const renderFilters = () => (
+        <div>
+            <h4>Filters</h4>
+            <div className="p-2">
+                <h6>Search</h6>
+                <input className="form-control" onChange={(e) => setSQuery(e.target.value)} />
+            </div>
+            <div className="p-2">
+                <h6>Department</h6>
+                <DepartmentSelector onSelect={(e) => setDept(e)} />
+            </div>
+        </div>
+    );
+
+    const renderWorkshops = () => {
+        const filtered = data.map(c => {
+            let flag = 0;
+            if(sQuery != '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
+                flag = 1;
+            if(deptSel != '' && deptSel != null && deptSel.value !== c.department.value)
+                flag = 1;
+            if(!flag) return c;
+        });
+        return filtered.map(c => c ? renderWorkshopCard(c) : null);
+    };
 
     return <Base>
         <Head>
@@ -63,15 +99,12 @@ const Workshops = () => {
         <TitleBar />
         {
             isLoaded && data.length > 0 ? <div className="row m-0">
-                <div className="col-lg-3">
+                <div className="col-xl-3 col-md-4 px-lg-4 px-md-2 py-4">
+                    {renderFilters()}
                 </div>
-                <div id="event-listing" className="col-lg-9">
+                <div id="event-listing" className="col-xl-9 col-md-8">
                     <div className="row m-0">
-                        {
-                            isLoaded ?
-                                data.map(w => renderWorkshopCard(w))
-                                : null
-                        }
+                        { renderWorkshops() }
                     </div>
                 </div>
             </div> : <div className="container d-flex justify-content-center  align-items-center" style={{ minHeight: '90vh' }}>
