@@ -9,6 +9,7 @@ import EventHeaderCard from "../../components/events/headerCard";
 import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
+import DashboardFooter from "../../modules/dashboard/footer";
 
 const Workshop = () => {
     const router = useRouter();
@@ -100,6 +101,7 @@ const Workshop = () => {
                 </div>
             </React.Fragment>
         ): null}
+        <DashboardFooter/>
     </Base>
 };
 
