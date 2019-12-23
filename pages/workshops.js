@@ -11,6 +11,7 @@ import StatusContainer from "../components/StatusContainer";
 import DepartmentSelector from "../modules/events/departmentSelector";
 import DashboardFooter from "../modules/dashboard/footer";
 import LoadingScreen from "../components/loadingScreen";
+import OrganizerSelector from "../modules/events/organizerSelector";
 
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
@@ -18,6 +19,7 @@ const Workshops = () => {
     const [data, setData] = useState(false);
 
     const [deptSel, setDept] = useState('');
+    const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
 
     const query = `{
@@ -31,7 +33,8 @@ const Workshops = () => {
         isRecommended
         organizer
         {
-          name
+          label: name
+          value: id
         }
         isNew
         department
@@ -63,7 +66,7 @@ const Workshops = () => {
                 text={w.description}
                 cover={w.cover}
                 price={w.fee}
-                organizer={w.organizer ? w.organizer.name : null}
+                organizer={w.organizer ? w.organizer.label : null}
                 isNew={w.isNew}
                 dept={w.department.label}
                 isRecommended={w.isRecommended}
@@ -84,15 +87,23 @@ const Workshops = () => {
                 <h6>Department</h6>
                 <DepartmentSelector onSelect={(e) => setDept(e)} />
             </div>
+            <div className="p-2">
+                <h6>Organizer</h6>
+                <OrganizerSelector onSelect={(e) => setOrg(e)} />
+            </div>
         </div>
     );
 
     const renderWorkshops = () => {
         const filtered = data.map(c => {
             let flag = 0;
-            if(sQuery != '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
+            if(sQuery !== '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
                 flag = 1;
-            if(deptSel != '' && deptSel != null && deptSel.value !== c.department.value)
+            if(deptSel !== '' && deptSel != null && deptSel.value !== c.department.value)
+                flag = 1;
+            if(orgSel !== '' && orgSel != null && c.organizer && orgSel.value !== c.organizer.value)
+                flag = 1;
+            if(orgSel !== '' && orgSel != null && !c.organizer)
                 flag = 1;
             if(!flag) return c;
         });

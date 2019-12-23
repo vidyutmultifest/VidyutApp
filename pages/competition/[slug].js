@@ -133,7 +133,7 @@ const Workshop = () => {
                             data.organizer ?
                                 <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
                                 : null
-                        }                        
+                        }
                         <ContactCard
                             contacts={data.contacts}
                         />

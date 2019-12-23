@@ -11,6 +11,7 @@ import StatusContainer from "../components/StatusContainer";
 import LoadingScreen from "../components/loadingScreen";
 import DashboardFooter from "../modules/dashboard/footer";
 import DepartmentSelector from "../modules/events/departmentSelector";
+import OrganizerSelector from "../modules/events/organizerSelector";
 
 const _ = require('lodash');
 
@@ -21,6 +22,7 @@ const Competitions = () => {
     const [data, setData] = useState(false);
 
     const [deptSel, setDept] = useState('');
+    const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
 
     const query = `{
@@ -37,7 +39,8 @@ const Competitions = () => {
         isTeamEvent
         organizer
         {
-          name
+          label: name
+          value: id
         }
         department
         {
@@ -70,7 +73,7 @@ const Competitions = () => {
                 price={c.fee}
                 isNew={c.isNew}
                 dept={c.department.label}
-                organizer={c.organizer ? c.organizer.name : null}
+                organizer={c.organizer ? c.organizer.label : null}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
                 isTotalRate={c.isTotalRate}
@@ -92,6 +95,10 @@ const Competitions = () => {
                 <h6>Department</h6>
                 <DepartmentSelector onSelect={(e) => setDept(e)} />
             </div>
+            <div className="p-2">
+                <h6>Organizer</h6>
+                <OrganizerSelector onSelect={(e) => setOrg(e)} />
+            </div>
         </div>
     );
 
@@ -102,6 +109,10 @@ const Competitions = () => {
             if(sQuery != '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
                 flag = 1;
             if(deptSel != '' && deptSel != null && deptSel.value !== c.department.value)
+                flag = 1;
+            if(orgSel !== '' && orgSel != null && c.organizer && orgSel.value !== c.organizer.value)
+                flag = 1;
+            if(orgSel !== '' && orgSel != null && !c.organizer)
                 flag = 1;
             if(!flag) return c;
         });
