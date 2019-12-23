@@ -16,7 +16,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                 <div className="event-details">
                     { dept ? <span className="dept-name bg-warning px-4 py-2 mb-2">{dept}</span> : null}
                     <h4>{name}</h4>
-                    { organizer ?  <div className="organizername">by {organizer}</div> : null }
+                    { organizer ?  <div className="organizername"> by {organizer}</div> : null }
                     <div className="price">₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }</div>
                     <p>{text}</p>
                 </div>
