@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Head from "next/head";
 
 import '../styles/style.sass';
 
 import ProtectedPage from "./protected";
+import Cookies from "universal-cookie";
 
+const cookies = new Cookies();
 
 const Base = ({ children, loginRequired, adminRequired }) => {
+    const hours = new Date().getHours();
+    const isDayTime = hours > 6 && hours < 20;
+
+    const theme = cookies.get('theme');
 
     const page = (
         <React.Fragment>
@@ -19,13 +25,13 @@ const Base = ({ children, loginRequired, adminRequired }) => {
                 <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
-
                     gtag('config', 'UA-151530910-1');`}} />
             </Head>
-            {children}
+            <div className={theme === "dark" || !isDayTime && theme === undefined ? "dark-theme" : null}>
+                {children}
+            </div>
         </React.Fragment>
     );
-
 
     return loginRequired ?
         <ProtectedPage>
