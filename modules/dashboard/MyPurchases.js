@@ -28,6 +28,8 @@ const MyPurchases = () => {
             isPaid
             isPending
             isProcessed
+            isOnline
+            transactionData
             issuer
             {
               firstName
@@ -70,6 +72,8 @@ const MyPurchases = () => {
             transactionID={o.transaction.transactionID}
             isPaid={o.transaction.isPaid}
             amount={o.transaction.amount}
+            transaction={o.transaction}
+            handleRefresh={() => setQueried(false)}
             status={
                 o.transaction.isPaid ?
                 <div className="badge badge-success">Paid</div>

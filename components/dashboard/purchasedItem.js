@@ -1,12 +1,43 @@
 import React, {useState} from "react";
 import '../../styles/dashboard/purchase.sass';
 import Modal from "react-modal";
-import QRCode from "qrcode.react";
 import moment from "moment";
-import CartItem from "../purchase/cartItem";
+import Lottie from "react-lottie";
+import dataFetch from "../../utils/dataFetch";
 
-const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, timestamp, status, issuer }) => {
+const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, products, amount, timestamp, status, issuer }) => {
     const [isOpen, setOpen] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+
+    const renderOnlineTransactionDetails = () => {
+        const data = JSON.parse(transaction.transactionData);
+        return (
+            <React.Fragment>
+                <div><b>Bank Reference No.:</b> {data ? data.bankrefno : "No Response Recieved"}</div>
+                <div> <b>Bank Response:</b> {data ? data.statusDesc : "No Response Recieved"}</div>
+            </React.Fragment>
+        )
+    };
+
+    const getStatus = `query getStatus($transactionID: String){
+      getOnlinePaymentStatus(transactionID: $transactionID)
+      {
+        status
+        data
+      }
+    }`;
+
+    const getStatusData = async variables => await dataFetch({ query: getStatus, variables });
+
+    const handleRefetch = () => {
+        setLoading(true);
+        getStatusData({transactionID}).then((response) => {
+            setLoading(false);
+            if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                handleRefresh();
+            }
+        });
+    };
 
     return (
         <React.Fragment>
@@ -28,33 +59,108 @@ const PurchasedItem = ({ transactionID, orderID, isPaid, products, amount, times
                 className="order-modal"
                 overlayClassName="order-modal-overlay"
             >
-                <div className="row m-0">
-                    <div className="col-md-4 order-md-1 order-2 p-4">
-                        { !isPaid ? <div className="retry-prompt">Show this QR to retry payment</div> : null }
-                        <div className="card-shadow p-4 text-center">
-                            <QRCode value={transactionID} size={256} style={{ width: '100%', height: '100%', maxWidth: '256px', maxHeight: '256px' }} />
+                    <div className="order-details-section p-4">
+                        <div className="d-flex align-items-center">
+                            <div style={{ maxWidth: 100, marginRight: "0.5rem" }}>
+                                {
+                                    transaction.isPaid ?
+                                        <Lottie
+                                            options={{
+                                                loop: true,
+                                                autoplay: true,
+                                                animationData: require('../../images/animations/check-success'),
+                                            }}
+                                            height={100}
+                                            width={100}
+                                        /> : transaction.isPending ?
+                                        <Lottie
+                                            options={{
+                                                loop: true,
+                                                autoplay: true,
+                                                animationData: require('../../images/animations/clock-pending'),
+                                            }}
+                                            height={100}
+                                            width={100}
+                                        /> : <Lottie
+                                            options={{
+                                                loop: true,
+                                                autoplay: true,
+                                                animationData: require('../../images/animations/cross-failed'),
+                                            }}
+                                            height={100}
+                                            width={100}
+                                        />
+                                }
+                            </div>
+                            <div>
+                                <h4 className="mb-2">Order Summary</h4>
+                                <div className="d-flex">
+                                    {status}
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex justify-content-center">
+                            {
+                                isLoading ?
+                                    <Lottie
+                                        options={{
+                                            loop: true,
+                                            autoplay: true,
+                                            animationData: require('../../images/animations/material-wave-loading'),
+                                        }}
+                                        height={64}
+                                        width={64}
+                                    />
+                                    : transaction.isOnline && !transaction.isProcessed ?
+                                    <button
+                                        onClick={handleRefetch}
+                                        className="btn btn-primary px-2 py-2 rounded-0 font-weight-bold mt-4 d-flex align-items-center"
+                                    >
+                                        <Lottie
+                                            options={{
+                                                loop: true,
+                                                autoplay: true,
+                                                animationData: require('../../images/animations/reload-icon-white'),
+                                            }}
+                                            height={32}
+                                            width={32}
+                                        /> <div className="mx-2">
+                                        Refetch Status
+                                    </div>
+                                    </button> : null
+                            }
+                        </div>
+                        {
+                            !isLoading ? (
+                                <div className="small-text bg-light p-3 my-4" style={{ lineHeight: 1.5 }}>
+                                    <div><b>Timestamp:</b>  {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                                    <div><b>Order #:</b> {orderID}</div>
+                                    <div><b>Transaction #:</b> {transactionID}</div>
+                                    <div><b>Payment Mode:</b> {transaction.isOnline ? 'Online' : 'Offline'}</div>
+                                    { issuer ? (<span>| <b>Payment Handled by </b> { issuer }</span>):
+                                        transaction.isOnline ? renderOnlineTransactionDetails() : null
+                                    }
+                                </div>
+                            ) : null
+                        }
+                        <div>
+                            <h5 className="py-3">Order Items</h5>
+                            {products.map(p =>
+                                <div className="card-shadow p-4">
+                                    <h6>{p.name}</h6>
+                                    <span className="small-text">Qty: {p.qty} | Rs.{p.price}</span>
+                                </div>
+                            )}
+                            <div className="pt-4">
+                                <b>Total:</b> Rs. {transaction.amount}
+                            </div>
+                        </div>
+                        <div className="py-4 small-text text-center" style={{ lineHeight: "1.5" }}>
+                            If you have any issue with this order, please feel free to contact us
+                            via <a href="mailto:vcare@vidyut.amrita.edu">vcare@vidyut.amrita.edu</a> or
+                            through our dedicated <a href="https://t.me/vcare2020">https://t.me/vcare2020.</a>
                         </div>
                     </div>
-                    <div className="order-details-section order-md-2 order-1 col-md-8 p-4">
-                        <h4 className="mb-0">Order Summary</h4>
-                        <div className="d-flex">
-                            {status}
-
-                        </div>
-                        <div className="order-meta mt-2">
-                            <b>Order #:</b> {orderID} | <b>Transaction #:</b> {transactionID} | {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}
-                            { issuer ? (<span>| <b>Payment Handled by </b> { issuer }</span>): null }
-                        </div>
-                        {products.map(p =>
-                            <CartItem
-                                qty={p.qty}
-                                title={p.name}
-                                text="No description available"
-                                price={`Rs. ${p.price}`}
-                            />
-                        )}
-                    </div>
-                </div>
             </Modal>
         </React.Fragment>);
 }

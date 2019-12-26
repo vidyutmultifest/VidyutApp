@@ -20,7 +20,7 @@ const OrganizerSelector = ({ onSelect }) => {
         </Option>
     );
 
-    
+
     const query = `{
       listOrganizers
       {
