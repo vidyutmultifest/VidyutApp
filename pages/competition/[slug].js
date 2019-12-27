@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Base from "../../components/base";
 import { useRouter } from 'next/router';
 import dataFetch from "../../utils/dataFetch";
@@ -16,73 +16,9 @@ import ContactCard from "../../modules/events/contactCard";
 import TeamSpecifierCard from "../../modules/events/teamSpecCard";
 import OrganizerCard from "../../modules/events/organizerCard";
 
-const Workshop = () => {
+const Workshop = ({ data }) => {
     const router = useRouter();
-    const [isQueried, setQueried] = useState(false);
-    const [isLoaded, setLoaded] = useState(false);
-    const [data, setData] = useState();
-
     const [showMoreState, setShowMoreState] = useState(false);
-
-    const query = `{
-      getCompetition(slug: "${router.query.slug}")
-      {
-        name
-        slug
-        cover
-        details
-        description
-        fee
-        department
-        {
-           name
-        }
-        products
-        {
-           productID
-           name
-           price
-           isAvailable
-           isOutsideOnly
-           requireRegistration
-           isAmritapurianOnly
-           isFacultyOnly
-           isSchoolOnly  
-        }
-        organizer
-        {
-          name
-          logo
-        }
-        firstPrize
-        secondPrize
-        thirdPrize
-        minTeamSize
-        maxTeamSize
-        isTeamEvent
-        contacts 
-        {
-           name
-           email
-           phone
-        }
-      }
-    }`;
-
-    const getDetails = async () => await dataFetch({ query });
-
-    useEffect(() => {
-        if(!isQueried) {
-            getDetails().then((response) => {
-                setQueried(true);
-                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setData(response.data.getCompetition);
-                    setLoaded(true);
-                }
-            })
-        }
-
-    });
 
     const eventDetails = () => data.details && data.details.length > 0 ? (
         <div id="event-details-card" className="card-shadow">
@@ -101,10 +37,10 @@ const Workshop = () => {
 
     return <Base>
         <Head>
-            <title> { isLoaded ? data.name : router.query.slug } - Competition | Vidyut 2020 </title>
+            <title> { data ? data.name : router.query.slug } - Competition | Vidyut 2020 </title>
         </Head>
         <TitleBar />
-        { isLoaded ? (
+        { data ? (
             <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
@@ -149,5 +85,58 @@ const Workshop = () => {
     </Base>
 };
 
+Workshop.getInitialProps = ({ query }) => {
+    const gquery = `{
+      getCompetition(slug: "${query.slug}")
+      {
+        name
+        slug
+        cover
+        details
+        description
+        fee
+        department
+        {
+           name
+        }
+        products
+        {
+           productID
+           name
+           price
+           isAvailable
+           isOutsideOnly
+           requireRegistration
+           isAmritapurianOnly
+           isFacultyOnly
+           isSchoolOnly  
+        }
+        organizer
+        {
+          name
+          logo
+        }
+        firstPrize
+        secondPrize
+        thirdPrize
+        minTeamSize
+        maxTeamSize
+        isTeamEvent
+        contacts 
+        {
+           name
+           email
+           phone
+        }
+      }
+    }`;
+
+    return dataFetch({ query: gquery }).then(response => {
+            if (!Object.prototype.hasOwnProperty.call(response, 'errors'))
+                return { data: response.data.getCompetition };
+            return { data: null }
+        }
+    )
+};
 
 export default Workshop;

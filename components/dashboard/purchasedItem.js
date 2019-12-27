@@ -155,10 +155,12 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                 <b>Total:</b> Rs. {transaction.amount}
                             </div>
                         </div>
-                        <div className="py-4 small-text text-center" style={{ lineHeight: "1.5" }}>
-                            If you have any issue with this order, please feel free to contact us
-                            via <a href="mailto:vcare@vidyut.amrita.edu">vcare@vidyut.amrita.edu</a> or
-                            through our dedicated <a href="https://t.me/vcare2020">https://t.me/vcare2020.</a>
+                        <div className="py-4 small-text d-flex text-center justify-content-center" style={{ lineHeight: "1.5" }}>
+                            <div style={{ maxWidth: "80%" }}>
+                                If you have any issue with this order, please feel free to contact us
+                                via <a href="mailto:vcare@vidyut.amrita.edu">vcare@vidyut.amrita.edu</a> or
+                                through <a href="https://t.me/vcare2020">t.me/vcare2020.</a>
+                            </div>
                         </div>
                     </div>
             </Modal>

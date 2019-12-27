@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Base from "../components/base";
 import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
@@ -9,39 +9,7 @@ import EventCard from "../components/events/card";
 import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
 
-const Shows = () => {
-    const [isQueried, setQueried] = useState(false);
-    const [isLoaded, setLoaded] = useState(false);
-    const [data, setData] = useState(false);
-
-    const query = `{
-      listMerchandise
-      {
-        name
-        cover
-        description
-        fee
-        slug
-        isRecommended
-        isNew
-        productID
-      }
-    }`;
-
-    const getMerchandiseList = async () => await dataFetch({ query });
-
-    useEffect(() => {
-        if(!isQueried) {
-            getMerchandiseList().then((response) =>{
-                setQueried(true);
-                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setData(response.data.listMerchandise);
-                    setLoaded(true);
-                }
-            })
-        }
-    });
-
+const Merchandise = ({ data }) => {
     const renderMerchandiseCard = (w) => (
         <div className="col-md-4 p-2">
             <EventCard
@@ -63,7 +31,7 @@ const Shows = () => {
         </Head>
         <TitleBar />
         {
-            isLoaded && data.length > 0 ?
+            data && data.length > 0 ?
                 <div className="row m-0">
                     <div className="col-lg-3">
                     </div>
@@ -71,7 +39,7 @@ const Shows = () => {
                         <h3>Selling {data.length} Merchandise</h3>
                         <div className="row m-0">
                             {
-                                isLoaded ?
+                                data ?
                                     data.map(s => renderMerchandiseCard(s))
                                     : null
                             }
@@ -89,4 +57,27 @@ const Shows = () => {
     </Base>
 };
 
-export default Shows
+Merchandise.getInitialProps = () => {
+    const query = `{
+      listMerchandise
+      {
+        name
+        cover
+        description
+        fee
+        slug
+        isRecommended
+        isNew
+        productID
+      }
+    }`;
+
+    return dataFetch({ query }).then(response => {
+            if (!Object.prototype.hasOwnProperty.call(response, 'errors'))
+                return { data: response.data.listMerchandise };
+            return { data: null }
+        }
+    )
+};
+
+export default Merchandise

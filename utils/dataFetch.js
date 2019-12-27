@@ -5,13 +5,16 @@ const cookies = new Cookies();
 
 const API_URL = 'https://vidyut.rivivo.xyz/';
 
-export default ({ query, variables }) => {
+export default ({ query, variables, token }) => {
     const body = {
         query,
         variables,
     };
 
-    const token = cookies.get('token');
+    if(!token)
+    {
+        token = cookies.get('token');
+    }
 
     const apiConfig = {
         method: 'POST',
