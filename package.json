@@ -56,6 +56,7 @@
     "react-facebook": "^8.1.4",
     "react-geolocated": "^3.0.1",
     "react-google-login": "^5.0.7",
+    "react-insta-stories": "^2.0.2",
     "react-lottie": "latest",
     "react-microsoft-login": "^1.6.2",
     "react-modal": "^3.11.1",

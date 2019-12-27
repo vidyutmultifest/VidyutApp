@@ -15,6 +15,7 @@ import DashboardHeader from "../components/dashboard/dashboardHeader";
 import LoadingScreen from "../components/loadingScreen";
 import QuickActionCards from "../modules/dashboard/QuickActionCards";
 import OptionMenuCards from "../modules/dashboard/OptionMenuCards";
+import FeedStories from "../modules/dashboard/feedStories";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -80,7 +81,8 @@ const Dashboard = () => {
                 isLoaded ? (
                     <div>
                     <TitleBar />
-                    <div id="dashboard-wrapper">
+                        <FeedStories />
+                        <div id="dashboard-wrapper">
                         <DashboardHeader
                             name={data.myProfile.firstName}
                             message="Thank you for showing interest and registering. We are committed to give you an exciting and memorable experience.

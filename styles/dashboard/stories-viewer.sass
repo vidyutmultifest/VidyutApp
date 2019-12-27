@@ -1,0 +1,22 @@
+.stories-container
+  box-shadow: 5px 5px 5px rgba(1,1,1,1)
+  padding: 1rem
+  .stories-viewer
+    display: flex
+    div
+      padding: 0.15rem
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.5)
+      border-radius: 100vw
+      box-sizing: border-box
+      background-clip: padding-box
+      border: solid 0.1rem transparent
+      img
+        height: 55px
+        width: 55px
+        border-radius: 100vw
+      &:before
+        border-radius: inherit
+        background: linear-gradient(to right, #405de6,#5851db, #833ab4, #c13584, #e1306c, #fd1d1d)
+
+.story-overlay
+  z-index: 10000!important
