@@ -39,6 +39,16 @@ const Workshop = () => {
           name
           logo
         }
+        partners
+        {
+          name
+          logo
+        }
+        accreditedBy
+        {
+          name
+          logo
+        }
         fee
         productID
         products
@@ -148,6 +158,29 @@ const Workshop = () => {
         </div>
     );
 
+
+    const renderPartners = () => data.partners.length > 0 ? (
+        <div className="my-4 p-4">
+            <h4>Knowledge Partners</h4>
+            <div className="row m-0 pt-4">
+                {
+                    data.partners.map(s => (
+                        <div className="col-md-6 px-2">
+                            <div className="card-shadow p-3 h-100 d-flex justify-content-center text-center align-items-center">
+                                <div>
+                                    { s.logo ? <img src={s.logo} style={{ maxHeight: "150px"}} /> : null }
+                                    <div className="font-weight-bold mt-4">{s.name}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+        </div>
+    ) : null;
+
+
     return <Base>
         <Head>
             <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020</title>
@@ -165,12 +198,18 @@ const Workshop = () => {
                 <div className="row m-0">
                     <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
                         {eventDetails()}
+                        {renderPartners()}
                         {renderTrainerCards()}
                     </div>
                     <div className="col-md-5 col-xl-4 p-md-4 mb-4">
                         {
                             data.organizer ?
                                 <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
+                                : null
+                        }
+                        {
+                            data.accreditedBy ?
+                                <OrganizerCard title="Accredited By" name={data.accreditedBy.name} logo={data.accreditedBy.logo} />
                                 : null
                         }
                         { renderSchedule() }
