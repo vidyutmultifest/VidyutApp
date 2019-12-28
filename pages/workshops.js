@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Base from "../components/base";
 import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
@@ -13,10 +13,51 @@ import DashboardFooter from "../modules/dashboard/footer";
 import LoadingScreen from "../components/loadingScreen";
 import OrganizerSelector from "../modules/events/organizerSelector";
 
-const Workshops = ({ data }) => {
+const Workshops = () => {
+    const [isQueried, setQueried] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
+    const [data, setData] = useState(false);
+
     const [deptSel, setDept] = useState('');
     const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
+
+    const query = `{
+      listWorkshops
+      {
+        name
+        cover
+        description
+        fee
+        slug
+        isRecommended
+        organizer
+        {
+          label: name
+          value: id
+        }
+        isNew
+        department
+        {
+          label: name
+          value: slug
+        }
+      }
+    }`;
+
+    const getWorkshopList = async () => await dataFetch({ query });
+
+    useEffect(() => {
+       if(!isQueried) {
+           getWorkshopList().then((response) =>{
+               setQueried(true);
+               if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                   setData(response.data.listWorkshops);
+                   setLoaded(true);
+               }
+           })
+       }
+    });
 
     const renderWorkshopCard = (w) => (
         <div className="col-md-4 p-2">
@@ -27,7 +68,7 @@ const Workshops = ({ data }) => {
                 price={w.fee}
                 organizer={w.organizer ? w.organizer.label : null}
                 isNew={w.isNew}
-                dept={w.department.label}
+                dept={w.department ? w.department.label : null}
                 isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
                 registerText="Register Now"
@@ -74,7 +115,7 @@ const Workshops = ({ data }) => {
             <title>Workshops | Vidyut 2020</title>
         </Head>
         {
-            data ?
+            isLoaded ?
                 <React.Fragment>
                     <TitleBar />
                         {
@@ -101,38 +142,6 @@ const Workshops = ({ data }) => {
                 </React.Fragment>: <LoadingScreen text="Loading Workshops" />
         }
     </Base>
-};
-
-Workshops.getInitialProps = () => {
-    const query = `{
-      listWorkshops
-      {
-        name
-        cover
-        description
-        fee
-        slug
-        isRecommended
-        organizer
-        {
-          label: name
-          value: id
-        }
-        isNew
-        department
-        {
-          label: name
-          value: slug
-        }
-      }
-    }`;
-
-    return dataFetch({ query }).then(response => {
-            if (!Object.prototype.hasOwnProperty.call(response, 'errors'))
-                return { data: response.data.listWorkshops };
-            return { data: null }
-        }
-    )
 };
 
 export default Workshops

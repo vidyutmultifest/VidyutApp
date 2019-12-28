@@ -15,10 +15,54 @@ import OrganizerSelector from "../modules/events/organizerSelector";
 
 const _ = require('lodash');
 
-const Competitions = ({ data }) => {
+
+const Competitions = () => {
+    const [isQueried, setQueried] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
+    const [data, setData] = useState(false);
+
     const [deptSel, setDept] = useState('');
     const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
+
+    const query = `{
+      listCompetitions
+      {
+        name
+        cover
+        description
+        fee
+        slug
+        isNew
+        isRecommended
+        isTotalRate
+        isTeamEvent
+        organizer
+        {
+          label: name
+          value: id
+        }
+        department
+        {
+          label: name
+          value: slug
+        }
+      }
+    }`;
+
+    const getCompetitionList = async () => await dataFetch({ query });
+
+    useEffect(() => {
+        if(!isQueried) {
+            getCompetitionList().then((response) =>{
+                setQueried(true);
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setData(response.data.listCompetitions);
+                    setLoaded(true);
+                }
+            })
+        }
+    });
 
     const renderCompetitionCard = (c) => (
         <div className="col-md-4 p-2">
@@ -80,7 +124,7 @@ const Competitions = ({ data }) => {
             <title>Competitions | Vidyut 2020</title>
         </Head>
         {
-            data ?
+            isLoaded ?
                 <React.Fragment>
                     <TitleBar />
                     {
@@ -91,7 +135,7 @@ const Competitions = ({ data }) => {
                                 </div>
                                 <div id="event-listing" className="col-xl-9 col-md-8">
                                     <div className="row m-0">
-                                        { renderCompetitions() }
+                                        { isLoaded ? renderCompetitions() : null }
                                     </div>
                                 </div>
                             </div>
@@ -108,41 +152,6 @@ const Competitions = ({ data }) => {
                 </React.Fragment> : <LoadingScreen text="Loading Competitions" />
         }
     </Base>
-};
-
-Competitions.getInitialProps = () => {
-    const query = `{
-      listCompetitions
-      {
-        name
-        cover
-        description
-        fee
-        slug
-        isNew
-        isRecommended
-        isTotalRate
-        isTeamEvent
-        organizer
-        {
-          label: name
-          value: id
-        }
-        department
-        {
-          label: name
-          value: slug
-        }
-      }
-    }`;
-
-    return dataFetch({ query }).then(response => {
-            if (!Object.prototype.hasOwnProperty.call(response, 'errors'))
-                return { data: response.data.listCompetitions };
-            return { data: null }
-        }
-    )
-
 };
 
 export default Competitions
