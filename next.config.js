@@ -29,6 +29,7 @@ const nextConfig = {
     //
     //     return paths;
     // }
+    distDir: '_next',
 };
 
 module.exports = withPlugins([

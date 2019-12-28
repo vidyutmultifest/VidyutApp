@@ -14,10 +14,11 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     </div>
                 </div>
                 <div className="event-details">
-                    { dept ? <span className="dept-name bg-warning p-2 small-text mb-2">{dept}</span> : null}
+                    { dept ? <div className="d-flex justify-content-end"><div className="dept-name bg-warning p-2 small-text mb-2">{dept}</div></div> : null}
                     <h4>{name}</h4>
                     { organizer ?  <div className="organizername"> by {organizer}</div> : null }
-                    <div className="price">₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }</div>
+                    <p>{text}</p>
+                    <div className="price text-right mt-4">₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }</div>
                 </div>
             </div>
         </Link>

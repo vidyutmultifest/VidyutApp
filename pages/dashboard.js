@@ -81,7 +81,7 @@ const Dashboard = () => {
                 isLoaded ? (
                     <div>
                     <TitleBar />
-                        
+
                         <div id="dashboard-wrapper">
                         <DashboardHeader
                             name={data.myProfile.firstName}
