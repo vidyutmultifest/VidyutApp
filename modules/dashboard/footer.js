@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const DashboardFooter = () => (
     <footer>
-        <div className="row m-0">
+        <div className="row mx-0 my-4 py-4">
             <div className="col-md-4" />
             <div className="col-md-4 text-center">
                 <div className="amfoss-credit">
@@ -21,7 +21,7 @@ const DashboardFooter = () => (
                             <a>Code of Conduct</a>
                         </Link>|
                         <Link href="/terms">
-                            <a>Terms & Conditions</a>
+                            <a>Terms</a>
                         </Link>|
                         <Link href="/privacy">
                             <a>Privacy</a>

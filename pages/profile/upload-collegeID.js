@@ -100,7 +100,24 @@ const UploadCollegeID = () => {
                 setUpdation(true);
             });
         });
+    };
 
+    const uploadID = () => {
+        setSubmission(true);
+        const data = new FormData();
+        data.append('profileCollegeID', dataURItoBlob(photo));
+        const query = `mutation updateProfile{
+                  updateProfile
+                  {
+                    status
+                  }
+                }`;
+        data.append('query', query);
+        uploadFile({data}).then((response) => {
+            setQueried(false);
+            setSubmission(false);
+            setUpdation(true);
+        });
     };
 
     const sendToAmazon = (file) => {
@@ -215,7 +232,7 @@ const UploadCollegeID = () => {
                     <TitleBar />
                     <div id="update-college-page" className="container my-4 ">
                         <div className="badge badge-primary">Experimental Feature</div>
-                        <h3>Update College Profile</h3>
+                        <h3>Upload ID Card</h3>
                         <div className="update-card card-shadow p-0">
                             <div className="row m-0">
                                 <div className="click-row col-md-6 p-4">
@@ -266,7 +283,9 @@ const UploadCollegeID = () => {
                                                 </div>
                                                 <button className="btn btn-primary" onClick={submitRollNoUpdate}>Save</button>
                                             </div>
-                                        ) : null
+                                        ) : (
+                                            <button className="btn btn-primary" onClick={uploadID}>Upload ID Card</button>
+                                        )
                                     }
                                 </div>
                             </div>

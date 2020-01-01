@@ -15,6 +15,7 @@ import ProfilePicture from "../../modules/profile/profilePicture";
 import EmergencyContacts from "../../modules/profile/emergency";
 import EducationDetails from "../../modules/profile/education";
 import CollegeIDPhoto from "../../modules/profile/collegeIDCard";
+import SwitchAccountType from "../../modules/profile/accountType";
 
 
 const UpdateProfile = () => {
@@ -33,6 +34,8 @@ const UpdateProfile = () => {
         lastName
         isAmritian
         isAmritapurian
+        isSchoolStudent
+        isFaculty
         college
         {
             id
@@ -72,6 +75,12 @@ const UpdateProfile = () => {
     const renderAbout = isLoaded ? (
         <div className={classNames("row m-0", selection !== 1 ? "d-none" : null)}>
             <div className="col-md-6 p-3">
+                <div className="mb-4">
+                    <SwitchAccountType
+                        isFaculty={data.myProfile.isFaculty}
+                        isSchoolStudent={data.myProfile.isSchoolStudent}
+                    />
+                </div>
                 <ProfilePicture
                     profilePhoto={data.myProfile.photo}
                 />
@@ -82,12 +91,12 @@ const UpdateProfile = () => {
                     lastName={data.myProfile.lastName}
                     gender={data.myProfile.gender}
                 />
-            </div>
-            <div className="col-md-6 p-3">
-                <EditPreferences
-                    foodPreference={data.myProfile.foodPreference}
-                    shirtSize={data.myProfile.shirtSize}
-                />
+                <div className="mt-4">
+                    <EditPreferences
+                        foodPreference={data.myProfile.foodPreference}
+                        shirtSize={data.myProfile.shirtSize}
+                    />
+                </div>
             </div>
         </div>
     ) : null;
