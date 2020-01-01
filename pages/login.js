@@ -181,7 +181,7 @@ function LoginPage(props) {
                                 redirectUri={url}
                                 children={<button className="login-button-microsoft">
                                     <img src={require('../images/logos/microsoft.png')} />
-                                    Login with Amrita ID (For Amritapuri)
+                                    Login with Amrita ID (For Amritapurians)
                                 </button>}
                             />
                         </NoSSR>

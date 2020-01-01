@@ -84,10 +84,7 @@ const MyRegistrations = () => {
                                     r.order.transaction.isPending ?
                                         <img src={require('../../images/icons/cancel.png')} style={{ maxWidth: '32px'}} /> :
                                         <Link href={
-                                            `/purchase?product=${r.event.productID}
-                                        &qty=${r.team !== null ? r.team.membersCount : 1}
-                                        &regID=${r.regID}
-                                        `
+                                            `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
                                         }>
                                             <button className="btn btn-primary">Retry Payment</button>
                                         </Link>

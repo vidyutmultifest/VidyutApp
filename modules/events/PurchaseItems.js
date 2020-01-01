@@ -76,7 +76,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                             </button>
                             <Modal
                                 isOpen={showModal}
-                                contentLabel="Payment at Counter"
+                                contentLabel="Registration Option Menu"
                                 onRequestClose={() => setModalState(false)}
                                 className="purchase-options-modal p-2"
                                 overlayClassName="purchase-options-overlay p-2"

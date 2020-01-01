@@ -23,13 +23,13 @@ const ProfileCard = ({ data }) => {
         <ProfileCompletionItems
             title="College Detail Updated"
             text="Vidyut is open only to college students, thank you for co-operating."
-            link="/profile/upload-collegeID"
+            link="/profile/edit-profile"
             photo={require('../../images/icons/checked.png')}
         /> : <ProfileCompletionItems
             title="Update College Details"
             text="We need to verify that you are student of a college before we can allow you at Vidyut"
             photo={require('../../images/icons/student-center.png')}
-            link="/profile/upload-collegeID"
+            link="/profile/edit-profile"
         />;
 
     const phoneCompletion = data.phone !== '' && data.phone != null ?

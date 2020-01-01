@@ -21,6 +21,7 @@ const RegisterPage = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoading] = useState(false);
     const [data, setData] = useState();
+    const [isAlreadyRegistered, setAlreadyRegistered] = useState(false);
     const [isError, setError] = useState(false);
 
     const [isTeamSelected, setTeamSelected] = useState(false);
@@ -34,6 +35,7 @@ const RegisterPage = () => {
     const [regID, setRegID] = useState();
 
     const query = `query getProduct($productID: String!){
+      isAlreadyRegistered(productID: $productID)
       getProduct(productID: $productID)
       {
         isAvailable
@@ -76,6 +78,7 @@ const RegisterPage = () => {
                     setQueried(true);
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                         setData(response.data.getProduct);
+                        setAlreadyRegistered(response.data.isAlreadyRegistered)
                         setLoading(true);
                     } else {
                         setError(true);
@@ -150,7 +153,25 @@ const RegisterPage = () => {
         <Head>
             <title>Register for {isLoaded ? data.product.name : "Register for Vidyut"} | Registration Page | Vidyut 2020</title>
         </Head>
-        {isError ?
+        {isAlreadyRegistered ?
+             <React.Fragment>
+                 <TitleBar/>
+                 <div className = "container p-0 my-4">
+                     <div className="card-shadow p-4">
+                         <StatusContainer
+                             animation={require('../../images/animations/done-button')}
+                             title="Already Registered."
+                             text="It seems that you have already registered for this event. If your transaction wasn't successful,
+                        please go to the link below and retry payment. Without payment, your registration is still considered,
+                        incomplete. Thank You!"
+                             buttons={<Link href="/registerations/my-registrations">
+                                 <button className="btn btn-primary rounded-0 px-4 my-4 py-2">View My Registrations</button>
+                             </Link>}
+                         />
+                     </div>
+                 </div>
+             </React.Fragment>
+            : isError ?
             <LoadingScreen
                 text="We couldn't load this page due to a error. Try again later, or if this error exists, contact web@vidyut.amrita.edu."
             />
