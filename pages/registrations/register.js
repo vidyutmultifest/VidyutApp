@@ -227,7 +227,7 @@ const RegisterPage = () => {
                                                     text={`Thank you for registering, and we look forward to meet you at Vidyut 2020. Your registration ID is ${regID}`}
                                                     buttons={<div>
                                                         <Link href={
-                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
+                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
                                                         }>
                                                             <button className="btn btn-primary font-weight-bold">Pay for Registration</button>
                                                         </Link>
@@ -243,7 +243,7 @@ const RegisterPage = () => {
                                                     text={`Please click on the button below to pay for your registration. Your registration ID is ${regID}`}
                                                     buttons={<div>
                                                         <Link href={
-                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
+                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
                                                         }>
                                                             <button className="btn btn-primary font-weight-bold">Proceed to Pay</button>
                                                         </Link>

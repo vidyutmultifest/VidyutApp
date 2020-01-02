@@ -34,7 +34,6 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
                 flag = 1;
             }
         }
-        console.log(data);
         if(!flag) onSubmit(data);
         else setValidationError('Please fill all the fields.');
     };
@@ -50,7 +49,11 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
                     fields.map(f =>
                         <div key={f.key} className="form-group">
                             <label htmlFor={f.key}>{f.label}</label>
-                            <input name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                            {
+                                f.type === "textarea" ?
+                                    <textarea name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                                : <input name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                            }
                         </div>
                     )
                 }

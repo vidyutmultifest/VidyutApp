@@ -94,7 +94,7 @@ const Workshop = () => {
     const getDetails = async () => await dataFetch({ query });
 
     useEffect(() => {
-        if(!isQueried) {
+        if(!isQueried && router.query.slug !== undefined) {
             getDetails().then((response) => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {

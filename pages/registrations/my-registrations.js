@@ -60,11 +60,11 @@ const MyRegistrations = () => {
 
     const renderRegistration = (r) => (
         <div className="p-2">
-            <div className="card-shadow rounded">
+            <div className="card-shadow rounded p-3">
                 <div className="row m-0">
                     <div className="col-md-9 p-2">
                         <h6>{r.event.name}</h6>
-                        <span className="small-text">Reg#: {r.regID} | </span>
+                        <span className="small-text">Reg#: {r.regID} </span>
                     </div>
                     <div className="col-md-3 p-2">
                         <div className="d-flex align-items-center justify-content-end">
@@ -73,7 +73,9 @@ const MyRegistrations = () => {
                                     <Link href={
                                         `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>
-                                        <button className="btn btn-primary">Pay {r.team !== null ? r.event.price * r.team.membersCount : r.event.price}</button>
+                                        <button className="btn btn-primary">
+                                            Pay {r.team !== null ? parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
+                                        </button>
                                     </Link>
                                     :  r.order.transaction && r.order.transaction.isPaid ? (
                                         <div className="text-right">
@@ -110,7 +112,7 @@ const MyRegistrations = () => {
                 />
                 : data.length > 0 ?
                 <div className="container p-0">
-                    <h1 className="my-4">My Registrations</h1>
+                    <h1 className="py-4 m-4">My Registrations</h1>
                     <div className="card-shadow bg-gradient p-4">{ data.map(r => renderRegistration(r)) }</div>
                 </div> : <StatusContainer
                     title="No Registrations Found"
