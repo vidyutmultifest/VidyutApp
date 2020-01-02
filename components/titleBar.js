@@ -7,7 +7,7 @@ import {useRouter} from "next/router";
 
 const cookies = new Cookies();
 
-const TitleBar = () => {
+const TitleBar = ({ breadcrumbs }) => {
     const token = cookies.get('token');
     const isLoggedIn = token != null;
     const [menuOpen, setMenuState] = useState(false);
@@ -59,20 +59,39 @@ const TitleBar = () => {
       </div>
     );
 
-    return <nav id="titlebar">
-        <div className="row m-0">
-            <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
-                <Link href="/dashboard"><img alt="vidyut-text-logo" id="vidyut-logo-topbar" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
+    return <React.Fragment>
+        <nav id="titlebar">
+            <div className="row m-0">
+                <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
+                    <Link href="/dashboard"><img alt="vidyut-text-logo" id="vidyut-logo-topbar" src={require('../images/logos/vidyut-dark-logo.png')} /></Link>
+                </div>
+                <div className="col text-right">
+                    {
+                        isLoggedIn ?
+                            renderDropdownMenu()
+                            :  <Link href="/login"><a>Login</a></Link>
+                    }
+                </div>
             </div>
-            <div className="col text-right">
-                {
-                   isLoggedIn ?
-                           renderDropdownMenu()
-                       :  <Link href="/login"><a>Login</a></Link>
-                }
-            </div>
-        </div>
-    </nav>
+        </nav>
+        {
+            breadcrumbs ?
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb rounded-0 card-shadow">
+                    <Link href="/dashboard">
+                            <li className="breadcrumb-item active" aria-current="page">Dashboard</li>
+                    </Link>
+                    {
+                        breadcrumbs.length > 0 ? breadcrumbs.map(l => (
+                            <Link href={l.link}>
+                                    <li className="breadcrumb-item" aria-current="page">{l.name}</li>
+                            </Link>
+                        )) : null
+                    }
+                    </ol>
+                </nav> : null
+        }
+    </React.Fragment>
 };
 
 export default TitleBar;

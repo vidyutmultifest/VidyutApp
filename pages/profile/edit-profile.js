@@ -156,7 +156,7 @@ const UpdateProfile = () => {
         <Head>
             <title>Edit Profile | Vidyut 2020</title>
         </Head>
-        <TitleBar />
+        <TitleBar/>
         {ProfileEditNav}
         <div className="container">
             {renderAbout}

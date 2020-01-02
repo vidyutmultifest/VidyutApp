@@ -103,7 +103,18 @@ const Workshop = () => {
         <Head>
             <title> { isLoaded ? data.name : router.query.slug } - Competition | Vidyut 2020 </title>
         </Head>
-        <TitleBar />
+        <TitleBar
+            breadcrumbs={[
+                {
+                    name: "Competitions",
+                    link: '/competititons'
+                },
+                {
+                    name:  isLoaded ? data.name : router.query.slug,
+                    link: router.query.slug
+                },
+            ]}
+        />
         { isLoaded ? (
             <div className="container p-0">
                 <EventHeaderCard

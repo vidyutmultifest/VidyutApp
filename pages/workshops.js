@@ -117,7 +117,14 @@ const Workshops = () => {
         {
             isLoaded ?
                 <React.Fragment>
-                    <TitleBar />
+                    <TitleBar
+                        breadcrumbs={[
+                            {
+                                name: "Workshops",
+                                link: '/workshops'
+                            },
+                        ]}
+                    />
                         {
                             data.length > 0 ?
                                 <div className="row m-0">

@@ -226,11 +226,14 @@ const RegisterPage = () => {
                                                     title="Registered Successfully"
                                                     text={`Thank you for registering, and we look forward to meet you at Vidyut 2020. Your registration ID is ${regID}`}
                                                     buttons={<div>
-                                                        <Link href={
-                                                            `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
-                                                        }>
-                                                            <button className="btn btn-primary font-weight-bold">Pay for Registration</button>
-                                                        </Link>
+                                                        {
+                                                            parseInt(data.product.price) > 0 ?
+                                                                <Link href={
+                                                                    `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
+                                                                }>
+                                                                    <button className="btn btn-primary font-weight-bold">Pay for Registration</button>
+                                                                </Link> : null
+                                                        }
                                                         <Link href="/registrations/my-registrations">
                                                             <button className="btn btn-primary font-weight-bold mr-2">View My
                                                                 Registrations

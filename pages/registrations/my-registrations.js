@@ -69,7 +69,11 @@ const MyRegistrations = () => {
                     <div className="col-md-3 p-2">
                         <div className="d-flex align-items-center justify-content-end">
                             {
-                                r.order == null ?
+                                parseInt(r.event.price) === 0 ?
+                                    <div className="text-right">
+                                        <img src={require('../../images/icons/checked.png')} style={{ maxWidth: '32px'}} />
+                                    </div>
+                                : r.order == null ?
                                     <Link href={
                                         `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>

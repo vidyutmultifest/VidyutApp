@@ -13,6 +13,7 @@ import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
 import classNames from "classnames";
 import OrganizerCard from "../../modules/events/organizerCard";
+import TrainerCards from "../../modules/events/TrainerCards";
 
 const Workshop = () => {
     const router = useRouter();
@@ -121,29 +122,6 @@ const Workshop = () => {
         </div>
     ) : null;
 
-    const renderTrainerCards = () => (
-        <div className="my-4">
-            <h2 className="px-4 mt-4 mb-2">Trainers</h2>
-        {
-            data.trainers ?
-                <div className="row m-0">
-                    {
-                        data.trainers.map((trainer) => (
-                            <div className="trainer-profile-card col-6 col-md-4 p-2">
-                                <div className="card-shadow my-2">
-                                    <img src={trainer.photo ? trainer.photo : null}/>
-                                    <div className="p-4">
-                                        <h4>{trainer.name}</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>  : null
-        }
-        </div>
-    );
-
     const renderSchedule = () => (
         <div className="card-shadow rounded my-4 p-4">
             <h4>Schedule</h4>
@@ -165,7 +143,7 @@ const Workshop = () => {
             <div className="row m-0 pt-4">
                 {
                     data.partners.map(s => (
-                        <div className="col-md-6 px-2">
+                        <div className="col-md-6 p-2">
                             <div className="card-shadow p-3 h-100 d-flex justify-content-center text-center align-items-center">
                                 <div>
                                     { s.logo ? <img src={s.logo} style={{ maxHeight: "150px"}} /> : null }
@@ -185,7 +163,18 @@ const Workshop = () => {
         <Head>
             <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020</title>
         </Head>
-        <TitleBar />
+        <TitleBar
+            breadcrumbs={[
+                {
+                    name: "Workshops",
+                    link: '/workshops'
+                },
+                {
+                    name:  isLoaded ? data.name : router.query.slug,
+                    link: router.query.slug
+                },
+            ]}
+        />
         { isLoaded ? (
             <div className="container p-0">
                 <EventHeaderCard
@@ -199,7 +188,7 @@ const Workshop = () => {
                     <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
                         {eventDetails()}
                         {renderPartners()}
-                        {renderTrainerCards()}
+                        <TrainerCards trainers={data.trainers} />
                     </div>
                     <div className="col-md-5 col-xl-4 p-md-4 mb-4">
                         {

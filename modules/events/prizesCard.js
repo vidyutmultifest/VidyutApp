@@ -33,7 +33,10 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
                     </div>
                     <div className="col-9">
                         <div className="prizeType">Third Prize</div>
-                        <div className="prizeAmount">₹{thirdPrize}</div>
+                        { parseInt(thirdPrize) ?
+                            <div className="prizeAmount">₹{thirdPrize}`</div>
+                            : <div>{thirdPrize}</div>
+                        }
                     </div>
                 </div>
             ) : null

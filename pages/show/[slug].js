@@ -89,7 +89,18 @@ const Workshop = () => {
         </Head>
         { isLoaded ? (
             <React.Fragment>
-            <TitleBar />
+            <TitleBar
+                breadcrumbs={[
+                    {
+                        name: "Shows",
+                        link: '/shows'
+                    },
+                    {
+                        name:  isLoaded ? data.name : router.query.slug,
+                        link: router.query.slug
+                    },
+                ]}
+            />
             <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
