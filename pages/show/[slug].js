@@ -11,6 +11,7 @@ import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
 import classNames from "classnames";
+import LoadingScreen from "../../components/loadingScreen";
 
 const Workshop = () => {
     const router = useRouter();
@@ -55,7 +56,7 @@ const Workshop = () => {
     const getDetails = async () => await dataFetch({ query });
 
     useEffect(() => {
-        if(!isQueried) {
+        if(!isQueried && router.query.slug !== "undefined") {
             getDetails().then((response) => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
@@ -84,10 +85,11 @@ const Workshop = () => {
 
     return <Base>
         <Head>
-            <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020</title>
+            <title> { isLoaded ? data.name : router.query.slug } | Shows | Vidyut 2020</title>
         </Head>
-        <TitleBar />
         { isLoaded ? (
+            <React.Fragment>
+            <TitleBar />
             <div className="container p-0">
                 <EventHeaderCard
                     cover={data.cover}
@@ -111,8 +113,9 @@ const Workshop = () => {
                     </div>
                 </div>
             </div>
-        ): null}
-        <DashboardFooter/>
+            <DashboardFooter/>
+        </React.Fragment>
+        ): <LoadingScreen text="Fetching Show Details" />}
     </Base>
 };
 

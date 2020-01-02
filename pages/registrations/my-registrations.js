@@ -75,13 +75,13 @@ const MyRegistrations = () => {
                                     }>
                                         <button className="btn btn-primary">Pay {r.team !== null ? r.event.price * r.team.membersCount : r.event.price}</button>
                                     </Link>
-                                    : r.order.transaction.isPaid ? (
+                                    :  r.order.transaction && r.order.transaction.isPaid ? (
                                         <div className="text-right">
                                             <img src={require('../../images/icons/checked.png')} style={{ maxWidth: '32px'}} />
                                             <b>₹{r.order.transaction.amount}</b>
                                         </div>
                                     ) :
-                                    r.order.transaction.isPending ?
+                                    r.order.transaction && r.order.transaction.isPending ?
                                         <img src={require('../../images/icons/cancel.png')} style={{ maxWidth: '32px'}} /> :
                                         <Link href={
                                             `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
