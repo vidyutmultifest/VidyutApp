@@ -58,8 +58,8 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
                     )
                 }
             </form>
-            <button className="btn btn-warning px-4 py-2 font-weight-bold mr-2" onClick={() => onClickBack()}>Go Back</button>
-            <button className="btn btn-primary px-4 py-2 font-weight-bold" onClick={handleSubmit}>Proceed</button>
+            <button className="btn btn-warning px-4 py-2 font-weight-bold m-2" onClick={() => onClickBack()}>Go Back</button>
+            <button className="btn btn-primary px-4 py-2 font-weight-bold m-2" onClick={handleSubmit}>Proceed</button>
         </div>
     ) : null
 };

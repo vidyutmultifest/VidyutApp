@@ -14,8 +14,8 @@ const UserAgreement = ({ content, onAgree, onClickBack }) => {
                 <input type="checkbox" name="i-agree" onChange={(e) => setVal(e.target.value)}/>
                 By proceeding further with my registration, I agree to the above terms of the event and the general <Link href="/coc"><a>code of conduct</a></Link> of Vidyut 2020.
             </div>
-            <button className="btn btn-warning px-4 py-2 font-weight-bold mr-2" onClick={() => onClickBack()}>Go Back</button>
-            { val ? <button className="btn btn-primary px-4 py-2 font-weight-bold mr-2" onClick={() => onAgree()}>Agree & Proceed</button> : null }
+            <button className="btn btn-warning px-4 py-2 font-weight-bold m-2" onClick={() => onClickBack()}>Go Back</button>
+            { val ? <button className="btn btn-primary px-4 py-2 font-weight-bold m-2" onClick={() => onAgree()}>Agree & Proceed</button> : null }
         </div>
     )
 };

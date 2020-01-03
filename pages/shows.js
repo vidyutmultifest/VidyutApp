@@ -96,10 +96,10 @@ const Shows = () => {
                             />
                         </div>
                     }
+                    <DashboardFooter />
                 </React.Fragment>
                 : <LoadingScreen text="Loading Shows"/>
         }
-    <DashboardFooter />
     </Base>
 };
 

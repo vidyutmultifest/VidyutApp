@@ -14,8 +14,7 @@ const StatusContainer = ({ title, image, animation, text, buttons, style }) => (
                             autoplay: true,
                             animationData: animation,
                         }}
-                        height={400}
-                        width={400}
+                        height="50vh"
                     />
                     : <img src={image} />
             }

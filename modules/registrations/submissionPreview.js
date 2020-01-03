@@ -33,8 +33,8 @@ const SubmissionPreview = ({ team, formData, onSubmit, onClickBack }) => {
             <h3 className="text-light mb-4">Review your Registration</h3>
             {renderFormData}
             {team ? renderTeamDetails() : null}
-            <button className="btn btn-warning px-4 py-2 font-weight-bold mr-2" onClick={() => onClickBack()}>Go Back</button>
-            <button className="btn btn-light px-4 py-2 font-weight-bold" onClick={() => onSubmit()}>Register</button>
+            <button className="btn btn-warning px-4 py-2 font-weight-bold m-2" onClick={() => onClickBack()}>Go Back</button>
+            <button className="btn btn-light px-4 py-2 font-weight-bold m-2" onClick={() => onSubmit()}>Register</button>
         </div>
     )
 };

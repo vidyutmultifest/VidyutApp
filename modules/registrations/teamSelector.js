@@ -134,7 +134,7 @@ const TeamSelector = ({ minTeamSize, maxTeamSize, onSelect, teamSelected }) => {
             {
                 myTeams && selection != null ? renderTeamDetails(getSelectedTeam(selection)) :
                     <Link href="/teams/my-teams">
-                        <button className="mt-2 btn btn-warning font-weight-bold">Manage Teams</button>
+                        <button className="m-2 btn btn-warning font-weight-bold">Manage Teams</button>
                     </Link>
             }
 

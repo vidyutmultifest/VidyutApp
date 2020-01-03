@@ -15,6 +15,7 @@ import EventRegistrationForm from "../../modules/registrations/eventRegistration
 import UserAgreement from "../../modules/registrations/userAgreement";
 import SubmissionPreview from "../../modules/registrations/submissionPreview";
 import StatusContainer from "../../components/StatusContainer";
+import DashboardFooter from "../../modules/dashboard/footer";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -156,7 +157,7 @@ const RegisterPage = () => {
         {isAlreadyRegistered ?
              <React.Fragment>
                  <TitleBar/>
-                 <div className = "container p-0 my-4">
+                 <div className="container p-0 my-4">
                      <div className="card-shadow p-4">
                          <StatusContainer
                              animation={require('../../images/animations/done-button')}
@@ -170,6 +171,7 @@ const RegisterPage = () => {
                          />
                      </div>
                  </div>
+                 <DashboardFooter />
              </React.Fragment>
             : isError ?
             <LoadingScreen
@@ -231,11 +233,11 @@ const RegisterPage = () => {
                                                                 <Link href={
                                                                     `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
                                                                 }>
-                                                                    <button className="btn btn-primary font-weight-bold">Pay for Registration</button>
+                                                                    <button className="btn btn-primary font-weight-bold m-2">Pay for Registration</button>
                                                                 </Link> : null
                                                         }
                                                         <Link href="/registrations/my-registrations">
-                                                            <button className="btn btn-primary font-weight-bold mr-2">View My
+                                                            <button className="btn btn-primary font-weight-bold m-2">View My
                                                                 Registrations
                                                             </button>
                                                         </Link>
@@ -248,12 +250,13 @@ const RegisterPage = () => {
                                                         <Link href={
                                                             `/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`
                                                         }>
-                                                            <button className="btn btn-primary font-weight-bold">Proceed to Pay</button>
+                                                            <button className="btn btn-primary font-weight-bold m-2">Proceed to Pay</button>
                                                         </Link>
                                                     </div>}
                                                 />
                                         }
                                     </div>
+                                    <DashboardFooter />
                                 </Shade>
                     }
                     </PoseGroup>
