@@ -18,7 +18,13 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     <h4>{name}</h4>
                     { organizer ?  <div className="organizername"> by {organizer}</div> : null }
                     <p>{text}</p>
-                    <div className="price text-right mt-4">₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }</div>
+                    <div className="price text-right mt-4">{
+                        parseInt(price) > 0 ?
+                            <React.Fragment>
+                                ₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
+                            </React.Fragment> : <React.Fragment>Free</React.Fragment>
+                    }
+                    </div>
                 </div>
             </div>
         </Link>

@@ -107,7 +107,7 @@ const Workshop = () => {
             breadcrumbs={[
                 {
                     name: "Competitions",
-                    link: '/competititons'
+                    link: '/competitions'
                 },
                 {
                     name:  isLoaded ? data.name : router.query.slug,

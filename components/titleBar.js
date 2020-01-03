@@ -79,7 +79,7 @@ const TitleBar = ({ breadcrumbs }) => {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb rounded-0 card-shadow">
                     <Link href="/dashboard">
-                            <li className="breadcrumb-item active" aria-current="page">Dashboard</li>
+                            <li className="breadcrumb-item" aria-current="page">Dashboard</li>
                     </Link>
                     {
                         breadcrumbs.length > 0 ? breadcrumbs.map(l => (
