@@ -54,7 +54,15 @@ const PurchasesItems = ({ products, RegisterText }) => {
                         p.isSchoolOnly ?
                             <div className="badge badge-warning rounded-0">Exclusive for School Students</div> : null
             }
-            { !disabled ? <div className="amount">Rs. {p.price}</div> : null }
+            { !disabled ? <div className="amount">Rs. {
+                p.isGSTAccounted ?
+                    Math.ceil(parseFloat(p.price) * 1.18) :
+                    parseInt(p.price)
+            }
+            <div className="small-text">
+                { p.isGSTAccounted ? 'Inclusive of GST' : 'GST 18% Extra' }
+            </div>
+            </div> : null }
         </button>
     );
 
@@ -137,9 +145,10 @@ const PurchasesItems = ({ products, RegisterText }) => {
                         >
                             <h3 className="pb-2 pt-4 text-center">Select from Choices</h3>
                             <div className="purchase-container px-4 py-2">
+                                <div className="row m-0">
                                 {
                                     getOptions(products).map( (p,i) => (
-                                        <div key={i} className="p-2">
+                                        <div key={i} className="col-md-6 p-2">
                                             <Link href={
                                                 p.requireRegistration ?
                                                     `/registrations/register?product=${p.productID}` :
@@ -150,6 +159,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                         </div>
                                     ))
                                 }
+                                </div>
                             </div>
                         </Modal>
                     </div>

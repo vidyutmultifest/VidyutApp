@@ -40,6 +40,7 @@ const Workshop = () => {
            requireEventRegistration
            requireRegistration
            isOutsideOnly
+           isGSTAccounted
            isAmritapurianOnly
            isFacultyOnly
            isSchoolOnly

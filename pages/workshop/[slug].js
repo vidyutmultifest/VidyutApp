@@ -60,6 +60,7 @@ const Workshop = () => {
            isAvailable
            isOutsideOnly
            requireRegistration
+           isGSTAccounted
            isAmritapurianOnly
            isFacultyOnly
            isSchoolOnly
