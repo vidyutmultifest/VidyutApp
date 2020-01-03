@@ -68,7 +68,8 @@ const Shows = () => {
                         breadcrumbs={[
                             {
                                 name: "Shows",
-                                link: '/shows'
+                                link: '/shows',
+                                active: true
                             },
                         ]}
                     />

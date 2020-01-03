@@ -121,7 +121,8 @@ const Workshops = () => {
                         breadcrumbs={[
                             {
                                 name: "Workshops",
-                                link: '/workshops'
+                                link: '/workshops',
+                                active: true
                             },
                         ]}
                     />

@@ -97,7 +97,8 @@ const Workshop = () => {
                     },
                     {
                         name:  isLoaded ? data.name : router.query.slug,
-                        link: router.query.slug
+                        link: router.query.slug,
+                        active: true
                     },
                 ]}
             />

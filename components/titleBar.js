@@ -4,6 +4,7 @@ import Link from "next/link";
 import '../styles/bootstrap.sass';
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
+const classNames = require('classnames');
 
 const cookies = new Cookies();
 
@@ -84,7 +85,7 @@ const TitleBar = ({ breadcrumbs }) => {
                     {
                         breadcrumbs.length > 0 ? breadcrumbs.map(l => (
                             <Link href={l.link}>
-                                    <li className="breadcrumb-item" aria-current="page">{l.name}</li>
+                                    <li className={classNames("breadcrumb-item", l.active ? "active" : null)} aria-current="page">{l.name}</li>
                             </Link>
                         )) : null
                     }

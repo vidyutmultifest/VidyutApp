@@ -130,7 +130,8 @@ const Competitions = () => {
                         breadcrumbs={[
                             {
                                 name: "Competitions",
-                                link: '/competitions'
+                                link: '/competitions',
+                                active: true
                             },
                         ]}
                     />
