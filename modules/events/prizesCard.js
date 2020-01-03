@@ -11,7 +11,10 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
                     </div>
                     <div className="col-9">
                         <div className="prizeType">First Prize</div>
-                        <div className="prizeAmount">₹{firstPrize}</div>
+                        { !isNaN(firstPrize) ?
+                            <div className="prizeAmount">₹{firstPrize}</div>
+                            : <div>{firstPrize}</div>
+                        }
                     </div>
                 </div>
             ) : null
@@ -24,7 +27,10 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
                     </div>
                     <div className="col-9">
                         <div className="prizeType">Second Prize</div>
-                        <div className="prizeAmount">₹{secondPrize}</div>
+                        { !isNaN(secondPrize) ?
+                            <div className="prizeAmount">₹{secondPrize}</div>
+                            : <div>{secondPrize}</div>
+                        }
                     </div>
                 </div>
             ) : null
@@ -37,8 +43,8 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize }) => (
                     </div>
                     <div className="col-9">
                         <div className="prizeType">Third Prize</div>
-                        { parseInt(thirdPrize) ?
-                            <div className="prizeAmount">₹{thirdPrize}`</div>
+                        { !isNaN(thirdPrize) ?
+                            <div className="prizeAmount">₹{thirdPrize}</div>
                             : <div>{thirdPrize}</div>
                         }
                     </div>

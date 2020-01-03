@@ -31,7 +31,7 @@ const RegisterPage = () => {
     const [hasRegistered, setRegistered] = useState(false);
 
     const [teamSelected, setTeam] = useState(false);
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState(false);
 
     const [regID, setRegID] = useState();
 
@@ -41,6 +41,7 @@ const RegisterPage = () => {
       {
         isAvailable
         requireAdvancePayment
+        showAgreementPage
         product
         {
           name
@@ -60,6 +61,11 @@ const RegisterPage = () => {
                  key
                  label
                  type
+                 options
+                 {
+                   key
+                   label
+                 }
               }
           }
         }
@@ -79,7 +85,7 @@ const RegisterPage = () => {
                     setQueried(true);
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                         setData(response.data.getProduct);
-                        setAlreadyRegistered(response.data.isAlreadyRegistered)
+                        setAlreadyRegistered(response.data.isAlreadyRegistered);
                         setLoading(true);
                     } else {
                         setError(true);
@@ -128,6 +134,10 @@ const RegisterPage = () => {
             };
             submitReg(TeamRegMutation, variables).then((response) => {
                 setRegID(response.data.register.regID);
+                if(data.requireAdvancePayment)
+                {
+                    router.push(`/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`)
+                }
                 setRegistered(true);
             })
         } else {
@@ -137,6 +147,10 @@ const RegisterPage = () => {
             };
             submitReg(IndRegMutation, variables).then((response) => {
                 setRegID(response.data.register.regID);
+                if(data.requireAdvancePayment)
+                {
+                    router.push(`/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`)
+                }
                 setRegistered(true);
             })
         }
@@ -163,9 +177,9 @@ const RegisterPage = () => {
                              animation={require('../../images/animations/done-button')}
                              title="Already Registered."
                              text="It seems that you have already registered for this event. If your transaction wasn't successful,
-                        please go to the link below and retry payment. Without payment, your registration is still considered,
+                        please go to the link below and retry payment. For a free event, without payment, your registration is still considered,
                         incomplete. Thank You!"
-                             buttons={<Link href="/registerations/my-registrations">
+                             buttons={<Link href="/registrations/my-registrations">
                                  <button className="btn btn-primary rounded-0 px-4 my-4 py-2">View My Registrations</button>
                              </Link>}
                          />
@@ -202,22 +216,23 @@ const RegisterPage = () => {
                                         onSubmit={(data) => handleFormSubmission(data)}
                                         onClickBack={() => setTeamSelected(false)}
                                         formData={formData}
+                                        showBackButton={data.product.details.isTeamEvent}
                                     /> : setFormFilled(true)
                             }
-                        </Shade> : !hasAgreed ?
+                        </Shade> : data.showAgreementPage && !hasAgreed ?
                             <Shade key="agreement">
                                 <UserAgreement
                                     content={data.product.details.details}
                                     onAgree={() => setAgreed(true)}
                                     onClickBack={() => setFormFilled(false)}
                                 />
-                            </Shade> : !hasRegistered ?
+                            </Shade> : !(!formData && !teamSelected) && !hasRegistered ?
                                 <Shade key="preview">
                                     <SubmissionPreview
                                         formData={formData}
                                         team={teamSelected}
                                         onSubmit={handleSubmit}
-                                        onClickBack={() => setAgreed(false)}
+                                        onClickBack={() => data.showAgreementPage ? setAgreed(false) : setFormFilled(false)}
                                     />
                                 </Shade> : <Shade key="preview">
                                     <div className="card-shadow p-4">
@@ -256,7 +271,6 @@ const RegisterPage = () => {
                                                 />
                                         }
                                     </div>
-                                    <DashboardFooter />
                                 </Shade>
                     }
                     </PoseGroup>

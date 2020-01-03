@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
+const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBackButton }) => {
 
-    const [data, setData] = useState(formData !== undefined ? formData : []);
+    const [data, setData] = useState(formData ? formData : []);
     const [validationError, setValidationError] = useState(false);
+
     const handleFormDataChange = (e) => {
         const formData = data;
         const fil = formData.filter(f => f.key === e.target.name);
@@ -18,6 +19,31 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
             });
         }
         setData(formData);
+    };
+
+
+    const handleCheckboxChange = (e) => {
+        const formData = data;
+        const fil = formData.filter(f => f.key === e.target.name);
+        if (fil.length > 0)
+        {
+            const curr = fil[0].value;
+            if(curr.includes(e.target.value))
+                fil[0].value = curr.filter(item => item !== e.target.value);
+            else
+                fil[0].value = [...curr, e.target.value];
+        } else {
+            formData.push({
+                "key": e.target.name,
+                "value": [e.target.value],
+                "label": fields.filter(f => f.key === e.target.name)[0].label
+            });
+        }
+        setData(formData);
+    };
+
+    const getValFromKeyOption = (key, o) => {
+        return data.length > 0 ? data.filter(k => k.key === key)[0].value.includes(o) : null
     };
 
     const getValFromKey = (key) => {
@@ -52,14 +78,40 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData }) => {
                             {
                                 f.type === "textarea" ?
                                     <textarea name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                                : f.type === "checkbox" ?
+                                    <div>
+                                        {
+                                           f.options.map( o => (
+                                                <div className="form-check">
+                                                    <input
+                                                        name={f.key}
+                                                        className="form-check-input"
+                                                        type="checkbox"
+                                                        id={o.key}
+                                                        checked={getValFromKeyOption(f.key, o.key)}
+                                                        value={o.key}
+                                                        onChange={handleCheckboxChange}
+                                                    />
+                                                    <label className="form-check-label" htmlFor={o.key}>
+                                                        {o.label}
+                                                    </label>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
                                 : <input name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
                             }
                         </div>
                     )
                 }
             </form>
-            <button className="btn btn-warning px-4 py-2 font-weight-bold m-2" onClick={() => onClickBack()}>Go Back</button>
-            <button className="btn btn-primary px-4 py-2 font-weight-bold m-2" onClick={handleSubmit}>Proceed</button>
+            {
+                showBackButton ?
+                    <button className="btn btn-warning px-4 py-2 font-weight-bold m-2" onClick={() => onClickBack()}>Go
+                        Back</button>
+                    : null
+            }
+                <button className="btn btn-primary px-4 py-2 font-weight-bold m-2" onClick={handleSubmit}>Proceed</button>
         </div>
     ) : null
 };
