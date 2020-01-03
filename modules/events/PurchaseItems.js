@@ -96,7 +96,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
         if(!available)
             return <b>Not Available Right Now</b>;
         else {
-            let text = '<div>To register for this event, you need to satisfy some/all of the requirements  -';
+            let text = '<div>To register for this event, you need to satisfy <b>any/some/all</b> of the following requirements  -';
            if(!data.isFaculty&&facultyOnly)
                text +=  '<li>Be a Faculty/Professional (<a href="/profile/edit-profile">Edit Profile</a> to change account type)</li>';
            if(!data.isSchoolStudent&&studentOnly)
@@ -106,7 +106,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
            if(data.isAmritapurian&&outsiderOnly)
                text += '<li>Be an outsider, i.e. Non-Amritapurian</li>';
            if(!data.isAmritapurian&&insiderOnly)
-               text += '<li>Be an Amritapurian</li>';
+               text += '<li>Be an Amritapurian [in case of Amritapurian Pass]</li>';
            text += '</div>';
            return <div className="alert-warning p-4" dangerouslySetInnerHTML={{ __html: text }} />
         }
