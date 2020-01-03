@@ -70,11 +70,53 @@ const PurchasesItems = ({ products, RegisterText }) => {
        })
     };
 
+    const showReason = (products) => {
+        let available = false;
+        let requiresRegistration = false;
+        let facultyOnly = false;
+        let studentOnly = false;
+        let outsiderOnly = false;
+        let insiderOnly = false;
+        products.map( p => {
+           if(p.isAvailable)
+           {
+               available = true;
+               if(p.isOutsideOnly&&data.isAmritapurian)
+                   outsiderOnly = true;
+               if(p.isAmritapurianOnly&&!data.isAmritapurian)
+                   insiderOnly = true;
+               if(p.requireEventRegistration&&!data.hasEventsRegistered)
+                   requiresRegistration = true;
+               if(p.isFacultyOnly&&!data.isFaculty)
+                   facultyOnly = true;
+               if(p.isSchoolOnly&&!data.isSchoolStudent)
+                   studentOnly = true;
+           }
+        });
+        if(!available)
+            return <b>Not Available Right Now</b>;
+        else {
+            let text = '<div>To register for this event, you need to satisfy some/all of the requirements  -';
+           if(!data.isFaculty&&facultyOnly)
+               text +=  '<li>Be a Faculty/Professional (<a href="/profile/edit-profile">Edit Profile</a> to change account type)</li>';
+           if(!data.isSchoolStudent&&studentOnly)
+               text += '<li>Be a School Student (<a href="/profile/edit-profile">Edit profile</a> to change account type)</li>';
+           if(!data.hasEventsRegistered&&requiresRegistration)
+               text += '<li>Register for another technical event already such as a <a href="/competitions">competition</a>/<a href="/workshops">workshop</a></li>';
+           if(data.isAmritapurian&&outsiderOnly)
+               text += '<li>Be an outsider, i.e. Non-Amritapurian</li>';
+           if(!data.isAmritapurian&&insiderOnly)
+               text += '<li>Be an Amritapurian</li>';
+           text += '</div>';
+           return <div className="alert-warning p-4" dangerouslySetInnerHTML={{ __html: text }} />
+        }
+    };
+
     return (
         <div id="purchases-card">
         {
             isLoaded ?
-                products.length === 1 ? products.map((p) =>
+                getOptions(products).length === 1 ? products.map((p) =>
                     <Link href={
                         p.requireRegistration ?
                             `/registrations/register?product=${p.productID}` :
@@ -111,7 +153,7 @@ const PurchasesItems = ({ products, RegisterText }) => {
                             </div>
                         </Modal>
                     </div>
-                ) : null
+                ) : showReason(products)
             : <h6>Loading</h6>
         }
         </div>

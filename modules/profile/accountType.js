@@ -73,8 +73,8 @@ const SwitchAccountType = ({ isSchoolStudent, isFaculty }) => {
                                 <React.Fragment>
                                     {
                                         current !== "faculty" ?
-                                            <div className="col-6">
-                                                <button onClick={switchToFaculty} className="switcher-button">
+                                            <div className="col-md-6">
+                                                <button onClick={switchToFaculty} className="switcher-button p-4">
                                                     Professional / Faculty
                                                 </button>
                                             </div>
@@ -82,16 +82,16 @@ const SwitchAccountType = ({ isSchoolStudent, isFaculty }) => {
                                     }
                                     {
                                         current !== "school" ?
-                                            <div className="col-6">
-                                                <button onClick={switchToSchoolStudent} className="switcher-button">
+                                            <div className="col-md-6">
+                                                <button onClick={switchToSchoolStudent} className="switcher-button p-4">
                                                     School Student
                                                 </button>
                                             </div> : null
                                     }
                                     {
                                         current !== "college" ?
-                                            <div className="col-6">
-                                                <button onClick={switchToCollegeStudent} className="switcher-button">
+                                            <div className="col-md-6">
+                                                <button onClick={switchToCollegeStudent} className="switcher-button p-4">
                                                     College Student
                                                 </button>
                                             </div> : null

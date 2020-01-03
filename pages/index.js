@@ -45,7 +45,7 @@ const HomePage = () => {
                 <div className="w-100">
                     <h2>January 30 - February 1, 2020</h2>
                     <Link href="/login"><button className="btn btn-primary px-4 py-2">Register Now</button></Link>
-                    <div className="p-4 mt-4 text-left">
+                    <div className="p-md-4 mt-4 text-left">
                         <QuickActionCards status={{
                             enableTicketing: true,
                             enableCompetitionRegistration: true,
