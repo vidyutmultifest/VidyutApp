@@ -63,7 +63,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                         <div className="d-flex align-items-center">
                             <div style={{ maxWidth: 100, marginRight: "0.5rem" }}>
                                 {
-                                    transaction.isPaid ?
+                                    transaction && transaction.isPaid ?
                                         <Lottie
                                             options={{
                                                 loop: true,
@@ -72,7 +72,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                             }}
                                             height={100}
                                             width={100}
-                                        /> : transaction.isPending ?
+                                        /> : transaction && transaction.isPending ?
                                         <Lottie
                                             options={{
                                                 loop: true,
@@ -111,7 +111,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                         height={64}
                                         width={64}
                                     />
-                                    : transaction.isOnline && !transaction.isProcessed ?
+                                    : transaction && transaction.isOnline && !transaction.isProcessed ?
                                     <button
                                         onClick={handleRefetch}
                                         className="btn btn-primary px-2 py-2 rounded-0 font-weight-bold mt-4 d-flex align-items-center"
@@ -135,10 +135,10 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                 <div className="small-text bg-light p-3 my-4" style={{ lineHeight: 1.5 }}>
                                     <div><b>Timestamp:</b>  {moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')}</div>
                                     <div><b>Order #:</b> {orderID}</div>
-                                    <div><b>Transaction #:</b> {transactionID}</div>
-                                    <div><b>Payment Mode:</b> {transaction.isOnline ? 'Online' : 'Offline'}</div>
+                                    <div><b>Transaction #:</b> {transaction ? transactionID : 'N/A'}</div>
+                                    <div><b>Payment Mode:</b> {transaction ? transaction.isOnline ? 'Online' : 'Offline' : 'N/A'}</div>
                                     { issuer ? (<span>| <b>Payment Handled by </b> { issuer }</span>):
-                                        transaction.isOnline ? renderOnlineTransactionDetails() : null
+                                        transaction && transaction.isOnline ? renderOnlineTransactionDetails() : null
                                     }
                                 </div>
                             ) : null
@@ -151,9 +151,12 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                     <span className="small-text">Qty: {p.qty} | Rs.{p.price}</span>
                                 </div>
                             )}
-                            <div className="pt-4">
-                                <b>Total:</b> Rs. {transaction.amount}
-                            </div>
+                            {
+                                transaction ?
+                                    <div className="pt-4">
+                                        <b>Total:</b> Rs. {transaction.amount}
+                                    </div> : null
+                            }
                         </div>
                         <div className="py-4 small-text d-flex text-center justify-content-center" style={{ lineHeight: "1.5" }}>
                             <div style={{ maxWidth: "80%" }}>

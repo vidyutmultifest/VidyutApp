@@ -69,21 +69,23 @@ const MyPurchases = () => {
     const Purchases = o => (
         <PurchasedItem
             orderID={o.orderID}
-            transactionID={o.transaction.transactionID}
-            isPaid={o.transaction.isPaid}
-            amount={o.transaction.amount}
+            transactionID={o.transaction ? o.transaction.transactionID : null}
+            isPaid={o.transaction ? o.transaction.isPaid : null}
+            amount={o.transaction ? o.transaction.amount : null}
             transaction={o.transaction}
             handleRefresh={() => setQueried(false)}
             status={
-                o.transaction.isPaid ?
-                <div className="badge badge-success">Paid</div>
-                : o.transaction.isPending ?
-                    <div className="badge badge-warning">Pending</div>
-                    : <div className="badge badge-danger">Failed</div>
+                o.transaction ?
+                    o.transaction.isPaid ?
+                        <div className="badge badge-success">Paid</div>
+                        : o.transaction.isPending ?
+                            <div className="badge badge-warning">Pending</div>
+                            : <div className="badge badge-danger">Failed</div>
+                : <div className="badge badge-danger">No Transaction for Order</div>
             }
             timestamp={o.timestamp}
             products={o.products}
-            issuer={o.transaction.issuer ? o.transaction.issuer.firstName : null}
+            issuer={o.transaction && o.transaction.issuer ? o.transaction.issuer.firstName : null}
         />
     );
 
