@@ -11,17 +11,16 @@ import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
 import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
-import classNames from "classnames";
 import OrganizerCard from "../../modules/events/organizerCard";
 import TrainerCards from "../../modules/events/TrainerCards";
+import ContentCard from "../../components/events/contentCard";
+import ScheduleCard from "../../modules/events/scheduleCard";
 
 const Workshop = () => {
     const router = useRouter();
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState();
-
-    const [showMoreState, setShowMoreState] = useState(false);
 
     const query = `{
       getWorkshop(slug: "${router.query.slug}")
@@ -30,6 +29,10 @@ const Workshop = () => {
         slug
         cover
         details
+        certificate
+        mediumOfInstruction
+        eligibility
+        syllabus
         description
         department
         {
@@ -108,39 +111,13 @@ const Workshop = () => {
 
     });
 
-    const eventDetails = () => data.details && data.details.length > 0 ? (
-        <div id="event-details-card" className="card-shadow">
-            <h3>Workshop Details</h3>
-            <div className={classNames('wrapper', showMoreState ? 'show-all' : null)}>
-                <div dangerouslySetInnerHTML={{ __html: data.details}} />
-            </div>
-            {
-                !showMoreState ?
-                    <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(true)}>Show More</div>
-                    :  <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(false)}>Show Less</div>
-
-            }
-        </div>
-    ) : null;
-
-    const renderSchedule = () => (
-        <div className="card-shadow rounded my-4 p-4">
-            <h4>Schedule</h4>
-            {
-                data.schedule.map((s,i) => (
-                    <div className="py-3">
-                        <div className="font-weight-bold">Day {i+1} - {moment(s.slot.startTime).format("DD/M")}</div>
-                        <div>{moment(s.slot.startTime).format("h:mm a")} - {moment(s.slot.endTime).format("h:mm a")}</div>
-                    </div>
-                ))
-            }
-        </div>
-    );
-
 
     const renderPartners = () => data.partners.length > 0 ? (
-        <div className="my-4 p-4">
-            <h4>Knowledge Partners</h4>
+        <div className="card-shadow bg-gradient my-4 p-4">
+            <h5>
+                <img src={require('../../images/icons/heart-icon.png')} style={{ width: "2rem" }} className="icon-img m-2" />
+                Knowledge Partners
+            </h5>
             <div className="row m-0 pt-4">
                 {
                     data.partners.map(s => (
@@ -187,12 +164,36 @@ const Workshop = () => {
                     products={data.products}
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
-                        {eventDetails()}
+                    <div className="col-md-7 col-xl-8 py-md-4 px-3 my-4">
+                        <ContentCard
+                            title="General Details"
+                            content={data.details}
+                            icon={require('../../images/icons/about-icon.png')}
+                        />
+                        <ContentCard
+                            title="Syllabus"
+                            content={data.syllabus}
+                            icon={require('../../images/icons/syllabus-icon.png')}
+                        />
+                        <ContentCard
+                            title="Eligibility"
+                            content={data.eligibility}
+                            icon={require('../../images/icons/checklist-icon.png')}
+                        />
+                        <ContentCard
+                            title="Certification"
+                            content={data.certificate}
+                            icon={require('../../images/icons/certificate-icon.png')}
+                        />
+                        <ContentCard
+                            title="Medium of Instruction"
+                            content={data.mediumOfInstruction}
+                            icon={require('../../images/icons/languages-icon.png')}
+                        />
                         {renderPartners()}
                         <TrainerCards trainers={data.trainers} />
                     </div>
-                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
+                    <div className="col-md-5 col-xl-4 py-md-4 mb-4">
                         {
                             data.organizer ?
                                 <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
@@ -200,10 +201,20 @@ const Workshop = () => {
                         }
                         {
                             data.accreditedBy ?
-                                <OrganizerCard title="Accredited By" name={data.accreditedBy.name} logo={data.accreditedBy.logo} />
+                                <OrganizerCard
+                                    title="Accredited By"
+                                    name={data.accreditedBy.name}
+                                    logo={data.accreditedBy.logo}
+                                    icon={require('../../images/icons/warranty-icon.png')}
+                                />
                                 : null
                         }
-                        { renderSchedule() }
+                        {
+                            data.schedule ?
+                                <ScheduleCard
+                                    schedule={data.schedule}
+                                /> : null
+                        }
                         <ContactCard
                             contacts={data.contacts}
                         />

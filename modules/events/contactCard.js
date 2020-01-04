@@ -1,8 +1,11 @@
 import React from "react";
 
 const ContactCard = ({ contacts }) => contacts && contacts.length > 0 ? (
-    <div id="contacts-card" className="card-shadow p-4 my-4">
-        <h4>Contacts</h4>
+    <div className="contacts-card card-shadow rounded p-4 my-4">
+        <h5>
+            <img src={require('../../images/icons/contact-icon.png')} style={{ width: "2rem" }} className="icon-img m-2" />
+            Contacts
+        </h5>
         {
             contacts.map(c => (
                 <div className="py-2">

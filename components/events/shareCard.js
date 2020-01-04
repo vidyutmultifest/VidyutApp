@@ -7,8 +7,12 @@ import {
 } from 'react-share';
 
 const ShareCard = ({ title, link }) => (
-     <div id="share-card" className="card-shadow w-100">
-         <div className="row w-100 mx-0 p-4 my-4">
+     <div id="share-card" className="card-shadow rounded w-100">
+         <h5 className="m-0 px-4 text-left pt-4 ">
+             <img src={require('../../images/icons/speaker-icon.png')} style={{ width: "2rem" }} className="icon-img m-2" />
+             Spread the Word
+         </h5>
+         <div className="share-items row w-100 mx-0 p-4 mb-4">
              <div className="col-3 p-0">
                  <WhatsappShareButton
                     url={link}

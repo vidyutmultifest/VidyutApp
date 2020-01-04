@@ -1,11 +1,11 @@
 import React from "react";
 
 const TeamSpecifierCard = ({ minTeamSize, maxTeamSize }) => (
-    <div id="teamspec-card" className="card-shadow p-4 my-4">
-        <h4>
-            <img src={require('../../images/icons/user-group.png')} style={{ maxWidth: '45px'}} />
+    <div className="teamspec-card card-shadow rounded p-4 mb-4">
+        <h5>
+            <img src={require('../../images/icons/team-icon.png')} style={{ maxWidth: '2rem'}} className="icon-img m-2" />
             Team Event
-        </h4>
+        </h5>
         {
             minTeamSize !== maxTeamSize ? (
                 <p>

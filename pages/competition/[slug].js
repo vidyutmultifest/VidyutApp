@@ -6,7 +6,6 @@ import Head from "next/head";
 import TitleBar from "../../components/titleBar";
 import EventHeaderCard from "../../components/events/headerCard";
 import ShareCard from "../../components/events/shareCard";
-import classNames from 'classnames';
 
 import '../../styles/events/style.sass';
 import PrizesCard from "../../modules/events/prizesCard";
@@ -15,14 +14,14 @@ import DashboardFooter from "../../modules/dashboard/footer";
 import ContactCard from "../../modules/events/contactCard";
 import TeamSpecifierCard from "../../modules/events/teamSpecCard";
 import OrganizerCard from "../../modules/events/organizerCard";
+import ContentCard from "../../components/events/contentCard";
+import ScheduleCard from "../../modules/events/scheduleCard";
 
 const Workshop = () => {
     const router = useRouter();
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState();
-
-    const [showMoreState, setShowMoreState] = useState(false);
 
     const query = `{
       getCompetition(slug: "${router.query.slug}")
@@ -32,10 +31,25 @@ const Workshop = () => {
         cover
         details
         description
+        rules
+        judgingCriteria
         fee
         department
         {
            name
+        }
+        schedule
+        {
+          slot
+          {
+            startTime
+            endTime
+          }
+          venue
+          {
+            name
+            address
+          }
         }
         products
         {
@@ -58,6 +72,7 @@ const Workshop = () => {
         firstPrize
         secondPrize
         thirdPrize
+        otherPrizes
         minTeamSize
         maxTeamSize
         isTeamEvent
@@ -84,21 +99,6 @@ const Workshop = () => {
         }
 
     });
-
-    const eventDetails = () => data.details && data.details.length > 0 ? (
-        <div id="event-details-card" className="card-shadow">
-            <h3>Competition Details</h3>
-            <div className={classNames('wrapper', showMoreState ? 'show-all' : null)}>
-                <div dangerouslySetInnerHTML={{ __html: data.details}} />
-            </div>
-            {
-                !showMoreState ?
-                    <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(true)}>Show More</div>
-                    :  <div className="show-more-hover mt-4 btn btn-primary px-4 py-2" onClick={() => setShowMoreState(false)}>Show Less</div>
-
-            }
-        </div>
-    ) : null;
 
     return <Base>
         <Head>
@@ -127,25 +127,46 @@ const Workshop = () => {
                     products={data.products}
                 />
                 <div className="row m-0">
-                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
-                        {eventDetails()}
-                    </div>
-                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
-                        <PrizesCard
-                            firstPrize={data.firstPrize}
-                            secondPrize={data.secondPrize ? data.secondPrize : null}
-                            thirdPrize={data.thirdPrize ? data.thirdPrize : null}
-                        />
+                    <div className="col-md-7 col-xl-8 py-md-4 px-3 my-4">
                         {
                             data.isTeamEvent ? <TeamSpecifierCard
                                 maxTeamSize={data.maxTeamSize}
                                 minTeamSize={data.minTeamSize}
                             /> : null
                         }
+                        <ContentCard
+                            title="General Details"
+                            content={data.details}
+                            icon={require('../../images/icons/about-icon.png')}
+                        />
+                        <ContentCard
+                            title="Rules and Regulations"
+                            content={data.rules}
+                            icon={require('../../images/icons/rules-icon.png')}
+                        />
+                        <ContentCard
+                            title="Judging Criteria"
+                            content={data.judgingCriteria}
+                            icon={require('../../images/icons/check-icon.png')}
+                        />
+                    </div>
+                    <div className="col-md-5 col-xl-4 py-md-4 mb-4">
+                        <PrizesCard
+                            firstPrize={data.firstPrize}
+                            secondPrize={data.secondPrize ? data.secondPrize : null}
+                            thirdPrize={data.thirdPrize ? data.thirdPrize : null}
+                            otherPrizes={data.otherPrizes ? data.otherPrizes : null}
+                        />
                         {
                             data.organizer ?
                                 <OrganizerCard name={data.organizer.name} logo={data.organizer.logo} />
                                 : null
+                        }
+                        {
+                            data.schedule ?
+                                <ScheduleCard
+                                    schedule={data.schedule}
+                                /> : null
                         }
                         <ContactCard
                             contacts={data.contacts}

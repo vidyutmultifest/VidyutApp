@@ -20,24 +20,22 @@
   align-items: center
   justify-content: center
   text-align: center
-  border-radius: 1rem
   .share-prompt
     font-size: calc(1.2rem + 0.2vw)
     font-weight: 900
     margin-bottom: 1rem
-  img
+  .share-items img
     display: inline
     filter: drop-shadow(2px 3px 4px rgba(0,0,0,0.5))
     padding: 0 0.5rem
     max-width: 100%
     transition: 1s
-  img:hover
+  .share-items img:hover
     transition: 1s
     transform: translateY(-2vh)
 
 #prizes-card
   padding: 2rem
-  border-radius: 1rem
   .row
     margin: 1.2rem 0
   .col-3
@@ -48,11 +46,10 @@
   .prizeAmount
     font-size: calc(1.2rem + 0.5vw)
 
-#teamspec-card, #organizer-card
+.teamspec-card, .organizer-card
   padding: 2rem
-  border-radius: 1rem
 
-#organizer-card
+.organizer-card
   .name
     font-weight: 900
   img
@@ -65,9 +62,8 @@
     border: none
     font-weight: 900
 
-#contacts-card
+.contacts-card
   padding: 2rem
-  border-radius: 1rem
   .row
     margin: 1.2rem 0
   .col-3
@@ -136,11 +132,12 @@
 .trainer-popup
   padding: 2rem
   width: 720px
-  max-width: 90vw
+  max-width: 95vw
   max-height: 75vh
-  overflow: auto
-  margin-top: 5vh
-
+  margin-top: 3vh
+  .trainer-about
+    max-height: 50vh
+    overflow-y: auto
 .trainer-popup-overlay
   display: flex
   align-items: center
