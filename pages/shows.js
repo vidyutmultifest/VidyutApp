@@ -26,6 +26,19 @@ const Shows = () => {
         slug
         isNew
         isRecommended
+        products
+        {
+           productID
+           name
+           price
+           isAvailable
+           isOutsideOnly
+           requireRegistration
+           isGSTAccounted
+           isAmritapurianOnly
+           isFacultyOnly
+           isSchoolOnly  
+        }
       }
     }`;
 
@@ -53,6 +66,8 @@ const Shows = () => {
                 isNew={w.isNew}
                 isRecommended={w.isRecommended}
                 detailsURL={`/show/${w.slug}`}
+                RegisterText="Buy"
+                products={w.products}
             />
         </div>
     );

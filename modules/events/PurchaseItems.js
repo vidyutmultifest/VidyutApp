@@ -3,7 +3,7 @@ import Link from "next/link";
 import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 
-const PurchasesItems = ({ products, RegisterText }) => {
+const PurchasesItems = ({ products, RegisterText, hideReason, customText }) => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
@@ -121,21 +121,42 @@ const PurchasesItems = ({ products, RegisterText }) => {
     };
 
     return (
-        <div id="purchases-card">
+        <div id="purchases-card" className="d-inline">
         {
             isLoaded ?
-                getOptions(products).length === 1 ? products.map((p) =>
+                getOptions(products).length === 1 ? getOptions(products).map((p) =>
                     <Link href={
                         p.requireRegistration ?
                             `/registrations/register?product=${p.productID}` :
                             `/purchase?product=${p.productID}`
                     }>
-                        <button>{RegisterText ? RegisterText : "Register"} Now</button>
+                        <a
+                            href={
+                            p.requireRegistration ?
+                                `/registrations/register?product=${p.productID}` :
+                                `/purchase?product=${p.productID}`}
+                            className="plain-link"
+                        >
+                            <button className="btn btn-primary px-4 py-2 m-2 rounded-0">
+                            {
+                                customText ? customText :
+                                    RegisterText ? `${RegisterText} Now` : "Register Now"
+                            }
+                            </button>
+                        </a>
                     </Link>
                 ) : getOptions(products).length > 0 ?
                 (
-                    <div>
-                        <button onClick={() => setModalState(true)}>{RegisterText ? RegisterText : "Register"} Now</button>
+                    <React.Fragment>
+                        <button
+                            className="btn btn-primary px-4 py-2 m-2 rounded-0"
+                            onClick={() => setModalState(true)}
+                        >
+                            {
+                                customText ? customText :
+                                    RegisterText ? `${RegisterText} Now` : "Register Now"
+                            }
+                        </button>
                         <Modal
                             isOpen={showModal}
                             contentLabel="Registration Option Menu"
@@ -162,8 +183,8 @@ const PurchasesItems = ({ products, RegisterText }) => {
                                 </div>
                             </div>
                         </Modal>
-                    </div>
-                ) : showReason(products)
+                    </React.Fragment>
+                ) : hideReason ? null : showReason(products)
             : <h6>Loading</h6>
         }
         </div>

@@ -55,12 +55,11 @@ const AuthorizePage = ({ req }) => {
 
     const renderTransactionStatus = ({ data: msg, status}) => {
         let failed = false;
+        let transactionDetails;
         if(!status){
             failed = true;
-            console.log(status);
         }
-        let transactionDetails;
-        if(msg !== "FAILED") {
+        else if (msg !== "FAILED") {
             transactionDetails = JSON.parse(JSON.parse(msg));
         } else {
             failed = true;

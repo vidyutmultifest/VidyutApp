@@ -31,6 +31,19 @@ const Workshops = () => {
         fee
         slug
         isRecommended
+        products
+        {
+           productID
+           name
+           price
+           isAvailable
+           isOutsideOnly
+           requireRegistration
+           isGSTAccounted
+           isAmritapurianOnly
+           isFacultyOnly
+           isSchoolOnly  
+        }
         organizer
         {
           label: name
@@ -71,7 +84,8 @@ const Workshops = () => {
                 dept={w.department ? w.department.label : null}
                 isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
-                registerText="Register Now"
+                registerText="Register"
+                products={w.products}
             />
         </div>
     );

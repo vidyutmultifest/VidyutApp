@@ -37,6 +37,19 @@ const Competitions = () => {
         isRecommended
         isTotalRate
         isTeamEvent
+        products
+        {
+           productID
+           name
+           price
+           isAvailable
+           isOutsideOnly
+           requireRegistration
+           isGSTAccounted
+           isAmritapurianOnly
+           isFacultyOnly
+           isSchoolOnly  
+        }
         organizer
         {
           label: name
@@ -78,7 +91,8 @@ const Competitions = () => {
                 isTeamEvent={c.isTeamEvent}
                 isTotalRate={c.isTotalRate}
                 detailsURL={`/competition/${c.slug}`}
-                registerText="Register Now"
+                registerText="Register"
+                products={c.products}
             />
         </div>
     );

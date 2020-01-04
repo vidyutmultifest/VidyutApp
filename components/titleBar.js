@@ -84,12 +84,14 @@ const TitleBar = ({ breadcrumbs }) => {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb rounded-0 card-shadow">
                     <Link href="/dashboard">
-                            <li className="breadcrumb-item" aria-current="page">Dashboard</li>
+                        <a href="/dashboard" className="breadcrumb-item plain-link" aria-current="page">Dashboard</a>
                     </Link>
                     {
                         breadcrumbs.length > 0 ? breadcrumbs.map(l => (
                             <Link href={l.link}>
-                                    <li className={classNames("breadcrumb-item", l.active ? "active" : null)} aria-current="page">{l.name}</li>
+                                    <a href={l.link} className={classNames("breadcrumb-item plain-link", l.active ? "active" : null)} aria-current="page">
+                                        {l.name}
+                                    </a>
                             </Link>
                         )) : null
                     }
