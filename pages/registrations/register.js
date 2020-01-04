@@ -149,7 +149,7 @@ const RegisterPage = () => {
                 setRegID(response.data.register.regID);
                 if(data.requireAdvancePayment)
                 {
-                    router.push(`/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${regID}`)
+                    router.push(`/purchase?product=${router.query.product}&qty=${teamSelected && !data.product.details.isTotalRate ? teamSelected.membersCount : 1}&regID=${response.data.register.regID}`)
                 }
                 setRegistered(true);
             })
