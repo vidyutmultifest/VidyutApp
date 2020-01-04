@@ -32,10 +32,10 @@ const GatewayPage = () => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.getPaymentGatewayData);
+                    document ? document.forms["acrd-form"].submit() : null;
                     setLoaded(true);
                 }
             })
-
         }
     });
 
@@ -47,9 +47,8 @@ const GatewayPage = () => {
         <div className="d-flex align-items-center justify-content-center bg-gradient" style={{ minHeight: '90vh' }}>
             <div className="card-shadow text-center p-4">
                 {
-                    isLoaded && data ?
                         <React.Fragment>
-                            <h4>Proceed to Payment Gateway</h4>
+                            <h4>Redirecting you to the Payment Gateway</h4>
                             <img src={require('../../images/logos/acrd-logo.jpg')}  className="my-4" style={{ width: '300px' }} />
                             <p className="small-text" style={{ maxWidth: "600px"}}>
                                 Online Payments for Vidyut 2020 is handled by Amrita Centre for Research and Development.
@@ -59,17 +58,16 @@ const GatewayPage = () => {
                             <div className="alert alert-warning">
                                 <b>TransactionID:</b> VIDYUT{transactionID}
                             </div>
-                            <form method="POST" action={data.url}>
+                            <form method="POST"  id="acrd-form" action={data ? data.url : null}>
                                 <input type="hidden" value={data.data} name="encdata" id="encdata" />
                                 <input type="hidden" value={data.code} name="code" id="code" />
-                                <button className="btn btn-primary rounded-0 px-4 py-3 font-weight-bold" type="submit" id="pay">Proceed to Pay</button>
+                                {
+                                    isLoaded ?
+                                        <button className="btn btn-primary rounded-0 px-4 py-3 font-weight-bold" type="submit" id="pay">Click if Not Redirected</button>
+                                        : null
+                                }
                             </form>
-                        </React.Fragment> :
-                        <StatusContainer
-                            title="Loading Payment Gateway"
-                            text="Checking Payment Gateway Status"
-                            animation={require('../../images/animations/radar')}
-                        />
+                        </React.Fragment>
                 }
             </div>
         </div>

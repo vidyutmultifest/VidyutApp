@@ -51,7 +51,13 @@ const AuthorizePage = () => {
     );
 
     const renderTransactionStatus = (msg) => {
-        const transactionDetails = JSON.parse(JSON.parse(msg));
+        console.log(msg);
+        let transactionDetails;
+        try {
+            transactionDetails = JSON.parse(JSON.parse(msg));
+        } catch  (e) {
+            transactionDetails.status = "FAILURE"
+        }
         return transactionDetails.status === "SUCCESS" ?
             <div>
                 <Lottie
