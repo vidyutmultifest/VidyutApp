@@ -13,7 +13,10 @@ import Link from "next/link";
 
 const cookies = new Cookies();
 
-const AuthorizePage = () => {
+const AuthorizePage = ({ req }) => {
+
+    console.log(req);
+
     const [isQueried, setQueried] = useState(false);
     const [isResponseLoaded, setResponseLoaded] = useState(false);
     const [transData, setTransData] = useState(false);
@@ -50,15 +53,19 @@ const AuthorizePage = () => {
         </div>
     );
 
-    const renderTransactionStatus = (msg) => {
-        console.log(msg);
-        let transactionDetails;
-        try {
-            transactionDetails = JSON.parse(JSON.parse(msg));
-        } catch  (e) {
-            transactionDetails.status = "FAILURE"
+    const renderTransactionStatus = ({ data: msg, status}) => {
+        let failed = false;
+        if(!status){
+            failed = true;
+            console.log(status);
         }
-        return transactionDetails.status === "SUCCESS" ?
+        let transactionDetails;
+        if(msg !== "FAILED") {
+            transactionDetails = JSON.parse(JSON.parse(msg));
+        } else {
+            failed = true;
+        }
+        return !failed && transactionDetails.status === "SUCCESS" ?
             <div>
                 <Lottie
                     options={{
@@ -155,11 +162,19 @@ const AuthorizePage = () => {
                                     title="Payment Failed Unexpectedly"
                                     text="Invalid response received from ACRD"
                                 />
-                       : renderTransactionStatus(transData.data) : renderFetchingTrans()
+                       : renderTransactionStatus(transData) : renderFetchingTrans()
                     }
                 </div>
             </div>
         </Base>
+};
+
+AuthorizePage.getInitialProps = ({ req, query  }) => {
+    return { req: {
+            headers: req.headers,
+            body: req.body
+        }
+    };
 };
 
 export default AuthorizePage;
