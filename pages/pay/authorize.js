@@ -102,13 +102,16 @@ const AuthorizePage = ({ req }) => {
                     width={300}
                 />
                 <h1>Payment Failed/Pending</h1>
-                <p>{transactionDetails.statusDesc}</p>
-                <div className="alert alert-warning text-left">
-                    <div><b>Message</b>: {transactionDetails.statusDesc}</div>
-                    <div><b>Transaction ID</b>: {transactionDetails.transactionId}</div>
-                    <div><b>Amount</b>: {transactionDetails.amount} {transactionDetails.currency.toUpperCase()}</div>
-                    <div><b>Bank Reference Number</b>:{transactionDetails.bankrefno}</div>
-                </div>
+                <p>{transactionDetails ? transactionDetails.statusDesc : null}</p>
+                {
+                    !failed && transactionDetails ?
+                        <div className="alert alert-warning text-left">
+                            <div><b>Message</b>: {transactionDetails.statusDesc}</div>
+                            <div><b>Transaction ID</b>: {transactionDetails.transactionId}</div>
+                            <div><b>Amount</b>: {transactionDetails.amount} {transactionDetails.currency.toUpperCase()}</div>
+                            <div><b>Bank Reference Number</b>:{transactionDetails.bankrefno}</div>
+                        </div> : null
+                }
                 <div className="my-4">
                     <Link href="/dashboard">
                         <button className="btn btn-primary px-4 py-2 rounded-0">Go to Dashboard</button>
