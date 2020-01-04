@@ -38,7 +38,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                         /> : null }
                         <Link href={detailsURL}>
                             <a href={detailsURL} className="plain-link">
-                                <button className="btn btn-warning px-4 py-2 m-2">View More</button>
+                                <button className="btn btn-warning px-4 py-2 m-2">Learn More</button>
                             </a>
                         </Link>
                     </div>

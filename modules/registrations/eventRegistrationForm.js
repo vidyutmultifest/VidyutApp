@@ -6,25 +6,25 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
     const [validationError, setValidationError] = useState(false);
 
     const handleFormDataChange = (e) => {
-        const formData = data;
-        const fil = formData.filter(f => f.key === e.target.name);
+        let fd = [...data];
+        const fil = fd.filter(f => f.key === e.target.name);
         if (fil.length > 0)
         {
             fil[0].value = e.target.value;
         } else {
-            formData.push({
+            fd = [...fd, {
                 "key": e.target.name,
                 "value": e.target.value,
                 "label": fields.filter(f => f.key === e.target.name)[0].label
-            });
+            }];
         }
-        setData(formData);
+        setData(fd);
     };
 
 
     const handleCheckboxChange = (e) => {
-        const formData = data;
-        const fil = formData.filter(f => f.key === e.target.name);
+        let fd = [...data];
+        const fil = fd.filter(f => f.key === e.target.name);
         if (fil.length > 0)
         {
             const curr = fil[0].value;
@@ -33,30 +33,22 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
             else
                 fil[0].value = [...curr, e.target.value];
         } else {
-            formData.push({
+            fd = [...fd, {
                 "key": e.target.name,
                 "value": [e.target.value],
                 "label": fields.filter(f => f.key === e.target.name)[0].label
-            });
+            }];
         }
-        setData(formData);
-    };
-
-    const getValFromKeyOption = (key, o) => {
-        return data.length > 0 ? data.filter(k => k.key === key)[0].value.includes(o) : null
-    };
-
-    const getValFromKey = (key) => {
-        return data.length > 0 ? data.filter(k => k.key === key)[0].value : null
+        setData(fd);
     };
 
     const handleSubmit = () => {
         let flag = 0;
         if(!data.length) flag = 1;
+        if(data.length !== fields.length) flag = 1;
         for(const d in data)
         {
-            if(d.value === null || d.value === '') {
-                console.log(d);
+            if(d && d.value === null || d.value === '' || d.value === []) {
                 flag = 1;
             }
         }
@@ -64,12 +56,11 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
         else setValidationError('Please fill all the fields.');
     };
 
+
     return data ? (
         <div className="card-shadow p-4">
             <h3>Fill in Details</h3>
-            {
-                !validationError ? null : <div className="alert alert-danger">{validationError}</div>
-            }
+            {!validationError ? null : <div className="alert alert-danger">{validationError}</div>}
             <form>
                 {
                     fields.map(f =>
@@ -77,7 +68,15 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
                             <label htmlFor={f.key}>{f.label}</label>
                             {
                                 f.type === "textarea" ?
-                                    <textarea name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                                    <textarea
+                                        name={f.key}
+                                        value={data.length > 0 && data.filter(k => k.key === f.key)[0] ?
+                                            data.filter(k => k.key === f.key)[0].value
+                                            : null
+                                        }
+                                        onChange={handleFormDataChange}
+                                        className="form-control"
+                                    />
                                 : f.type === "checkbox" ?
                                     <div>
                                         {
@@ -88,7 +87,10 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
                                                         className="form-check-input"
                                                         type="checkbox"
                                                         id={o.key}
-                                                        checked={getValFromKeyOption(f.key, o.key)}
+                                                        checked={
+                                                            data.length > 0 && data.filter(k => k.key === f.key).length > 0 ?
+                                                                data.filter(k => k.key === f.key)[0].value.includes(o.key) : null
+                                                        }
                                                         value={o.key}
                                                         onChange={handleCheckboxChange}
                                                     />
@@ -99,7 +101,14 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
                                             ))
                                         }
                                     </div>
-                                : <input name={f.key} value={getValFromKey(f.key)} onChange={handleFormDataChange} className="form-control" />
+                                : <input
+                                    name={f.key}
+                                    value={data.length > 0 && data.filter(k => k.key === f.key)[0] ?
+                                        data.filter(k => k.key === f.key)[0].value
+                                        : null
+                                    }
+                                    onChange={handleFormDataChange} className="form-control"
+                                />
                             }
                         </div>
                     )
