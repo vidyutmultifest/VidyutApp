@@ -11,8 +11,11 @@ const cookies = new Cookies();
 const Base = ({ children, loginRequired, adminRequired }) => {
     const hours = new Date().getHours();
     const isDayTime = hours > 6 && hours < 20;
+    let theme;
 
-    const theme = cookies.get('theme');
+    useEffect(() => {
+        theme = cookies.get('theme', '/');
+    });
 
     const page = (
         <React.Fragment>
@@ -27,7 +30,7 @@ const Base = ({ children, loginRequired, adminRequired }) => {
                     gtag('js', new Date());
                     gtag('config', 'UA-151530910-1');`}} />
             </Head>
-            <div className={theme === "dark" || !isDayTime && theme === undefined ? "dark-theme" : null}>
+            <div className={theme === "dark" || !isDayTime && theme === undefined ? "dark-theme" : `${theme}-theme`}>
                 {children}
             </div>
         </React.Fragment>

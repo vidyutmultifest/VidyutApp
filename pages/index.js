@@ -15,6 +15,7 @@ import AboutMultifest from "../modules/landing/aboutMultifest";
 import SponsorsList from "../modules/landing/sponsors";
 import Footer from "../modules/landing/footer";
 import QuickActionCards from "../modules/dashboard/QuickActionCards";
+import TitleBar from "../components/titleBar";
 
 
 const HomePage = () => {
@@ -39,6 +40,7 @@ const HomePage = () => {
         <Head>
             <title>Discover Vidyut  - National Level Multi Fest | Amrita Vishwa Vidyapeetham, Amritapuri</title>
         </Head>
+        <TitleBar hideUserDropdown />
         <div id="landing-page-content">
             <LandingHeader />
             <section id="landing-dates">

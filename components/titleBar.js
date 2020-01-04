@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 
 import '../styles/bootstrap.sass';
+import '../styles/style.sass';
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
 const classNames = require('classnames');
 
 const cookies = new Cookies();
 
-const TitleBar = ({ breadcrumbs }) => {
+const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
     const token = cookies.get('token');
     const isLoggedIn = token != null;
     const [menuOpen, setMenuState] = useState(false);
+    const [mainMenuOpen, setMainMenuState] = useState(false);
     const router = useRouter();
 
     const switchToDark = () => {
@@ -60,6 +62,74 @@ const TitleBar = ({ breadcrumbs }) => {
       </div>
     );
 
+    const renderMenuItems = (items) => <div className="row m-0">
+        {
+            items.map(i => (
+                <div className="col-md-4 col-lg-3 p-2">
+                    <Link href={i.link}>
+                        <a href={i.link}>
+                            <div className="card-shadow text-center p-md-4 p-2 rounded">
+                                <div className="row m-0">
+                                    <div className="col-3 col-md-12 p-1">
+                                        <img src={i.img} className="w-100"/>
+                                    </div>
+                                    <div className="col-9 col-md-12 d-flex align-items-center p-1">
+                                        <div className="d-none d-md-block text-center w-100">
+                                            <h4 className="m-0">{i.name}</h4>
+                                        </div>
+                                        <div className="d-block d-md-none text-left">
+                                            <h4 className="m-0">{i.name}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </Link>
+                </div>
+            ))
+        }
+    </div>;
+
+    const renderMenu = () => (
+        <div id="topbar-menu">
+            <img alt="menu-icon" id="menu-icon" src={require('../images/icons/menu-icon-hamburger.png')} onClick={() => setMainMenuState(true)}/>
+            {
+                mainMenuOpen ?
+                    <div className="menu">
+                        <div className="close-button" onClick={() => setMainMenuState(false)}>
+                            <img
+                                src={require('../images/icons/cancel.png')}
+                                style={{
+                                    width: "45px"
+                                }}
+                            />
+                        </div>
+                        <div className="container h-100 d-flex align-items-center p-2">
+                            <div className="row m-0 w-100">
+                                {renderMenuItems([
+                                    {
+                                        img: require('../images/icons/tickets-qa.png'),
+                                        name: "Shows",
+                                        link: '/shows'
+                                    },
+                                    {
+                                        img: require('../images/icons/trophy-events.png'),
+                                        name: "Competitions",
+                                        link: '/competitions'
+                                    },
+                                    {
+                                        img: require('../images/icons/classroom.png'),
+                                        name: "Workshops",
+                                        link: '/workshops'
+                                    },
+                                ])}
+                            </div>
+                        </div>
+                    </div> : null
+            }
+        </div>
+    );
+
     return <React.Fragment>
         <nav id="titlebar">
             <div className="row m-0">
@@ -70,12 +140,19 @@ const TitleBar = ({ breadcrumbs }) => {
                         </a>
                     </Link>
                 </div>
-                <div className="col text-right">
-                    {
-                        isLoggedIn ?
-                            renderDropdownMenu()
-                            :  <Link href="/login"><a>Login</a></Link>
-                    }
+                <div className="col-lg-10 col-md-9 col-4 p-0 text-right">
+                    <div className="d-inline">
+                        {
+                            !hideUserDropdown && isLoggedIn ?
+                                renderDropdownMenu()
+                                :   <Link href="/login"><a>
+                                    <div id="topbar-dropdown">
+                                        <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} />
+                                    </div>
+                                </a></Link>
+                        }
+                        { renderMenu() }
+                    </div>
                 </div>
             </div>
         </nav>
