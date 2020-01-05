@@ -48,7 +48,7 @@ const AuthorizePage = ({ req }) => {
 
     const ACRDCredit = (
         <div className="text-center mt-4">
-            <div className="font-weight-bold mb-4">Payment Partner</div>
+            <div className="font-weight-bold mb-2">Our Payment Partner</div>
             <img src={require('../../images/logos/acrd-logo.jpg')} style={{ width: "250px"}} />
         </div>
     );
@@ -154,8 +154,8 @@ const AuthorizePage = ({ req }) => {
                 <title>Payment Status | Online Payments | Vidyut 2020</title>
             </Head>
             <TitleBar/>
-            <div className="d-flex align-items-center justify-content-center bg-gradient" style={{ minHeight: '90vh' }}>
-                <div className="card-shadow text-center p-4">
+            <div className="d-flex align-items-center py-4 justify-content-center bg-gradient" style={{ minHeight: '90vh' }}>
+                <div className="card-shadow text-center my-4 p-4 w-100" style={{ maxWidth: "800px" }}>
                     {
                        isResponseLoaded ?
                             !transData ?

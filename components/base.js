@@ -24,6 +24,7 @@ const Base = ({ children, loginRequired, adminRequired }) => {
                 <meta name="keywords" content="Multifest, College, Fest, Techfest, Cultural Fest, Amrita, Students" />
                 <link rel="icon" href={require('../images/favicon.png')} />
                 <meta name="theme-color" content="#311B92" />
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/zuck.js/1.3.0/zuck.min.js" />
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151530910-1" />
                 <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}

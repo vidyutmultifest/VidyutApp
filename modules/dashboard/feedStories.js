@@ -16,8 +16,10 @@ const FeedStories = () => {
         name
         stories
         {
+          id
           image
           created
+          link
         }
       }
     }`;
@@ -44,20 +46,26 @@ const FeedStories = () => {
         data.map( f => {
             const stories = [];
             f.stories.map(s => {
-                stories.push({
-                    url: s.image,
-                    header: {
-                        heading: f.name,
-                        subheading: `Posted ${moment(s.created).fromNow()}`,
-                    }
-                })
+                stories.push([
+                    s.id,
+                    "photo",
+                    5,
+                    s.image,
+                    s.image,
+                    s.link ? s.link : '',
+                    s.link ? 'View More' : false,
+                    '',
+                    moment(s.created).toDate() / 1000
+                ])
             });
             feeds.push({
+                id: f.name,
                 name: f.name,
+                cover: f.stories[0].image,
                 stories: stories
             });
         });
-        return feeds
+        return feeds;
     };
 
     return isLoaded ? <StoryViewer feeds={getFeedData()} /> :  null

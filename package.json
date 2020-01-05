@@ -69,7 +69,8 @@
     "react-select": "3.0.8",
     "react-share": "3.0.1",
     "react-webcam": "4.0.0",
-    "universal-cookie": "4.0.3"
+    "universal-cookie": "4.0.3",
+    "zuck.js": "^1.5.4"
   },
   "devDependencies": {
     "react-qr-reader": "^2.2.1"
