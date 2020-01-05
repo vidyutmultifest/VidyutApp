@@ -12,6 +12,7 @@ import DepartmentSelector from "../modules/events/departmentSelector";
 import DashboardFooter from "../modules/dashboard/footer";
 import LoadingScreen from "../components/loadingScreen";
 import OrganizerSelector from "../modules/events/organizerSelector";
+import ContentCard from "../components/events/contentCard";
 
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
@@ -83,7 +84,7 @@ const Workshops = () => {
     });
 
     const renderWorkshopCard = (w) => (
-        <div className="col-md-4 p-2">
+        <div className="col-md-6 col-lg-4 p-2">
             <EventCard
                 name={w.name}
                 text={w.description}
@@ -104,10 +105,15 @@ const Workshops = () => {
     const renderFilters = () => (
         <div>
             <div className="p-2">
-                <input
-                    className="form-control"
-                    onChange={(e) => setSQuery(e.target.value)}
-                    placeholder="Search by name / dept "
+                <ContentCard
+                    title="Search"
+                    isOpen
+                    classNames="bg-gradient p-2"
+                    node={<input
+                        className="form-control mt-3 rounded-0 border-0"
+                        onChange={(e) => setSQuery(e.target.value)}
+                        placeholder="Search by name / dept "
+                    />}
                 />
             </div>
             <div className="p-2">
@@ -166,10 +172,19 @@ const Workshops = () => {
                             data.length > 0 ?
                                 <div>
                                     <div id="event-listing">
-                                        <div className="container p-0">
-                                            {renderFilters()}
-                                            <div className="row m-0">
-                                                { renderWorkshops() }
+                                        <div className="row m-0">
+                                            <div className="col-lg-3 col-md-4 px-0">
+                                                <div className="d-none d-md-block filter-sidebar">
+                                                    {renderFilters()}
+                                                </div>
+                                                <div className="d-block d-md-none">
+                                                    {renderFilters()}
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-9 col-md-8 px-2 py-4">
+                                                <div className="row m-0">
+                                                    { isLoaded ? renderWorkshops() : null }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
