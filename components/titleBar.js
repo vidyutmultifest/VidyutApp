@@ -161,17 +161,18 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                         <a
                             href="/dashboard"
                             className="breadcrumb-item plain-link"
+                            style={{ lineHeight: 1 }}
                             aria-current="page"
                         >
-                            Dashboard
+                            <img src={require('../images/icons/home-icon.png')} className="icon-img" style={{ height: "2vw", minHeight: "20px", maxHeight: "1rem" }} />
                         </a>
                     </Link>
                     {
                         breadcrumbs.length > 0 ? breadcrumbs.map(l => (
                             <Link href={l.link}>
-                                    <a href={l.link} className={classNames("breadcrumb-item plain-link", l.active ? "active" : null)} aria-current="page">
-                                        {l.name}
-                                    </a>
+                                <a href={l.link} className={classNames("breadcrumb-item plain-link", l.active ? "active" : null)} aria-current="page">
+                                    {l.name}
+                                </a>
                             </Link>
                         )) : null
                     }

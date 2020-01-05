@@ -79,7 +79,7 @@ const TrainerCards = ({ trainers }) => {
                             >
                                 <div className="row m-0">
                                    <div className="col-md-4 px-0">
-                                       <div className="d-none d-md-block bg-gradient p-3">
+                                       <div className="d-none d-md-block bg-gradient h-100 p-3">
                                            <h4 className="m-0 pb-2">{selectedTrainer.name}</h4>
                                            { selectedTrainer.photo ?
                                                <img
