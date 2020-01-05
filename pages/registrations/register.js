@@ -61,6 +61,7 @@ const RegisterPage = () => {
                  key
                  label
                  type
+                 required
                  options
                  {
                    key
@@ -194,8 +195,8 @@ const RegisterPage = () => {
             : isLoaded ? (
                 <React.Fragment>
                     <TitleBar/>
-                        < div className = "container p-0 my-4" >
-                        < h1 className="my-4 pt-4 mx-md-0 mx-4">{data.product.name} Registration</h1>
+                        <div className = "container p-0 my-4">
+                        <h2 className="my-4 pt-4 mx-md-0 mx-4">{data.product.name} Registration</h2>
                     <PoseGroup>
                     {
                         !isTeamSelected ? <Shade key="teamselection">

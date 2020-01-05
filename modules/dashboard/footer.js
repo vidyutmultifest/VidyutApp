@@ -7,7 +7,7 @@ const DashboardFooter = () => (
             <div className="col-md-4" />
             <div className="col-md-4 text-center">
                 <div className="amfoss-credit">
-                    <div>Proudly Powered by</div>
+                    <div className="pb-2 small-text">Proudly Powered by</div>
                     <a href="https://amfoss.in/">
                         <img
                             src={require('../../images/logos/amfoss_logo_light.png')}

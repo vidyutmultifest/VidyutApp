@@ -2,7 +2,18 @@ import React, { useState } from "react";
 
 const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBackButton }) => {
 
-    const [data, setData] = useState(formData ? formData : []);
+    const getInitialValues = (fields) => {
+        let f = [];
+        fields.map( field => {
+            f.push({
+                "key": field.key,
+                "label": field.label
+            });
+        });
+        return f;
+    };
+
+    const [data, setData] = useState(formData ? formData : getInitialValues(fields));
     const [validationError, setValidationError] = useState(false);
 
     const handleFormDataChange = (e) => {
@@ -42,16 +53,21 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
         setData(fd);
     };
 
+    const isRequired = (key) => {
+        const a = fields.filter(k => k.key === key);
+        return a.length > 0 && a[0].required === true;
+    };
+
     const handleSubmit = () => {
         let flag = 0;
-        if(!data.length) flag = 1;
-        if(data.length !== fields.length) flag = 1;
-        for(const d in data)
+        data.map(d =>
         {
-            if(d && d.value === null || d.value === '' || d.value === []) {
-                flag = 1;
+            if(d && isRequired(d.key))
+            {
+                if(d && d.value !== "undefined" || d.value === null || d.value === '' || d.value === [])
+                    flag = 1;
             }
-        }
+        });
         if(!flag) onSubmit(data);
         else setValidationError('Please fill all the fields.');
     };
@@ -65,7 +81,7 @@ const EventRegistrationForm = ({ fields, onSubmit, onClickBack, formData, showBa
                 {
                     fields.map(f =>
                         <div key={f.key} className="form-group">
-                            <label htmlFor={f.key}>{f.label}</label>
+                            <label htmlFor={f.key}>{f.label} {f.required ? <span className="text-danger">*</span> : null}</label>
                             {
                                 f.type === "textarea" ?
                                     <textarea

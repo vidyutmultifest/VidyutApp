@@ -9,9 +9,11 @@ const SubmissionPreview = ({ team, formData, onSubmit, onClickBack }) => {
                  formData.map(f => (
                 <div key={f.key} className="py-2">
                     <div><b>{f.label}</b></div>
-                    {   Array.isArray(f.value) ?
-                        f.value.map(v => <li>{v}</li> )
-                        : f.value
+                    {   f.value ?
+                            Array.isArray(f.value) ?
+                                f.value.map(v => <li>{v}</li> )
+                                : f.value
+                        : <div><i>left blank</i></div>
                     }
                 </div>
             ))
