@@ -138,16 +138,19 @@ const Workshop = () => {
                             title="General Details"
                             content={data.details}
                             icon={require('../../images/icons/about-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Rules and Regulations"
                             content={data.rules}
                             icon={require('../../images/icons/rules-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Judging Criteria"
                             content={data.judgingCriteria}
                             icon={require('../../images/icons/check-icon.png')}
+                            classNames="mb-4"
                         />
                     </div>
                     <div className="col-md-5 col-xl-4 py-md-4 mb-4">

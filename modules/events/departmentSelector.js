@@ -36,7 +36,7 @@ const DepartmentSelector = ({ onSelect }) => {
 
     return data ? <ContentCard
         title="Filter by Department"
-        classNames="bg-gradient"
+        classNames="bg-gradient mb-0"
         isOpen
         node={
         <div className="scroll-selector">
@@ -53,7 +53,7 @@ const DepartmentSelector = ({ onSelect }) => {
                                 onSelect({ value: d.value })
                             }
                         }}>
-                            <div className={classNames('scroll-item card-shadow p-4 m-2 text-center', selected === d.value ? 'selected' : null)}>
+                            <div className={classNames('scroll-item card-shadow p-2 m-2 text-center', selected === d.value ? 'selected' : null)}>
                                 <div>
                                     { d.icon ? <img src={d.icon} className="mb-3" /> : null }
                                     <h6>{d.label}</h6>

@@ -133,10 +133,12 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                     <div className="d-inline">
                         {
                              isLoggedIn ?
-                                <div><div id="topbar-dropdown">
-                                    <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
-                                    { dropdownMenu }
-                                </div></div>
+                                <div className="d-inline">
+                                    <div id="topbar-dropdown">
+                                        <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
+                                        { dropdownMenu }
+                                    </div>
+                                </div>
                                 :   <Link href="/login"><a>
                                     <div id="topbar-dropdown">
                                         <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} />

@@ -169,26 +169,31 @@ const Workshop = () => {
                             title="General Details"
                             content={data.details}
                             icon={require('../../images/icons/about-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Syllabus"
                             content={data.syllabus}
                             icon={require('../../images/icons/syllabus-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Eligibility"
                             content={data.eligibility}
                             icon={require('../../images/icons/checklist-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Certification"
                             content={data.certificate}
                             icon={require('../../images/icons/certificate-icon.png')}
+                            classNames="mb-4"
                         />
                         <ContentCard
                             title="Medium of Instruction"
                             content={data.mediumOfInstruction}
                             icon={require('../../images/icons/languages-icon.png')}
+                            classNames="mb-4"
                         />
                         {renderPartners()}
                         <TrainerCards trainers={data.trainers} />

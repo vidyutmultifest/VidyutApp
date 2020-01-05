@@ -6,7 +6,7 @@ const ContentCard = ({ title, content, node, icon, classNames, isOpen: opened })
     const [isOpen, setOpen] = useState(opened ? opened : false);
 
     return content && content.length > 0 || node ? (
-        <div className={classnames("card-shadow rounded p-4 mb-4", classNames)}>
+        <div className={classnames("card-shadow rounded p-4", classNames)}>
             <div className="row m-0">
                 <div className="col-9 d-flex align-items-center px-0">
                     <h5 className="m-0">
