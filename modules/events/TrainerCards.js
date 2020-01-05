@@ -18,7 +18,7 @@ const TrainerCards = ({ trainers }) => {
                     <h5 className="font-weight-bold">{trainer.name}</h5>
                     {
                         trainer.about ?
-                            <button className="btn btn-primary mx-2 mt-2 px-4 py-2">About</button>
+                            <button className="btn-shadow btn btn-primary rounded-0 mx-2 mt-2 px-4 py-2">About</button>
                             : null
                     }
                 </div>
@@ -29,7 +29,11 @@ const TrainerCards = ({ trainers }) => {
     return trainers && trainers.length > 0 ?
         <div className="card-shadow p-3 bg-gradient rounded my-4">
             <h4 className="px-4 mt-4 mb-2">
-                <img src={require('../../images/icons/trainer-icon.png')} style={{ width: "2rem" }} className="icon-img m-2" />
+                <img
+                    src={require('../../images/icons/trainer-icon.png')}
+                    style={{ width: "2rem", filter: "contrast(0.1) brightness(5)" }}
+                    className="m-2"
+                />
                 Trainers
             </h4>
             <div className="row m-0">
