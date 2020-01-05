@@ -42,27 +42,30 @@ const HomePage = () => {
         </Head>
         <TitleBar hideUserDropdown />
         <div id="landing-page-content">
-            <LandingHeader />
             <section id="landing-dates">
                 <div className="w-100">
-                    <h2>January 30 - February 1, 2020</h2>
-                    <Link href="/login"><button className="btn btn-primary px-4 py-2">Register Now</button></Link>
-                    <div className="p-md-4 mt-4 text-left">
-                        <QuickActionCards status={{
-                            enableTicketing: true,
-                            enableCompetitionRegistration: true,
-                            enableWorkshopRegistration: true,
-                            enableMerchandiseShopping: true,
-                        }} />
-                    </div>
+                    <img className="mb-4" src={require('../images/logos/heal-the-world.png')} />
+                    <h2 className="mt-4 mb-2">Vidyut 2020</h2>
+                    <h3>National Level Multifest</h3>
+                    <h4>January 30 - February 1</h4>
+                    <h5>Amrita Vishwa Vidyapeetham, Amritapuri Campus</h5>
+                    <Link href="/login"><button className="btn btn-primary mt-4 px-4 py-2">Register Now</button></Link>
+                </div>
+            </section>
+            <section>
+                <div className="p-md-4 mt-4 text-left">
+                    <QuickActionCards status={{
+                        enableTicketing: true,
+                        enableCompetitionRegistration: true,
+                        enableWorkshopRegistration: true,
+                        enableMerchandiseShopping: true,
+                    }} />
                 </div>
             </section>
             <div ref={ref}>
                 <AboutTheme />
-                <AboutVidyut />
                 <AboutMultifest />
                 {movingbg}
-                <AboutAmrita />
                 <SponsorsList />
             </div>
             <Footer />
