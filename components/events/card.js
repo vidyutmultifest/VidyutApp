@@ -4,7 +4,7 @@ import React from "react";
 import '../../styles/events/card.sass';
 import PurchasesItems from "../../modules/events/PurchaseItems";
 
-const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent, isTotalRate, dept, organizer, products, RegisterText }) => (
+const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent, isTotalRate, dept, organizer, products, RegisterText, profileData }) => (
             <div className="event-card card-shadow h-100">
                 <Link href={detailsURL}>
                     <div className="event-cover d-none d-md-block">
@@ -24,16 +24,19 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     <p>{text}</p>
                     <div className="price text-right mt-4">
                         {
-                            parseInt(price) > 0 ?
+                            price ? parseInt(price) !== 0 ?
                             <React.Fragment>
                                 ₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
-                            </React.Fragment> : <React.Fragment>Free</React.Fragment>
+                            </React.Fragment> :
+                                <React.Fragment>Free</React.Fragment>
+                                : null
                         }
                     </div>
                     <div>
                         { products ? <PurchasesItems
                             products={products}
                             hideReason={true}
+                            profileData={profileData}
                             customText={RegisterText ? RegisterText : "Register" }
                         /> : null }
                         <Link href={detailsURL}>

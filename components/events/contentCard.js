@@ -1,15 +1,16 @@
 import React, {useState} from "react";
+const classnames = require('classnames');
 
-const ContentCard = ({ title, content, icon }) => {
+const ContentCard = ({ title, content, node, icon, classNames, isOpen: opened }) => {
 
-    const [isOpen, setOpen] = useState(false);
+    const [isOpen, setOpen] = useState(opened ? opened : false);
 
-    return content && content.length > 0 ? (
-        <div className="card-shadow rounded p-4 mb-4">
+    return content && content.length > 0 || node ? (
+        <div className={classnames("card-shadow rounded p-4 mb-4", classNames)}>
             <div className="row m-0">
                 <div className="col-9 d-flex align-items-center px-0">
                     <h5 className="m-0">
-                        <img src={icon} style={{ width: "2rem" }} className="icon-img m-2" />
+                        { icon ? <img src={icon} style={{ width: "2rem" }} className="icon-img m-2" /> : null }
                         {title}
                     </h5>
                 </div>
@@ -25,7 +26,7 @@ const ContentCard = ({ title, content, icon }) => {
                 }
                 </div>
             </div>
-            { isOpen ? <div className="mt-4" dangerouslySetInnerHTML={{ __html: content}} />  : null }
+            { isOpen ? node ? node : <div className="mt-4" dangerouslySetInnerHTML={{ __html: content}} />  : null }
         </div>
     ) : null
 

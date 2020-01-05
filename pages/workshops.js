@@ -17,12 +17,21 @@ const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
+    const [profileData, setProfileData] = useState(false);
 
     const [deptSel, setDept] = useState('');
     const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
 
     const query = `{
+       myProfile
+      {
+        isAmritian
+        isAmritapurian
+        isFaculty
+        isSchoolStudent
+        hasEventsRegistered
+      }
       listWorkshops
       {
         name
@@ -66,6 +75,7 @@ const Workshops = () => {
                setQueried(true);
                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                    setData(response.data.listWorkshops);
+                   setProfileData(response.data.myProfile);
                    setLoaded(true);
                }
            })
@@ -81,37 +91,49 @@ const Workshops = () => {
                 price={w.fee}
                 organizer={w.organizer ? w.organizer.label : null}
                 isNew={w.isNew}
-                dept={w.department ? w.department.label : null}
+                dept={deptSel === '' || deptSel == null && w.department ? w.department.label : null}
                 isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
                 registerText="Register"
                 products={w.products}
+                profileData={profileData}
             />
         </div>
     );
 
     const renderFilters = () => (
         <div>
-            <h4>Filters</h4>
             <div className="p-2">
-                <h6>Search</h6>
-                <input className="form-control" onChange={(e) => setSQuery(e.target.value)} />
+                <input
+                    className="form-control"
+                    onChange={(e) => setSQuery(e.target.value)}
+                    placeholder="Search by name / dept "
+                />
             </div>
             <div className="p-2">
-                <h6>Department</h6>
                 <DepartmentSelector onSelect={(e) => setDept(e)} />
             </div>
             <div className="p-2">
-                <h6>Organizer</h6>
                 <OrganizerSelector onSelect={(e) => setOrg(e)} />
             </div>
         </div>
     );
 
+    const isInName = (name,query) => {
+        const words = name.toLowerCase().split(" ");
+        for(let i = 0; i<words.length; i++)
+        {
+            if(words[i].startsWith(query.toLowerCase()))
+                return true;
+        }
+        return false
+
+    };
+
     const renderWorkshops = () => {
         const filtered = data.map(c => {
             let flag = 0;
-            if(sQuery !== '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
+            if(sQuery != '' && !isInName(c.name,sQuery) && !isInName(c.department.label, sQuery))
                 flag = 1;
             if(deptSel !== '' && deptSel != null && deptSel.value !== c.department.value)
                 flag = 1;
@@ -142,13 +164,13 @@ const Workshops = () => {
                     />
                         {
                             data.length > 0 ?
-                                <div className="row m-0">
-                                    <div className="col-xl-3 col-md-4 px-lg-4 px-md-2 py-4">
-                                        {renderFilters()}
-                                    </div>
-                                    <div id="event-listing" className="col-xl-9 col-md-8">
-                                        <div className="row m-0">
-                                            { renderWorkshops() }
+                                <div>
+                                    <div id="event-listing">
+                                        <div className="container p-0">
+                                            {renderFilters()}
+                                            <div className="row m-0">
+                                                { renderWorkshops() }
+                                            </div>
                                         </div>
                                     </div>
                             </div> :

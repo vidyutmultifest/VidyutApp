@@ -16,7 +16,11 @@ const TrainerCards = ({ trainers }) => {
                 { trainer.photo ? <img src={trainer.photo}/> : null }
                 <div className="px-2 text-center py-4">
                     <h5 className="font-weight-bold">{trainer.name}</h5>
-                    <button className="btn btn-primary mx-2 mt-2 px-4 py-2">About</button>
+                    {
+                        trainer.about ?
+                            <button className="btn btn-primary mx-2 mt-2 px-4 py-2">About</button>
+                            : null
+                    }
                 </div>
             </div>
         </div>

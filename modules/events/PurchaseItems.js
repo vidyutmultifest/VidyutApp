@@ -3,7 +3,7 @@ import Link from "next/link";
 import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 
-const PurchasesItems = ({ products, RegisterText, hideReason, customText }) => {
+const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData }) => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
@@ -24,7 +24,7 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText }) => {
     const getProfile = async () => await dataFetch({ query });
 
     useEffect(() => {
-        if(!isQueried)
+        if(!isQueried && !profileData)
         {
             getProfile().then(  response => {
                 setQueried(true);
@@ -33,6 +33,10 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText }) => {
                     setLoaded(true);
                 }
             })
+        } else if(profileData) {
+            setData(profileData);
+            setQueried(true);
+            setLoaded(true);
         }
     });
 

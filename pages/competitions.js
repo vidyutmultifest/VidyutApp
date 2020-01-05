@@ -11,7 +11,6 @@ import StatusContainer from "../components/StatusContainer";
 import LoadingScreen from "../components/loadingScreen";
 import DashboardFooter from "../modules/dashboard/footer";
 import DepartmentSelector from "../modules/events/departmentSelector";
-import OrganizerSelector from "../modules/events/organizerSelector";
 
 const _ = require('lodash');
 
@@ -20,12 +19,21 @@ const Competitions = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
+    const [profileData, setProfileData] = useState(false);
 
     const [deptSel, setDept] = useState('');
     const [orgSel, setOrg] = useState('');
     const [sQuery, setSQuery] = useState('');
 
     const query = `{
+      myProfile
+      {
+        isAmritian
+        isAmritapurian
+        isFaculty
+        isSchoolStudent
+        hasEventsRegistered
+      }
       listCompetitions
       {
         name
@@ -71,6 +79,7 @@ const Competitions = () => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.listCompetitions);
+                    setProfileData(response.data.myProfile);
                     setLoaded(true);
                 }
             })
@@ -85,7 +94,7 @@ const Competitions = () => {
                 cover={c.cover}
                 price={c.fee}
                 isNew={c.isNew}
-                dept={c.department.label}
+                dept={deptSel === '' || deptSel == null ? c.department.label : null}
                 organizer={c.organizer ? c.organizer.label : null}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
@@ -93,6 +102,7 @@ const Competitions = () => {
                 detailsURL={`/competition/${c.slug}`}
                 registerText="Register"
                 products={c.products}
+                profileData={profileData}
             />
         </div>
     );
@@ -100,27 +110,34 @@ const Competitions = () => {
 
     const renderFilters = () => (
         <div>
-            <h4>Filters</h4>
             <div className="p-2">
-                <h6>Search</h6>
-                <input className="form-control" onChange={(e) => setSQuery(e.target.value)} />
+                <input
+                    className="form-control"
+                    onChange={(e) => setSQuery(e.target.value)}
+                    placeholder="Search by name / dept "
+                />
             </div>
             <div className="p-2">
-                <h6>Department</h6>
                 <DepartmentSelector onSelect={(e) => setDept(e)} />
-            </div>
-            <div className="p-2">
-                <h6>Organizer</h6>
-                <OrganizerSelector onSelect={(e) => setOrg(e)} />
             </div>
         </div>
     );
 
+    const isInName = (name,query) => {
+        const words = name.toLowerCase().split(" ");
+        for(let i = 0; i<words.length; i++)
+        {
+            if(words[i].startsWith(query.toLowerCase()))
+                return true;
+        }
+        return false
+
+    };
 
     const renderCompetitions = () => {
         const filtered = data.map(c => {
             let flag = 0;
-            if(sQuery != '' && !c.name.toLowerCase().startsWith(sQuery.toLowerCase()))
+            if(sQuery != '' && !isInName(c.name,sQuery) && !isInName(c.department.label, sQuery))
                 flag = 1;
             if(deptSel != '' && deptSel != null && deptSel.value !== c.department.value)
                 flag = 1;
@@ -151,13 +168,13 @@ const Competitions = () => {
                     />
                     {
                         data.length > 0 ?
-                            <div className="row m-0">
-                                <div className="col-xl-3 col-md-4 px-lg-4 px-md-2 py-4">
-                                    {renderFilters()}
-                                </div>
-                                <div id="event-listing" className="col-xl-9 col-md-8">
-                                    <div className="row m-0">
-                                        { isLoaded ? renderCompetitions() : null }
+                            <div>
+                                <div id="event-listing">
+                                    <div className="container p-0">
+                                        {renderFilters()}
+                                        <div className="row m-0">
+                                            { isLoaded ? renderCompetitions() : null }
+                                        </div>
                                     </div>
                                 </div>
                             </div>

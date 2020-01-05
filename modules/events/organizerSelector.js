@@ -1,28 +1,17 @@
 import React, {useEffect, useState} from "react";
 import dataFetch from "../../utils/dataFetch";
-import Select, { components } from 'react-select';
-const { Option } = components;
+
+import '../../styles/events/scroll-selector.sass';
+import ContentCard from "../../components/events/contentCard";
+const classNames = require("classnames");
 
 const OrganizerSelector = ({ onSelect }) => {
     const [isQueried, setQueried] = useState(false);
     const [data, setData] = useState(false);
-
-    const customSingleValue = (props) => (
-        <Option {...props}>
-            <div className="input-select__single-value d-flex">
-                <div style={{ width: "20%"}}>
-                    <img src={ props.data.icon ? props.data.icon : require('../../images/icons/company.png')} style={{ width: "45px", marginRight: "1rem"}} />
-                </div>
-                <div style={{ width: "80%", color: "black"}}>
-                    <span >{ props.label }</span >
-                </div>
-            </div>
-        </Option>
-    );
-
+    const [selected, setSelected] = useState(false);
 
     const query = `{
-      listOrganizers
+      listOrganizers(hasWorkshop: true)
       {
         label: name
         value: id
@@ -44,12 +33,37 @@ const OrganizerSelector = ({ onSelect }) => {
         }
     });
 
-    return data ? <Select
-        options={data}
-        isClearable
-        onChange={(e) => onSelect(e)}
-        components={{ Option: customSingleValue }}
-    /> : null
+    return data ? <ContentCard
+            title="Filter by Organizer"
+            classNames="bg-gradient"
+            node={
+                <div className="scroll-selector">
+                    <div className="scroll-wrapper">
+                        {
+                            data.map(d => (
+                                <a onClick={() => {
+                                    if(selected===d.value)
+                                    {
+                                        setSelected(false);
+                                        onSelect(null);
+                                    } else {
+                                        setSelected(d.value);
+                                        onSelect({ value: d.value })
+                                    }
+                                }}>
+                                    <div className={classNames('scroll-item card-shadow p-4 m-2 text-center', selected === d.value ? 'selected' : null)}>
+                                        <div>
+                                            { d.icon ? <img src={d.icon} className="mb-3" /> : null}
+                                            <h6>{d.label}</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+            }
+       /> : null
 };
 
 export default OrganizerSelector;
