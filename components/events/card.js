@@ -33,7 +33,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                         }
                     </div>
                     <div>
-                        { products ? <PurchasesItems
+                        { products && profileData ? <PurchasesItems
                             products={products}
                             hideReason={true}
                             profileData={profileData}
