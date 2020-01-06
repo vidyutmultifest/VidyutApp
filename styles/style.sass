@@ -65,7 +65,6 @@ img
   a
     font-weight: 900
     text-decoration: none
-    color: #3D5AFE
   a:hover
     text-decoration: none
 
@@ -103,17 +102,66 @@ img
     padding: 0.5rem
 
 .topbar-menu
-  background: rgba(0,0,0,0.8)
+  background: rgba(0,0,0,0.9)
   position: fixed
   top: 0
   left: 0
   width: 100%
   height: 100%
   z-index: 9000
+  .social-media-links
+    position: absolute
+    width: 100%
+    justify-content: center
+    display: flex
+    bottom: calc(1.2rem + 3.5vh)
+    a
+      padding: 0.5rem
+    img
+      width: 45px!important
   .close-button
-    top: 1.5rem
+    top: calc(1.2rem + 3vh)
     right: 1.5rem
     position: absolute
+  .menu-title
+    font-size: calc(1rem + 5vw)
+    color: white
+    top: calc(1.2rem + 3.5vh)
+    left: calc(1.2rem + 3vw)
+    position: absolute
+    img
+      width: 15vw!important
+      margin-right: 1rem
+      filter: invert(1) drop-shadow(2px 4px 6px rgba(256,256,256,0.3))
+  .menu-section-title
+    font-weight: 900
+    text-align: left
+    padding: 0.5rem 1rem
+    font-size: calc(0.7rem + 1.2vw)
+    background: white
+    text-transform: uppercase
+    display: inline-block
+    mix-blend-mode: screen
+    margin-bottom: 1rem
+  .menu-items
+    text-align: left
+    margin-left: 0.5rem
+    a
+      display: inline-block
+      color: white
+      font-size: calc(0.8rem + 0.5vw)
+      margin: 0.25rem 0
+
+    a:after
+      transition: all ease-in-out .2s
+      background: repeat scroll linear-gradient(to right, #0052D4, #8E54E9, #2657eb)!important
+      content: ""
+      display: block
+      height: 2px
+      width: 0
+    a:hover:after
+      width: 100%
+
 
 #topbar-dropdown
   display: inline

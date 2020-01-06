@@ -170,6 +170,7 @@ const Workshop = () => {
                             content={data.details}
                             icon={require('../../images/icons/about-icon.png')}
                             classNames="mb-4"
+                            isOpen
                         />
                         <ContentCard
                             title="Syllabus"

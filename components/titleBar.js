@@ -34,29 +34,22 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
     const hours = new Date().getHours();
     const isDayTime = hours > 6 && hours < 20;
 
-    const renderMenuItems = (items) => <div className="row m-0">
+    const renderMenuItems = (items) => <div className="row m-0 p-2 w-100">
     {
         items.map(i => (
-            <div className="col-md-4 col-lg-3 p-2">
-                <Link href={i.link}>
-                    <a href={i.link}>
-                        <div className="card-shadow text-center p-md-4 p-2 rounded">
-                            <div className="row m-0">
-                                <div className="col-3 col-md-12 p-1">
-                                    <img src={i.img} className="w-100"/>
-                                </div>
-                                <div className="col-9 col-md-12 d-flex align-items-center p-1">
-                                    <div className="d-none d-md-block text-center w-100">
-                                        <h5 className="m-0">{i.name}</h5>
-                                    </div>
-                                    <div className="d-block d-md-none text-left">
-                                        <h5 className="m-0">{i.name}</h5>
-                                    </div>
-                                </div>
+            <div className="col-6 col-md-4 col-lg-3 text-left p-2">
+                <div className="menu-section-title">{i.title}</div>
+                <div className="menu-items">
+                {
+                    i.items && i.items.map(j => (
+                        <Link href={j.link}>
+                            <div>
+                                <a href={j.link}>{j.name}</a>
                             </div>
-                        </div>
-                    </a>
-                </Link>
+                        </Link>
+                    ))
+                }
+                </div>
             </div>
         ))
     }
@@ -86,37 +79,110 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
         <div className="close-button" onClick={() => setMainMenuState(false)}>
             <img
                 alt="close menu"
-                src={require('../images/icons/cancel.png')}
+                src={require('../images/icons/cross-icon-white.png')}
                 style={{
                     width: "45px"
                 }}
             />
         </div>
+        <h3 className="menu-title">
+            <img src={require('../images/logos/Vlogo.png')} />
+            Menu
+        </h3>
         <div className="container h-100 d-flex align-items-center p-2">
-            <div className="row m-0 w-100">
                 {renderMenuItems([
                     {
-                        img: require('../images/icons/tickets-qa.png'),
-                        name: "Shows",
-                        link: '/shows'
+                        title: "About",
+                        items: [
+                            {
+                                name: "About Vidyut",
+                                link: '/about'
+                            },
+                            {
+                                name: "About Amrita",
+                                link: 'https://amrita.edu'
+                            },
+                            {
+                                name: "Initiatives",
+                                link: '/initiatives'
+                            },
+                            {
+                                name: "Previous Editions",
+                                link: '/history'
+                            },
+                        ]
                     },
                     {
-                        img: require('../images/icons/trophy-events.png'),
-                        name: "Competitions",
-                        link: '/competitions'
+                        title: "Vidyut 2020",
+                        items: [
+                            {
+                                name: "Theme",
+                                link: '/theme'
+                            },
+                            {
+                                name: "Highlights",
+                                link: '/highlights'
+                            },
+                            {
+                                name: "Partners",
+                                link: '/partners'
+                            },
+                            {
+                                name: "Crew",
+                                link: '/crew'
+                            },
+                        ]
                     },
                     {
-                        img: require('../images/icons/classroom.png'),
-                        name: "Workshops",
-                        link: '/workshops'
+                        title: "Events",
+                        items: [
+                            {
+                                name: "Brochure",
+                                link: '/brochure'
+                            },
+                            {
+                                name: "Shows",
+                                link: '/shows'
+                            },
+                            {
+                                name: "Competitions",
+                                link: '/competitions'
+                            },
+                            {
+                                name: "Workshops",
+                                link: '/workshops'
+                            },
+                        ]
                     },
                     {
-                        img: require('../images/icons/faq-icon.png'),
-                        name: "Frequently Asked Questions (FAQ)",
-                        link: '/faq'
+                        title: "Registration",
+                        items: [
+                            {
+                                name: "Dashboard",
+                                link: '/dashboard'
+                            },
+                            {
+                                name: "Support",
+                                link: 'https://t.me/vcare2020'
+                            },
+                            {
+                                name: "FAQ",
+                                link: '/faq'
+                            },
+                        ]
                     },
                 ])}
-            </div>
+        </div>
+        <div className="social-media-links">
+            <a href="https://facebook.com/VidyutMultifest">
+                <img src={require('../images/icons/facebook.png')} />
+            </a>
+            <a href="https://instagram.com/VidyutMultifest">
+                <img src={require('../images/icons/instagram.png')} />
+            </a>
+            <a href="https://twitter.com/VidyutMultifest/">
+                <img src={require('../images/icons/twitter.png')} />
+            </a>
         </div>
     </div> : null;
 
@@ -136,9 +202,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                 </div>
                 <div className="col-lg-10 col-md-9 col-4 p-0 text-right">
                     <div className="d-inline">
-                        {
-                             isLoggedIn ?
-                                <div className="d-inline">
+                        {  isLoggedIn ? <div className="d-inline">
                                     <div id="topbar-dropdown">
                                         <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
                                         { dropdownMenu }
