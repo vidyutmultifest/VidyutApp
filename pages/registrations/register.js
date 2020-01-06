@@ -33,7 +33,7 @@ const RegisterPage = () => {
     const [teamSelected, setTeam] = useState(false);
     const [formData, setFormData] = useState(false);
 
-    const [regID, setRegID] = useState();
+    const [regID, setRegID] = useState(false);
 
     const query = `query getProduct($productID: String!){
       isAlreadyRegistered(productID: $productID)
@@ -178,9 +178,10 @@ const RegisterPage = () => {
                              animation={require('../../images/animations/done-button')}
                              title="Already Registered."
                              text="It seems that you have already registered for this event. If your transaction wasn't successful,
-                        please go to the link below and retry payment. For a free event, without payment, your registration is still considered,
-                        incomplete. Thank You!"
-                             buttons={<Link href="/registrations/my-registrations">
+                                    please go to the link below and retry payment. For a free event, without payment, your registration is still considered,
+                                    incomplete. Thank You!"
+                             buttons={
+                                 <Link href="/registrations/my-registrations">
                                  <button className="btn btn-primary rounded-0 px-4 my-4 py-2">View My Registrations</button>
                              </Link>}
                          />
@@ -235,7 +236,7 @@ const RegisterPage = () => {
                                         onSubmit={handleSubmit}
                                         onClickBack={() => data.showAgreementPage ? setAgreed(false) : setFormFilled(false)}
                                     />
-                                </Shade> : <Shade key="preview">
+                                </Shade> : regID ? <Shade key="preview">
                                     <div className="card-shadow p-4">
                                         {
                                             !data.requireAdvancePayment ?
@@ -272,7 +273,7 @@ const RegisterPage = () => {
                                                 />
                                         }
                                     </div>
-                                </Shade>
+                                </Shade> : handleSubmit()
                     }
                     </PoseGroup>
                     </div>
