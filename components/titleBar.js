@@ -6,6 +6,7 @@ import '../styles/style.sass';
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
 const classNames = require('classnames');
+import posed, { PoseGroup } from 'react-pose';
 
 const cookies = new Cookies();
 
@@ -34,10 +35,16 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
     const hours = new Date().getHours();
     const isDayTime = hours > 6 && hours < 20;
 
+    const Shade = posed.div({
+        enter: { opacity: 1, delay: 300, delayChildren: 500, ease: 'anticipate' },
+        exit: { opacity: 0 },
+    });
+    
+
     const renderMenuItems = (items) => <div className="row m-0 p-2 w-100">
     {
-        items.map(i => (
-            <div className="col-6 col-md-4 col-lg-3 text-left p-2">
+        mainMenuOpen ? items.map(i => (
+                <div className="col-6 col-md-4 col-lg-3 text-left p-2">
                 <div className="menu-section-title">{i.title}</div>
                 <div className="menu-items">
                 {
@@ -51,7 +58,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                 }
                 </div>
             </div>
-        ))
+        )) : null
     }
     </div>;
 
@@ -74,6 +81,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
             <div className="link"><Link href="/profile/edit-profile"><a>Profile</a></Link></div>
             <div className="link"><Link href="/logout"><a>Logout</a></Link></div>
         </div> : null;
+
+
 
     const menu = mainMenuOpen ? <div className="topbar-menu">
         <div className="close-button" onClick={() => setMainMenuState(false)}>
@@ -216,7 +225,12 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                         }
                         <div id="topbar-menu">
                             <img alt="menu-icon" id="menu-icon" src={require('../images/icons/menu-icon-hamburger.png')} onClick={() => setMainMenuState(true)}/>
-                            { menu }
+                            <PoseGroup>
+                                {
+                                    mainMenuOpen ?
+                                        <Shade key="menu-oper">{ menu }</Shade> : null
+                                }
+                            </PoseGroup>
                         </div>
                     </div>
                 </div>
