@@ -39,7 +39,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
         enter: { opacity: 1, delay: 300, delayChildren: 500, ease: 'anticipate' },
         exit: { opacity: 0 },
     });
-    
+
 
     const renderMenuItems = (items) => <div className="row m-0 p-2 w-100">
     {

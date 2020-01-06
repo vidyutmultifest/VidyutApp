@@ -22,6 +22,12 @@ const MyRegistrations = () => {
            name
            price
            productID
+           product {
+              details
+            {
+              isTotalRate
+            }
+           }
         }
         team
         {
@@ -75,7 +81,7 @@ const MyRegistrations = () => {
                                     </div>
                                 : r.order == null ?
                                     <Link href={
-                                        `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
+                                        `/purchase?product=${r.event.productID}&qty=${r.team !== null  && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>
                                         <button className="btn btn-primary">
                                             Pay {r.team !== null ? parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
@@ -90,7 +96,7 @@ const MyRegistrations = () => {
                                     r.order.transaction && r.order.transaction.isPending ?
                                         <img src={require('../../images/icons/cancel.png')} style={{ maxWidth: '32px'}} /> :
                                         <Link href={
-                                            `/purchase?product=${r.event.productID}&qty=${r.team !== null ? r.team.membersCount : 1}&regID=${r.regID}`
+                                            `/purchase?product=${r.event.productID}&qty=${r.team !== null && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                         }>
                                             <button className="btn btn-primary">Retry Payment</button>
                                         </Link>
