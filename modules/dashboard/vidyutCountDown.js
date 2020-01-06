@@ -56,7 +56,7 @@ const VidyutCountDown = () => {
     </div>);
 
     return (
-        <div className="card-shadow m-2 bg-gradient px-2 py-4">
+        <div className="card-shadow m-2 bg-gradient-insta px-2 py-4">
             <h4 className="mb-2 text-center">See you in</h4>
             <Countdown
                 date={new Date("30-Jan-2020")}
