@@ -42,8 +42,9 @@ const HomePage = () => {
         </Head>
         <TitleBar hideUserDropdown />
         <div id="landing-page-content">
+            <LandingHeader/>
             <section id="landing-dates">
-                <div className="w-100">
+                <div className="w-100 py-4">
                     <img className="mb-4" src={require('../images/logos/heal-the-world.png')} />
                     <h2 className="mt-4 mb-2">Vidyut 2020</h2>
                     <h3>National Level Multifest</h3>

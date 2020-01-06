@@ -47,10 +47,10 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                                 </div>
                                 <div className="col-9 col-md-12 d-flex align-items-center p-1">
                                     <div className="d-none d-md-block text-center w-100">
-                                        <h4 className="m-0">{i.name}</h4>
+                                        <h5 className="m-0">{i.name}</h5>
                                     </div>
                                     <div className="d-block d-md-none text-left">
-                                        <h4 className="m-0">{i.name}</h4>
+                                        <h5 className="m-0">{i.name}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -109,6 +109,11 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
                         img: require('../images/icons/classroom.png'),
                         name: "Workshops",
                         link: '/workshops'
+                    },
+                    {
+                        img: require('../images/icons/faq-icon.png'),
+                        name: "Frequently Asked Questions (FAQ)",
+                        link: '/faq'
                     },
                 ])}
             </div>
