@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400&display=swap')
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700&display=swap')
+
+@keyframes move_animate_1
+  50%
+    transform: translateX(-10px) translateY(20px)
+@keyframes move_animate_2
+  50%
+    transform: translateX(24px) translateY(10px)
+@keyframes move_animate_3
+  50%
+    transform: translateX(-30px) translateY(15px)
+
+@keyframes color_changer
+  0%
+    background-position: 0% 50%
+  50%
+    background-position: 100% 50%
+  100%
+    background-position: 0 50%
+
+.triangle
+  clip-path: polygon(50% 25%, 75% 75%, 25% 75%)
+  width: 40vmax
+  height: 40vmax
+.circle
+  clip-path: circle(25% at 25% 25%)
+  width: 30vmax
+  height: 30vmax
+.shape
+  position: absolute
+  box-shadow: 1rem 1rem 2rem rgba(0,0,0,0.5)
+  background: white
+  opacity: 0.2
+
+#lander-cover
+  height: 100vh
+  background: black
+  background: linear-gradient(-45deg, #1A237E, #01579B, #311B92, #4A148C)
+  background-size: 2000% 2000%
+  animation: color_changer infinite 5s alternate-reverse ease
+  #cover-multifest-img
+    position: absolute
+    right: 0
+    max-width: 35vmax
+    bottom: 0
+  #titlebar
+    background: none!important
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    min-height: 0!important
+    box-shadow: none!important
+    #vidyut-logo-topbar
+      filter: invert(1)!important
+      animation: none!important
+  .title-container
+    display: flex
+    align-items: center
+    height: 100%
+    justify-content: center
+    text-align: center
+    color: white
+    font-weight: 700
+    font-family: 'Josefin Sans', sans-serif
+    position: relative
+    overflow: hidden
+    z-index: 2000
+    #cover-title
+      position: absolute
+      padding-top: 13vh
+      top: 0
+      left: 0
+      width: 100vw
+      height: 100vh
+      background: rgba(0,0,0,0.3)
+    #cover-campus-img
+      position: absolute
+      bottom: -12vmin
+      width: 40vmax
+      left: -14vh
+      max-width: 500px
+      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5))
+    #cover-heal-the-world-icon
+      position: absolute
+      left: 0
+      top: 1rem
+      width: 35vw
+      max-width: 250px
+    #cover-vidyut-logo
+      width: 50vw
+      display: block
+      filter: invert(1) drop-shadow(2px 2px 2px rgba(0,0,0,0.5))
+      max-width: 300px
+    #register-button
+      background: white
+      border: none
+      padding: 0.5rem 1rem
+      margin: 1rem
+      font-weight: 900
+      font-size: calc(1.2rem + 0.5vw)
+      font-family: 'Roboto', sans-serif
+      box-shadow: 5px 5px 15px rgba(0,0,0,0.5)
+    #cover-vidyut-icon
+      display: block
+      img
+        height: 20vh
+        filter: invert(1) drop-shadow(2px 2px 2px rgba(0,0,0,0.5))
+        max-height: 180px
+        margin-bottom: 2vh
+    .dates
+      font-size: calc(1.2rem + 2vw)
+      line-height: 1
+    .cover-el img
+      position: absolute
+      width: 5vw
+      max-width: 32px
+      transition: 2s ease-in
+      animation-duration: 15s
+      animation-timing-function: ease-in-out
+      animation-iteration-count: infinite
+    .multifest-text
+      line-height: 1
+      font-size: calc(1.2rem + 8vw)
+      color: white
+      text-transform: uppercase
+      letter-spacing: 2vmin
+      z-index: 1
+
+#cover-el-1
+  animation-name: move_animate_1
+  top: 15vh
+  left: 5vw
+#cover-el-2
+  animation-name: move_animate_2
+  top: 18vh
+  left: 34vw
+#cover-el-3
+  animation-name: move_animate_3
+  bottom: 12vh
+  right: 25vw
+#cover-el-4
+  animation-name: move_animate_2
+  top: 32vh
+  left: 26vw
+#cover-el-5
+  animation-name: move_animate_3
+  top: 3vh
+  right: 44vw
+#cover-el-6
+  animation-name: move_animate_1
+  bottom: 26vh
+  right: 41vw
+#cover-el-7
+  animation-name: move_animate_2
+  top: 55vh
+  left: 7vw
+#cover-el-8
+  animation-name: move_animate_3
+  top: 38vh
+  right: 11vw
+#cover-el-9
+  animation-name: move_animate_1
+  top: 28vh
+  right: 23vw
+#cover-el-10
+  animation-name: move_animate_2
+  top: 32vh
+  left: 14vw
+#cover-el-11
+  animation-name: move_animate_3
+  top: 13vh
+  right: 15vw
+#cover-el-12
+  animation-name: move_animate_1
+  top: 8vh
+  left: 25vw
+#cover-el-13
+  animation-name: move_animate_2
+  bottom: 8vh
+  left: 35vw
+#cover-el-14
+  animation-name: move_animate_3
+  bottom: 35vh
+  right: 35vw
+#cover-el-15
+  animation-name: move_animate_2
+  bottom: 45vh
+  right: 5vw
+#cover-el-16
+  animation-name: move_animate_2
+  bottom: 5vh
+  right: 35vw
+
+@mixin glitchCopy
+  content: attr(data-text)
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+
+.glitch
+  position: relative
+  color: white
+  animation: glitch-skew 10s infinite linear alternate-reverse
+.glitch:before
+    @include glitchCopy
+    left: 0.5vw
+    text-shadow: -10px 0 #ff00c1
+    clip: rect(20vw, 20vw, 3vw, 0)
+    animation: glitch-anim 5s infinite linear alternate-reverse
+    transition: 1s
+.glitch:after
+    @include glitchCopy
+    left: -0.5vw
+    text-shadow: calc(-1px + -0.2vw) 0 #00fff9, calc(3px + 0.2vw) calc(2px + 0.3vw) #ff00c1
+    animation: glitch-anim2 1s infinite linear alternate-reverse
+    transition: 1s
+
+@keyframes glitch-anim
+  $steps: 20
+  @for $i from 0 through $steps
+    #{percentage($i*(1/$steps))}
+      clip: rect(random(2)+vh, 2vw, random(2)+vw, 0)
+    transform: skew((random(10) / 100) + deg)
+
+@keyframes glitch-anim2
+  $steps: 20
+  @for $i from 0 through $steps
+    #{percentage($i*(1/$steps))}
+      clip: rect(random(2)+vh, 2vw, random(2)+vw, 0)
+    transform: skew((random(10) / 100) + deg)
+
+@keyframes glitch-skew
+  $steps: 10
+  @for $i from 0 through $steps
+    #{percentage($i*(1/$steps))}
+      transform: skew((random(3) - 1) + deg)

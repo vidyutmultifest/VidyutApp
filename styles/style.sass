@@ -113,6 +113,50 @@ img
     width: 2.5rem
     padding: 0.5rem
 
+.titlebar-menu-item
+    display: inline-block
+    padding: 1rem
+    font-weight: 900
+    text-transform: uppercase
+    position: relative
+    background: none!important
+    font-size: calc(0.7rem + 0.6vw)
+    border: none
+    color: inherit
+    img
+      max-width: 20px!important
+      margin-left: 0.5rem
+    &:focus
+      outline: none!important
+      background: #311B92!important
+      color: white!important
+    .dropdown-options
+      position: absolute
+      font-size: 1rem
+      top: 3rem
+      left: 0.5rem
+      padding: 1rem
+      text-align: left
+      min-width: 150px
+      div
+        padding-top: 1rem
+        a
+          color: inherit!important
+          display: block
+          text-transform: initial
+      div:first-child
+        padding-top: 0!important
+      a:after
+        transition: all ease-in-out .2s
+        background: repeat scroll linear-gradient(to right, #0052D4, #8E54E9, #2657eb)!important
+        content: ""
+        display: block
+        height: 2px
+        width: 0
+      a:hover:after
+        width: 100%
+
+
 .topbar-menu
   background: rgba(0,0,0,0.9)
   position: fixed
@@ -121,6 +165,7 @@ img
   width: 100%
   height: 100%
   z-index: 9000
+
   .social-media-links
     position: absolute
     width: 100%
@@ -164,7 +209,6 @@ img
       color: white
       font-size: calc(0.8rem + 0.5vw)
       margin: 0.25rem 0
-
     a:after
       transition: all ease-in-out .2s
       background: repeat scroll linear-gradient(to right, #0052D4, #8E54E9, #2657eb)!important

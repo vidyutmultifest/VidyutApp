@@ -7,10 +7,11 @@ import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
 const classNames = require('classnames');
 import posed, { PoseGroup } from 'react-pose';
+import DropdownMenu from "./dropdownMenu";
 
 const cookies = new Cookies();
 
-const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
+const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style }) => {
     const token = cookies.get('token');
     const isLoggedIn = token != null;
     const [menuOpen, setMenuState] = useState(false);
@@ -82,7 +83,102 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
             <div className="link"><Link href="/logout"><a>Logout</a></Link></div>
         </div> : null;
 
+    const menuItems = [
+        {
+            title: "About",
+            items: [
+                {
+                    name: "About Vidyut",
+                    link: '/about'
+                },
+                {
+                    name: "About Amrita",
+                    link: 'https://amrita.edu'
+                },
+                {
+                    name: "Initiatives",
+                    link: '/initiatives'
+                },
+                {
+                    name: "Previous Editions",
+                    link: '/history'
+                },
+            ]
+        },
+        {
+            title: "Vidyut 2020",
+            items: [
+                {
+                    name: "Theme",
+                    link: '/theme'
+                },
+                {
+                    name: "Highlights",
+                    link: '/highlights'
+                },
+                {
+                    name: "Partners",
+                    link: '/partners'
+                },
+                {
+                    name: "Crew",
+                    link: '/crew'
+                },
+            ]
+        },
+        {
+            title: "Events",
+            items: [
+                {
+                    name: "Brochure",
+                    link: '/brochure'
+                },
+                {
+                    name: "Shows",
+                    link: '/shows'
+                },
+                {
+                    name: "Competitions",
+                    link: '/competitions'
+                },
+                {
+                    name: "Workshops",
+                    link: '/workshops'
+                },
+            ]
+        },
+        {
+            title: "Registration",
+            items: [
+                {
+                    name: "Dashboard",
+                    link: '/dashboard'
+                },
+                {
+                    name: "Support",
+                    link: 'https://t.me/vcare2020'
+                },
+                {
+                    name: "FAQ",
+                    link: '/faq'
+                },
+            ]
+        },
+    ];
 
+    const [itemOpen, setItemOpen] = useState();
+
+    const desktopmenu = <div className="d-md-inline-flex d-none p-2">
+        {
+            menuItems.map((s,i) =>
+                <DropdownMenu
+                    item={s}
+                    isOpen={itemOpen === i}
+                    onClick={() => setItemOpen( itemOpen !== i ?  i : null)}
+                />
+            )
+        }
+    </div>;
 
     const menu = mainMenuOpen ? <div className="topbar-menu">
         <div className="close-button" onClick={() => setMainMenuState(false)}>
@@ -99,88 +195,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
             Menu
         </h3>
         <div className="container h-100 d-flex align-items-center p-2">
-                {renderMenuItems([
-                    {
-                        title: "About",
-                        items: [
-                            {
-                                name: "About Vidyut",
-                                link: '/about'
-                            },
-                            {
-                                name: "About Amrita",
-                                link: 'https://amrita.edu'
-                            },
-                            {
-                                name: "Initiatives",
-                                link: '/initiatives'
-                            },
-                            {
-                                name: "Previous Editions",
-                                link: '/history'
-                            },
-                        ]
-                    },
-                    {
-                        title: "Vidyut 2020",
-                        items: [
-                            {
-                                name: "Theme",
-                                link: '/theme'
-                            },
-                            {
-                                name: "Highlights",
-                                link: '/highlights'
-                            },
-                            {
-                                name: "Partners",
-                                link: '/partners'
-                            },
-                            {
-                                name: "Crew",
-                                link: '/crew'
-                            },
-                        ]
-                    },
-                    {
-                        title: "Events",
-                        items: [
-                            {
-                                name: "Brochure",
-                                link: '/brochure'
-                            },
-                            {
-                                name: "Shows",
-                                link: '/shows'
-                            },
-                            {
-                                name: "Competitions",
-                                link: '/competitions'
-                            },
-                            {
-                                name: "Workshops",
-                                link: '/workshops'
-                            },
-                        ]
-                    },
-                    {
-                        title: "Registration",
-                        items: [
-                            {
-                                name: "Dashboard",
-                                link: '/dashboard'
-                            },
-                            {
-                                name: "Support",
-                                link: 'https://t.me/vcare2020'
-                            },
-                            {
-                                name: "FAQ",
-                                link: '/faq'
-                            },
-                        ]
-                    },
-                ])}
+                {renderMenuItems(menuItems)}
         </div>
         <div className="social-media-links">
             <a href="https://facebook.com/VidyutMultifest">
@@ -196,21 +211,25 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown }) => {
     </div> : null;
 
     return <React.Fragment>
-        <nav id="titlebar">
+        <nav id="titlebar" style={style} className={className}>
             <div className="row m-0">
                 <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
-                    <Link href="/dashboard">
-                        <a href="/dashboard">
-                            <img
-                                alt="vidyut-text-logo"
-                                id="vidyut-logo-topbar"
-                                src={require('../images/logos/vidyut-dark-logo.png')}
-                            />
-                        </a>
-                    </Link>
+                    {
+                        !hideLogo ?
+                            <Link href="/dashboard">
+                                <a href="/dashboard">
+                                    <img
+                                        alt="vidyut-text-logo"
+                                        id="vidyut-logo-topbar"
+                                        src={require('../images/logos/vidyut-dark-logo.png')}
+                                    />
+                                </a>
+                            </Link> : null
+                    }
                 </div>
                 <div className="col-lg-10 col-md-9 col-4 p-0 text-right">
                     <div className="d-inline">
+                        { desktopmenu }
                         {  isLoggedIn ? <div className="d-inline">
                                     <div id="topbar-dropdown">
                                         <img alt="user-icon" id="menu-user-icon" src={require('../images/icons/user.png')} onClick={() => setMenuState(!menuOpen)}/>
