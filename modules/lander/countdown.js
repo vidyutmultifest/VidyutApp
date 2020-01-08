@@ -56,6 +56,17 @@ const LanderCountdown = () => {
                                         }}
                                     />
                                 </a>
+                                <div className="location text-md-left text-center">
+                                    <div className="mb-2" style={{ lineHeight: "1.1" }}>
+                                        Valikkavu, Clappana P.O. <br />
+                                        Kollam, Kerala
+                                    </div>
+                                    <a href="https://goo.gl/maps/UQhvWT9cKJ266Az66">
+                                        <div className="small-text mt-2 px-2 py-2 btn btn-primary">
+                                            Open in Maps
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

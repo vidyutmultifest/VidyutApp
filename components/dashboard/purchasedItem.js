@@ -47,10 +47,11 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                         {products.map(p => <h6>{p.name}</h6>)}
                     </div>
                     <div className="col px-2">
-                        <div className="amount"><b>₹{amount}</b></div>
+                        <div className="amount">{amount ? <b>₹{amount}</b> : null }</div>
                     </div>
                 </div>
                 <div className="purchase-description px-2">{moment(timestamp).fromNow()} | {status} </div>
+                <button className="px-2 mt-2 py-1 btn small-text btn-primary btn-shadow">View Details</button>
             </div>
             <Modal
                 isOpen={isOpen}
