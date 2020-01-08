@@ -9,20 +9,24 @@ const ContentCard = ({ title, content, node, icon, classNames, isOpen: opened })
         <div className={classnames("card-shadow rounded p-4", classNames)}>
             <div className="row m-0">
                 <div className="col-9 d-flex align-items-center px-0">
-                    <h6 className="m-0">
-                        { icon ? <img src={icon} style={{ width: "2rem" }} className="icon-img m-2" /> : null }
-                        {title}
-                    </h6>
+                        <h6 className="m-0" onClick={() => setOpen(!isOpen)} style={{ cursor: 'pointer' }}>
+                            { icon ? <img src={icon} style={{ width: "2rem" }} className="icon-img m-2" /> : null }
+                            {title}
+                        </h6>
                 </div>
                 <div className="col-3 d-flex justify-content-end align-items-center">
                 {
                     !isOpen ?
-                        <a onClick={() => setOpen(true)}>
-                            <img src={require('../../images/icons/chevron-down.png')} style={{ maxWidth: "90px", width: "2vw",  minWidth: "32px" }} />
-                        </a>
-                        :  <a onClick={() => setOpen(false)}>
-                            <img src={require('../../images/icons/chevron-up.png')} style={{ maxWidth: "90px",  width: "2vw", minWidth: "32px" }} />
-                        </a>
+                        <img
+                            src={require('../../images/icons/chevron-down.png')}
+                            style={{ maxWidth: "90px", width: "2vw",  minWidth: "32px", cursor: 'pointer' }}
+                            onClick={() => setOpen(true)}
+                        />
+                        : <img
+                            onClick={() => setOpen(false)}
+                            src={require('../../images/icons/chevron-up.png')}
+                            style={{ maxWidth: "90px",  width: "2vw", minWidth: "32px", cursor: 'pointer' }}
+                        />
                 }
                 </div>
             </div>
