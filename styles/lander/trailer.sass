@@ -1,0 +1,43 @@
+#lander-trailer
+  min-height: 40vh
+  padding-bottom: 10vw
+  background: white
+  .video-thumbnail:hover
+    box-shadow: 0rem 0.2rem 1rem rgba(0,0,0,0.5)
+    transition: 1s
+  .video-thumbnail
+    min-height: 200px
+    height: 25vw
+    min-width: 300px
+    max-width: 50vw
+    width: 100%
+    background-size: cover
+    box-shadow: 1rem 1.25rem 2rem rgba(0,0,0,0.5)
+    background-image: url('../../images/lander/video-thumbnail.jpg')
+    .wrapper
+      min-height: 200px
+      height: 25vw
+      background: rgba(0,0,0,0.5)
+      cursor: pointer
+      padding: 1rem
+      img
+        margin-top: 5vh
+        max-width: 90px
+        margin-bottom: 1rem
+        filter: drop-shadow(2px 3px 15px rgba(0,0,0,0.5))
+      h4
+        font-size: calc(1.2rem + 0.5vw)
+        text-shadow: 5px 10px 20px rgba(0,0,0,0.5)
+        color: white
+.trailer-modal
+  max-width: 1080px
+  width: 100%
+  z-index: 100000
+  display: flex
+  align-items: center
+  justify-content: center
+  iframe
+    min-width: 50vw
+    height: 60vh
+.trailer-overlay
+  background: rgba(0,0,0,0.9)

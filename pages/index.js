@@ -8,6 +8,7 @@ import Head from "next/head";
 import LanderHealTheWorld from "../modules/lander/healTheWorld";
 import LanderHighlights from "../modules/lander/highlights";
 import LanderSponsors from "../modules/lander/sponsors";
+import LanderTrailer from "../modules/lander/trailer";
 
 const LandingPage = () => {
 
@@ -21,11 +22,14 @@ const LandingPage = () => {
         <LazyLoad height="100vh" unmountIfInvisible  >
             <LanderAboutVidyut />
         </LazyLoad>
-        <LazyLoad height="100vh" unmountIfInvisible  >
-            <LanderHealTheWorld />
+        <LazyLoad height="40vh" unmountIfInvisible  >
+            <LanderTrailer />
         </LazyLoad>
         <LazyLoad height="50vw"  unmountIfInvisible >
             <LanderHighlights />
+        </LazyLoad>
+        <LazyLoad height="100vh" unmountIfInvisible  >
+            <LanderHealTheWorld />
         </LazyLoad>
         <LazyLoad height="45vw" unmountIfInvisible>
             <LanderSponsors />
