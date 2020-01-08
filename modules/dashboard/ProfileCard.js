@@ -19,7 +19,7 @@ const ProfileCard = ({ data }) => {
             photo={require('../../images/icons/selfie.png')}
         />;
 
-    const collegeCompletion = data.college != null && data.rollNo != null ?
+    const collegeCompletion = data.college != null ?
         <ProfileCompletionItems
             title="College Detail Updated"
             text="Vidyut is open only to college students, thank you for co-operating."
