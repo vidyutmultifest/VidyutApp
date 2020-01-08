@@ -131,7 +131,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             items: [
                 {
                     name: "Brochure",
-                    link: '/brochure'
+                    link: 'http://bit.ly/vidyut-brochure'
                 },
                 {
                     name: "Shows",

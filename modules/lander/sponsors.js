@@ -33,11 +33,11 @@ const LanderSponsors = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-4 d-flex align-items-center">
-                        <div className="sponsor-intent mx-4 mt-md-0 ">
-                            <h3 className="animated flipInX">Showcase your brand at Vidyut</h3>
+                    <div className="col-md-4 px-0 px-md-2 d-flex align-items-center">
+                        <div className="sponsor-intent mx-4 text-center text-md-left mt-md-0 ">
+                            <h3 className="animated flipInX">Showcase your brand at Vidyut 2020</h3>
                             <div className="animated fadeIn">
-                                Find our sponsorship brochure <a href="#">here</a>.
+                                Find our sponsorship brochure <a href="http://bit.ly/vidyut-sponsor-brochure">here</a>.
                                 Interested in becoming a sponsor?
                                 Email us at <a href="mailto:vidyut@am.amrita.edu"> vidyut@am.amrita.edu</a>.
                             </div>
