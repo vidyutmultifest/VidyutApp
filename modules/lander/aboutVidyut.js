@@ -70,7 +70,7 @@ const LanderAboutVidyut = () => {
                                 When India’s brilliant young minds come together,<br /> be in their focus
                             </div>
                             <p className="d-block d-md-none animated fadeInRight">
-                                Vidyut is the annual multifest organized jointly by the 6 inter-disciplinary
+                                Vidyut is the annual multifest organized jointly by the 6 multi-disciplinary
                                 schools of Amrita Vishwa Vidyapeetham, Amritapuri Campus.  Through various competitions,
                                 hands-on trainings, workshops, talks, discussions, symposia and cultural events,
                                 Vidyut facilitates a forum for young minds, inspiring them to contribute creatively
