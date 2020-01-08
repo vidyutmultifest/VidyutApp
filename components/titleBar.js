@@ -168,7 +168,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
 
     const [itemOpen, setItemOpen] = useState();
 
-    const desktopmenu = <div className="d-md-inline-flex d-none p-2">
+    const desktopmenu = <div className="d-md-inline-flex d-none">
         {
             menuItems.map((s,i) =>
                 <DropdownMenu
@@ -198,7 +198,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 {renderMenuItems(menuItems)}
         </div>
         <div className="social-media-links">
-            <a href="https://facebook.com/VidyutMultifest">
+            <a href="https://facebook.com/Vidyut.Multifest">
                 <img src={require('../images/icons/facebook.png')} />
             </a>
             <a href="https://instagram.com/VidyutMultifest">

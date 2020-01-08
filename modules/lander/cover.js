@@ -11,7 +11,7 @@ class LanderCover extends Component  {
             <section id="lander-cover">
                 <TitleBar className="dark-theme" hideLogo />
                 <div className="title-container">
-                    <img id="cover-multifest-img" src={require('../../images/lander/sample-cover-image.png')} />
+                    <img id="cover-multifest-img" className="animated slideInRight delay-1s" src={require('../../images/lander/sample-cover-image.png')} />
                     <div className="cover-el">
                         <img id="cover-el-1" src={require('../../images/lander/elements/Shape-Cross.svg')} />
                         <img id="cover-el-2" src={require('../../images/lander/elements/Shape-Cross.svg')} />
@@ -31,21 +31,25 @@ class LanderCover extends Component  {
                         <img id="cover-el-16" src={require('../../images/lander/elements/Shape-Polygon.svg')} />
                     </div>
                     <div id="cover-title">
-                        <img id="cover-campus-img" src={require('../../images/lander/campus-illus.png')} />
-                        <img id="cover-heal-the-world-icon" src={require('../../images/lander/heal-the-world-light.png')} />
+                        <img id="cover-campus-img" className="animated fadeInUp delay-1s" src={require('../../images/lander/campus-illus.png')} />
+                        <img id="cover-heal-the-world-icon" className="animated zoomIn delay-1s" src={require('../../images/lander/heal-the-world-light.png')} />
                         <div className="d-flex justify-content-center">
                             <div style={{ marginBottom: "3vh" }}>
-                                <div id="cover-vidyut-icon" >
+                                <div id="cover-vidyut-icon" className="animated flipInX" >
                                     <img src={require('../../images/lander/v-icon.png')} />
                                 </div>
-                                <img id="cover-vidyut-logo" src={require('../../images/lander/vidyut-logo.png')} />
+                                <img
+                                    id="cover-vidyut-logo"
+                                    src={require('../../images/lander/vidyut-logo.png')}
+                                    className="animated flipInX"
+                                />
                             </div>
                         </div>
                         <div data-text="MULTIFEST" className="glitch multifest-text">Multifest</div>
-                        <div className="dates">January 31 - February 1</div>
+                        <div className="dates animated zoomIn">January 31 - February 1</div>
                         <Link href="/dashboard">
                             <a href="/dashboard">
-                                <button id="register-button">Register Now</button>
+                                <button id="register-button" className="animated fadeIn delay-1s mt-4">Register Now</button>
                             </a>
                         </Link>
                     </div>

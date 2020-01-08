@@ -43,7 +43,7 @@ const LanderCountdown = () => {
     return (
         <div id="lander-countdown">
             <div className="row m-0">
-                <div className="col-md-4 p-0 campus-bg">
+                <div className="col-md-4 order-2 order-md-1 p-0 campus-bg">
                     <div style={{ background: 'rgba(0,0,0,0.7)'}} className="h-100">
                         <div className="d-flex align-items-center h-100 p-4 justify-content-center">
                             <div>
@@ -57,12 +57,15 @@ const LanderCountdown = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-8 countdown-bg p-0">
+                <div className="col-md-8 order-md-2 order-1 countdown-bg p-0">
                     <div className="countdown-container h-100 d-flex align-items-center w-100 p-2" style={{ background: 'rgba(0,0,0,0.5)'}}>
-                        <Countdown
-                            date={new Date("30-Jan-2020")}
-                            renderer={renderer}
-                        />
+                        <div className="p-4 w-100">
+                            <h4 className="text-light text-uppercase text-center">Countdown to Vidyut</h4>
+                            <Countdown
+                                date={new Date("30-Jan-2020")}
+                                renderer={renderer}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
