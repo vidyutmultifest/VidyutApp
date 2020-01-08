@@ -89,7 +89,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             items: [
                 {
                     name: "About Vidyut",
-                    link: '/about'
+                    link: '/'
                 },
                 {
                     name: "About Amrita",
@@ -97,11 +97,11 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 },
                 {
                     name: "Initiatives",
-                    link: '/initiatives'
+                    link: '#initiatives'
                 },
                 {
                     name: "Previous Editions",
-                    link: '/history'
+                    link: '#history'
                 },
             ]
         },
@@ -110,19 +110,19 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             items: [
                 {
                     name: "Theme",
-                    link: '/theme'
+                    link: '#theme'
                 },
                 {
                     name: "Highlights",
-                    link: '/highlights'
+                    link: '#highlights'
                 },
                 {
                     name: "Partners",
-                    link: '/partners'
+                    link: '#partners'
                 },
                 {
                     name: "Crew",
-                    link: '/crew'
+                    link: '#crew'
                 },
             ]
         },
