@@ -142,7 +142,7 @@ const Dashboard = () => {
                                 <QuickActionCards status={data.status} />
                                 <h4 className="px-4 section-heading">My Menu</h4>
                                 <OptionMenuCards status={data.status} />
-                                <div className="mx-md-4 mx-0 my-4 card-shadow bg-gradient-red p-4">
+                                <div className="mx-md-4 mx-0 my-4 text-light card-shadow bg-gradient-red p-4">
                                     <h4 className="mt-4">Confused? Need Help?</h4>
                                     <p style={{ fontSize: "0.9rem" }}>
                                         At Vidyut, V care.  You can view our FAQ page to read about common queries, and issues.

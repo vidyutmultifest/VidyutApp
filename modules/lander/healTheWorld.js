@@ -21,7 +21,7 @@ const LanderHealTheWorld = () => {
                             place, where every living being can enjoy coexistence in peaceful
                             harmony. This holistic future needs the convergence of thinking
                             in science, technology, humanities, arts, management etc.
-                            The confluence of every thought stream, for a better world..
+                            The confluence of every thought stream, for a better world...
                         </p>
                     </div>
                     <div className="col-lg-4 order-1 order-lg-2 py-2 d-flex align-items-center justify-content-center">
@@ -31,33 +31,33 @@ const LanderHealTheWorld = () => {
                         <div>
                             <h4>Core Focus Areas</h4>
                             <div className="focus-areas row m-0">
-                                <div className="col-6 col-lg-4 p-2">
-                                    <div className="focus-card p-2">
+                                <div className="col-6 animated slideInLeft col-lg-4 p-2">
+                                    <div className="focus-card animated zoomIn p-2">
                                         <span>Societal Transformation</span>
                                     </div>
                                 </div>
                                 <div className="col-6 col-lg-4 p-2">
-                                    <div className="focus-card p-2">
+                                    <div className="focus-card animated fadeInUp  p-2">
                                         <span>Environment Care</span>
                                     </div>
                                 </div>
                                 <div className="col-6 col-lg-4  p-2">
-                                    <div className="focus-card p-2">
+                                    <div className="focus-card animated zoomIn p-2">
                                         <span>Science & Technology</span>
                                     </div>
                                 </div>
                                 <div className="col-6 col-lg-4  p-2">
-                                    <div className="focus-card p-2">
+                                    <div className="focus-card animated fadeInUp  p-2">
                                         <span>Arts & Culture</span>
                                     </div>
                                 </div>
-                                <div className="col-6 col-lg-4  p-2">
-                                    <div className="focus-card p-2">
+                                <div className="col-6  col-lg-4  p-2">
+                                    <div className="focus-card animated zoomIn p-2">
                                         <span>Speak to Heal the World</span>
                                     </div>
                                 </div>
-                                <div className="col-6 col-lg-4  p-2">
-                                    <div className="focus-card p-2">
+                                <div className="col-6  col-lg-4  p-2">
+                                    <div className="focus-card animated fadeInUp p-2">
                                         <span>Economics for Sustainable Prosperity</span>
                                     </div>
                                 </div>

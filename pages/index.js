@@ -6,6 +6,8 @@ import LanderAboutVidyut from "../modules/lander/aboutVidyut";
 import LazyLoad from 'react-lazyload';
 import Head from "next/head";
 import LanderHealTheWorld from "../modules/lander/healTheWorld";
+import LanderHighlights from "../modules/lander/highlights";
+import LanderSponsors from "../modules/lander/sponsors";
 
 const LandingPage = () => {
 
@@ -13,16 +15,24 @@ const LandingPage = () => {
         <Head>
             <title>Discover Vidyut  - National Level Multi Fest | Amrita Vishwa Vidyapeetham, Amritapuri</title>
         </Head>
-        <LazyLoad height="100vh"  >
+        <LazyLoad height="100vh" unmountIfInvisible >
             <LanderCover  />
         </LazyLoad>
-        <LazyLoad height="100vh"  >
+        <LazyLoad height="100vh" unmountIfInvisible  >
             <LanderAboutVidyut />
         </LazyLoad>
-        <LazyLoad height="100vh"  >
+        <LazyLoad height="100vh" unmountIfInvisible  >
             <LanderHealTheWorld />
         </LazyLoad>
-        <LanderCountdown />
+        <LazyLoad height="50vw"  unmountIfInvisible >
+            <LanderHighlights />
+        </LazyLoad>
+        <LazyLoad height="45vw" unmountIfInvisible>
+            <LanderSponsors />
+        </LazyLoad>
+        <LazyLoad height="50vw" unmountIfInvisible>
+            <LanderCountdown />
+        </LazyLoad>
     </Base>
 
 };

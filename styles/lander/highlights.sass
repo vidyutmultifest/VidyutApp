@@ -1,0 +1,67 @@
+@keyframes slide-animation
+  0%
+      background-image: url('../../images/lander/slides/1.jpg')
+  33%
+      background-image: url('../../images/lander/slides/2.jpg')
+  66%
+      background-image: url('../../images/lander/slides/3.jpg')
+
+@keyframes wrapper-animation
+  0%
+    background: rgba(150,0,0,0.7)
+  33%
+    background: rgba(0,0,150,0.7)
+  66%
+    background: rgba(0,150,0,0.7)
+
+#lander-highlights
+  width: 100vw
+  min-height: 50vw
+  background-position: center
+  background-size: cover
+  background-image: url('../../images/lander/slides/1.jpg')
+  animation: slide-animation 20s infinite ease-in-out
+  .details-box
+    margin: 5vh 0!important
+  .wrapper
+    background: rgba(150,0,0,0.7)
+    animation: wrapper-animation 20s infinite ease-in-out
+    min-height: 50vw
+    color: white
+    text-shadow: 0.25rem 0.5rem 1rem rgba(0,0,0,0.5)
+    .tagline
+      font-size: calc(0.8rem + 0.8vw)
+      max-width: 80%
+      margin-bottom: 1vh!important
+      line-height: 1.5
+    .date
+      font-size: calc(0.5rem + 1vw)
+      font-weight: 900
+      line-height: 1.1
+      background: white
+      color: black
+      padding: 0.5rem 1.5rem
+      display: inline-block
+      margin-bottom: 0.5rem
+      border-radius: 1rem
+    .name
+      text-transform: uppercase
+      font-weight: 900
+      font-size: calc(1.2rem + 1.5vw)
+      line-height: 1.2
+    h4
+      font-size: calc(1rem + 3vw)
+    button
+      background: #304FFE
+      font-size: calc(0.7rem + 0.5vw)
+      padding: 1vmax 2vmax
+      border: none
+      color: white
+      border-radius: 2rem
+      font-weight: 900
+      box-shadow: 0.5rem 0.5rem 1rem rgba(0,0,0,0.5)
+      transition: 1s ease
+    button:hover
+      background: white
+      color: #304FFE
+      transition: 1s

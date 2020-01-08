@@ -11,25 +11,25 @@ const LanderCountdown = () => {
                 <div className="w-100">
                     <div className="row m-0 text-center">
                         <div className="col-6 col-sm-3 p-2">
-                            <div className="part p-2">
+                            <div className="part animated fadeInDown p-2">
                                 <span className="value">{days}</span>
                                 <span className="key">Days</span>
                             </div>
                         </div>
                         <div className="col-6 col-sm-3 p-2">
-                            <div className="part p-2">
+                            <div className="part animated fadeInUp p-2">
                                 <span className="value">{hours}</span>
                                 <span className="key">Hours</span>
                             </div>
                         </div>
                         <div className="col-6 col-sm-3 p-2">
-                            <div className="part p-2">
+                            <div className="part animated fadeInDown p-2">
                                 <span className="value">{minutes}</span>
                                 <span className="key">Minutes</span>
                             </div>
                         </div>
                         <div className="col-6 col-sm-3 p-2">
-                            <div className="part p-2">
+                            <div className="part animated fadeInUp p-2">
                                 <span className="value">{seconds}</span>
                                 <span className="key">Seconds</span>
                             </div>
@@ -47,12 +47,15 @@ const LanderCountdown = () => {
                     <div style={{ background: 'rgba(0,0,0,0.7)'}} className="h-100">
                         <div className="d-flex align-items-center h-100 p-4 justify-content-center">
                             <div>
-                                <img
-                                    src={require('../../images/logos/amrita-light-logo.png')}
-                                    style={{
-                                        filter: "drop-shadow(2px 2px 10px rgba(0,0,0,0.5)"
-                                    }}
-                                />
+                                <a href="https://amrita.edu">
+                                    <img
+                                        src={require('../../images/logos/amrita-light-logo.png')}
+                                        className="animated zoomIn"
+                                        style={{
+                                            filter: "drop-shadow(2px 2px 10px rgba(0,0,0,0.5)"
+                                        }}
+                                    />
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -60,7 +63,7 @@ const LanderCountdown = () => {
                 <div className="col-md-8 order-md-2 order-1 countdown-bg p-0">
                     <div className="countdown-container h-100 d-flex align-items-center w-100 p-2" style={{ background: 'rgba(0,0,0,0.5)'}}>
                         <div className="p-4 w-100">
-                            <h4 className="text-light text-uppercase text-center">Countdown to Vidyut</h4>
+                            <h4 className="text-light text-uppercase text-center animated slideInUp">Countdown to Vidyut</h4>
                             <Countdown
                                 date={new Date("30-Jan-2020")}
                                 renderer={renderer}
