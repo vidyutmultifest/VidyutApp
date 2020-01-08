@@ -46,7 +46,7 @@ class LanderCover extends Component  {
                             </div>
                         </div>
                         <div data-text="MULTIFEST" className="glitch multifest-text">Multifest</div>
-                        <div className="dates animated zoomIn">January 31 - February 1</div>
+                        <div className="dates animated zoomIn">January 30 - February 1</div>
                         <Link href="/dashboard">
                             <a href="/dashboard">
                                 <button id="register-button" className="animated fadeIn delay-1s mt-4">Register Now</button>
