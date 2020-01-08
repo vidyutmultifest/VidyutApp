@@ -216,8 +216,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
                     {
                         !hideLogo ?
-                            <Link href="/dashboard">
-                                <a href="/dashboard">
+                            <Link href="/">
+                                <a href="/">
                                     <img
                                         alt="vidyut-text-logo"
                                         id="vidyut-logo-topbar"

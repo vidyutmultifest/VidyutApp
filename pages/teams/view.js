@@ -179,7 +179,9 @@ const TeamViewPage = () => {
         </div>
         <DashboardFooter/>
     </Base> : teamData === false ? <LoadingScreen
-        title="Team Unreachable" text="This page either doesn't exist or you are forbidden from accessing it."
+        title="Team Unreachable"
+        text="This page either doesn't exist or you are forbidden from accessing it."
+        showLinks
     /> : <LoadingScreen text="Loading Team Profile" />;
 };
 

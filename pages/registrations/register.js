@@ -192,6 +192,7 @@ const RegisterPage = () => {
             : isError ?
             <LoadingScreen
                 text="We couldn't load this page due to a error. Try again later, or if this error exists, contact web@vidyut.amrita.edu."
+                showLinks
             />
             : isLoaded ? (
                 <React.Fragment>
