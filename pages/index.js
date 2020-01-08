@@ -5,6 +5,7 @@ import LanderCountdown from "../modules/lander/countdown";
 import LanderAboutVidyut from "../modules/lander/aboutVidyut";
 import LazyLoad from 'react-lazyload';
 import Head from "next/head";
+import LanderHealTheWorld from "../modules/lander/healTheWorld";
 
 const LandingPage = () => {
 
@@ -17,6 +18,9 @@ const LandingPage = () => {
         </LazyLoad>
         <LazyLoad height="100vh"  >
             <LanderAboutVidyut />
+        </LazyLoad>
+        <LazyLoad height="100vh"  >
+            <LanderHealTheWorld />
         </LazyLoad>
         <LanderCountdown />
     </Base>

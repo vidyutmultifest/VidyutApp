@@ -1,0 +1,78 @@
+@keyframes iconmotion
+  50%
+    transform: translateY(2vh)
+@keyframes backsizechange
+  0%
+    background-size: 105%
+  25%
+    background-size: 120%
+  50%
+    background-size: 150%
+  75%
+    background-size: 175%
+  100%
+    background-size: 200%
+
+#about-heal-the-world
+  min-height: 100vh
+  padding: 10vh 0.5rem
+  h3
+    font-size: calc(1.3rem + 2vw)
+    font-family: 'Josefin Sans', sans-serif
+    &:after
+      transition: all ease-in-out .2s
+      background: repeat scroll linear-gradient(to right, #0052D4, #8E54E9, #2657eb)!important
+      content: ""
+      border-radius: 1rem
+      display: block
+      height: 5px
+      width: 25vw
+  .tagline
+    font-size: calc(1.3rem + 0.5vw)
+    margin-bottom: 1rem
+    font-weight: 900
+  p
+    font-size: calc(1rem - 0.2vh)
+  img
+    animation: iconmotion 2s infinite alternate-reverse
+    max-width: 75vw
+    width: 100%
+    margin: 1rem
+  h4
+    font-size: calc(1rem + 0.5vw)
+    color: #880E4F
+    margin-bottom: 2vh
+  .focus-areas
+    text-align: center
+    .col-6
+      background-position: center
+      padding: 0!important
+      background-size: cover
+      min-height: 15vmax
+      transition: background 1s
+      animation: backsizechange 20s ease infinite alternate-reverse
+    .focus-card
+      color: white
+      background: rgba(0,0,0,0.7)
+      font-size: calc(0.8rem + 0.5vw)
+      font-weight: 900
+      display: flex
+      align-items: center
+      justify-content: center
+      text-align: center
+      height: 100%
+      text-shadow: 2px 5px 20px rgba(0,0,0,0.5)
+    .focus-card:hover
+      background: rgba(256,0,0,0.6)
+  .focus-areas .col-6:nth-child(1)
+    background-image: url('../../images/lander/images/discussion.jpg')
+  .focus-areas .col-6:nth-child(2)
+    background-image: url('../../images/lander/images/sapling.jpg')
+  .focus-areas .col-6:nth-child(3)
+    background-image: url('../../images/lander/images/astronaut.jpg')
+  .focus-areas .col-6:nth-child(4)
+    background-image: url('../../images/lander/images/arts.jpg')
+  .focus-areas .col-6:nth-child(5)
+    background-image: url('../../images/lander/images/care.jpg')
+  .focus-areas .col-6:nth-child(6)
+    background-image: url('../../images/lander/images/sustainable.jpg')
