@@ -17,6 +17,8 @@ import QuickActionCards from "../modules/dashboard/QuickActionCards";
 import OptionMenuCards from "../modules/dashboard/OptionMenuCards";
 import FeedStories from "../modules/dashboard/feedStories";
 import VidyutCountDown from "../modules/dashboard/vidyutCountDown";
+import QuickEditCard from "../modules/dashboard/quickEditCard";
+import EducationDetails from "../modules/profile/education";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -33,8 +35,12 @@ const Dashboard = () => {
         lastName
         isAmritian
         isAmritapurian
+        rollNo
+        shirtSize
+        hasEventsRegistered
         college
         {
+            id
             name
             location
         }
@@ -101,6 +107,15 @@ const Dashboard = () => {
                                     ) : null
 
                                 }
+                                <QuickEditCard
+                                    collegeID={data.myProfile.college !== null ? data.myProfile.college.id : null}
+                                    collegeName={data.myProfile.college !== null ? data.myProfile.college.name : null}
+                                    hasEventsRegistered={true}
+                                    isAmritapurian={data.myProfile.isAmritapurian}
+                                    phone={data.myProfile.phone}
+                                    shirtSize={data.myProfile.shirtSize}
+                                    rollNo={data.myProfile.rollNo}
+                                />
                                 {
                                     data.myPermissions && data.myPermissions.adminAccess ? (
                                         <div id="admin-access-prompt" className="card-shadow mx-0">
