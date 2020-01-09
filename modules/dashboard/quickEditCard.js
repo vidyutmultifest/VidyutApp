@@ -83,7 +83,9 @@ const QuickEditCard = ({ hasEventsRegistered, isAmritapurian, phone, rollNo, shi
         />
     ) : null;
 
-    return isAmritapurian && hasEventsRegistered && !(phone !== null && rollNo !== null && shirtSize !== null) ? (
+    return isAmritapurian && hasEventsRegistered
+            && !(phone !== null && phone.length && rollNo !== null && rollNo.length && shirtSize !== null)
+        ? (
         <div className="bg-gradient-red text-light card-shadow mt-4 p-4">
             <h1>Complete Your Profile</h1>
             <div className="pb-4 small-text">Without completing your profile, your purchases are still considered invalid.</div>
