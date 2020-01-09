@@ -5,7 +5,7 @@ import '../../styles/lander/countdown.sass';
 const LanderCountdown = () => {
     const renderer = ({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
-            return <h1>Welcome to Vidyut 2020!</h1>
+            return <h1>January 31 - Feb 01, 2020</h1>
         } else {
             return (
                 <div className="w-100">
@@ -57,7 +57,7 @@ const LanderCountdown = () => {
                                     />
                                 </a>
                                 <div className="location text-md-left text-center">
-                                    <div className="mb-2" style={{ lineHeight: "1.1" }}>
+                                    <div className="text-light mb-2" style={{ lineHeight: "1.1" }}>
                                         Valikkavu, Clappana P.O. <br />
                                         Kollam, Kerala
                                     </div>
