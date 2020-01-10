@@ -128,6 +128,7 @@ const QuickEditCard = ({ hasEventsRegistered, isAmritapurian, phone, rollNo, shi
                         id="rno-input"
                         name="rno-input"
                         className="form-control"
+                        placeholder="eg.: AM.EN.U4CSE18109"
                         value={rno}
                         onChange={(e) => setRNo(e.target.value)}
                     />

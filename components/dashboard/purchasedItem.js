@@ -51,7 +51,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                     </div>
                 </div>
                 <div className="purchase-description px-2">{moment(timestamp).fromNow()} | {status} </div>
-                <button className="px-2 mt-2 py-1 btn small-text btn-primary btn-shadow">View Details</button>
+                <button className="px-2 ml-2 mt-2 py-1 btn small-text btn-primary btn-shadow">View Details</button>
             </div>
             <Modal
                 isOpen={isOpen}
@@ -169,6 +169,6 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                     </div>
             </Modal>
         </React.Fragment>);
-}
+};
 
 export default PurchasedItem;

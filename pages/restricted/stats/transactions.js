@@ -30,7 +30,7 @@ const TransactionStats = () => {
           totalSuccessfulTransactions
           totalPendingTransactions
         }
-         weeklyStats: dailyStats(startDate: "2019-12-05", endDate: "2019-12-11"){
+        weeklyStats: dailyStats(startDate: "2019-12-05", endDate: "2019-12-11"){
           x: date
           y: totalAmount
         }
@@ -93,7 +93,7 @@ const TransactionStats = () => {
             <div className="col-md-3 p-2">
                 <div className="stats-card h-100 card-shadow p-4">
                     <div className="stat">
-                        {(data.totalSuccessfulTransactions/data.totalTransactions).toPrecision(4)*100}%
+                        {(data.totalSuccessfulTransactions/data.totalTransactions).toPrecision(1)*100}%
                     </div>
                     <h6>Success Percentage</h6>
                 </div>
