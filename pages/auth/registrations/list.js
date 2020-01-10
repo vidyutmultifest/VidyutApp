@@ -7,6 +7,9 @@ import TitleBar from "../../../components/titleBar";
 import dataFetch from "../../../utils/dataFetch";
 import ContentCard from "../../../components/events/contentCard";
 import {useRouter} from "next/router";
+import RegProfileCard from "../../../components/admin/RegProfileCard";
+import TeamProfileCard from "../../../components/admin/TeamProfileCard";
+import DashboardFooter from "../../../modules/dashboard/footer";
 
 const RegistrationList = () => {
     const [isQueried, setQueried] = useState(false);
@@ -39,6 +42,12 @@ const RegistrationList = () => {
               lastName
             }
           }
+          transaction { 
+            isPaid
+            isProcessed
+            amount
+            transactionID
+          }
           userProfile
           {
             firstName
@@ -57,7 +66,7 @@ const RegistrationList = () => {
     useEffect(() => {
         if(!isQueried)
         {
-            const paidOnly = router.query.isPaid;
+            const paidOnly = router.query.isPaid === '1' ? true : router.query.isPaid === '0' ? false : null;
             const type = router.query.type;
             if(paidOnly !== undefined && type !== undefined )
             {
@@ -74,47 +83,6 @@ const RegistrationList = () => {
         }
     });
 
-    const renderProfile = (profile, formData) => {
-        let form = [];
-        if(formData && formData !== null && formData !== "false")
-            form = JSON.parse(formData.replace(/'/g, '"'));
-        return (
-            <ContentCard
-                title={<h6>
-                    {profile.firstName} {profile.lastName}
-                    <div className="badge badge-primary mx-2">{profile.isAmritapurian ? 'A' : 'O'}</div>
-                </h6>}
-                node={
-                    <div>
-                        <div className="alert alert-secondarmb-2">
-                            <b className="mb-2">Participant Profile</b>
-                            <div>
-                                <img src={require('../../../images/icons/university.png')} style={{ width: '32px' }} />
-                                {profile.college ? profile.college.name : "n/a"}
-                            </div>
-                            <div>
-                                <img src={require('../../../images/icons/email.png')} style={{ width: '32px' }} />
-                                {profile.email ? profile.email : "n/a"}
-                            </div>
-                        </div>
-                        {
-                            form.length > 0 ?
-                            <div className="alert alert-secondary">
-                                <b className="mb-2">Form Data</b>
-                                {
-                                    form.map(f => <div className="pt-2">
-                                        <div className="font-weight-bold pb-2">{f.label}</div>
-                                        <div>{f.value ? f.value : 'no response'}</div>
-                                    </div>)
-                                }
-                            </div> : null
-                        }
-                    </div>
-                }
-            />
-        );
-    };
-
     const renderCard = (c) => (
         <div className="pt-4">
             <ContentCard
@@ -122,6 +90,7 @@ const RegistrationList = () => {
                     <div className="d-inline">
                         <h5 className="d-inline">{c.name}</h5>
                         <div className="badge badge-success ml-2" style={{ fontSize: '1rem' }}>{c.count.paid}</div>
+                        <div className="badge badge-danger ml-2" style={{ fontSize: '1rem' }}>{c.count.paymentPending}</div>
                         <div className="badge badge-primary ml-2" style={{ fontSize: '1rem'}}>{c.count.paid - c.count.amritapurianPaid}</div>
                         <div className="badge ml-2 text-light" style={{ fontSize: '1rem',  backgroundColor: '#a4123f' }}>{c.count.amritapurianPaid}</div>
                     </div>
@@ -131,6 +100,7 @@ const RegistrationList = () => {
                         <div>
                             <li><b>Total Registrations</b>: {c.count.total}</li>
                             <li><b>Paid Registrations</b>: {c.count.paid}</li>
+                            <li><b>Registrations without Payment</b>: {c.count.paymentPending}</li>
                             <li><b>Outside Campus Paid</b>: {c.count.paid - c.count.amritapurianPaid}</li>
                             <li><b>Inside Campus Paid</b>: {c.count.amritapurianPaid}</li>
                         </div>
@@ -139,27 +109,23 @@ const RegistrationList = () => {
                             c.registrations.map((r) =>
                                  r.teamProfile ?
                                      <div className="col-12">
-                                        <ContentCard
-                                            title={r.teamProfile.name}
-                                            classNames="mt-4"
-                                            node={
-                                                <div>
-                                                    <li><b>Registrations ID</b>: { r.regID }</li>
-                                                    <div className="row m-0">
-                                                        {
-                                                            r.teamProfile.members.map( m =>
-                                                                <div className="col-6">
-                                                                    { renderProfile(m, null) }
-                                                                </div>
-                                                            )
-                                                        }
-                                                    </div>
-                                                </div>
-                                            }
+                                        <TeamProfileCard
+                                            teamProfile={r.teamProfile}
+                                            formData={r.formData}
+                                            transaction={r.transaction}
+                                            regID={r.regID}
+                                            timestamp={r.registrationTimestamp}
                                         />
                                      </div> : r.userProfile ?
-                                     <div className="col-6 p-2">
-                                         {renderProfile(r.userProfile, r.formData)}
+                                     <div className="col-md-6 col-12 p-2">
+                                         <RegProfileCard
+                                             profile={r.userProfile}
+                                             formData={r.formData}
+                                             transaction={r.transaction}
+                                             regID={r.regID}
+                                             timestamp={r.registrationTimestamp}
+                                             showTransactionDetails
+                                         />
                                      </div> : null
                             )
                         }
@@ -182,27 +148,24 @@ const RegistrationList = () => {
                     <div>
                         <h2>Registration List</h2>
                         <div>
-                            Showing
+                            Showing registrations recieved for
                             {
-                                router.query.type === 'competition' ? <b> competition </b> :
-                                router.query.type === 'workshop' ? <b> workshop </b> :
+                                router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
+                                router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
                                 null
                             }
-                            registrations
+                            that you have access to and which received registrations,
                             {
-                                router.query.isPaid === '1' ? <React.Fragment> with <b>paid</b> transactions.</React.Fragment> :
-                                    router.query.isPaid === '0' ? <React.Fragment> with <b>unpaid</b> transactions.</React.Fragment>
-                                    : null
-                            }
-                            {
-                                router.query.isPaid == null && router.query.type ?
-                                    'with no filters applied' : null
+                                router.query.isPaid === '1' ? <React.Fragment> with details of <b>paid</b> transactions.</React.Fragment> :
+                                    router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
+                                        :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
                             }
                         </div>
                         { data.map(c => renderCard(c)) }
                     </div>
                     : null }
             </div>
+            <DashboardFooter />
         </AdminRequired>
     </Base>
 };
