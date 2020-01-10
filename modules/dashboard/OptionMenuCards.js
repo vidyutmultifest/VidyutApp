@@ -21,7 +21,7 @@ const OptionMenuCards = ({ status }) => {
 
     const cardObjs = [
         {
-            title: "My Registrations",
+            title: "My Event Registrations",
             link: "/registrations/my-registrations",
             icon: require('../../images/icons/check-list.png'),
         },

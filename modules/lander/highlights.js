@@ -38,7 +38,7 @@ const LanderHighlights = () => {
                         </div>
                     </div>
                     <div className="pt-1">
-                        <a href="show/revel-vidyut-proshow">
+                        <a href="/dashboard">
                             <button>Book Tickets</button>
                         </a>
                     </div>

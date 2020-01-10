@@ -58,7 +58,7 @@ const LanderCountdown = () => {
                                 </a>
                                 <div className="location text-md-left text-center">
                                     <div className="text-light mb-2" style={{ lineHeight: "1.1" }}>
-                                        Valikkavu, Clappana P.O. <br />
+                                        Vallikkavu, Clappana P.O. <br />
                                         Kollam, Kerala
                                     </div>
                                     <a href="https://goo.gl/maps/UQhvWT9cKJ266Az66">
