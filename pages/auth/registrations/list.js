@@ -68,18 +68,15 @@ const RegistrationList = () => {
         {
             const paidOnly = router.query.isPaid === '1' ? true : router.query.isPaid === '0' ? false : null;
             const type = router.query.type;
-            if(paidOnly !== undefined && type !== undefined )
-            {
-                getRegistrationList({
-                    paidOnly, type
-                }).then((response) =>{
-                    setQueried(true);
-                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        setData(response.data.listRegistrations);
-                        setLoaded(true)
-                    }
-                })
-            }
+            getRegistrationList({
+                paidOnly, type
+            }).then((response) =>{
+                setQueried(true);
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setData(response.data.listRegistrations);
+                    setLoaded(true)
+                }
+            })
         }
     });
 
@@ -96,7 +93,7 @@ const RegistrationList = () => {
                     </div>
                    }
                 node={
-                    <div>
+                    <div className="mt-4">
                         <div>
                             <li><b>Total Registrations</b>: {c.count.total}</li>
                             <li><b>Paid Registrations</b>: {c.count.paid}</li>
@@ -108,7 +105,7 @@ const RegistrationList = () => {
                         {
                             c.registrations.map((r) =>
                                  r.teamProfile ?
-                                     <div className="col-12">
+                                     <div className="col-12 p-2">
                                         <TeamProfileCard
                                             teamProfile={r.teamProfile}
                                             formData={r.formData}
@@ -143,7 +140,7 @@ const RegistrationList = () => {
         </Head>
         <AdminRequired>
             <TitleBar />
-            <div className="container py-4">
+            <div className="container px-0 py-4">
                 { isLoaded && data ?
                     <div>
                         <h2>Registration List</h2>
@@ -160,6 +157,21 @@ const RegistrationList = () => {
                                     router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
                                         :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
                             }
+                        </div>
+                        <div className="card-shadow my-4 p-4">
+                            <h4>Filter Options</h4>
+                            <a href="/auth/registrations/list?isPaid=1&type=workshop">
+                                <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>
+                            </a>
+                            <a href="/auth/registrations/list?isPaid=0&type=workshop">
+                                <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>
+                            </a>
+                            <a href="/auth/registrations/list?isPaid=1&type=competition">
+                                <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>
+                            </a>
+                            <a href="/auth/registrations/list?isPaid=0&type=competition">
+                                <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>
+                            </a>
                         </div>
                         { data.map(c => renderCard(c)) }
                     </div>

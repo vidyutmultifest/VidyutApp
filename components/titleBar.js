@@ -63,6 +63,15 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
     }
     </div>;
 
+    const handleLogout = () => {
+        cookies.remove('token');
+        cookies.remove('refreshToken');
+        cookies.remove('username');
+        cookies.remove('transactionID');
+        localStorage.clear();
+        router.push('/');
+    };
+
     const dropdownMenu = menuOpen ?
         <div className="dropdown-menu card-shadow" onfocusout={() => setMenuState(false)}>
             <div className="d-flex justify-content-center align-items-center">
@@ -80,7 +89,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             <hr style={{ margin: "0.25rem"}} />
             <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
             <div className="link"><Link href="/profile/edit-profile"><a>Profile</a></Link></div>
-            <div className="link"><Link href="/logout"><a>Logout</a></Link></div>
+            <div className="link" onClick={handleLogout}><a>Logout</a></div>
         </div> : null;
 
     const menuItems = [
