@@ -3,7 +3,7 @@ import Link from "next/link";
 import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 
-const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData }) => {
+const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData, buttonStyle }) => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
@@ -64,7 +64,7 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                     parseInt(p.price)
             }
             <div className="small-text">
-                { p.isGSTAccounted ? 'Inclusive of GST' : 'GST 18% Extra' }
+                { p.isGSTAccounted ? 'Inclusive of GST' : '+ GST' }
             </div>
             </div> : null }
         </button>
@@ -125,7 +125,7 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
     };
 
     return (
-        <div id="purchases-card" className="d-inline">
+        <div className="d-inline">
         {
             isLoaded ?
                 getOptions(products).length === 1 ? getOptions(products).map((p) =>
@@ -141,7 +141,7 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                                 `/purchase?product=${p.productID}`}
                             className="plain-link"
                         >
-                            <button className="btn btn-primary px-4 py-2 m-2 rounded-0">
+                            <button style={buttonStyle} className="btn btn-primary px-4 py-2 m-2 rounded-0">
                             {
                                 customText ? customText :
                                     RegisterText ? `${RegisterText} Now` : "Register Now"
@@ -153,7 +153,8 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                 (
                     <React.Fragment>
                         <button
-                            className="btn btn-primary px-4 py-2 m-2 rounded-0"
+                            style={buttonStyle}
+                            className="btn btn-primary px-4 py-2 rounded-0"
                             onClick={() => setModalState(true)}
                         >
                             {

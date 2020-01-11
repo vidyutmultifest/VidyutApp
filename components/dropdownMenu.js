@@ -15,7 +15,7 @@ const DropdownMenu = ({ item, onClick, isOpen }) => {
                     {
                         item.items.map(i =>
                             <div>
-                                <a href={i.link}>{i.name}</a>
+                                <a href={i.link}  target={i.newTab ? "_blank" : null}>{i.name}</a>
                             </div>
                         )
                     }

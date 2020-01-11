@@ -12,6 +12,7 @@ import LoadingScreen from "../components/loadingScreen";
 import DashboardFooter from "../modules/dashboard/footer";
 import DepartmentSelector from "../modules/events/departmentSelector";
 import ContentCard from "../components/events/contentCard";
+import CategoryEventLister from "../components/events/categoryEventLister";
 
 const _ = require('lodash');
 
@@ -21,6 +22,9 @@ const Competitions = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
     const [profileData, setProfileData] = useState(false);
+    const [recommendedList, setRecommended] = useState(false);
+
+    const [selected, setSelected] = useState(false);
 
     const [deptSel, setDept] = useState('');
     const [orgSel, setOrg] = useState('');
@@ -35,7 +39,7 @@ const Competitions = () => {
         isSchoolStudent
         hasEventsRegistered
       }
-      listCompetitions
+      listRecommendedCompetitions
       {
         name
         cover
@@ -46,6 +50,7 @@ const Competitions = () => {
         isRecommended
         isTotalRate
         isTeamEvent
+        firstPrize
         products
         {
            productID
@@ -70,6 +75,47 @@ const Competitions = () => {
           value: slug
         }
       }
+      listByCategory
+      {
+        name
+        slug
+        competitions
+        {
+            name
+            cover
+            description
+            fee
+            slug
+            isNew
+            isRecommended
+            isTotalRate
+            isTeamEvent
+            firstPrize
+            products
+            {
+               productID
+               name
+               price
+               isAvailable
+               isOutsideOnly
+               requireRegistration
+               isGSTAccounted
+               isAmritapurianOnly
+               isFacultyOnly
+               isSchoolOnly  
+            }
+            organizer
+            {
+              label: name
+              value: id
+            }
+            department
+            {
+              label: name
+              value: slug
+            }
+          }
+      }
     }`;
 
     const getCompetitionList = async () => await dataFetch({ query });
@@ -79,7 +125,8 @@ const Competitions = () => {
             getCompetitionList().then((response) =>{
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setData(response.data.listCompetitions);
+                    setData(response.data.listByCategory);
+                    setRecommended(response.data.listRecommendedCompetitions);
                     setProfileData(response.data.myProfile);
                     setLoaded(true);
                 }
@@ -87,26 +134,7 @@ const Competitions = () => {
         }
     });
 
-    const renderCompetitionCard = (c) => (
-        <div className="col-lg-4 col-md-6 p-2">
-            <EventCard
-                name={c.name}
-                text={c.description}
-                cover={c.cover}
-                price={c.fee}
-                isNew={c.isNew}
-                dept={deptSel === '' || deptSel == null ? c.department.label : null}
-                organizer={c.organizer ? c.organizer.label : null}
-                isRecommended={c.isRecommended}
-                isTeamEvent={c.isTeamEvent}
-                isTotalRate={c.isTotalRate}
-                detailsURL={`/competition/${c.slug}`}
-                registerText="Register"
-                products={c.products}
-                profileData={profileData}
-            />
-        </div>
-    );
+
 
 
     const renderFilters = () => (
@@ -156,6 +184,8 @@ const Competitions = () => {
         return filtered.map(c => c ? renderCompetitionCard(c) : null);
     };
 
+    console.log(selected);
+
     return <Base>
         <Head>
             <title>Competitions | Vidyut 2020</title>
@@ -174,23 +204,64 @@ const Competitions = () => {
                     />
                     {
                         data.length > 0 ?
+                            <div className="category-filter container">
+                                <h5 className="text-md-left text-center">Filter by Category</h5>
+                                <div className="row m-0">
+                                    <div className="col-6 col-md-4 col-lg-3 p-0">
+                                        <button
+                                            className="p-0"
+                                            style={{ background: 'none', border: 'none', width: '100%' }}
+                                            onClick={() => setSelected('recommended')}
+                                        >
+                                            <div className="p-4" style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}>
+                                                <h6>Recommended Competitions</h6>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    {
+                                        data.map(c => (
+                                            <div className="col-6 col-md-4 col-lg-3 p-0">
+                                                <button
+                                                    className="p-0"
+                                                    style={{ background: 'none', border: 'none', width: '100%' }}
+                                                    onClick={() => setSelected(c.slug)}
+                                                >
+                                                    <div className="p-4" style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}>
+                                                        <h6>{c.name}</h6>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div> : null
+                    }
+                    {
+                        data.length > 0 ?
                             <div>
                                 <div id="event-listing">
-                                    <div className="row m-0">
-                                        <div className="col-lg-3 col-md-4 px-0">
-                                            <div className="d-none d-md-block filter-sidebar">
-                                                {renderFilters()}
-                                            </div>
-                                            <div className="d-block d-md-none">
-                                                {renderFilters()}
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-9 col-md-8 px-2 py-4">
-                                            <div className="row m-0">
-                                                { isLoaded ? renderCompetitions() : null }
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {
+                                        ("recommended" === selected || !selected) &&
+                                        recommendedList && recommendedList.length > 0 ?
+                                            <CategoryEventLister
+                                                name="Recommended"
+                                                slug="recommended"
+                                                competitions={recommendedList}
+                                                profileData={profileData}
+                                                isOpen
+                                            /> : null
+                                    }
+                                    {
+                                        data.map(c =>
+                                            c.slug === selected || !selected ? <CategoryEventLister
+                                                name={c.name}
+                                                slug={c.slug}
+                                                isOpen
+                                                competitions={c.competitions}
+                                                profileData={profileData}
+                                            /> : null
+                                        )
+                                    }
                                 </div>
                             </div>
                             : <div className="container d-flex justify-content-center align-items-center"

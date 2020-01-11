@@ -16,6 +16,9 @@ const RegistrationList = () => {
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
 
+    const [isPaidOnly, setPaidOnly] = useState();
+    const [type, setType] = useState();
+
     const query = `query registrationLister($type: String, $paidOnly: Boolean)
     {
       listRegistrations(eventType: $type)
@@ -144,12 +147,23 @@ const RegistrationList = () => {
                 { isLoaded && data ?
                     <div>
                         <h2>Registration List</h2>
+                        <div className="card-shadow my-4 p-4">
+                            <h4>Filter Options</h4>
+                            {
+                                isPaidOnly ?
+                                    <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>
+                                    : null
+                            }
+                            <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>
+                            <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>>
+                            <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>
+                        </div>
                         <div>
                             Showing registrations recieved for
                             {
                                 router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
-                                router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
-                                null
+                                    router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
+                                        null
                             }
                             that you have access to and which received registrations,
                             {
@@ -157,21 +171,6 @@ const RegistrationList = () => {
                                     router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
                                         :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
                             }
-                        </div>
-                        <div className="card-shadow my-4 p-4">
-                            <h4>Filter Options</h4>
-                            <a href="/auth/registrations/list?isPaid=1&type=workshop">
-                                <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>
-                            </a>
-                            <a href="/auth/registrations/list?isPaid=0&type=workshop">
-                                <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>
-                            </a>
-                            <a href="/auth/registrations/list?isPaid=1&type=competition">
-                                <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>
-                            </a>
-                            <a href="/auth/registrations/list?isPaid=0&type=competition">
-                                <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>
-                            </a>
                         </div>
                         { data.map(c => renderCard(c)) }
                     </div>

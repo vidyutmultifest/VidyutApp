@@ -1,13 +1,14 @@
 import Link from "next/link";
 import React from "react";
+import classNames from 'classnames';
 
 import '../../styles/events/card.sass';
 import PurchasesItems from "../../modules/events/PurchaseItems";
 
-const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, isTeamEvent, isTotalRate, dept, organizer, products, RegisterText, profileData }) => (
+const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, alwaysShowCover, isTeamEvent, isTotalRate, dept, organizer, products, firstPrize, profileData, accreditedBy}) => (
             <div className="event-card card-shadow h-100">
                 <Link href={detailsURL}>
-                    <div className="event-cover d-none d-md-block">
+                    <div className={classNames('event-cover', !alwaysShowCover ? 'd-none d-md-block' : null)}>
                         <img src={cover ? cover : require('../../images/assets/vidyut_placeholder.jpg')} />
                         <div className="event-card-badges">
                             { isNew ? <span className="new-badge">New</span> : null }
@@ -20,33 +21,58 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     <Link href={detailsURL}>
                         <h4>{name}</h4>
                     </Link>
-                    { organizer ?  <div className="organizername"> by {organizer}</div> : null }
+                    { organizer ?  <div className="organizername font-weight-bold"> by {organizer}</div> : null }
                     <p>{text}</p>
-                    <div className="price text-right mt-4">
+                </div>
+                <div className="text-center mb-2">
+                    <div className="px-2">
                         {
-                            price ? parseInt(price) !== 0 ?
-                            <React.Fragment>
-                                ₹ {price}{isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
-                            </React.Fragment> :
-                                <React.Fragment>Free</React.Fragment>
+                            firstPrize ?
+                                <div>
+                                    <div>First Prize:</div>
+                                    <div style={{ fontSize: 'calc(1rem + 0.2vw)', fontWeight: '900' }}>₹{ firstPrize }</div>
+                                </div>
+                                : null
+                        }
+                        {
+                            accreditedBy ?
+                                <div>
+                                    <div>Accredited by </div>
+                                    <div style={{ fontSize: 'calc(1rem + 0.2vw)', fontWeight: '900' }}>{ accreditedBy }</div>
+                                </div>
                                 : null
                         }
                     </div>
-                    <div>
-                        { products && profileData ? <PurchasesItems
-                            products={products}
-                            hideReason={true}
-                            profileData={profileData}
-                            customText={RegisterText ? RegisterText : "Register" }
-                        /> : null }
+                    { products && profileData ?
+                            <PurchasesItems
+                                products={products}
+                                hideReason={true}
+                                profileData={profileData}
+                                buttonStyle={{ backgroundColor: 'blue', color: 'white'}}
+                                customText={
+                                    <div>
+                                        <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
+                                        <span>
+                                        {
+                                            price ? parseInt(price) !== 0 ?
+                                                <React.Fragment>
+                                                    ₹{price}
+                                                </React.Fragment> :
+                                                <React.Fragment>Free</React.Fragment>
+                                                : 'Register'
+                                        }
+                                            {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
+                                    </span>
+                                    </div>
+                                }
+                            /> : null }
                         <Link href={detailsURL}>
                             <a href={detailsURL} className="plain-link">
-                                <button className="btn btn-warning px-4 py-2 m-2">Learn More</button>
+                                <button className="btn btn-warning px-4 m-2 py-2">Learn More</button>
                             </a>
                         </Link>
                     </div>
                 </div>
-            </div>
 );
 
 export  default EventCard;

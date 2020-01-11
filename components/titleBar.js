@@ -52,7 +52,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                     i.items && i.items.map(j => (
                         <Link href={j.link}>
                             <div>
-                                <a href={j.link}>{j.name}</a>
+                                <a href={j.link} target={i.newTab ? '__blank' : null}>{j.name}</a>
                             </div>
                         </Link>
                     ))
@@ -102,7 +102,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 },
                 {
                     name: "About Amrita",
-                    link: 'https://amrita.edu'
+                    link: 'https://amrita.edu',
+                    newTab: true,
                 },
                 {
                     name: "Initiatives",
@@ -140,7 +141,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             items: [
                 {
                     name: "Brochure",
-                    link: 'http://bit.ly/vidyut-brochure'
+                    link: 'http://bit.ly/vidyut-brochure',
+                    newTab: true
                 },
                 {
                     name: "Shows",
@@ -165,7 +167,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 },
                 {
                     name: "Support",
-                    link: 'https://t.me/vcare2020'
+                    link: 'https://t.me/vcare2020',
+                    newTab: true
                 },
                 {
                     name: "FAQ",
@@ -256,7 +259,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                             <PoseGroup>
                                 {
                                     mainMenuOpen ?
-                                        <Shade key="menu-oper">{ menu }</Shade> : null
+                                        <Shade key="menu-open">{ menu }</Shade> : null
                                 }
                             </PoseGroup>
                         </div>

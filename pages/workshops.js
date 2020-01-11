@@ -60,6 +60,10 @@ const Workshops = () => {
           value: id
         }
         isNew
+        accreditedBy
+        {
+          name
+        }
         department
         {
           label: name
@@ -95,9 +99,9 @@ const Workshops = () => {
                 dept={deptSel === '' || deptSel == null && w.department ? w.department.label : null}
                 isRecommended={w.isRecommended}
                 detailsURL={`/workshop/${w.slug}`}
-                registerText="Register"
                 products={w.products}
                 profileData={profileData}
+                accreditedBy={w.accreditedBy ? w.accreditedBy.name : null}
             />
         </div>
     );
@@ -191,9 +195,9 @@ const Workshops = () => {
                             </div> :
                             <div className="container d-flex justify-content-center  align-items-center" style={{ minHeight: '90vh' }}>
                                 <StatusContainer
-                                title="No Workshops Listed"
+                                title="No Workshops Found"
                                 image={require('../images/illus/cleanup.png')}
-                                text="We have not listed any workshops for Vidyut 2020 at this moment, do check back later."
+                                text="We have not listed any workshops for your account type at Vidyut 2020, check back later or change your account type to the right category."
                                 />
                             </div>
                         }

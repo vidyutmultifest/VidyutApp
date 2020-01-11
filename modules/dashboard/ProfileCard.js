@@ -11,11 +11,11 @@ const ProfileCard = ({ data }) => {
             title="Selfie Uploaded"
             text="We will never share your photo with anyone."
             photo={require('../../images/icons/checked.png')}
-            link="/profile/upload-selfie"
+            link="/profile/edit-profile"
         /> : <ProfileCompletionItems
             title="Upload Selfie"
-            text="Due to security reasons, uploading your selfie is mandatory for attending Vidyut."
-            link="/profile/upload-selfie"
+            text="Due to security reasons, uploading your photo is mandatory for attending Vidyut."
+            link="/profile/edit-profile"
             photo={require('../../images/icons/selfie.png')}
         />;
 
@@ -49,7 +49,7 @@ const ProfileCard = ({ data }) => {
         <QuickListCard
             title="Complete Your Profile"
             items={[
-                photoCompletion,
+                // photoCompletion,
                 collegeCompletion,
                 phoneCompletion
             ]}

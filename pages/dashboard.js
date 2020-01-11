@@ -90,11 +90,6 @@ const Dashboard = () => {
                     <TitleBar />
                         <FeedStories />
                         <div id="dashboard-wrapper">
-                        <DashboardHeader
-                            name={data.myProfile.firstName}
-                            message="Thank you for showing interest and registering. We are committed to give you an exciting and memorable experience.
-                    We look forward to welcome you at Vidyut Multifest 2020, the only one of its kind college festival in India."
-                        />
                             <div className="container p-0">
                                 {
                                     data.status && data.status.pushNotification !== '' ? (
@@ -133,21 +128,6 @@ const Dashboard = () => {
                                                 without which your Vidyut ID or purchases/registrations wont
                                                 be active.
                                             </p>
-                                            {
-                                                !data.myProfile.photo ?
-                                                    <Link href="/profile/upload-selfie">
-                                                        <button className="btn btn-primary px-4 py-2 m-2">Upload Selfie</button>
-                                                    </Link>
-                                                    : !data.myProfile.rollNo ?
-                                                    <Link href="/profile/upload-collegeID">
-                                                        <button className="btn btn-primary px-4 py-2 m-2">Update College
-                                                            Profile
-                                                        </button>
-                                                    </Link> :
-                                                    <Link href="/profile/update-phone">
-                                                        <button className="btn btn-primary px-4 py-2 m-2">Update Phone</button>
-                                                    </Link>
-                                            }
                                             <Link href="/profile/edit-profile">
                                                 <button className="btn btn-primary px-4 py-2 m-2">Edit Profile</button>
                                             </Link>
