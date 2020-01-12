@@ -75,7 +75,7 @@ const RegistrationList = () => {
         else if(isPaidOnly==='0')
             return false;
         else
-            return 'any'
+            return null
     };
 
     useEffect(() => {
