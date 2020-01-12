@@ -41,6 +41,17 @@ const RegistrationList = () => {
           teamProfile
           {
             name
+            leader
+            {
+              firstName
+              lastName
+              phone
+              email
+              college
+              {
+                name
+              }
+            }
             members
             {
               firstName

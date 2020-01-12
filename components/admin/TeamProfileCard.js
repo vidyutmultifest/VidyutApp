@@ -74,6 +74,12 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
                         </div>
                 }
                 <div className="alert alert-secondary my-2">
+                    <div className="mb-2 font-weight-bold">Team Leader Info</div>
+                    <RegProfileCard
+                        profile={teamProfile.leader}
+                    />
+                </div>
+                <div className="alert alert-secondary my-2">
                     <div className="mb-2 font-weight-bold">Team Members</div>
                     <div className="row m-0">
                         {
