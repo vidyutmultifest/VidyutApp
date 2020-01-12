@@ -3,8 +3,8 @@ import LoadingScreen from "../components/loadingScreen";
 
 export default () => (
     <LoadingScreen
-        title="Feature under Development"
-        text="We are working hard on this feature, we will soon push it live"
+        title="Schedule yet to be finalized"
+        text="Your personalized Vidyut Schedule will be published soon."
         showLinks
     />
 );

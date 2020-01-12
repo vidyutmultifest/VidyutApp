@@ -21,6 +21,11 @@ const OptionMenuCards = ({ status }) => {
 
     const cardObjs = [
         {
+            title: "My Profile",
+            link: "/profile/edit-profile",
+            icon: require('../../images/icons/profile.png'),
+        },
+        {
             title: "My Event Registrations",
             link: "/registrations/my-registrations",
             icon: require('../../images/icons/check-list.png'),
@@ -29,11 +34,6 @@ const OptionMenuCards = ({ status }) => {
             title: "My Teams",
             link: "/teams/my-teams",
             icon: require('../../images/icons/user-group.png'),
-        },
-        {
-            title: "My Orders",
-            link: "/payment/view-orders",
-            icon: require('../../images/icons/invoice.png'),
         },
         {
             title: "My Schedule",
