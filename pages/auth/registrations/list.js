@@ -10,14 +10,15 @@ import {useRouter} from "next/router";
 import RegProfileCard from "../../../components/admin/RegProfileCard";
 import TeamProfileCard from "../../../components/admin/TeamProfileCard";
 import DashboardFooter from "../../../modules/dashboard/footer";
+const _ = require('lodash');
 
 const RegistrationList = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
 
-    const [isPaidOnly, setPaidOnly] = useState();
-    const [type, setType] = useState();
+    const [isPaidOnly, setPaidOnly] = useState('any');
+    const [type, setType] = useState('any');
 
     const query = `query registrationLister($type: String, $paidOnly: Boolean)
     {
@@ -56,6 +57,7 @@ const RegistrationList = () => {
             firstName
             lastName
             email
+            phone
             isAmritapurian
             college { name }
           }
@@ -66,13 +68,20 @@ const RegistrationList = () => {
     const getRegistrationList = async variables => await dataFetch({ query, variables });
     const router = useRouter();
 
+    const getPaidStatus = () => {
+        if(isPaidOnly==='1')
+            return true;
+        else if(isPaidOnly==='0')
+            return false;
+        else
+            return 'any'
+    };
+
     useEffect(() => {
         if(!isQueried)
         {
-            const paidOnly = router.query.isPaid === '1' ? true : router.query.isPaid === '0' ? false : null;
-            const type = router.query.type;
             getRegistrationList({
-                paidOnly, type
+                paidOnly: getPaidStatus(), type
             }).then((response) =>{
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
@@ -83,7 +92,7 @@ const RegistrationList = () => {
         }
     });
 
-    const renderCard = (c) => (
+    const renderCard = (c) => c.registrations.length > 0 ? (
         <div className="pt-4">
             <ContentCard
                 title={
@@ -135,7 +144,11 @@ const RegistrationList = () => {
             />
         </div>
 
-    );
+    ) : null;
+
+    const sortedList = () => {
+        return _.sortBy(data, [function(o) { return o.registrations.length; }]);
+    };
 
     return <Base loginRequired>
         <Head>
@@ -147,19 +160,8 @@ const RegistrationList = () => {
                 { isLoaded && data ?
                     <div>
                         <h2>Registration List</h2>
-                        {/*<div className="card-shadow my-4 p-4">*/}
-                        {/*    <h4>Filter Options</h4>*/}
-                        {/*    {*/}
-                        {/*        isPaidOnly ?*/}
-                        {/*            <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>*/}
-                        {/*            : null*/}
-                        {/*    }*/}
-                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>*/}
-                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>*/}
-                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>*/}
-                        {/*</div>*/}
                         <div>
-                            Showing registrations recieved for
+                            Showing registrations received for
                             {
                                 router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
                                     router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
@@ -172,7 +174,44 @@ const RegistrationList = () => {
                                         :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
                             }
                         </div>
-                        { data.map(c => renderCard(c)) }
+                        <div className="row m-0">
+                            <div className="col-md-3">
+                                <div className="py-4">
+                                    <h4>Filters</h4>
+                                    <div className="form-group">
+                                        <label htmlFor="shirtSize-select">Type</label>
+                                        <select
+                                            className="form-control"
+                                            name="shirtSize-select"
+                                            id="shirtSize-select"
+                                            onChange={(e) => { setType(e.target.value); setQueried(false) }}
+                                            value={type ? type : 'null'}
+                                        >
+                                            <option value="any"> All</option>
+                                            <option value="competition">Competition</option>
+                                            <option value="workshop">Workshop</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="shirtSize-select">Payment Status</label>
+                                        <select
+                                            className="form-control"
+                                            name="shirtSize-select"
+                                            id="shirtSize-select"
+                                            onChange={(e) => { setPaidOnly(e.target.value); setQueried(false) }}
+                                            value={isPaidOnly ? isPaidOnly : 'null'}
+                                        >
+                                            <option value="any"> All</option>
+                                            <option value="1">Paid</option>
+                                            <option value="0">Unpaid</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-9">
+                                { sortedList().reverse().map(c => renderCard(c)) }
+                            </div>
+                        </div>
                     </div>
                     : null }
             </div>

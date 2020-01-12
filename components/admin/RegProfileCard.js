@@ -64,6 +64,10 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                             <img src={require('../../images/icons/email.png')} style={{ width: '32px' }} />
                             {profile.email ? profile.email : "n/a"}
                         </div>
+                        <div>
+                            <img src={require('../../images/icons/ringing-phone.png')} style={{ width: '32px' }} />
+                            {profile.phone ? profile.phone : "n/a"}
+                        </div>
                     </div>
                 </div>
                 {
