@@ -10,6 +10,7 @@ import {useRouter} from "next/router";
 import RegProfileCard from "../../../components/admin/RegProfileCard";
 import TeamProfileCard from "../../../components/admin/TeamProfileCard";
 import DashboardFooter from "../../../modules/dashboard/footer";
+import RegStatOverview from "../../../components/admin/RegStatOverview";
 const _ = require('lodash');
 
 const RegistrationList = () => {
@@ -174,6 +175,8 @@ const RegistrationList = () => {
                                         :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
                             }
                         </div>
+                        <RegStatOverview />
+                        <h4 className="my-4">Detailed List</h4>
                         <div className="row m-0">
                             <div className="col-md-3">
                                 <div className="py-4">
