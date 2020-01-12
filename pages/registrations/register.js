@@ -177,9 +177,10 @@ const RegisterPage = () => {
                          <StatusContainer
                              animation={require('../../images/animations/done-button')}
                              title="Already Registered."
-                             text="It seems that you have already registered for this event. If your transaction wasn't successful,
-                                    please go to the link below and retry payment. For a free event, without payment, your registration is still considered,
-                                    incomplete. Thank You!"
+                             text="It seems that you have already registered for this event.
+                                    If your transaction wasn't successful,
+                                    please go to the link below and retry payment.
+                                    Thank You!"
                              buttons={
                                  <Link href="/registrations/my-registrations">
                                  <button className="btn btn-primary rounded-0 px-4 my-4 py-2">View My Registrations</button>
