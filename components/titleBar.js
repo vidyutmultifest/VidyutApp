@@ -132,7 +132,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 },
                 {
                     name: "Crew",
-                    link: '#crew'
+                    link: '/crew'
                 },
             ]
         },

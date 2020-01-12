@@ -147,17 +147,17 @@ const RegistrationList = () => {
                 { isLoaded && data ?
                     <div>
                         <h2>Registration List</h2>
-                        <div className="card-shadow my-4 p-4">
-                            <h4>Filter Options</h4>
-                            {
-                                isPaidOnly ?
-                                    <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>
-                                    : null
-                            }
-                            <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>
-                            <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>>
-                            <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>
-                        </div>
+                        {/*<div className="card-shadow my-4 p-4">*/}
+                        {/*    <h4>Filter Options</h4>*/}
+                        {/*    {*/}
+                        {/*        isPaidOnly ?*/}
+                        {/*            <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Workshops</button>*/}
+                        {/*            : null*/}
+                        {/*    }*/}
+                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Workshops</button>*/}
+                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Paid + Competitions</button>*/}
+                        {/*    <button className="btn-shadow btn btn-primary m-2 p-2">Unpaid + Competitions</button>*/}
+                        {/*</div>*/}
                         <div>
                             Showing registrations recieved for
                             {
