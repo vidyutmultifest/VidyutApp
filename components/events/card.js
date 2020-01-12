@@ -6,7 +6,7 @@ import '../../styles/events/card.sass';
 import PurchasesItems from "../../modules/events/PurchaseItems";
 
 const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, alwaysShowCover, isTeamEvent, isTotalRate, dept, organizer, products, firstPrize, profileData, accreditedBy}) => (
-            <div className="event-card card-shadow h-100">
+            <div className="event-card position-relative card-shadow h-100">
                 <Link href={detailsURL}>
                     <div className={classNames('event-cover', !alwaysShowCover ? 'd-none d-md-block' : null)}>
                         <img src={cover ? cover : require('../../images/assets/vidyut_placeholder.jpg')} />
@@ -24,7 +24,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     { organizer ?  <div className="organizername font-weight-bold"> by {organizer}</div> : null }
                     <p>{text}</p>
                 </div>
-                <div className="text-center" style={{ marginBottom: '12vh'}}>
+                <div className="text-center" style={{ marginBottom: '18vh'}}>
                     <div className="px-2">
                         {
                             firstPrize ?
@@ -50,7 +50,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                                 products={products}
                                 hideReason={true}
                                 profileData={profileData}
-                                buttonStyle={{ backgroundColor: 'blue', color: 'white'}}
+                                buttonStyle={{ backgroundColor: 'blue', color: 'white', margin: '1rem!important'}}
                                 customText={
                                     <div>
                                         <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
@@ -70,7 +70,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                             /> : null }
                         <Link href={detailsURL}>
                             <a href={detailsURL} className="plain-link">
-                                <button className="btn btn-warning px-4 m-2 py-2">Learn More</button>
+                                <button className="btn btn-warning px-4 m-1 py-2">Know More</button>
                             </a>
                         </Link>
                     </div>

@@ -123,10 +123,10 @@ const Workshops = () => {
                 />
             </div>
             <div className="p-2">
-                <DepartmentSelector onSelect={(e) => setDept(e)} />
+                <DepartmentSelector  onSelect={(e) => setDept(e)} />
             </div>
             <div className="p-2">
-                <OrganizerSelector onSelect={(e) => setOrg(e)} />
+                <OrganizerSelector isOpen onSelect={(e) => setOrg(e)} />
             </div>
         </div>
     );

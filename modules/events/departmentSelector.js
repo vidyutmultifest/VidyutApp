@@ -33,7 +33,6 @@ const DepartmentSelector = ({ onSelect }) => {
         }
     });
 
-
     return data ? <ContentCard
         title="Filter by Department"
         classNames="bg-gradient mb-0"

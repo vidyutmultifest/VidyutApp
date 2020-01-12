@@ -13,6 +13,8 @@ import DashboardFooter from "../modules/dashboard/footer";
 import DepartmentSelector from "../modules/events/departmentSelector";
 import ContentCard from "../components/events/contentCard";
 import CategoryEventLister from "../components/events/categoryEventLister";
+import classNames from "classnames";
+import CategorySelector from "../modules/events/categorySelector";
 
 const _ = require('lodash');
 
@@ -26,9 +28,8 @@ const Competitions = () => {
 
     const [selected, setSelected] = useState(false);
 
-    const [deptSel, setDept] = useState('');
-    const [orgSel, setOrg] = useState('');
-    const [sQuery, setSQuery] = useState('');
+    const [deptSel, setDept] = useState(false);
+    const [sQuery, setSQuery] = useState(false);
 
     const query = `{
       myProfile
@@ -134,7 +135,44 @@ const Competitions = () => {
         }
     });
 
+    const [showFilterScreen, setShowFilterScreen] = useState(false);
 
+    const renderFooterFilters = () => (
+        <div className="d-md-none d-block">
+            <div id="footer-filter-screen" className={classNames(!showFilterScreen ? 'd-none' : null)}>
+                <div className="p-2">
+                    <CategorySelector
+                        data={data}
+                        onSelect={(e) => { setSelected(e.slug); setShowFilterScreen(false)}}
+                    />
+                </div>
+                <div className="p-2">
+                    <DepartmentSelector
+                        onSelect={(e) => { setDept(e); setShowFilterScreen(false); }}
+                    />
+                </div>
+            </div>
+            <div id="footer-filter-bar">
+                <div className="row m-0">
+                    <div className="col-6">
+                        <a href="#search-box"  onClick={() => setShowFilterScreen(false)} className="plain-link font-weight-bold text-dark">
+                            <img src={require('../images/icons/search-icon.png')} style={{ width: '20px', margin: '5px' }} />
+                            Search
+                        </a>
+                    </div>
+                    <div className="col-6">
+                        <button
+                            className="plain-button font-weight-bold"
+                            onClick={() => setShowFilterScreen(!showFilterScreen)}
+                        >
+                            <img src={require('../images/icons/filter-icon.png')} style={{ width: '20px', margin: '5px'  }} />
+                            Filter
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
 
     const renderFilters = () => (
@@ -146,6 +184,7 @@ const Competitions = () => {
                     classNames="bg-gradient p-2"
                     node={<input
                         className="form-control mt-3 rounded-0 border-0"
+                        value={sQuery ? sQuery : null}
                         onChange={(e) => setSQuery(e.target.value)}
                         placeholder="Search by name / dept "
                     />}
@@ -156,34 +195,6 @@ const Competitions = () => {
             </div>
         </div>
     );
-
-    const isInName = (name,query) => {
-        const words = name.toLowerCase().split(" ");
-        for(let i = 0; i<words.length; i++)
-        {
-            if(words[i].startsWith(query.toLowerCase()))
-                return true;
-        }
-        return false
-
-    };
-
-    const renderCompetitions = () => {
-        const filtered = data.map(c => {
-            let flag = 0;
-            if(sQuery != '' && !isInName(c.name,sQuery) && !isInName(c.department.label, sQuery))
-                flag = 1;
-            if(deptSel != '' && deptSel != null && deptSel.value !== c.department.value)
-                flag = 1;
-            if(orgSel !== '' && orgSel != null && c.organizer && orgSel.value !== c.organizer.value)
-                flag = 1;
-            if(orgSel !== '' && orgSel != null && !c.organizer)
-                flag = 1;
-            if(!flag) return c;
-        });
-        return filtered.map(c => c ? renderCompetitionCard(c) : null);
-    };
-
 
     return <Base>
         <Head>
@@ -201,64 +212,61 @@ const Competitions = () => {
                             },
                         ]}
                     />
-                    {
-                        data.length > 0 ?
-                            <div className="category-filter container">
-                                <h5 className="text-md-left text-center">Filter by Category</h5>
-                                <div className="row m-0">
-                                    <div className="col-6 col-md-4 col-lg-3 p-0">
-                                        <button
-                                            className="p-0"
-                                            style={{ background: 'none', border: 'none', width: '100%' }}
-                                            onClick={() => setSelected('recommended')}
-                                        >
-                                            <div className="p-4" style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}>
-                                                <h6>Recommended Competitions</h6>
-                                            </div>
-                                        </button>
-                                    </div>
-                                    {
-                                        data.map(c => (
-                                            <div className="col-6 col-md-4 col-lg-3 p-0">
-                                                <button
-                                                    className="p-4 h-100 border-0 w-100 bg-none"
-                                                    onClick={() => setSelected(c.slug)}
-                                                    style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}
-                                                >
-                                                        <h6>{c.name}</h6>
-                                                </button>
-                                            </div>
-                                        ))
-                                    }
-                                </div>
-                            </div> : null
-                    }
+                    <div className="d-block d-md-none px-2 pt-4" id="search-box">
+                        <ContentCard
+                            title="Search"
+                            isOpen
+                            classNames="bg-gradient p-2"
+                            node={<input
+                                className="form-control mt-3 rounded-0 border-0"
+                                value={sQuery ? sQuery : null}
+                                onChange={(e) => setSQuery(e.target.value)}
+                                placeholder="Search by name / dept "
+                            />}
+                        />
+                    </div>
                     {
                         data.length > 0 ?
                             <div>
                                 <div id="event-listing">
-                                    {
-                                        ("recommended" === selected || !selected) &&
-                                        recommendedList && recommendedList.length > 0 ?
-                                            <CategoryEventLister
-                                                name="Recommended"
-                                                slug="recommended"
-                                                competitions={recommendedList}
-                                                profileData={profileData}
-                                                isOpen
-                                            /> : null
-                                    }
-                                    {
-                                        data.map(c =>
-                                            c.slug === selected || !selected ? <CategoryEventLister
-                                                name={c.name}
-                                                slug={c.slug}
-                                                isOpen
-                                                competitions={c.competitions}
-                                                profileData={profileData}
-                                            /> : null
-                                        )
-                                    }
+                                    <div className="row m-0">
+                                        <div className="col-lg-3 col-md-4 px-0">
+                                            <div className="d-none d-md-block filter-sidebar">
+                                                {renderFilters()}
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-9 col-md-8 px-2 py-4">
+                                            <div id="event-listing">
+                                                {
+                                                    ("recommended" === selected || !selected) &&
+                                                    recommendedList && recommendedList.length > 0 ?
+                                                        <CategoryEventLister
+                                                            name="Recommended"
+                                                            slug="recommended"
+                                                            searchQuery={sQuery}
+                                                            deptFiltered={deptSel}
+                                                            competitions={recommendedList}
+                                                            profileData={profileData}
+                                                            isOpen
+                                                        /> : null
+                                                }
+                                                {
+                                                    data.map(c =>
+                                                        (c.slug === selected || !selected) ?
+                                                        <CategoryEventLister
+                                                            name={c.name}
+                                                            slug={c.slug}
+                                                            isOpen
+                                                            searchQuery={sQuery}
+                                                            deptFiltered={deptSel ? deptSel : false}
+                                                            competitions={c.competitions}
+                                                            profileData={profileData}
+                                                        /> : null
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             : <div className="container d-flex justify-content-center align-items-center"
@@ -271,6 +279,7 @@ const Competitions = () => {
                             </div>
                     }
                 <DashboardFooter />
+                { renderFooterFilters() }
                 </React.Fragment> : <LoadingScreen text="Loading Competitions" />
         }
     </Base>

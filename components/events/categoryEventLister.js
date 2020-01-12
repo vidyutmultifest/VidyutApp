@@ -2,8 +2,20 @@ import React, {useState} from "react";
 import EventCard from "./card";
 import HorizontalSlider from "../HorizontalSlider";
 
-const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen }) => {
+const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen, deptFiltered, searchQuery }) => {
     const [show, setOpen] = useState(isOpen ? isOpen : false);
+
+    const isInName = (name,query) => {
+        const words = name.toLowerCase().split(" ");
+        for(let i = 0; i<words.length; i++)
+        {
+            if(words[i].startsWith(query.toLowerCase()))
+                return true;
+        }
+        return false
+
+    };
+
 
     const renderCompetitionCard = (c) => (
             <EventCard
@@ -12,6 +24,7 @@ const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen }) 
                 cover={c.cover}
                 price={c.fee}
                 isNew={c.isNew}
+                text={c.description}
                 organizer={c.organizer ? c.organizer.label : null}
                 isRecommended={c.isRecommended}
                 isTeamEvent={c.isTeamEvent}
@@ -24,7 +37,15 @@ const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen }) 
             />
     );
 
-    return competitions && competitions.length > 0 ?
+    const list = competitions && competitions.length > 0 ?
+        competitions.filter(c =>
+            (!deptFiltered || c.department.value === deptFiltered.value)
+            &&  (!searchQuery || isInName(c.name, searchQuery) || isInName(c.department.label, searchQuery))
+        ) : [];
+
+    const getItems = list.map(c => renderCompetitionCard(c));
+
+    return getItems.length > 0 ?
     (
         <div className="my-4" id={`${slug}-listing`}>
             <button style={{ border: 'none', background: 'none' }}>
@@ -40,7 +61,7 @@ const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen }) 
                 </div>
             </button>
             {
-                show ? <HorizontalSlider items={competitions.map(c => renderCompetitionCard(c))}/>: null
+                show ? <HorizontalSlider items={getItems}/>: null
             }
         </div>
     ) : null
