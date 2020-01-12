@@ -140,15 +140,6 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             title: "Events",
             items: [
                 {
-                    name: "Brochure",
-                    link: 'http://bit.ly/vidyut-brochure',
-                    newTab: true
-                },
-                {
-                    name: "Shows",
-                    link: '/shows'
-                },
-                {
                     name: "Competitions",
                     link: '/competitions'
                 },
@@ -156,6 +147,15 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                     name: "Workshops",
                     link: '/workshops'
                 },
+                {
+                    name: "Brochure",
+                    link: 'http://bit.ly/vidyut-brochure',
+                    newTab: true
+                },
+                {
+                    name: "Shows",
+                    link: '/shows'
+                }
             ]
         },
         {
