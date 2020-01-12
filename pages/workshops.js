@@ -14,6 +14,8 @@ import LoadingScreen from "../components/loadingScreen";
 import OrganizerSelector from "../modules/events/organizerSelector";
 import ContentCard from "../components/events/contentCard";
 
+import classNames from 'classnames';
+
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
@@ -156,6 +158,43 @@ const Workshops = () => {
         return filtered.map(c => c ? renderWorkshopCard(c) : null);
     };
 
+
+    const [showFilterScreen, setShowFilterScreen] = useState(false);
+
+    const renderFooterFilters = () => (
+      <div className="d-md-none d-block">
+          <div id="footer-filter-screen" className={classNames(!showFilterScreen ? 'd-none' : null)}>
+              <div className="p-2">
+                  <DepartmentSelector
+                      onSelect={(e) => { setDept(e); setShowFilterScreen(false); }}
+                  />
+              </div>
+              <div className="p-2">
+                  <OrganizerSelector isOpen onSelect={(e) => { setOrg(e); setShowFilterScreen(false)}} />
+              </div>
+          </div>
+          <div id="footer-filter-bar">
+              <div className="row m-0">
+                  <div className="col-6">
+                      <a href="#search-box"  onClick={() => setShowFilterScreen(false)} className="plain-link font-weight-bold text-dark">
+                          <img src={require('../images/icons/search-icon.png')} style={{ width: '20px', margin: '5px' }} />
+                          Search
+                      </a>
+                  </div>
+                  <div className="col-6">
+                      <button
+                          className="plain-button font-weight-bold"
+                          onClick={() => setShowFilterScreen(!showFilterScreen)}
+                      >
+                          <img src={require('../images/icons/filter-icon.png')} style={{ width: '20px', margin: '5px'  }} />
+                          Filter
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    );
+
     return <Base>
         <Head>
             <title>Workshops | Vidyut 2020</title>
@@ -172,6 +211,18 @@ const Workshops = () => {
                             },
                         ]}
                     />
+                    <div className="d-block d-md-none px-2 pt-4" id="search-box">
+                        <ContentCard
+                            title="Search"
+                            isOpen
+                            classNames="bg-gradient p-2"
+                            node={<input
+                                className="form-control mt-3 rounded-0 border-0"
+                                onChange={(e) => setSQuery(e.target.value)}
+                                placeholder="Search by name / dept "
+                            />}
+                        />
+                    </div>
                         {
                             data.length > 0 ?
                                 <div>
@@ -179,9 +230,6 @@ const Workshops = () => {
                                         <div className="row m-0">
                                             <div className="col-lg-3 col-md-4 px-0">
                                                 <div className="d-none d-md-block filter-sidebar">
-                                                    {renderFilters()}
-                                                </div>
-                                                <div className="d-block d-md-none">
                                                     {renderFilters()}
                                                 </div>
                                             </div>
@@ -202,6 +250,7 @@ const Workshops = () => {
                             </div>
                         }
                     <DashboardFooter />
+                    { renderFooterFilters() }
                 </React.Fragment>: <LoadingScreen text="Loading Workshops" />
         }
     </Base>

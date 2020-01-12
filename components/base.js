@@ -31,7 +31,8 @@ const Base = ({ children, loginRequired, adminRequired }) => {
                     gtag('js', new Date());
                     gtag('config', 'UA-151530910-1');`}} />
             </Head>
-            <div className={theme === "dark" || !isDayTime && theme === undefined ? "dark-theme" : `${theme}-theme`}>
+            {/*<div className={theme === "dark" || !isDayTime && theme === undefined ? "dark-theme" : `${theme}-theme`}>*/}
+            <div>
                 {children}
             </div>
         </React.Fragment>

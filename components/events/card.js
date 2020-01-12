@@ -24,7 +24,7 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                     { organizer ?  <div className="organizername font-weight-bold"> by {organizer}</div> : null }
                     <p>{text}</p>
                 </div>
-                <div className="text-center mb-2">
+                <div className="text-center" style={{ marginBottom: '12vh'}}>
                     <div className="px-2">
                         {
                             firstPrize ?
@@ -43,7 +43,9 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                                 : null
                         }
                     </div>
-                    { products && profileData ?
+                </div>
+                <div style={{ position: 'absolute', bottom: 0, width: '100%', textAlign: 'center', paddingBottom: '1rem' }}>
+                        { products && profileData ?
                             <PurchasesItems
                                 products={products}
                                 hideReason={true}
@@ -53,16 +55,16 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                                     <div>
                                         <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
                                         <span>
-                                        {
-                                            price ? parseInt(price) !== 0 ?
-                                                <React.Fragment>
-                                                    ₹{price}
-                                                </React.Fragment> :
-                                                <React.Fragment>Free</React.Fragment>
-                                                : 'Register'
-                                        }
+                                    {
+                                        price ? parseInt(price) !== 0 ?
+                                            <React.Fragment>
+                                                ₹{price}
+                                            </React.Fragment> :
+                                            <React.Fragment>Free</React.Fragment>
+                                            : 'Register'
+                                    }
                                             {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
-                                    </span>
+                                </span>
                                     </div>
                                 }
                             /> : null }

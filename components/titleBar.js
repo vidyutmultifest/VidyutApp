@@ -74,19 +74,19 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
 
     const dropdownMenu = menuOpen ?
         <div className="dropdown-menu card-shadow" onfocusout={() => setMenuState(false)}>
-            <div className="d-flex justify-content-center align-items-center">
-                {
-                    cookies.get('theme') === "dark" || !isDayTime && cookies.get('theme') === undefined ?
-                        <div className="link" onClick={switchToLight}><a><img src={require('../images/icons/sun.png')} /></a></div> :
-                        <div className="link" onClick={switchToDark}><a><img src={require('../images/icons/moon.png')} /></a></div>
-                }
-                {
-                    cookies.get('theme') !== undefined ?
-                        <div className="link" onClick={switchToAuto}><a><img src={require('../images/icons/auto.png')} /></a></div>
-                        : null
-                }
-            </div>
-            <hr style={{ margin: "0.25rem"}} />
+            {/*<div className="d-flex justify-content-center align-items-center">*/}
+            {/*    {*/}
+            {/*        cookies.get('theme') === "dark" || !isDayTime && cookies.get('theme') === undefined ?*/}
+            {/*            <div className="link" onClick={switchToLight}><a><img src={require('../images/icons/sun.png')} /></a></div> :*/}
+            {/*            <div className="link" onClick={switchToDark}><a><img src={require('../images/icons/moon.png')} /></a></div>*/}
+            {/*    }*/}
+            {/*    {*/}
+            {/*        cookies.get('theme') !== undefined ?*/}
+            {/*            <div className="link" onClick={switchToAuto}><a><img src={require('../images/icons/auto.png')} /></a></div>*/}
+            {/*            : null*/}
+            {/*    }*/}
+            {/*</div>*/}
+            {/*<hr style={{ margin: "0.25rem"}} />*/}
             <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
             <div className="link"><Link href="/profile/edit-profile"><a>Profile</a></Link></div>
             <div className="link" onClick={handleLogout}><a>Logout</a></div>

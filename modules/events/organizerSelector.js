@@ -5,7 +5,7 @@ import '../../styles/events/scroll-selector.sass';
 import ContentCard from "../../components/events/contentCard";
 const classNames = require("classnames");
 
-const OrganizerSelector = ({ onSelect }) => {
+const OrganizerSelector = ({ onSelect, isOpen }) => {
     const [isQueried, setQueried] = useState(false);
     const [data, setData] = useState(false);
     const [selected, setSelected] = useState(false);
@@ -36,6 +36,7 @@ const OrganizerSelector = ({ onSelect }) => {
     return data ? <ContentCard
             title="Filter by Organizer"
             classNames="bg-gradient"
+            isOpen={isOpen}
             node={
                 <div className="scroll-selector">
                     <div className="scroll-wrapper">

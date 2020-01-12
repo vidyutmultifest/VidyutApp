@@ -184,7 +184,6 @@ const Competitions = () => {
         return filtered.map(c => c ? renderCompetitionCard(c) : null);
     };
 
-    console.log(selected);
 
     return <Base>
         <Head>
@@ -222,13 +221,11 @@ const Competitions = () => {
                                         data.map(c => (
                                             <div className="col-6 col-md-4 col-lg-3 p-0">
                                                 <button
-                                                    className="p-0"
-                                                    style={{ background: 'none', border: 'none', width: '100%' }}
+                                                    className="p-4 h-100 border-0 w-100 bg-none"
                                                     onClick={() => setSelected(c.slug)}
+                                                    style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}
                                                 >
-                                                    <div className="p-4" style={{ background: '#311B92', minHeight: '5vh',  color: 'white'}}>
                                                         <h6>{c.name}</h6>
-                                                    </div>
                                                 </button>
                                             </div>
                                         ))
