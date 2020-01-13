@@ -9,7 +9,7 @@ import DashboardFooter from "../../modules/dashboard/footer";
 import dataFetch from "../../utils/dataFetch";
 import LoadingScreen from "../../components/loadingScreen";
 import {CopyToClipboard} from "react-copy-to-clipboard";
-
+import { WhatsappShareButton } from 'react-share';
 
 const TeamViewPage = () => {
     const router = useRouter();
@@ -169,8 +169,14 @@ const TeamViewPage = () => {
                                 <button className="btn btn-primary mr-2" onClick={exitTeam}>Leave Team</button> :
                                 <button onClick={handleEditTeam} className="btn btn-primary mr-2">Save</button>
                         }
+                        <WhatsappShareButton
+                            url="https://vidyut.amrita.edu/teams/my-teams"
+                        title={`Hey! Join my team - ${teamName} for Vidyut 2020, using the invite code \`\`\`${router.query.hash}\`\`\` through this link -`}
+                        >
+                            <button className="btn btn-warning mr-2">Send Invite via WhatsApp</button>
+                        </WhatsappShareButton>
                         <CopyToClipboard text={router.query.hash}>
-                            <button className="btn btn-warning">Copy Invite Code</button>
+                            <button className="btn btn-warning mr-2">Copy Invite Code</button>
                         </CopyToClipboard>
                     </React.Fragment>
 

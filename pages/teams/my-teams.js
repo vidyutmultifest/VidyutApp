@@ -151,7 +151,26 @@ const MyTeamsPage = () => {
             <title> My Teams | Vidyut 2020 </title>
         </Head>
         <TitleBar />
+
             <div className="container my-4">
+                <h1>Team Manager</h1>
+                <div className="alert alert-info my-4 p-3">
+                    <h5>How it Works?</h5>
+                    <ol>
+                        <li>Team leader creates a new team entering the name of the team using the <b>create team</b> option below.</li>
+                        <li>Team leader copies the team code of the newly created team, and shares it with other members</li>
+                        <li>Other members <b>join the team using the team code</b>, and all of them can now view and verify their teams.</li>
+                        <li>Team leader is asked for selecting his team while trying to register for a team event.</li>
+                    </ol>
+                    <h5>Rules</h5>
+                    <ul>
+                        <li>Only team leader is allowed to make registrations for the team</li>
+                        <li>Team leader can make another member the leader of his already created team.</li>
+                        <li>Team leader can change the name of the team, as well as remove members from his team</li>
+                        <li>Teams cannot be edited once it has registered for any event.</li>
+                        <li>Participants are allowed to make as many teams as they wish to.</li>
+                    </ul>
+                </div>
                 { isQueried && myTeams.length > 0 ? renderMyTeams() : null }
                 { renderOptions }
             </div>
