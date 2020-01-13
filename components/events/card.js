@@ -5,7 +5,12 @@ import classNames from 'classnames';
 import '../../styles/events/card.sass';
 import PurchasesItems from "../../modules/events/PurchaseItems";
 
-const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended, alwaysShowCover, isTeamEvent, isTotalRate, dept, organizer, products, firstPrize, profileData, accreditedBy}) => (
+const EventCard = ({
+                       name, cover, text, price, detailsURL,
+                       isNew, isRecommended, alwaysShowCover, isTeamEvent,
+                       isTotalRate, dept, organizer, products, firstPrize,
+                       profileData, accreditedBy
+            }) => (
             <div className="event-card position-relative card-shadow h-100">
                 <Link href={detailsURL}>
                     <div className={classNames('event-cover', !alwaysShowCover ? 'd-none d-md-block' : null)}>
@@ -68,11 +73,14 @@ const EventCard = ({ name, cover, text, price, detailsURL, isNew, isRecommended,
                                     </div>
                                 }
                             /> : null }
-                        <Link href={detailsURL}>
-                            <a href={detailsURL} className="plain-link">
-                                <button className="btn btn-warning px-4 m-1 py-2">Know More</button>
-                            </a>
-                        </Link>
+                    {
+                        detailsURL ?
+                            <Link href={detailsURL}>
+                                <a href={detailsURL} className="plain-link">
+                                    <button className="btn btn-warning px-4 m-1 py-2">Know More</button>
+                                </a>
+                            </Link> : null
+                    }
                     </div>
                 </div>
 );

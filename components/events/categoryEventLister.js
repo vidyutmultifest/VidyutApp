@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import EventCard from "./card";
 import HorizontalSlider from "../HorizontalSlider";
 
-const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen, deptFiltered, searchQuery }) => {
+const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isOpen, deptFiltered, searchQuery }) => {
     const [show, setOpen] = useState(isOpen ? isOpen : false);
 
     const isInName = (name,query) => {
@@ -37,13 +37,37 @@ const CategoryEventLister = ({ name, slug, competitions, profileData, isOpen, de
             />
     );
 
+
+    const renderShowCard = (c) => (
+        <EventCard
+            alwaysShowCover
+            name={c.name}
+            cover={c.cover}
+            price={c.fee}
+            text={c.description}
+            organizer={c.organizer ? c.organizer.label : null}
+            isRecommended={c.isRecommended}
+            isTotalRate={c.isTotalRate}
+            registerText="Purchase"
+            products={c.products}
+            profileData={profileData}
+        />
+    );
+
     const list = competitions && competitions.length > 0 ?
         competitions.filter(c =>
             (!deptFiltered || c.department.value === deptFiltered.value)
             &&  (!searchQuery || isInName(c.name, searchQuery) || isInName(c.department.label, searchQuery))
-        ) : [];
+        ) :  shows && shows.length > 0 ?
+            shows.filter(s =>
+                (!searchQuery || isInName(s.name, searchQuery))
+            )
+        : [];
 
-    const getItems = list.map(c => renderCompetitionCard(c));
+    const getItems = list.map(c =>
+        competitions && competitions.length > 0 ? renderCompetitionCard(c)
+        : shows && shows.length > 0 ? renderShowCard(c) : null
+    );
 
     return getItems.length > 0 ?
     (

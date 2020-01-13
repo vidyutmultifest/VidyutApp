@@ -3,7 +3,7 @@ import React from "react";
 const HorizontalSlider = ({ items }) => {
 
     return (
-        <div className="d-flex" style={{ overflowX: 'auto', cursor: 'all-scroll' }}>
+        <div className="d-flex" style={{ overflowX: 'auto' }}>
             {
                 items && items.length > 0 ?
                     items.map((item,i) =>

@@ -10,34 +10,50 @@ import TitleBar from "../components/titleBar";
 import StatusContainer from "../components/StatusContainer";
 import LoadingScreen from "../components/loadingScreen";
 import DashboardFooter from "../modules/dashboard/footer";
+import CategoryEventLister from "../components/events/categoryEventLister";
 
 const Shows = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
+    const [profileData, setProfileData] = useState(false);
+
 
     const query = `{
-      listTicketEvents
+      myProfile
+      {
+        isAmritian
+        isAmritapurian
+        isFaculty
+        isSchoolStudent
+        hasEventsRegistered
+      }
+      listByCategory
       {
         name
-        cover
-        description
-        fee
         slug
-        isNew
-        isRecommended
-        products
+        ticketEvents
         {
-           productID
-           name
-           price
-           isAvailable
-           isOutsideOnly
-           requireRegistration
-           isGSTAccounted
-           isAmritapurianOnly
-           isFacultyOnly
-           isSchoolOnly  
+            name
+            cover
+            description
+            fee
+            slug
+            isNew
+            isRecommended
+            products
+            {
+               productID
+               name
+               price
+               isAvailable
+               isOutsideOnly
+               requireRegistration
+               isGSTAccounted
+               isAmritapurianOnly
+               isFacultyOnly
+               isSchoolOnly  
+            }
         }
       }
     }`;
@@ -49,28 +65,13 @@ const Shows = () => {
             getShowList().then((response) =>{
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                    setData(response.data.listTicketEvents);
+                    setData(response.data.listByCategory);
+                    setProfileData(response.data.myProfile);
                     setLoaded(true);
                 }
             })
         }
     });
-
-    const renderShowCard = (w) => (
-        <div className="col-md-4 p-2">
-            <EventCard
-                name={w.name}
-                text={w.description}
-                cover={w.cover}
-                price={w.fee}
-                isNew={w.isNew}
-                isRecommended={w.isRecommended}
-                detailsURL={`/show/${w.slug}`}
-                RegisterText="Buy"
-                products={w.products}
-            />
-        </div>
-    );
 
     return <Base>
         <Head>
@@ -90,14 +91,18 @@ const Shows = () => {
                     />
                     {data.length > 0 ?
                         <div className="row m-0">
-                            <div className="col-lg-3">
-                            </div>
-                            <div id="event-listing" className="col-lg-9">
+                            <div id="event-listing" className="col-12">
                                 <div className="row m-0">
                                     {
-                                        isLoaded ?
-                                            data.reverse().map(s => renderShowCard(s))
-                                            : null
+                                        data.map(c =>
+                                                <CategoryEventLister
+                                                    name={c.name}
+                                                    slug={c.slug}
+                                                    isOpen
+                                                    shows={c.ticketEvents}
+                                                    profileData={profileData}
+                                                />
+                                        )
                                     }
                                 </div>
                             </div>
