@@ -91,7 +91,7 @@ const Shows = () => {
                         ]}
                     />
                     {
-                        profileData && !profileData.hasEventsRegistered && profileData.isAmritapurian ?
+                        profileData && !profileData.hasEventsRegistered && !profileData.isAmritapurian ?
                             <div className="bg-gradient-red card-shadow text-light p-4 m-2">
                                 <h4>Register for a Technical Event</h4>
                                 <p>
