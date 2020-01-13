@@ -50,6 +50,7 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
             isTotalRate={c.isTotalRate}
             registerText="Purchase"
             products={c.products}
+            showReason
             profileData={profileData}
         />
     );

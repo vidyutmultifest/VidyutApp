@@ -9,7 +9,7 @@ const EventCard = ({
                        name, cover, text, price, detailsURL,
                        isNew, isRecommended, alwaysShowCover, isTeamEvent,
                        isTotalRate, dept, organizer, products, firstPrize,
-                       profileData, accreditedBy
+                       profileData, accreditedBy, registerText, showReason
             }) => (
             <div className="event-card position-relative card-shadow h-100">
                 <Link href={detailsURL}>
@@ -53,7 +53,7 @@ const EventCard = ({
                         { products && profileData ?
                             <PurchasesItems
                                 products={products}
-                                hideReason={true}
+                                hideReason={!showReason}
                                 profileData={profileData}
                                 buttonStyle={{ backgroundColor: 'blue', color: 'white', margin: '1rem!important'}}
                                 customText={
@@ -61,12 +61,12 @@ const EventCard = ({
                                         <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
                                         <span>
                                     {
-                                        price ? parseInt(price) !== 0 ?
+                                        price && price.length > 0 ? parseInt(price) !== 0 ?
                                             <React.Fragment>
                                                 ₹{price}
                                             </React.Fragment> :
                                             <React.Fragment>Free</React.Fragment>
-                                            : 'Register'
+                                            : registerText
                                     }
                                             {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
                                 </span>

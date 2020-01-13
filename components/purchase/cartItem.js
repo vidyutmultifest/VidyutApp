@@ -23,7 +23,7 @@ const CartItem = ({ title, photo, text, qty, price, badge, onChangeQty, isAvaila
                                     onChangeQty(parseInt(val))
                                 }
                             }
-                            } className="d-inline-block mx-2 form-control" /> | <b>Price:</b> {typeof  price}
+                            } className="d-inline-block mx-2 form-control" /> | <b>Price:</b> {price}
                         </div>
                     </React.Fragment>
                 ) : null
