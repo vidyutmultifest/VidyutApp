@@ -8,6 +8,7 @@ import Base from "../components/base";
 import CartView from "../modules/purchase/cart-view";
 import dataFetch from "../utils/dataFetch";
 import '../styles/bootstrap.sass';
+import StatusContainer from "../components/StatusContainer";
 
 
 const PurchasePage = () => {
@@ -15,9 +16,17 @@ const PurchasePage = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoading] = useState(false);
     const [data, setData] = useState();
-
+    const [profileData, setProfileData] = useState();
 
     const query = `query getProduct($productID: String!){
+      myProfile
+      {
+        isAmritian
+        isAmritapurian
+        isFaculty
+        isSchoolStudent
+        hasEventsRegistered
+      }
       getProduct(productID: $productID)
       {
         name
@@ -26,6 +35,8 @@ const PurchasePage = () => {
         isAmritapurianOnly
         isFacultyOnly
         isSchoolOnly
+        isOutsideOnly
+        requireEventRegistration
         product
         {
           name
@@ -48,6 +59,7 @@ const PurchasePage = () => {
                     setQueried(true);
                     if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                         setData(response.data.getProduct);
+                        setProfileData(response.data.myProfile);
                         setLoading(true);
                     }
                 })
@@ -55,34 +67,58 @@ const PurchasePage = () => {
         }
     });
 
+
+    const checkPossible = () => {
+        return !!(
+            data.isAvailable &&
+            (!data.requireEventRegistration || profileData.isAmritapurian || profileData.hasEventsRegistered) &&
+            (!data.isAmritapurianOnly || profileData.isAmritapurian) &&
+            (!data.isOutsideOnly || !profileData.isAmritapurian) &&
+            (!data.isFacultyOnly || profileData.isFaculty) &&
+            (!data.isSchoolOnly || profileData.isSchoolStudent)
+        );
+    };
+
     return (
         <Base loginRequired>
             <Head>
                 <title>Purchase Tickets, Register for Events | Checkout Page | Vidyut 2020</title>
             </Head>
             <TitleBar/>
-            <div className="container my-4">
-                {
-                    isLoaded ? <CartView
-                        productList={[
-                            {
-                                name: data.name,
-                                productID: router.query.product,
-                                price: data.price,
-                                photo: data.product.photo,
-                                isAmritapurianOnly: data.isAmritapurianOnly,
-                                isFacultyOnly: data.isFacultyOnly,
-                                isSchoolOnly: data.isSchoolOnly,
-                                id: router.query.product,
-                                qty: router.query.qty ? router.query.qty : 1,
-                                isAvailable: data.isAvailable
-                        }
-                        ]}
-                        promocode={router.query.promocode}
-                        regID={router.query.regID}
-                    /> : null
-                }
-            </div>
+            {
+               isLoaded ?
+                   checkPossible() ?
+                   <div className="container my-4">
+                       {
+                           isLoaded ? <CartView
+                               productList={[
+                                   {
+                                       name: data.name,
+                                       productID: router.query.product,
+                                       price: data.price,
+                                       photo: data.product.photo,
+                                       isAmritapurianOnly: data.isAmritapurianOnly,
+                                       isFacultyOnly: data.isFacultyOnly,
+                                       isSchoolOnly: data.isSchoolOnly,
+                                       id: router.query.product,
+                                       qty: router.query.qty ? router.query.qty : 1,
+                                       isAvailable: data.isAvailable
+                                   }
+                               ]}
+                               promocode={router.query.promocode}
+                               regID={router.query.regID}
+                           /> : null
+                       }
+                   </div>
+                   : <div className="p-4">
+                           <StatusContainer
+                               animation={require('../images/animations/cross-failed')}
+                               title="You are not allowed to purchase this item"
+                           />
+                   </div>
+
+               : null
+            }
             <Footer/>
         </Base>
     )
