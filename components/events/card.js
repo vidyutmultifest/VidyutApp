@@ -53,7 +53,7 @@ const EventCard = ({
                         { products && profileData ?
                             <PurchasesItems
                                 products={products}
-                                hideReason={!showReason}
+                                hideReason
                                 profileData={profileData}
                                 buttonStyle={{ backgroundColor: 'blue', color: 'white', margin: '1rem!important'}}
                                 customText={
@@ -72,9 +72,10 @@ const EventCard = ({
                                 </span>
                                     </div>
                                 }
-                            /> : null }
+                            /> : null
+                        }
                     {
-                        detailsURL ?
+                        detailsURL || !profileData ?
                             <Link href={detailsURL}>
                                 <a href={detailsURL} className="plain-link">
                                     <button className="btn btn-warning px-4 m-1 py-2">Know More</button>

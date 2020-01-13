@@ -48,6 +48,7 @@ const Shows = () => {
                price
                isAvailable
                isOutsideOnly
+               requireEventRegistration
                requireRegistration
                isGSTAccounted
                isAmritapurianOnly
@@ -89,6 +90,24 @@ const Shows = () => {
                             },
                         ]}
                     />
+                    {
+                        profileData && !profileData.hasEventsRegistered && profileData.isAmritapurian ?
+                            <div className="bg-gradient-red card-shadow text-light p-4 m-2">
+                                <h4>Register for a Technical Event</h4>
+                                <p>
+                                    You need to register for a competition or workshop first before purchasing
+                                    Vidyut Proshow tickets. All Play and No Work makes Jack a Dull Boy.
+                                </p>
+                                <div>
+                                    <a href="/workshop">
+                                        <button className="btn btn-shadow btn-light px-4 py-2 m-2">View Workshops</button>
+                                    </a>
+                                    <a href="/competitions">
+                                        <button className="btn btn-shadow btn-light px-4 py-2 m-2">View Competitions</button>
+                                    </a>
+                                </div>
+                            </div> : null
+                    }
                     {data.length > 0 ?
                         <div className="row m-0">
                             <div id="event-listing" className="col-12">

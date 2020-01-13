@@ -49,6 +49,7 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
             isRecommended={c.isRecommended}
             isTotalRate={c.isTotalRate}
             registerText="Purchase"
+            detailsURL={`/show/${c.slug}`}
             products={c.products}
             showReason
             profileData={profileData}
