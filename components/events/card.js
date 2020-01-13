@@ -61,7 +61,7 @@ const EventCard = ({
                                         <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
                                         <span>
                                     {
-                                        price && price.length > 0 ? parseInt(price) !== 0 ?
+                                        price ? parseInt(price) !== 0 ?
                                             <React.Fragment>
                                                 ₹{price}
                                             </React.Fragment> :
