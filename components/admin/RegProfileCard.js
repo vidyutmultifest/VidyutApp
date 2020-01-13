@@ -54,6 +54,9 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                             {regID ? <React.Fragment><b>Reg #</b>: {regID}</React.Fragment> : null}
                         </div>
                         <div>
+                            <b>Vidyut ID</b>: {profile.vidyutID}
+                        </div>
+                        <div>
                             <b>Timestamp</b>: {timestamp}
                         </div>
                         <div>

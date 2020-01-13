@@ -56,6 +56,7 @@ const RegistrationList = () => {
             {
               firstName
               lastName
+              vidyutID
             }
           }
           transaction { 
@@ -70,6 +71,7 @@ const RegistrationList = () => {
             lastName
             email
             phone
+            vidyutID
             isAmritapurian
             college { name }
           }
@@ -190,7 +192,7 @@ const RegistrationList = () => {
                         <h4 className="my-4">Detailed List</h4>
                         <div className="row m-0">
                             <div className="col-md-3">
-                                <div className="py-4">
+                                <div className="py-4" style={{position: 'sticky', top: '5rem'}}>
                                     <h4>Filters</h4>
                                     <div className="form-group">
                                         <label htmlFor="shirtSize-select">Type</label>
