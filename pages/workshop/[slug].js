@@ -159,7 +159,7 @@ const Workshop = () => {
                 <EventHeaderCard
                     cover={data.cover}
                     name={data.name}
-                    dept={data.department.name}
+                    dept={data.department ? data.department.name : null}
                     text={data.description}
                     products={data.products}
                 />

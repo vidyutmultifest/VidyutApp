@@ -148,14 +148,14 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                     link: '/workshops'
                 },
                 {
+                    name: "Shows",
+                    link: '/shows'
+                },
+                {
                     name: "Brochure",
                     link: 'http://bit.ly/vidyut-brochure',
                     newTab: true
                 },
-                {
-                    name: "Shows",
-                    link: '/shows'
-                }
             ]
         },
         {

@@ -19,6 +19,7 @@ import FeedStories from "../modules/dashboard/feedStories";
 import VidyutCountDown from "../modules/dashboard/vidyutCountDown";
 import QuickEditCard from "../modules/dashboard/quickEditCard";
 import EducationDetails from "../modules/profile/education";
+import AmritapurianCard from "../components/dashboard/AmritapurianCard";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -165,6 +166,7 @@ const Dashboard = () => {
                                             <VidyutCountDown />
                                         </div>
                                         <div className="col-md-6 py-2">
+                                            { data.myProfile.isAmritapurian ? <AmritapurianCard rollNo={data.myProfile.rollNo} /> : null}
                                             <VIDCard vid={data.myProfile.vidyutID} vhash={data.myProfile.vidyutHash ? data.myProfile.vidyutHash : '123'} />
                                             <ProfileCard data={data.myProfile} />
                                         </div>
