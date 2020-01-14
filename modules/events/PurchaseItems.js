@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
+const shortid = require('shortid');
 
 const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData, buttonStyle }) => {
     const [isQueried, setQueried] = useState(false);
@@ -39,7 +40,6 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
             setLoaded(true);
         }
     });
-
 
     const optionButton = (p, disabled) => (
         <button className="purchase-option-button card-shadow" disabled={disabled}>
@@ -133,7 +133,9 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                         p.requireRegistration ?
                             `/registrations/register?product=${p.productID}` :
                             `/purchase?product=${p.productID}`
-                    }>
+                    }
+                          key={shortid.generate()}
+                    >
                         <a
                             href={
                             p.requireRegistration ?

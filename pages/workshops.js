@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Base from "../components/base";
 import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
+const shortid = require('shortid');
 
 import '../styles/events/style.sass';
 import '../styles/bootstrap.sass';
@@ -90,7 +91,7 @@ const Workshops = () => {
     });
 
     const renderWorkshopCard = (w) => (
-        <div className="col-md-6 col-lg-4 p-2">
+        <div key={shortid.generate()} className="col-md-6 col-lg-4 p-2">
             <EventCard
                 name={w.name}
                 text={w.description}

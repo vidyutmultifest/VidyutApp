@@ -4,6 +4,8 @@ import classNames from 'classnames';
 
 import '../../styles/events/card.sass';
 import PurchasesItems from "../../modules/events/PurchaseItems";
+import Image from "../Image";
+const shortid = require('shortid');
 
 const EventCard = ({
                        name, cover, text, price, detailsURL,
@@ -11,10 +13,13 @@ const EventCard = ({
                        isTotalRate, dept, organizer, products, firstPrize,
                        profileData, accreditedBy, registerText, showReason
             }) => (
-            <div className="event-card position-relative card-shadow h-100">
+            <div key={shortid.generate()} className="event-card position-relative card-shadow h-100">
                 <Link href={detailsURL}>
                     <div className={classNames('event-cover', !alwaysShowCover ? 'd-none d-md-block' : null)}>
-                        <img src={cover ? cover : require('../../images/assets/vidyut_placeholder.jpg')} />
+                        <Image
+                            src={cover ? cover : require('../../images/assets/vidyut_placeholder.jpg')}
+                            alt={`cover image for ${name} event at Vidyut 2020`}
+                        />
                         <div className="event-card-badges">
                             { isNew ? <span className="new-badge">New</span> : null }
                             { isRecommended ? <span className="recommend-badge">Recommended</span>: null}

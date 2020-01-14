@@ -3,6 +3,7 @@ import dataFetch from "../../utils/dataFetch";
 import '../../styles/events/scroll-selector.sass';
 import ContentCard from "../../components/events/contentCard";
 const classNames = require("classnames");
+const shortid = require('shortid');
 
 const DepartmentSelector = ({ onSelect }) => {
     const [isQueried, setQueried] = useState(false);
@@ -25,7 +26,6 @@ const DepartmentSelector = ({ onSelect }) => {
         {
             getDepartments().then(  response => {
                 setQueried(true);
-                console.log(response);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.listDepartments);
                 }
@@ -42,7 +42,7 @@ const DepartmentSelector = ({ onSelect }) => {
             <div className="scroll-wrapper">
                 {
                     data.map(d => (
-                        <a onClick={() => {
+                        <a key={shortid.generate()} onClick={() => {
                             if(selected===d.value)
                             {
                                 setSelected(false);

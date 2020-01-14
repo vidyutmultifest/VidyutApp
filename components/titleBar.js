@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+const shortid = require('shortid');
+
 import Link from "next/link";
 
 import '../styles/bootstrap.sass';
@@ -184,6 +186,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
         {
             menuItems.map((s,i) =>
                 <DropdownMenu
+                    key={shortid.generate()}
                     item={s}
                     isOpen={itemOpen === i}
                     onClick={() => setItemOpen( itemOpen !== i ?  i : null)}
@@ -283,7 +286,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                     </Link>
                     {
                         breadcrumbs.length > 0 ? breadcrumbs.map(l => (
-                            <Link href={l.link}>
+                            <Link href={l.link} key={shortid.generate()}>
                                 <a href={l.link} className={classNames("breadcrumb-item plain-link", l.active ? "active" : null)} aria-current="page">
                                     {l.name}
                                 </a>

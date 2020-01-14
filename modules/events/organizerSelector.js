@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import dataFetch from "../../utils/dataFetch";
+const shortid = require('shortid');
 
 import '../../styles/events/scroll-selector.sass';
 import ContentCard from "../../components/events/contentCard";
@@ -42,7 +43,7 @@ const OrganizerSelector = ({ onSelect, isOpen }) => {
                     <div className="scroll-wrapper">
                         {
                             data.map(d => (
-                                <a onClick={() => {
+                                <a key={shortid.generate()} onClick={() => {
                                     if(selected===d.value)
                                     {
                                         setSelected(false);

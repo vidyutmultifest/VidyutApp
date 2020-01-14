@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Base from "../components/base";
 import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
+const shortid = require('shortid');
 
 import '../styles/events/style.sass';
 import '../styles/bootstrap.sass';
@@ -261,6 +262,7 @@ const Competitions = () => {
                                                             deptFiltered={deptSel ? deptSel : false}
                                                             competitions={c.competitions}
                                                             profileData={profileData}
+                                                            key={shortid.generate()}
                                                         /> : null
                                                     )
                                                 }

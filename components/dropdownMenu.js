@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React from "react";
+const shortid = require('shortid');
+
 
 const DropdownMenu = ({ item, onClick, isOpen }) => {
 
     return (
-        <button className="titlebar-menu-item" onClick={onClick}>
+        <button key={shortid.generate()} className="titlebar-menu-item" onClick={onClick}>
             {item.title}
             {
                 isOpen ?

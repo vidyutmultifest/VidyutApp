@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import ContentCard from "../../components/events/contentCard";
 import classNames from 'classnames';
+const shortid = require('shortid');
 
 const CategorySelector = ({ data, onSelect }) => {
     const [selected, setSelected] = useState(false);
@@ -14,7 +15,7 @@ const CategorySelector = ({ data, onSelect }) => {
                     <div className="scroll-wrapper">
                         {
                             data.map(d => (
-                                <a onClick={() => {
+                                <a key={shortid.generate()} onClick={() => {
                                     if(selected===d.slug)
                                     {
                                         setSelected(false);

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import EventCard from "./card";
 import HorizontalSlider from "../HorizontalSlider";
 
+
 const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isOpen, deptFiltered, searchQuery }) => {
     const [show, setOpen] = useState(isOpen ? isOpen : false);
 
