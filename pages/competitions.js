@@ -214,6 +214,12 @@ const Competitions = () => {
                             },
                         ]}
                     />
+                    {
+                        !deptSel && !sQuery ?
+                            <div className="my-4">
+                                <Slideshow feedSlug="competitions" />
+                            </div> : null
+                    }
                     <div className="d-block d-md-none px-2 pt-4" id="search-box">
                         <ContentCard
                             title="Search"
@@ -238,7 +244,6 @@ const Competitions = () => {
                                             </div>
                                         </div>
                                         <div className="col-lg-9 col-md-8 px-2 py-4">
-                                            <Slideshow feedSlug="competitions" />
                                             <div id="event-listing">
                                                 {
                                                     ("recommended" === selected || !selected) &&

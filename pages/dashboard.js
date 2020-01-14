@@ -20,6 +20,7 @@ import VidyutCountDown from "../modules/dashboard/vidyutCountDown";
 import QuickEditCard from "../modules/dashboard/quickEditCard";
 import EducationDetails from "../modules/profile/education";
 import AmritapurianCard from "../components/dashboard/AmritapurianCard";
+import Slideshow from "../components/slideshow";
 
 const Dashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -90,6 +91,9 @@ const Dashboard = () => {
                     <div>
                     <TitleBar />
                         <FeedStories />
+                        <div className="my-4">
+                            <Slideshow feedSlug="home" />
+                        </div>
                         <div id="dashboard-wrapper">
                             <div className="container p-0">
                                 {

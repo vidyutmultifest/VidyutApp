@@ -213,7 +213,12 @@ const Workshops = () => {
                             },
                         ]}
                     />
-                    <Slideshow feedSlug="workshops" />
+                    {
+                        deptSel === '' &&  sQuery === '' && orgSel === '' ?
+                            <div className="my-4">
+                                <Slideshow feedSlug="workshops" />
+                            </div> : null
+                    }
                     <div className="d-block d-md-none px-2 pt-4" id="search-box">
                         <ContentCard
                             title="Search"
