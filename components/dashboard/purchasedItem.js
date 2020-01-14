@@ -10,7 +10,13 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
     const [isLoading, setLoading] = useState(false);
 
     const renderOnlineTransactionDetails = () => {
-        const data = JSON.parse(transaction.transactionData);
+        let data;
+        try {
+           data = JSON.parse(transaction.transactionData);
+
+        } catch (e) {
+            data = null
+        }
         return (
             <React.Fragment>
                 <div><b>Bank Reference No.:</b> {data ? data.bankrefno : "No Response Recieved"}</div>
