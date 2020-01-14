@@ -65,19 +65,36 @@ const EventCard = ({
                                     <div>
                                         <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
                                         <span>
-                                    {
-                                        price ? parseInt(price) !== 0 ?
-                                            <React.Fragment>
-                                                ₹{price}
-                                            </React.Fragment> :
-                                            <React.Fragment>Free</React.Fragment>
-                                            : registerText
-                                    }
-                                            {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
-                                </span>
+                                            {
+                                                price ? parseInt(price) !== 0 ?
+                                                    <React.Fragment>
+                                                        ₹{price}
+                                                    </React.Fragment> :
+                                                    <React.Fragment>Free</React.Fragment>
+                                                    : registerText
+                                            }
+                                                    {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
+                                        </span>
                                     </div>
                                 }
-                            /> : null
+                            /> : <Link href="/dashboard">
+                                <a href="/dashboard">
+                                    <div className="btn btn-primary btn-shadow px-4 py-2 m-2 rounded-0">
+                                        <img src={require('../../images/icons/cart-icon.png')} style={{ width: '22px', marginRight: '5px', filter: 'invert(1)' }} />
+                                        <span>
+                                            {
+                                                price ? parseInt(price) !== 0 ?
+                                                    <React.Fragment>
+                                                        ₹{price}
+                                                    </React.Fragment> :
+                                                    <React.Fragment>Free</React.Fragment>
+                                                    : registerText
+                                            }
+                                            {isTeamEvent ? isTotalRate ? "/team" : "/head" : null }
+                                        </span>
+                                    </div>
+                                </a>
+                            </Link>
                         }
                     {
                         detailsURL || !profileData ?

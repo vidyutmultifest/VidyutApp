@@ -10,7 +10,7 @@ const ScheduleCard = ({ schedule }) => {
                 Schedule
             </h5>
             {
-                schedule.map((s,i) => (
+                schedule.map(s => (
                     <div className="py-3">
                         <div className="font-weight-bold">{moment(s.slot.startTime).format("DD/MM/YY")}</div>
                         <div>{moment(s.slot.startTime).format("h:mm a")} - {moment(s.slot.endTime).format("h:mm a")}</div>
