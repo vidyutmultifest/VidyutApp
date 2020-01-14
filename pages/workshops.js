@@ -16,6 +16,7 @@ import OrganizerSelector from "../modules/events/organizerSelector";
 import ContentCard from "../components/events/contentCard";
 
 import classNames from 'classnames';
+import Slideshow from "../components/slideshow";
 
 const Workshops = () => {
     const [isQueried, setQueried] = useState(false);
@@ -212,6 +213,7 @@ const Workshops = () => {
                             },
                         ]}
                     />
+                    <Slideshow feedSlug="workshops" />
                     <div className="d-block d-md-none px-2 pt-4" id="search-box">
                         <ContentCard
                             title="Search"

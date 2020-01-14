@@ -16,6 +16,7 @@ import ContentCard from "../components/events/contentCard";
 import CategoryEventLister from "../components/events/categoryEventLister";
 import classNames from "classnames";
 import CategorySelector from "../modules/events/categorySelector";
+import Slideshow from "../components/slideshow";
 
 const _ = require('lodash');
 
@@ -237,6 +238,7 @@ const Competitions = () => {
                                             </div>
                                         </div>
                                         <div className="col-lg-9 col-md-8 px-2 py-4">
+                                            <Slideshow feedSlug="competitions" />
                                             <div id="event-listing">
                                                 {
                                                     ("recommended" === selected || !selected) &&
