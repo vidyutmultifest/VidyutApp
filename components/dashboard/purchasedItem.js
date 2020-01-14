@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+const shortid = require('shortid');
+
 import '../../styles/dashboard/purchase.sass';
 import Modal from "react-modal";
 import moment from "moment";
@@ -50,7 +52,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
             <div onClick={()=> setOpen(true)} className="purchased-item">
                 <div className="row m-0">
                     <div className="col-9 px-2">
-                        {products.map(p => <h6>{p.name}</h6>)}
+                        {products.map(p => <h6 key={shortid.generate()}>{p.name}</h6>)}
                     </div>
                     <div className="col px-2">
                         <div className="amount">{amount ? <b>₹{amount}</b> : null }</div>
@@ -153,7 +155,7 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                         <div>
                             <h5 className="py-3">Order Items</h5>
                             {products.map(p =>
-                                <div className="card-shadow p-4">
+                                <div key={shortid.generate()} className="card-shadow p-4">
                                     <h6>{p.name}</h6>
                                     <span className="small-text">Qty: {p.qty} | Rs.{p.price}</span>
                                 </div>

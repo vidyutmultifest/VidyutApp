@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 const shortid = require('shortid');
-
 import Link from "next/link";
 
 import '../styles/bootstrap.sass';

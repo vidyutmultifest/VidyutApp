@@ -1,4 +1,5 @@
 import React from "react";
+const shortid = require('shortid');
 import QuickActionCard from "../../components/dashboard/QuickActionCard";
 
 const QuickActionCards = ({ status }) => (
@@ -13,6 +14,7 @@ const QuickActionCards = ({ status }) => (
                             text="Concert, Choreo, Expo & More"
                             title="Buy Passes"
                             link="/shows"
+                            key={shortid.generate()}
                         />
                     </div>
                 ) : null
@@ -25,6 +27,7 @@ const QuickActionCards = ({ status }) => (
                             text="Exciting Competitions with cash prizes"
                             title="Participate in Competitions"
                             link="/competitions"
+                            key={shortid.generate()}
                         />
                     </div>
                 ) : null
@@ -37,6 +40,7 @@ const QuickActionCards = ({ status }) => (
                             text="Wide variety of professional workshops"
                             title="Register for Workshops"
                             link="/workshops"
+                            key={shortid.generate()}
                         />
                     </div>
                 ) : null
@@ -49,6 +53,7 @@ const QuickActionCards = ({ status }) => (
                             text="T-shirts, goodies and more"
                             title="Buy Merchandise"
                             link="/merchandise"
+                            key={shortid.generate()}
                         />
                     </div>
                 ) : null

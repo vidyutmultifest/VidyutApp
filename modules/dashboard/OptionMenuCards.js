@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
+const shortid = require('shortid');
+
 
 const OptionMenuCards = ({ status }) => {
 
     const renderCard = (card) => (
-        <div className="col-md-3 col-6 py-1 px-0">
+        <div key={shortid.generate()} className="col-md-3 col-6 py-1 px-0">
             <div className="option-menu-card card-shadow h-100 p-2">
                 <Link href={card.link}>
                     <a>

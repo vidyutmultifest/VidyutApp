@@ -1,11 +1,13 @@
 import React from "react";
+const shortid = require('shortid');
 import Link from "next/link";
 import Card from "./Card";
 
-const QuickActionCard = ({ title, items, showMoreButton, renderWhenEmpty }) => {
+const QuickActionCard = ({ title, items, showMoreButton, renderWhenEmpty, key }) => {
     return (
         <Card
             title={title}
+            key={key}
             content={
                 items && items.length > 0 ?
                     <div className="mb-2">{items.map(i => i)}</div>
