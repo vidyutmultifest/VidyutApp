@@ -26,7 +26,7 @@ const MyTeamsPage = () => {
       }
     }`;
 
-    const joinTeamMutation = `mutation createTeam($teamHash:String!){
+    const joinTeamMutation = `mutation joinTeam($teamHash:String!){
       joinTeam(teamHash: $teamHash)
       {
         hash
@@ -70,12 +70,18 @@ const MyTeamsPage = () => {
         });
     };
 
+    const [joinTeamError, setJoinTeamError] = useState();
+
     const handleJoinTeam = () => {
         setCreatingTeam(true);
         joinTeam({teamHash}).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 const hash = response.data.joinTeam.hash;
                 router.push('/teams/view?hash=' + hash);
+                setCreatingTeam(false);
+            }
+            else {
+                setJoinTeamError(response.errors);
                 setCreatingTeam(false);
             }
         });
@@ -95,7 +101,7 @@ const MyTeamsPage = () => {
                                     id="team-name-input"
                                     name="team-name-input"
                                     className="form-control"
-                                    placeholder="Enter Team Name"
+                                    placeholder="Enter Team Name for creating a new team"
                                     onChange={(e) => setTeamName(e.target.value)}
                                 />
                             </div>
@@ -111,13 +117,19 @@ const MyTeamsPage = () => {
                     title="Join a Team"
                     content={
                         <div className="px-4 py-2">
+                            {
+                                joinTeamError ?
+                                    <div className="alert alert-danger p-2">
+                                        {joinTeamError[0].message}
+                                    </div> : null
+                            }
                             <div className="form-group">
-                                <label htmlFor="team-name-input">Team Code</label>
+                                <label htmlFor="team-code-input">Team Code</label>
                                 <input
-                                    id="team-name-input"
-                                    name="team-name-input"
+                                    id="team-code-input"
+                                    name="team-code-input"
                                     className="form-control"
-                                    placeholder="Enter Team Code"
+                                    placeholder="Enter Team Code for Joining a Team"
                                     onChange={(e) => setTeamHash(e.target.value)}
                                 />
                             </div>
@@ -146,7 +158,7 @@ const MyTeamsPage = () => {
         </div>
     );
 
-    return isCreatingTeam ? <LoadingScreen text="Creating your team" /> : <Base loginRequired>
+    return isCreatingTeam ? <LoadingScreen text="Fetching your team" /> : <Base loginRequired>
         <Head>
             <title> My Teams | Vidyut 2020 </title>
         </Head>

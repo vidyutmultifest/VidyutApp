@@ -34,11 +34,16 @@ const Slideshow = ({ feedSlug }) => {
 
     return (
         <div className="slideshow-card card-shadow">
-            <Carousel>
+            <Carousel
+                autoplay
+                transitionMode="scroll3d"
+            >
                 {
                     data && data.length > 0 ?
                         data[0].slides.map(s =>
-                            <img src={s.image} />
+                            <a href={s.link ? s.link : null}>
+                                <img src={s.image} />
+                            </a>
                         )
                     : null
                 }

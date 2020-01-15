@@ -41,6 +41,7 @@ const TeamViewPage = () => {
           username
         }
         isUserLeader
+        isEditable
       }
     }`;
 
@@ -79,7 +80,10 @@ const TeamViewPage = () => {
 
     const handleEditTeam = () => {
         setSaving(true);
-        const details = { name: teamName, removeMembers: removedMembers, leader };
+        const details = {
+            name: teamName,
+            removeMembers: removedMembers, leader
+        };
         editTeam({ details, hash: router.query.hash}).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 setSaving(false);
@@ -88,11 +92,15 @@ const TeamViewPage = () => {
         });
     };
 
+    const handleUploadDocument = () => {
+        setSaving(true);
+    };
+
     const renderMemberCard = (m,i) => (
         <div className="list-group-item">
             <h5 className="mb-0">{i}. {m.name}</h5>
             {
-                m.username !== myUsername && teamData.isUserLeader && m.username !== leader ?
+                m.username !== myUsername && teamData.isUserLeader && m.username !== leader && teamData.isEditable ?
                     <button className="btn btn-danger mt-2 rounded-0" style={{ fontSize: "0.8rem" }} onClick={() =>
                         addRemovedMembers([...removedMembers, m.username])
                     }>
@@ -133,7 +141,7 @@ const TeamViewPage = () => {
                                 className="form-control"
                                 value={teamName}
                                 onChange={(e) => setTeamName(e.target.value)}
-                                disabled={!teamData.isUserLeader}
+                                disabled={!teamData.isUserLeader || !teamData.isEditable}
                                 placeholder="Enter Team Name"
                             />
                         </div>
@@ -143,7 +151,7 @@ const TeamViewPage = () => {
                                 name="teamLeader-select"
                                 id="teamLeader-select"
                                 className="form-control"
-                                disabled={!teamData.isUserLeader}
+                                disabled={!teamData.isUserLeader || !teamData.isEditable}
                                 onChange={(e) => setLeader(e.target.value)}
                                 value={leader}
                             >
@@ -165,9 +173,11 @@ const TeamViewPage = () => {
                 footer={
                     <React.Fragment>
                         {
-                            !teamData.isUserLeader ?
-                                <button className="btn btn-primary mr-2" onClick={exitTeam}>Leave Team</button> :
-                                <button onClick={handleEditTeam} className="btn btn-primary mr-2">Save</button>
+                            teamData.isEditable ?
+                                !teamData.isUserLeader ?
+                                    <button className="btn btn-primary mr-2" onClick={exitTeam}>Leave Team</button> :
+                                    <button onClick={handleEditTeam} className="btn btn-primary mr-2">Save</button>
+                                : null
                         }
                         <WhatsappShareButton
                             url="https://vidyut.amrita.edu/teams/my-teams"
