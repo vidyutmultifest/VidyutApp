@@ -11,7 +11,7 @@ class LanderCover extends Component  {
             <section id="lander-cover">
                 <TitleBar className="dark-theme" hideLogo />
                 <div className="title-container">
-                    <img id="cover-multifest-img" className="animated slideInRight delay-1s" src={require('../../images/lander/sample-cover-image.png')} />
+                    <img id="cover-multifest-img" className="animated slideInRight delay-1s" src={require('../../images/lander/cover-image.png')} />
                     <div className="cover-el">
                         <img id="cover-el-1" src={require('../../images/lander/elements/Shape-Cross.svg')} />
                         <img id="cover-el-2" src={require('../../images/lander/elements/Shape-Cross.svg')} />
