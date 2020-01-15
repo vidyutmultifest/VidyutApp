@@ -33,10 +33,13 @@ const Slideshow = ({ feedSlug }) => {
     });
 
     return (
-        <div className="slideshow-card card-shadow">
+        <div className="slideshow-card card-shadow p-0">
             <Carousel
                 autoplay
                 transitionMode="scroll3d"
+                autoplayReverse
+                autoplayInterval={6000}
+                wrapAround
             >
                 {
                     data && data.length > 0 ?
