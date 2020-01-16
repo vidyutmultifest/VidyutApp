@@ -17,7 +17,6 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
 
     };
 
-
     const renderCompetitionCard = (c) => (
             <EventCard
                 alwaysShowCover
@@ -34,6 +33,7 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
                 registerText="Register"
                 products={c.products}
                 profileData={profileData}
+                KTUActivityPoints={c.KTUActivityPoints}
                 firstPrize={c.firstPrize}
             />
     );
@@ -71,6 +71,8 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
         : shows && shows.length > 0 ? renderShowCard(c) : null
     );
 
+    console.log(list);
+
     return getItems.length > 0 ?
     (
         <div className="my-4" id={`${slug}-listing`}>
@@ -87,7 +89,19 @@ const CategoryEventLister = ({ name, slug, competitions, shows, profileData, isO
                 </div>
             </button>
             {
-                show ? <HorizontalSlider items={getItems}/>: null
+                show ?
+                    shows && shows.length > 0 ?
+                        <div className="row m-0">
+                            {
+                                list.map(c =>
+                                    <div className="col-md-4 p-2">
+                                        {renderShowCard(c)}
+                                    </div>
+                                )
+                            }
+                        </div>
+                        : <HorizontalSlider items={getItems}/>
+                    : null
             }
         </div>
     ) : null

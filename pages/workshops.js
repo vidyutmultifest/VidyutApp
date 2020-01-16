@@ -45,6 +45,7 @@ const Workshops = () => {
         fee
         slug
         isRecommended
+        KTUActivityPoints
         products
         {
            productID
@@ -105,6 +106,7 @@ const Workshops = () => {
                 detailsURL={`/workshop/${w.slug}`}
                 products={w.products}
                 profileData={profileData}
+                KTUActivityPoints={w.KTUActivityPoints}
                 accreditedBy={w.accreditedBy ? w.accreditedBy.name : null}
             />
         </div>

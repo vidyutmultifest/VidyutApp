@@ -11,7 +11,8 @@ const EventCard = ({
                        name, cover, text, price, detailsURL,
                        isNew, isRecommended, alwaysShowCover, isTeamEvent,
                        isTotalRate, dept, organizer, products, firstPrize,
-                       profileData, accreditedBy, registerText, showReason
+                       profileData, accreditedBy, registerText, showReason,
+                       KTUActivityPoints
             }) => (
             <div key={shortid.generate()} className="event-card position-relative card-shadow h-100">
                 <Link href={detailsURL}>
@@ -43,6 +44,15 @@ const EventCard = ({
                                     <div style={{ fontSize: 'calc(1rem + 0.2vw)', fontWeight: '900' }}>₹{ firstPrize }</div>
                                 </div>
                                 : null
+                        }
+                        {
+                            KTUActivityPoints ?
+                                <div>
+                                    <div>
+                                        <img src={require('../../images/icons/coins.png')} style={{ width: '45px', paddingRight: '0.5rem' }} />
+                                        <b>{KTUActivityPoints}</b> KTU Activity Points
+                                    </div>
+                                </div> : null
                         }
                         {
                             accreditedBy ?

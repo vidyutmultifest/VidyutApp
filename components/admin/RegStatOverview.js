@@ -5,6 +5,7 @@ const RegStatOverview = () => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
+    const [amountData, setAmountData] = useState(false);
 
     const query = `{
       registrationCount
@@ -22,6 +23,12 @@ const RegStatOverview = () => {
         onlinePaid
         offlinePaid
       }
+      registrationAmount
+      {
+        total
+        online
+        offline
+      }
     }`;
 
     const getStats = async () => await dataFetch({ query });
@@ -33,6 +40,7 @@ const RegStatOverview = () => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.registrationCount);
+                    setAmountData(response.data.registrationAmount);
                     setLoaded(true);
                 }
             })
@@ -78,6 +86,24 @@ const RegStatOverview = () => {
                 <div className="card-shadow p-2 h-100">
                     <h2>{data.onlinePaid} / {data.offlinePaid}</h2>
                     <h6>Online/Offline Paid</h6>
+                </div>
+            </div>
+            <div className="col-md-4 p-2 col-6">
+                <div className="card-shadow p-2 h-100">
+                    <h2>Rs. {amountData.total}</h2>
+                    <h6>Total Amount Collected</h6>
+                </div>
+            </div>
+            <div className="col-md-4 p-2 col-6">
+                <div className="card-shadow p-2 h-100">
+                    <h2>Rs. {amountData.online}</h2>
+                    <h6>Amount Collected Online</h6>
+                </div>
+            </div>
+            <div className="col-md-4 p-2 col-6">
+                <div className="card-shadow p-2 h-100">
+                    <h2>Rs. {amountData.offline}</h2>
+                    <h6>Amount Collected Offline</h6>
                 </div>
             </div>
         </div>

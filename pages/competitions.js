@@ -54,6 +54,7 @@ const Competitions = () => {
         isTotalRate
         isTeamEvent
         firstPrize
+        KTUActivityPoints
         products
         {
            productID
@@ -94,6 +95,7 @@ const Competitions = () => {
             isTotalRate
             isTeamEvent
             firstPrize
+            KTUActivityPoints
             products
             {
                productID
