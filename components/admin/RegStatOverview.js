@@ -19,6 +19,8 @@ const RegStatOverview = () => {
         outsider
         insiderPaid
         outsiderPaid
+        onlinePaid
+        offlinePaid
       }
     }`;
 
@@ -43,33 +45,39 @@ const RegStatOverview = () => {
                 <h4 className="my-4">Overall Statistics</h4>
             </div>
             <div className="col-md-4 p-2 col-6">
-                <div className="card-shadow p-2">
+                <div className="card-shadow p-2 h-100">
                     <h2><span className="text-success">{data.paid}</span> / {data.total}</h2>
                     <h6>Total</h6>
                 </div>
             </div>
             <div className="col-md-4 p-2 col-6">
-                <div className="card-shadow p-2">
+                <div className="card-shadow p-2 h-100">
                     <h2><span className="text-success">{data.workshopPaid}</span> / {data.workshop}</h2>
                     <h6>Workshop</h6>
                 </div>
             </div>
             <div className="col-md-4 p-2 col-6">
-                <div className="card-shadow p-2">
+                <div className="card-shadow p-2 h-100">
                     <h2><span className="text-success">{data.competitionPaid}</span> / {data.competition}</h2>
                     <h6>Competition</h6>
                 </div>
             </div>
             <div className="col-md-4 p-2 col-6">
-                <div className="card-shadow p-2">
+                <div className="card-shadow p-2 h-100">
                     <h2><span className="text-success">{data.insiderPaid}</span> / {data.insider}</h2>
                     <h6>Insiders</h6>
                 </div>
             </div>
             <div className="col-md-4 p-2 col-6">
-                <div className="card-shadow p-2">
+                <div className="card-shadow p-2 h-100">
                     <h2><span className="text-success">{data.outsiderPaid}</span> / {data.outsider}</h2>
                     <h6>Outsiders</h6>
+                </div>
+            </div>
+            <div className="col-md-4 p-2 col-6">
+                <div className="card-shadow p-2 h-100">
+                    <h2>{data.onlinePaid} / {data.offlinePaid}</h2>
+                    <h6>Online/Offline Paid</h6>
                 </div>
             </div>
         </div>

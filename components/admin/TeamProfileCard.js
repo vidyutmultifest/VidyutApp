@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ContentCard from "../events/contentCard";
 import dataFetch from "../../utils/dataFetch";
 import RegProfileCard from "./RegProfileCard";
@@ -24,6 +24,28 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
         })
     };
 
+    const [allowEditing, setLockState] = useState(teamProfile.allowEditing);
+    const UnlockTeamMutation = `mutation unlockTeamEditing($teamHash: String!)
+        {
+          unlockTeamEditing(teamHash: $teamHash)
+          {
+            status
+          }
+    }`;
+
+    const unlockTeam = async variables => await dataFetch({ query: UnlockTeamMutation, variables });
+
+    const [isLoading, setLoading] = useState(false);
+
+    const handleUnlocking = () => {
+        setLoading(true);
+        const teamHash = teamProfile.hash;
+        unlockTeam({teamHash}).then((response) => {
+            setLockState(!allowEditing);
+            setLoading(false);
+        })
+    };
+
     let form = [];
     if(formData && formData !== null && formData !== "false")
         form = JSON.parse(formData.replace(/'/g, '"'));
@@ -40,9 +62,9 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
                 : <div className="badge badge-secondary mr-2 p-2">Not Attempted</div>
             }
         </div>}
-        classNames="mt-3"
+        classNames="mt-3 p-2"
         node={
-            <div>
+            !isLoading ? <div>
                 <div className="alert alert-secondary my-2">
                     <div className="font-weight-bold mb-2">Team Profile</div>
                     <div className="small-text" style={{ lineHeight: '1.35'}}>
@@ -56,6 +78,15 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
                             <b>Team Size</b>: {teamProfile.members.length}
                         </div>
                     </div>
+                </div>
+                <div className="alert alert-secondary my-2">
+                    <div className="font-weight-bold mb-2">Quick Actions</div>
+                    <button
+                        className="btn btn-shadow btn-warning rounded-0 px-4 py-2"
+                        onClick={handleUnlocking}
+                    >
+                        { allowEditing ? 'Lock Team Editing' : 'Unlock Team Editing'}
+                    </button>
                 </div>
                 {
                         <div className="alert alert-secondary my-2">
@@ -84,7 +115,7 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
                     <div className="row m-0">
                         {
                             teamProfile.members.map( m =>
-                                <div className="col-md-6 p-2 col-12">
+                                <div className="col-md-6 p-md-2 px-0 py-2 col-12">
                                     <RegProfileCard profile={m} />
                                 </div>
                             )
@@ -106,7 +137,7 @@ const TeamProfileCard = ({ teamProfile, formData, transaction, regID, timestamp 
                             </div>
                         </div> : null
                 }
-            </div>
+            </div> : <div className="alert alert-warning p-2">Saving</div>
         }
     />
 };

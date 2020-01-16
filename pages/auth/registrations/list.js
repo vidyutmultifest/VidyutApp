@@ -41,6 +41,8 @@ const RegistrationList = () => {
           teamProfile
           {
             name
+            allowEditing
+            hash
             leader
             {
               firstName
@@ -112,10 +114,12 @@ const RegistrationList = () => {
                 title={
                     <div className="d-inline">
                         <h5 className="d-inline">{c.name}</h5>
-                        <div className="badge badge-success ml-2" style={{ fontSize: '1rem' }}>{c.count.paid}</div>
-                        <div className="badge badge-danger ml-2" style={{ fontSize: '1rem' }}>{c.count.paymentPending}</div>
-                        <div className="badge badge-primary ml-2" style={{ fontSize: '1rem'}}>{c.count.paid - c.count.amritapurianPaid}</div>
-                        <div className="badge ml-2 text-light" style={{ fontSize: '1rem',  backgroundColor: '#a4123f' }}>{c.count.amritapurianPaid}</div>
+                        <div>
+                            <div className="badge badge-success ml-2" style={{ fontSize: '1rem' }}>{c.count.paid}</div>
+                            <div className="badge badge-danger ml-2" style={{ fontSize: '1rem' }}>{c.count.paymentPending}</div>
+                            <div className="badge badge-primary ml-2" style={{ fontSize: '1rem'}}>{c.count.paid - c.count.amritapurianPaid}</div>
+                            <div className="badge ml-2 text-light" style={{ fontSize: '1rem',  backgroundColor: '#a4123f' }}>{c.count.amritapurianPaid}</div>
+                        </div>
                     </div>
                    }
                 node={
@@ -173,23 +177,25 @@ const RegistrationList = () => {
             <div className="container px-0 py-4">
                 { isLoaded && data ?
                     <div>
-                        <h2>Registration List</h2>
-                        <div>
-                            Showing registrations received for
-                            {
-                                router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
-                                    router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
-                                        null
-                            }
-                            that you have access to and which received registrations,
-                            {
-                                router.query.isPaid === '1' ? <React.Fragment> with details of <b>paid</b> transactions.</React.Fragment> :
-                                    router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
-                                        :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
-                            }
+                        <div className="p-4">
+                            <h2>Registration List</h2>
+                            <div>
+                                Showing registrations received for
+                                {
+                                    router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
+                                        router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
+                                            null
+                                }
+                                that you have access to and which received registrations,
+                                {
+                                    router.query.isPaid === '1' ? <React.Fragment> with details of <b>paid</b> transactions.</React.Fragment> :
+                                        router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
+                                            :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
+                                }
+                            </div>
                         </div>
                         <RegStatOverview />
-                        <h4 className="my-4">Detailed List</h4>
+                        <h4 className="px-4 my-4">Detailed List</h4>
                         <div className="row m-0">
                             <div className="col-md-3">
                                 <div className="py-4" style={{position: 'sticky', top: '5rem'}}>
