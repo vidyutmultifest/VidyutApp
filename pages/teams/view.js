@@ -10,6 +10,7 @@ import dataFetch from "../../utils/dataFetch";
 import LoadingScreen from "../../components/loadingScreen";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import { WhatsappShareButton } from 'react-share';
+import fileUpload from "../../utils/fileUpload";
 
 const TeamViewPage = () => {
     const router = useRouter();
@@ -42,6 +43,7 @@ const TeamViewPage = () => {
         }
         isUserLeader
         isEditable
+        document
       }
     }`;
 
@@ -78,23 +80,38 @@ const TeamViewPage = () => {
         }
     });
 
+    const uploadFile = async data => await fileUpload(data);
+    const [Document, setUploadFile] = useState(false);
+
     const handleEditTeam = () => {
         setSaving(true);
+
         const details = {
             name: teamName,
             removeMembers: removedMembers, leader
         };
         editTeam({ details, hash: router.query.hash}).then((response) =>{
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                if(Document.size)
+                {
+                    const data = new FormData();
+                    data.append('document', Document);
+                    const query = `mutation uploadDocument{
+                      uploadDocument(teamHash: "${router.query.hash}" )
+                      {
+                        status
+                      }
+                    }`;
+                    data.append('query', query);
+                    uploadFile({data}).then((response) => {
+                        setQueried(false);
+                    });
+                }
                 setSaving(false);
-                router.reload();
             }
         });
     };
 
-    const handleUploadDocument = () => {
-        setSaving(true);
-    };
 
     const renderMemberCard = (m,i) => (
         <div className="list-group-item">
@@ -122,17 +139,29 @@ const TeamViewPage = () => {
         });
     };
 
-    return   isSaving ? <LoadingScreen text="Saving your changes" /> : teamData ? <Base loginRequired>
+
+    return isSaving ? <LoadingScreen text="Saving your changes" /> : teamData ? <Base loginRequired>
         <Head>
             <title> {teamName} | Edit Team | Vidyut 2020 </title>
         </Head>
         <TitleBar />
-        <div className="container">
+        <div className="container p-0">
             <Card
                 title={`Your Team: ${teamName}`}
                 content={
                     <div className="p-4">
-                        <div>Team Code: <br />{router.query.hash}</div>
+                        <div>Team Code:
+                            <div className="mt-2">
+                                <span className="p-2" style={{ background: "#ddd" }}>
+                                    <span className="pr-2">{router.query.hash}</span>
+                                    <CopyToClipboard text={router.query.hash}>
+                                        <button className="plain-button">
+                                            <img src={require('../../images/icons/copy-clipboard.png')} style={{ width: '20px'}} />
+                                        </button>
+                                    </CopyToClipboard>
+                                </span>
+                            </div>
+                        </div>
                         <div className="form-group mt-3">
                             <label htmlFor="team-name-input">Team Name</label>
                             <input
@@ -162,6 +191,30 @@ const TeamViewPage = () => {
                                 }
                             </select>
                         </div>
+                        <div className="form-group">
+                            <label htmlFor="document-uploader">Upload Document / Attach File (Optional, if Applicable)</label>
+                            <div>
+                                {
+                                    teamData.document ?
+                                        <a href={teamData.document} className="btn btn-shadow rounded-0 btn-primary px-4 py-2">
+                                            View Uploaded
+                                        </a> : null
+                                }
+                                <div className="my-2">
+                                    <input
+                                        type="file"
+                                        name="file"
+                                        onChange={(event) => setUploadFile(event.target.files[0])}
+                                    />
+                                </div>
+                                {
+                                    Document && Document.size > 2500000 ?
+                                        <div className="alert alert-danger mt-4 p-2">
+                                            Maximum File size for document is 2.5 Mb
+                                        </div> : null
+                                }
+                            </div>
+                        </div>
                         <div>
                             <label>Team Members</label>
                             <ul className="list-group">
@@ -171,25 +224,22 @@ const TeamViewPage = () => {
                     </div>
                 }
                 footer={
-                    <React.Fragment>
+                    <div className="d-inline w-100">
                         {
-                            teamData.isEditable ?
+                            teamData.isEditable && !(Document && Document.size > 2500000) ?
                                 !teamData.isUserLeader ?
-                                    <button className="btn btn-primary mr-2" onClick={exitTeam}>Leave Team</button> :
-                                    <button onClick={handleEditTeam} className="btn btn-primary mr-2">Save</button>
+                                    <button className="btn btn-primary d-inline-block m-2" onClick={exitTeam}>Leave Team</button> :
+                                    <button onClick={handleEditTeam} className="btn btn-primary d-inline-block m-2">Save</button>
                                 : null
                         }
                         <WhatsappShareButton
+                            className="d-inline-block"
                             url="https://vidyut.amrita.edu/teams/my-teams"
                         title={`Hey! Join my team - ${teamName} for Vidyut 2020, using the invite code \`\`\`${router.query.hash}\`\`\` through this link -`}
                         >
-                            <button className="btn btn-warning mr-2">Send Invite via WhatsApp</button>
+                            <button className="btn btn-warning d-inline-block m-2">Invite via WhatsApp</button>
                         </WhatsappShareButton>
-                        <CopyToClipboard text={router.query.hash}>
-                            <button className="btn btn-warning mr-2">Copy Invite Code</button>
-                        </CopyToClipboard>
-                    </React.Fragment>
-
+                    </div>
                 }
             />
         </div>
