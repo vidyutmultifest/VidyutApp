@@ -7,7 +7,7 @@ const LanderHealTheWorld = () => {
         <section id="about-heal-the-world" className="d-flex align-items-center">
             <div className="container p-0">
                 <div className="row m-0">
-                    <div className="col-lg-8 d-flex align-items-center order-lg-1 order-2">
+                    <div className="col-md-8 d-flex align-items-center order-lg-1 order-2">
                         <div>
                             <h3 className="animated fadeIn">Our Theme</h3>
                             <div className="animated tagline zoomIn">
@@ -26,7 +26,7 @@ const LanderHealTheWorld = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-lg-4 order-1 order-lg-2 py-2 d-flex align-items-center justify-content-center">
+                    <div className="col-md-4 order-1 order-lg-2 py-2 d-flex align-items-center justify-content-center">
                         <img className="earth-icon" src={require("../../images/lander/earth.png")} />
                     </div>
                     <div className="col-12 order-3 text-center py-md-4 d-flex justify-content-center">

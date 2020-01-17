@@ -108,28 +108,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 },
                 {
                     name: "Initiatives",
-                    link: '#initiatives'
-                },
-                {
-                    name: "Previous Editions",
-                    link: '#history'
-                },
-            ]
-        },
-        {
-            title: "Vidyut 2020",
-            items: [
-                {
-                    name: "Theme",
-                    link: '#theme'
-                },
-                {
-                    name: "Highlights",
-                    link: '#highlights'
-                },
-                {
-                    name: "Partners",
-                    link: '#partners'
+                    link: '/initiatives'
                 },
                 {
                     name: "Crew",

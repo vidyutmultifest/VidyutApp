@@ -7,7 +7,9 @@ const LanderHighlights = () => {
             <div className="w-100 h-100 wrapper d-flex  align-items-center text-center justify-content-center ">
                 <div className="w-100">
                     <div>
-                        <h4 className="animated flipInX">Revel - Proshows</h4>
+                        <div className="animated flipInX">
+                            <img src={require('../../images/logos/revel.png')} style={{ filter: 'invert(1)', width: '30vw', padding: '0.5rem' }}/>
+                        </div>
                         <div className="d-flex justify-content-center w-100">
                             <span className="tagline animated slideInUp">
                                 Ft. Nucleya, The Agam Band, The Mentalist + more

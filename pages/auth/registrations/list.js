@@ -114,8 +114,8 @@ const RegistrationList = () => {
                 title={
                     <div className="d-inline">
                         <h5 className="d-inline">{c.name}</h5>
-                        <div>
-                            <div className="badge badge-success ml-2" style={{ fontSize: '1rem' }}>{c.count.paid}</div>
+                        <div className="mt-2">
+                            <div className="badge badge-success" style={{ fontSize: '1rem' }}>{c.count.paid}</div>
                             <div className="badge badge-danger ml-2" style={{ fontSize: '1rem' }}>{c.count.paymentPending}</div>
                             <div className="badge badge-primary ml-2" style={{ fontSize: '1rem'}}>{c.count.paid - c.count.amritapurianPaid}</div>
                             <div className="badge ml-2 text-light" style={{ fontSize: '1rem',  backgroundColor: '#a4123f' }}>{c.count.amritapurianPaid}</div>
