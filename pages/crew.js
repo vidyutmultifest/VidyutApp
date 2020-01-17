@@ -79,13 +79,14 @@ const CrewPage = () => {
                             <div className="row m-0">
                                 {
                                     data.map(m =>
-                                        <div key={shortid.generate()} className="col-md-4 col-lg-3 p-2">
-                                            <div className="card-shadow">
+                                        <div key={shortid.generate()} className="col-md-4 col-lg-3 col-6 p-2">
+                                            <div className="card-shadow h-100">
                                                 <div
                                                     style={{
                                                         backgroundImage: `url(${m.photo ? m.photo : require('../images/assets/vidyut_placeholder.jpg')})`,
                                                         backgroundSize: `cover`,
-                                                        height: '300px',
+                                                        height: '35vmax',
+                                                        maxHeight: '300px',
                                                         width: '100%',
                                                         position: 'relative'
                                                     }}
@@ -132,14 +133,15 @@ const CrewPage = () => {
                                                 <div
                                                     style={{
                                                         backgroundColor: `${m.team.color}`,
-                                                        color: 'white'
+                                                        color: 'white',
+                                                        fontSize: 'calc(0.8rem + 0.3vw)'
                                                     }}
                                                     className="px-4 py-2 mx-0 font-weight-bold"
                                                 >
                                                     {m.team.name}
                                                 </div>
                                                 <div className="p-4">
-                                                    <h5 className="mb-2">{m.name}</h5>
+                                                    <h5 className="mb-2" style={{ fontSize: 'calc(0.8rem + 0.5vw)'}}>{m.name}</h5>
                                                     <div className="small-text">{m.role}</div>
                                                 </div>
                                             </div>
