@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Head from "next/head";
+import { CSVLink } from "react-csv";
 
 import Base from "../../../components/base";
 import AdminRequired from "../../../components/adminRequired";
@@ -49,6 +50,7 @@ const RegistrationList = () => {
               lastName
               phone
               email
+              vidyutID
               college
               {
                 name
@@ -108,6 +110,25 @@ const RegistrationList = () => {
         }
     });
 
+    const getCSV = (r) => {
+      const list = [];
+      r.map(r => {
+          list.push({
+              name: r.userProfile ? r.userProfile.firstName + ' ' + r.userProfile.lastName : r.teamProfile.name,
+              college: r.userProfile ? r.userProfile.college ? r.userProfile.college.name : null : r.teamProfile.leader.college ?  r.teamProfile.leader.college.name : null,
+              email: r.userProfile ? r.userProfile.email : r.teamProfile.leader.email,
+              phone: r.userProfile ? r.userProfile.phone : r.teamProfile.leader.phone,
+              vidyutID: r.userProfile ? r.userProfile.vidyutID : r.teamProfile.leader.VidyutID,
+              regID: r.regID,
+              timestamp: r.registrationTimestamp,
+              transactionID: r.transaction ? r.transaction.transactionID : null,
+              transactionAmount: r.transaction ? r.transaction.amount : null,
+              transactionStatus: r.transaction ? r.transaction.isPaid ? 'Paid' : r.transaction.isProcessed ? 'Not Paid' : 'Unprocessed' : 'Not Attempted'
+          })
+      });
+      return list;
+    };
+
     const renderCard = (c) => c.registrations.length > 0 ? (
         <div className="pt-4">
             <ContentCard
@@ -123,14 +144,17 @@ const RegistrationList = () => {
                     </div>
                    }
                 node={
-                    <div className="mt-4">
-                        <div>
+                    <div>
+                        <div className="mt-2">
                             <li><b>Total Registrations</b>: {c.count.total}</li>
                             <li><b>Paid Registrations</b>: {c.count.paid}</li>
                             <li><b>Registrations without Payment</b>: {c.count.paymentPending}</li>
                             <li><b>Outside Campus Paid</b>: {c.count.paid - c.count.amritapurianPaid}</li>
                             <li><b>Inside Campus Paid</b>: {c.count.amritapurianPaid}</li>
                         </div>
+                        <CSVLink data={getCSV(c.registrations)} filename={`export_${c.name}_registration_data.csv`}>
+                            <button className="btn btn-warning btn-shadow rounded-0 m-2">Download Data</button>
+                        </CSVLink>
                         <div className="row mx-0 mt-4">
                         {
                             c.registrations.map((r) =>

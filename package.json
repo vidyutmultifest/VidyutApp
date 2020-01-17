@@ -55,6 +55,7 @@
     "react-copy-to-clipboard": "5.0.2",
     "react-countdown": "^2.2.0",
     "react-countup": "^4.3.2",
+    "react-csv": "^1.1.2",
     "react-device-detect": "1.11.14",
     "react-dom": "16.12.0",
     "react-facebook": "8.1.4",
