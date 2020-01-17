@@ -14,6 +14,7 @@ const CrewPage = () => {
         role
         isCore
         isHead
+        isFaculty
         team
         {
           name
@@ -86,7 +87,20 @@ const CrewPage = () => {
                                                         width: '100%',
                                                         position: 'relative'
                                                     }}
-                                                >{ m.isCore ?
+                                                >{ m.isFaculty ?
+                                                    <div className="py-2"><div
+                                                        className="d-inline card-shadow mb-3 p-2 font-weight-bold small-text"
+                                                        style={{
+                                                            backgroundColor: '#64FFDA',
+                                                            position: 'absolute',
+                                                            top: '0.5rem',
+                                                            left: '0.5rem'
+                                                        }}
+                                                    >
+                                                        <img src={require('../images/icons/heart.png')} style={{ width: '20px'}}  className="mr-2" />
+                                                        Faculty
+                                                    </div></div>
+                                                    : m.isCore ?
                                                     <div className="py-2"><div
                                                         className="d-inline card-shadow mb-3 p-2 font-weight-bold small-text"
                                                         style={{
@@ -103,7 +117,7 @@ const CrewPage = () => {
                                                         <div className="py-2"><div
                                                             className="d-inline card-shadow mb-3 p-2  font-weight-bold small-text"
                                                             style={{
-                                                                backgroundColor: '#69F0AE',
+                                                                backgroundColor: '#FFFFFF',
                                                                 position: 'absolute',
                                                                 top: '0.5rem',
                                                                 left: '0.5rem'

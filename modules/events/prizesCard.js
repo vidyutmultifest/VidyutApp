@@ -58,7 +58,7 @@ const PrizesCard = ({ firstPrize, secondPrize, thirdPrize, otherPrizes }) => (
             otherPrizes ? (
                 <div className="row">
                     <div className="col-3">
-                        <img src={require('../../images/icons/thirdPrize.png')} />
+                        <img src={require('../../images/icons/win.png')} />
                     </div>
                     <div className="col-9">
                         <div className="prizeType">Other Prizes</div>
