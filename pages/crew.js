@@ -79,13 +79,14 @@ const CrewPage = () => {
                             <div className="row m-0">
                                 {
                                     data.map(m =>
-                                        <div key={shortid.generate()} className="col-md-4 col-lg-3 col-6 p-2">
+                                        <div key={shortid.generate()} className="col-md-4 col-lg-3 col-xl-2 col-6 p-1">
                                             <div className="card-shadow h-100">
                                                 <div
                                                     style={{
                                                         backgroundImage: `url(${m.photo ? m.photo : require('../images/assets/vidyut_placeholder.jpg')})`,
                                                         backgroundSize: `cover`,
-                                                        height: '35vmax',
+                                                        height: '30vmax',
+                                                        backgroundPosition: 'center',
                                                         maxHeight: '300px',
                                                         width: '100%',
                                                         position: 'relative'
@@ -140,7 +141,7 @@ const CrewPage = () => {
                                                 >
                                                     {m.team.name}
                                                 </div>
-                                                <div className="p-4">
+                                                <div className="p-2">
                                                     <h5 className="mb-2" style={{ fontSize: 'calc(0.8rem + 0.5vw)'}}>{m.name}</h5>
                                                     <div className="small-text">{m.role}</div>
                                                 </div>
