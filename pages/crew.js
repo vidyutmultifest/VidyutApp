@@ -3,6 +3,7 @@ import Base from "../components/base";
 import React, {useEffect, useState} from "react";
 import dataFetch from "../utils/dataFetch";
 import Head from "next/head";
+const shortid = require('shortid');
 
 
 const CrewPage = () => {
@@ -50,15 +51,16 @@ const CrewPage = () => {
                 style={{
                     backgroundImage: `url(${require('../images/aoc/crew.jpg')})`,
                     backgroundSize: 'cover',
+                    backgroundPosition: 'center'
                 }}
             >
                 <div
-                    style={{ backgroundColor: 'rgba(0,0,0,0.5)', minHeight: '60vh', width: '100%'}}
+                    style={{ backgroundColor: 'rgba(0,0,0,0.6)', minHeight: '60vh', width: '100%'}}
                     className="d-flex align-items-center justify-content-center text-light"
                 >
                     <div className="container text-center" style={{ marginTop: '15vh'}}>
                         <h1>Team Vidyut</h1>
-                        <p>
+                        <p className="d-none d-md-block">
                             Any successful endeavour is incomplete without its powerful crew.
                             Vidyut is truly blessed to encompass a group of vibrant students who ensures perfection in each and
                             every step of the event. Vidyut 2019 was undoubtedly an immense success due to the strenuous efforts
@@ -77,13 +79,13 @@ const CrewPage = () => {
                             <div className="row m-0">
                                 {
                                     data.map(m =>
-                                        <div className="col-md-4 col-lg-3 col-6 p-2">
+                                        <div key={shortid.generate()} className="col-md-4 col-lg-3 p-2">
                                             <div className="card-shadow">
                                                 <div
                                                     style={{
                                                         backgroundImage: `url(${m.photo ? m.photo : require('../images/assets/vidyut_placeholder.jpg')})`,
                                                         backgroundSize: `cover`,
-                                                        height: '250px',
+                                                        height: '300px',
                                                         width: '100%',
                                                         position: 'relative'
                                                     }}
