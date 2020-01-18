@@ -226,7 +226,7 @@ const Workshop = () => {
                         />
                         <ShareCard
                             title={data.name}
-                            link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}
+                            link={`https://vidyut.amrita.edu/workshop/${router.query.slug}`}
                         />
                     </div>
                 </div>
