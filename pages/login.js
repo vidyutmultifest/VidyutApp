@@ -84,7 +84,7 @@ function LoginPage(props) {
         setURL(window.location.href);
         const token = cookies.get('token');
         if (token != null) {
-            router.push('/dashboard');
+            router.push('/explore');
         }
         if(!isQueried)
         {
@@ -110,7 +110,7 @@ function LoginPage(props) {
                         cookies.set('token', response.data.tokenAuth.token, { path: '/' });
                         cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
                         cookies.set('username', values.username, { path: '/' });
-                        router.push('/dashboard');
+                        router.push('/explore');
                     } else {
                         setAuthFail(true);
                         console.log(response);
@@ -127,7 +127,7 @@ function LoginPage(props) {
             if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 cookies.set('token', response.data.socialAuth.token, { path: '/' });
                 cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
-                router.push('/dashboard');
+                router.push('/explore');
             } else {
                 setAuthFail(true);
                 setErrorMessage('Login has failed');
@@ -143,7 +143,7 @@ function LoginPage(props) {
             if(!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 cookies.set('token', response.data.socialAuth.token, { path: '/' });
                 cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
-                router.push('/dashboard');
+                router.push('/explore');
             } else {
                 setAuthFail(true);
                 setErrorMessage('Login has failed');
@@ -159,7 +159,7 @@ function LoginPage(props) {
             if(!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                 cookies.set('token', response.data.socialAuth.token, { path: '/' });
                 cookies.set('username', response.data.socialAuth.user.username, { path: '/' });
-                router.push('/dashboard');
+                router.push('/explore');
             } else {
                 setAuthFail(true);
                 setErrorMessage('Login has failed');

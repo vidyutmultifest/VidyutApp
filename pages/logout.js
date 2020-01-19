@@ -18,7 +18,7 @@ const LogoutPage = () => {
         localStorage.clear();
         if(!loggedOut)
         {
-            router.push('/login');
+            router.push('/explore');
             logOut(true);
         }
     });
