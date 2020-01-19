@@ -51,8 +51,9 @@ const CartView = ({ productList, promocode, regID }) => {
         }
     });
 
-    const promotions = isLoaded ? (
-        <div className="promocode-card card-shadow">
+    const promotions = isLoaded && status.promocodes ? (
+        <div className="promocode-card mt-4 card-shadow">
+            <h6>Apply Referral</h6>
             <div className="row m-0">
                 <div className="col-md-6">
                     <div className="form-group">
@@ -65,8 +66,9 @@ const CartView = ({ productList, promocode, regID }) => {
         </div>
     ) : null;
 
-    const referrals = isLoaded ? (
-        <div className="referral-card card-shadow">
+    const referrals = isLoaded && status.referral ? (
+        <div className="referral-card mt-4 card-shadow">
+            <h6>Apply Promotion</h6>
             <div className="row m-0">
                 <div className="col-md-6">
                     <div className="form-group">
@@ -168,7 +170,7 @@ const CartView = ({ productList, promocode, regID }) => {
                                 onChangeQty={(qty) => handleQtyChange(i, qty)}
                                 title={p.name}
                                 text="No description available"
-                                price={`Rs. ${p.price}`}
+                                price={`Rs. ${parseInt(p.price)}`}
                                 badge={
                                     p.isAmritapurianOnly ?
                                     <div className="badge badge-warning rounded-0">Exclusive for Amritapurians</div> :
@@ -180,9 +182,7 @@ const CartView = ({ productList, promocode, regID }) => {
                             />
                         ))
                     }
-                    <h4 className="mt-4">Apply Promotion</h4>
                     {promotions}
-                    <h4 className="mt-4">Apply Referral</h4>
                     {referrals}
                 </div>
                 <div className="col">

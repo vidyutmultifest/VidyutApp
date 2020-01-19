@@ -5,7 +5,6 @@ import dataFetch from "../../utils/dataFetch";
 import Head from "next/head";
 import TitleBar from "../../components/titleBar";
 import EventHeaderCard from "../../components/events/headerCard";
-import moment from "moment";
 
 import '../../styles/events/style.sass';
 import ShareCard from "../../components/events/shareCard";
@@ -15,6 +14,9 @@ import OrganizerCard from "../../modules/events/organizerCard";
 import TrainerCards from "../../modules/events/TrainerCards";
 import ContentCard from "../../components/events/contentCard";
 import ScheduleCard from "../../modules/events/scheduleCard";
+import MenuBar from "../../components/common/menubar";
+import Topbar from "../../components/common/topbar";
+import BottomBar from "../../components/common/bottombar";
 
 const Workshop = () => {
     const router = useRouter();
@@ -139,9 +141,10 @@ const Workshop = () => {
 
     return <Base>
         <Head>
-            <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020</title>
+            <title> { isLoaded ? data.name : router.query.slug } | Workshops | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
         </Head>
-        <TitleBar
+        <Topbar/>
+        <MenuBar
             breadcrumbs={[
                 {
                     name: "Workshops",
@@ -232,7 +235,9 @@ const Workshop = () => {
                 </div>
             </div>
         ): null}
-        <DashboardFooter />
+        <BottomBar
+            showDashboardIcon
+        />
     </Base>
 };
 

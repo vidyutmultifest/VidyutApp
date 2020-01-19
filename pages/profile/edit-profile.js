@@ -16,6 +16,9 @@ import EmergencyContacts from "../../modules/profile/emergency";
 import EducationDetails from "../../modules/profile/education";
 import CollegeIDPhoto from "../../modules/profile/collegeIDCard";
 import SwitchAccountType from "../../modules/profile/accountType";
+import Topbar from "../../components/common/topbar";
+import MenuBar from "../../components/common/menubar";
+import BottomBar from "../../components/common/bottombar";
 
 
 const UpdateProfile = () => {
@@ -154,16 +157,19 @@ const UpdateProfile = () => {
 
     return <Base loginRequired>
         <Head>
-            <title>Edit Profile | Vidyut 2020</title>
+            <title>Edit My Profile | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
         </Head>
-        <TitleBar/>
+        <Topbar/>
+        <MenuBar/>
         {ProfileEditNav}
-        <div className="container">
+        <div className="container p-0">
             {renderAbout}
             {renderEducation}
             {renderContacts}
         </div>
-        <DashboardFooter />
+        <BottomBar
+            showDashboardIcon
+        />
     </Base>
 };
 

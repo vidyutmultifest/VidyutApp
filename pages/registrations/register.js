@@ -16,6 +16,9 @@ import UserAgreement from "../../modules/registrations/userAgreement";
 import SubmissionPreview from "../../modules/registrations/submissionPreview";
 import StatusContainer from "../../components/StatusContainer";
 import DashboardFooter from "../../modules/dashboard/footer";
+import Topbar from "../../components/common/topbar";
+import MenuBar from "../../components/common/menubar";
+import BottomBar from "../../components/common/bottombar";
 
 const RegisterPage = () => {
     const router = useRouter();
@@ -171,7 +174,8 @@ const RegisterPage = () => {
         </Head>
         {isAlreadyRegistered ?
              <React.Fragment>
-                 <TitleBar/>
+                 <Topbar/>
+                 <MenuBar/>
                  <div className="container p-0 my-4">
                      <div className="card-shadow p-4">
                          <StatusContainer
@@ -197,9 +201,10 @@ const RegisterPage = () => {
             />
             : isLoaded ? (
                 <React.Fragment>
-                    <TitleBar/>
+                    <Topbar />
+                    <MenuBar/>
                         <div className = "container p-0 my-4">
-                        <h2 className="my-4 pt-4 mx-md-0 mx-4">{data.product.name} Registration</h2>
+                        <h2 className="mt-4 mx-md-0 mx-4">{data.product.name} Registration</h2>
                     <PoseGroup>
                     {
                         !isTeamSelected ? <Shade key="teamselection">
@@ -279,7 +284,9 @@ const RegisterPage = () => {
                     }
                     </PoseGroup>
                     </div>
-                    <Footer/>
+                    <BottomBar
+                        showDashboardIcon
+                    />
                 </React.Fragment>
             ) : <LoadingScreen text="Opening registration page" />
         }

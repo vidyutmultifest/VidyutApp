@@ -6,6 +6,10 @@ import '../../styles/common/user-sidebar.sass';
 import dataFetch from "../../utils/dataFetch";
 import DeveloperCredits from "./developerCredits";
 import {useRouter} from "next/router";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
 
 const UserSidebar = () => {
     const router = useRouter();
@@ -60,9 +64,12 @@ const UserSidebar = () => {
                     </div>
                 </div>
                 <div className="col-3 d-flex align-items-center p-0">
-                    <div className="profile-photo">
-                        <img src={data.photo} alt="user-photo" />
-                    </div>
+                    {
+                        data.photo ?
+                            <div className="profile-photo">
+                                <img src={data.photo} alt="user-photo" />
+                            </div> : null
+                    }
                 </div>
             </div>
       </div>

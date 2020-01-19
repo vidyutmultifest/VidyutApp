@@ -9,7 +9,7 @@ const ProfilePicture = ({ profilePhoto }) => {
                 <img src={require('../../images/icons/selfie.png')} style={{ width: "120px", marginBottom: "1rem" }} />
                 <h5>Selfie Not Uploaded</h5>
                 <p>A photo of your face is required to enter Vidyut 2020, for security reasons</p>
-                <Link href="/profile/upload-selfie"><bbutton className="btn px-4 py-2 rounded-0">Upload Selfie</bbutton></Link>
+                <Link href="/profile/upload-selfie"><bbutton className="btn btn-primary px-4 py-2 rounded-0">Upload Selfie</bbutton></Link>
             </div>
         </div>
     );

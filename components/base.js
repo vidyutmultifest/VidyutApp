@@ -37,7 +37,7 @@ const Base = ({ children, loginRequired, adminRequired }) => {
             </div>
         </React.Fragment>
     );
-    
+
     return loginRequired ?
         <ProtectedPage>
             {page}

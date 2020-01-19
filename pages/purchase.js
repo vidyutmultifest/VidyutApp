@@ -2,13 +2,14 @@ import React, {useEffect, useState} from "react";
 import Head from 'next/head'
 import {useRouter} from "next/router";
 
-import TitleBar from "../components/titleBar";
-import Footer from "../modules/dashboard/footer";
 import Base from "../components/base";
 import CartView from "../modules/purchase/cart-view";
 import dataFetch from "../utils/dataFetch";
 import '../styles/bootstrap.sass';
 import StatusContainer from "../components/StatusContainer";
+import Topbar from "../components/common/topbar";
+import MenuBar from "../components/common/menubar";
+import BottomBar from "../components/common/bottombar";
 
 
 const PurchasePage = () => {
@@ -82,13 +83,14 @@ const PurchasePage = () => {
     return (
         <Base loginRequired>
             <Head>
-                <title>Purchase Tickets, Register for Events | Checkout Page | Vidyut 2020</title>
+                <title>Purchase Tickets, Register for Events | Checkout Page | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
             </Head>
-            <TitleBar/>
+            <Topbar />
+            <MenuBar/>
             {
                isLoaded ?
                    checkPossible() ?
-                   <div className="container my-4">
+                   <div className="container p-0 my-md-4 my-0">
                        {
                            isLoaded ? <CartView
                                productList={[
@@ -119,7 +121,9 @@ const PurchasePage = () => {
 
                : null
             }
-            <Footer/>
+            <BottomBar
+                showDashboardIcon
+            />
         </Base>
     )
 };

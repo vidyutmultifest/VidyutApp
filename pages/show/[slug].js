@@ -12,6 +12,9 @@ import ContactCard from "../../modules/events/contactCard";
 import DashboardFooter from "../../modules/dashboard/footer";
 import classNames from "classnames";
 import LoadingScreen from "../../components/loadingScreen";
+import BottomBar from "../../components/common/bottombar";
+import MenuBar from "../../components/common/menubar";
+import Topbar from "../../components/common/topbar";
 
 const Workshop = () => {
     const router = useRouter();
@@ -86,49 +89,51 @@ const Workshop = () => {
 
     return <Base>
         <Head>
-            <title> { isLoaded ? data.name : router.query.slug } | Shows | Vidyut 2020</title>
+            <title> { isLoaded ? data.name : router.query.slug } | Shows | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
         </Head>
+        <Topbar/>
+        <MenuBar
+            breadcrumbs={[
+                {
+                    name: "Shows",
+                    link: '/shows'
+                },
+                {
+                    name:  isLoaded ? data.name : router.query.slug,
+                    link: router.query.slug,
+                    active: true
+                },
+            ]}
+        />
         { isLoaded ? (
-            <React.Fragment>
-            <TitleBar
-                breadcrumbs={[
-                    {
-                        name: "Shows",
-                        link: '/shows'
-                    },
-                    {
-                        name:  isLoaded ? data.name : router.query.slug,
-                        link: router.query.slug,
-                        active: true
-                    },
-                ]}
-            />
             <div className="container p-0">
-                <EventHeaderCard
-                    cover={data.cover}
-                    name={data.name}
-                    text={data.description}
-                    products={data.products}
-                    registerText="Buy"
-                />
-                <div className="row m-0">
-                    <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
-                        {eventDetails()}
-                    </div>
-                    <div className="col-md-5 col-xl-4 p-md-4 mb-4">
-                        <ContactCard
-                            contacts={data.contacts}
-                        />
-                        <ShareCard
-                            title={data.name}
-                            link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}
-                        />
-                    </div>
+            <EventHeaderCard
+                cover={data.cover}
+                name={data.name}
+                text={data.description}
+                products={data.products}
+                registerText="Buy"
+            />
+            <div className="row m-0">
+                <div className="col-md-7 col-xl-8 p-md-4 p-0 my-4">
+                    {eventDetails()}
+                </div>
+                <div className="col-md-5 col-xl-4 p-md-4 mb-4">
+                    <ContactCard
+                        contacts={data.contacts}
+                    />
+                    <ShareCard
+                        title={data.name}
+                        link={`https://vidyut.amrita.edu/competition/${router.query.slug}`}
+                    />
                 </div>
             </div>
-            <DashboardFooter/>
-        </React.Fragment>
-        ): <LoadingScreen text="Fetching Show Details" />}
+        </div>
+            ) : null
+        }
+        <BottomBar
+            showDashboardIcon
+        />
     </Base>
 };
 

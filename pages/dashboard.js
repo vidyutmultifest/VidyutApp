@@ -22,7 +22,6 @@ export default () => {
             <div className="container p-0">
                 <DashboardListing/>
             </div>
-            <div style={{ height: '20vh' }} />
             <BottomBar
                 currentTabName="Dashboard"
                 currentTabIcon={require('../images/icons/dashboard-bottom-bar-icon.png')}
