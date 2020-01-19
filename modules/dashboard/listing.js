@@ -264,6 +264,15 @@ const DashboardListing = () => {
                         alt="filter button"
                     />
                 </button>
+                <div className="footer-filter">
+                    <div
+                        className={
+                            classNames('footer-filter-container', !showFooterFilter ? 'd-none' : null)
+                        }
+                    >
+                        {renderFilters()}
+                    </div>
+                </div>
             </div>
             {
                 showSearchBar ?
@@ -276,16 +285,6 @@ const DashboardListing = () => {
 
     return isLoaded ? (
       <div id="dashboard-listing">
-        <div className="footer-filter">
-              <div
-                  className={
-                      classNames('footer-filter-container', !showFooterFilter ? 'd-none' : null)
-                  }
-              >
-                  <h4>Filters</h4>
-                  {renderFilters()}
-              </div>
-          </div>
           <div className="row m-0">
               <div className="col-lg-3 col-md-4">
                   <div className="desktop-filter-sidebar py-2">
