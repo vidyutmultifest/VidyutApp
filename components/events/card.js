@@ -12,7 +12,7 @@ const EventCard = ({
    isNew, isRecommended, alwaysShowCover, isTeamEvent,
    isTotalRate, dept, organizer, products, firstPrize,
    profileData, accreditedBy, registerText, showReason,
-   KTUActivityPoints, listOnMobile
+   KTUActivityPoints, listOnMobile, accreditorLogo
 }) => {
 
     const renderExtraInfo = (
@@ -36,8 +36,18 @@ const EventCard = ({
             {
                 accreditedBy ?
                     <div>
-                        <div className="key">Accredited by </div>
-                        <div className="value">{ accreditedBy }</div>
+                        {
+                            accreditorLogo ?
+                                <div>
+                                    <div className="key">Accredited by </div>
+                                    <img src={accreditorLogo} style={{ height: '32px', marginTop: '0.25rem' }} alt={`${accreditedBy}`} />
+                                </div>
+                                :
+                                <div>
+                                    <div className="key">Accredited by </div>
+                                    <div className="value">{ accreditedBy }</div>
+                                </div>
+                        }
                     </div> : null
             }
         </div>
@@ -60,7 +70,7 @@ const EventCard = ({
                     >
                         <div className="event-card-badges">
                             { isNew ? <span className="new-badge">New</span> : null }
-                            { isRecommended ? <span className="recommend-badge">Recommended</span>: null}
+                            { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
                         </div>
                     </div>
                 </Link>

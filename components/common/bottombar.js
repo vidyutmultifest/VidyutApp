@@ -9,7 +9,7 @@ import MyVidyut from "../cards/myVidyut";
 import DeveloperCredits from "../cards/developerCredits";
 import ProtectedComponent from "../protectedComponent";
 
-const BottomBar = ({ currentTabName, currentTabIcon, showDashboardIcon, hideExploreTab }) => {
+const BottomBar = ({ currentTabName, currentTabIcon, hideDeveloperCredits, hideExploreTab }) => {
     const [tab, setTab] = useState('home');
 
     const renderProfileTab = () => (
@@ -35,10 +35,16 @@ const BottomBar = ({ currentTabName, currentTabIcon, showDashboardIcon, hideExpl
 
     return (
         <React.Fragment>
-            <div style={{ marginBottom: "15vh" }} />
-            <div className="d-md-block d-none mt-4 pt-4">
-                <DeveloperCredits />
-            </div>
+            {
+                !hideDeveloperCredits ?
+                    <React.Fragment>
+                        <div style={{ marginBottom: "15vh" }} />
+                        <div className="d-md-block d-none mt-4 pt-4">
+                            <DeveloperCredits />
+                        </div>
+                    </React.Fragment>
+                : null
+            }
             <div className="d-block d-md-none" id="bottom-bar">
                 <div className="tab-switcher">
                     <div className="d-flex justify-content-center">

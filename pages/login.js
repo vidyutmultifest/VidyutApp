@@ -171,9 +171,19 @@ function LoginPage(props) {
     return !isLoading && isLoaded ? (<LoginPageWrapper>
                <div id="login-card" className="text-center">
                {authFail ? errorMessage : null}
-                <div className="social-login-buttons" style={{ height: '100vh', top: 0, position: 'fixed', width: '100%'}}>
-                    <div className="d-flex h-100 align-items-center">
-                        <div>
+                <div
+                    className="social-login-buttons d-flex align-items-center justify-content-center"
+                    style={{
+                        height: '95vh',
+                        top: '0',
+                        position: 'initial',
+                        width: '100vw',
+                        backgroundImage: `url('${require('../images/aoc/login-cover.jpg')}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                    }}
+                >
+                        <div className="card-shadow p-4" style={{ backgroundColor: '#4A148C'}}>
                             <div onClick={() => setLoading(true)}>
                                 <NoSSR>
                                     <MicrosoftLogin
@@ -221,7 +231,6 @@ function LoginPage(props) {
                                 }
                             </div>
                         </div>
-                    </div>
                 </div>
            </div>
     </LoginPageWrapper>) : <LoadingScreen text={setQueried ? "Logging you in. If it takes too long, please try again later." : "Hold on, while we are opening the login page"} />

@@ -12,12 +12,13 @@ export default ({ children }) => (
         </Head>
         <Topbar />
         <MenuBar />
-        <div>
+        <div className="d-flex align-items-center justify-content-center">
         {children}
         </div>
         <BottomBar
             currentTabIcon={require('../images/icons/user-group-bottom-bar-icon.png')}
             currentTabName="Login"
+            hideDeveloperCredits
         />
     </Base>
 )

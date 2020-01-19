@@ -23,7 +23,7 @@ const Base = ({ children, loginRequired, adminRequired }) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no, autoRotate:disabled" />
                 <meta name="keywords" content="Multifest, College, Fest, Techfest, Cultural Fest, Amrita, Students" />
                 <link rel="icon" href={require('../images/favicon.png')} />
-                <meta name="theme-color" content="#311B92" />
+                <meta name="theme-color" content="#4A148C" />
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/zuck.js/1.3.0/zuck.min.js" />
                 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151530910-1" />
                 <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [];

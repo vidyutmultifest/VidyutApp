@@ -27,10 +27,15 @@ const UserSidebar = () => {
         isAmritapurian
         photo
       }
+      myPermissions
+      {
+        adminAccess
+      }
     }`;
 
     const getProfile = async () => await dataFetch({ query });
 
+    const [isAdmin, setAdmin] = useState(false);
     useEffect(() => {
         if(!isQueried)
         {
@@ -38,6 +43,7 @@ const UserSidebar = () => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.myProfile);
+                    setAdmin(response.data.myPermissions ? response.data.myPermissions.adminAccess : false );
                 }
             })
         }
@@ -110,6 +116,13 @@ const UserSidebar = () => {
               {
                   data ? (
                     <React.Fragment>
+                        {
+                            isAdmin ?
+                                <a href="/admin">
+                                    <img src={require('../../images/icons/user-group-bottom-bar-icon.png')} />
+                                    Admin Dashboard
+                                </a> : null
+                        }
                         <a href="/explore">
                             <img src={require('../../images/icons/explore-icon.png')} />
                             Explore Vidyut

@@ -54,6 +54,7 @@ const DashboardListing = () => {
         accreditedBy
         {
           name
+          icon : logo
         }
         department
         {
@@ -318,6 +319,7 @@ const DashboardListing = () => {
                                                 profileData={profileData}
                                                 KTUActivityPoints={w.KTUActivityPoints}
                                                 accreditedBy={w.accreditedBy ? w.accreditedBy.name : null}
+                                                accreditorLogo={w.accreditedBy ? w.accreditedBy.icon : null}
                                                 alwaysShowCover
                                                 listOnMobile
                                             />
