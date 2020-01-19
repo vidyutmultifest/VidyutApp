@@ -1,0 +1,36 @@
+#bottom-bar
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  background-color: white
+  z-index: 9000
+  .tab-switcher
+    .col-3
+      text-align: center
+    .selected
+      div
+        color: blue
+      img
+        filter: invert(10%) sepia(40%) saturate(8000%) hue-rotate(250deg)
+    .tab-button
+      div
+        margin-top: 0.25rem
+        font-size: calc(0.5rem + 0.3vw)
+      img
+        width: 24px
+.dashboard-tab
+  top: 0
+  bottom: 0
+  position: fixed
+  z-index: 8000
+  width: 100vw
+  height: 100vh
+  margin: 10vh 0
+  background-color: #eee
+  overflow-y: auto
+#profile-tab
+  .user-profile-tab
+    width: 100%
+    padding-bottom: 20vh
+    overflow-y: auto

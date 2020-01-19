@@ -29,7 +29,7 @@ const Workshops = () => {
     const [sQuery, setSQuery] = useState('');
 
     const query = `{
-       myProfile
+      myProfile
       {
         isAmritian
         isAmritapurian

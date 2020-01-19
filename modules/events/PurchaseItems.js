@@ -3,8 +3,9 @@ import Link from "next/link";
 import Modal from "react-modal";
 import dataFetch from "../../utils/dataFetch";
 const shortid = require('shortid');
+import classNames from 'classnames';
 
-const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData, buttonStyle }) => {
+const PurchasesItems = ({ products, RegisterText, hideReason, customText, profileData, buttonStyle, buttonClass }) => {
     const [isQueried, setQueried] = useState(false);
     const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
@@ -143,7 +144,10 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                                 `/purchase?product=${p.productID}`}
                             className="plain-link"
                         >
-                            <button style={buttonStyle} className="btn btn-primary px-4 py-2 m-2 rounded-0">
+                            <button
+                                style={buttonStyle}
+                                className={classNames(`btn btn-primary px-4 py-2 m-2 rounded-0`, buttonClass)}
+                            >
                             {
                                 customText ? customText :
                                     RegisterText ? `${RegisterText} Now` : "Register Now"
@@ -156,7 +160,7 @@ const PurchasesItems = ({ products, RegisterText, hideReason, customText, profil
                     <React.Fragment>
                         <button
                             style={buttonStyle}
-                            className="btn btn-primary px-4 py-2 rounded-0"
+                            className={classNames(`btn btn-primary px-4 py-2 m-2 rounded-0`, buttonClass)}
                             onClick={() => setModalState(true)}
                         >
                             {

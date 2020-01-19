@@ -1,53 +1,105 @@
 .event-card
+  font-family: 'Poppins', sans-serif
+  height: 100%
+  position: relative
   .event-cover
     position: relative
   .event-details
     padding: 1rem
+    margin-bottom: 10vh
+  .event-card-footer-grid
+    position: absolute
+    bottom: 0
+    left: 0
+    width: 100%
   .dept-name
-    font-size: 0.8rem
+    font-size: calc(0.5rem + 0.2vw)
     display: inline-block
-    font-weight: 900
     color: black!important
   .organizername
-    font-size: 1rem
+    font-size: calc(0.7rem + 0.2vw)
     margin-bottom: 0.5rem
+    color: #4a26fd
   h4
     font-weight: 900
-    font-size: calc(1.2rem + 0.5vw)
-    margin-bottom: 0.5rem
+    text-transform: uppercase
+    font-size: calc(0.9rem + 0.2vw)
+    margin-bottom: 0.15rem
   p
-    font-size: 0.8rem
+    font-size: calc(0.5rem + 0.2vw)
     margin: 0
   .price
     font-size: calc(1rem + 0.3vw)
-    font-weight: 900
-    margin-bottom: 0.5rem
+    font-weight: 700
+    line-height: 1
+    color: #D50000!important
+    .price-type
+      font-weight: 400
+      color: black
+      font-size: calc(0.5rem + 0.3vw)
+  .event-extra-info
+    margin-top: 0.5rem
+    line-height: 1.1
+    font-size: calc(0.5rem + 0.3vw)
+    .key
+      font-size: calc(0.7rem + 0.2vw)
+    .value
+      font-weight: 700
+      font-size: calc(0.8rem + 0.2vw)
+  .extra-info-listing
+    line-height: 1.1
+    .key
+      font-size: calc(0.6rem + 0.2vw)
+    .value
+      font-weight: 700
+      font-size: calc(0.7rem + 0.2vw)
+    .value-num
+      font-size: calc(1rem + 0.2vw)!important
   button
-    margin: 0.5rem
+    margin: 0.25rem!important
+    height: 100%
+    min-height: 32px
     border-radius: 0
     border: none
-    font-size: 0.9rem
+    padding: 0.25rem 0.5rem!important
     font-weight: 900
-    font-family: 'Montserrat', sans-serif
+    line-height: 1
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3)
   button:hover
     box-shadow: 1px 1px 10px rgba(0,0,0,0.2)
     text-decoration: none
-  .details-btn
-    background-color: #1976D2
+  .detail-button
+    line-height: 1
+    display: flex
+    align-items: center
+    padding: 0.15rem 1rem
+    font-size: calc(1rem - 0.5vh)
+    font-weight: bold
+    border-radius: 0
+    background: none!important
+    border: 1px solid #333544
+    height: 5vmax!important
+    max-height: 35px!important
   .register-btn
-    background-color: #D4E157
-    color: black
+    background: none!important
+    height: 5vmax!important
+    max-height: 35px!important
+    color: black!important
+    padding: 0 0.5rem
+    box-shadow: none!important
+    border: 1px solid #00838F!important
+    img
+      width: 24px!important
+      filter: none!important
 
   .event-card-badges
     position: absolute
     bottom: 1rem
     left: 0.5rem
     span
-      font-size: 0.8rem
-      border-radius: 10px
-      padding: 0.5rem 1rem
-      font-weight: 900
+      font-size: calc(0.6rem + 0.2vw)
+      border-radius: 2px
+      padding: 0.45vmax 2vmin
       box-shadow: 3px 5px 15px rgba(0,0,0,0.5)
       margin-right: 0.5rem
     .new-badge
