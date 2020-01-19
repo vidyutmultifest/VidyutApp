@@ -40,7 +40,6 @@ const DepartmentSelector = ({ onSelect }) => {
         content={<Select
             className="basic-single my-2 w-100"
             classNamePrefix="select"
-            isSearchable
             placeholder="Select Department"
             name="department"
             onChange={(newValue) => {

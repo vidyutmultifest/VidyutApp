@@ -168,6 +168,8 @@ const UpdateProfile = () => {
             {renderContacts}
         </div>
         <BottomBar
+            currentTabIcon={require('../../images/icons/edit-profile-icon.png')}
+            currentTabName="Edit Profile"
             showDashboardIcon
         />
     </Base>

@@ -1,25 +1,29 @@
 #edit-profile-nav
+  font-family: 'Poppins', sans-serif
   width: 100%
+  position: sticky
+  z-index: 8000
+  top: 10vh
   box-shadow: 10px 0 15px rgba(0,0,0,0.6)
   margin-bottom: 5vh
   margin-top: 0.1rem
   padding: 0 2rem
   display: flex
   button
-    font-size: calc(0.8rem + 0.5vw)
+    font-size: calc(0.7rem + 0.5vw)
     background: none
-    padding: 0.5rem calc(0.5rem + 0.7vw)
+    padding: 0.5vw calc(0.5rem + 0.7vw)
     border: none
     text-transform: uppercase
     color: #01579B
     img
       padding: 5px
-      max-width: 40px
+      max-width: 32px
   button::selection
     border: none
   .is-selected
     font-weight: 900
-    border-bottom: 0.3rem solid blue
+    border-bottom: 0.2rem solid blue
 
 .profile-edit-card
   padding: 0

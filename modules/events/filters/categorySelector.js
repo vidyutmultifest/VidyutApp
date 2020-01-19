@@ -38,7 +38,6 @@ const CategorySelector = ({ onSelect }) => {
             content={<Select
                 className="basic-single rounded-0 my-2 w-100"
                 classNamePrefix="select"
-                isSearchable
                 placeholder="Select Category"
                 onChange={(newValue) => {
                     setSelected(newValue);
