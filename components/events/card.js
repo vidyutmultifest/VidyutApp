@@ -81,7 +81,7 @@ const EventCard = ({
                      style={{padding: '0.5rem', marginBottom: 0}}
                 >
                     { dept ?
-                        <div className="d-flex justify-content-end">
+                        <div className="d-flex">
                             <div className="dept-name bg-warning p-2 small-text mb-2">{dept}</div>
                         </div> : null
                     }
@@ -156,7 +156,7 @@ const EventCard = ({
                     />
                     <div className="event-card-badges">
                         { isNew ? <span className="new-badge">New</span> : null }
-                        { isRecommended ? <span className="recommend-badge">Recommended</span>: null}
+                        { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
                     </div>
                 </div>
             </Link>

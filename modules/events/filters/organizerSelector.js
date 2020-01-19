@@ -43,6 +43,7 @@ const OrganizerSelector = ({ onSelect }) => {
                 <Select
                     className="basic-single my-2 w-100"
                     classNamePrefix="select"
+                    isSearchable={false}
                     placeholder="Select Organizer"
                     name="organizer"
                     onChange={(newValue) => {

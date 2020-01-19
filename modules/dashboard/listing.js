@@ -338,8 +338,8 @@ const DashboardListing = () => {
                                                 cover={c.cover}
                                                 price={c.fee}
                                                 organizer={c.organizer ? c.organizer.label : null}
+                                                dept={c.category ? c.category.label : null}
                                                 isNew={c.isNew}
-                                                dept={null}
                                                 isRecommended={c.isRecommended}
                                                 detailsURL={`/competition/${c.slug}`}
                                                 products={c.products}
