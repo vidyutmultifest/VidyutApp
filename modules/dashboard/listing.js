@@ -248,12 +248,10 @@ const DashboardListing = () => {
                     onClick={() => setShowSearchbar(!showSearchBar)}
                     className="listing-mobile-filter-button"
                 >
-                    <a href="#search-button">
-                        <img
-                            src={require('../../images/icons/search-icon.png')}
-                            alt="search button"
-                        />
-                    </a>
+                    <img
+                        src={require('../../images/icons/search-icon.png')}
+                        alt="search button"
+                    />
                 </button>
                 <button
                     onClick={() => setShowFooterFilter(!showFooterFilter)}
@@ -264,7 +262,7 @@ const DashboardListing = () => {
                         alt="filter button"
                     />
                 </button>
-                <div className="footer-filter">
+                <div className={classNames('footer-filter', !showFooterFilter ? 'd-none' : null)}>
                     <div
                         className={
                             classNames('footer-filter-container', !showFooterFilter ? 'd-none' : null)
@@ -282,6 +280,7 @@ const DashboardListing = () => {
             }
         </div>
     );
+    console.log(type);
 
     return isLoaded ? (
       <div id="dashboard-listing">
