@@ -10,7 +10,7 @@ import DashboardListing from "../modules/dashboard/listing";
 import BottomBar from "../components/common/bottombar";
 import Head from "next/head";
 
-export default () => {
+const ExplorePage  = () => {
     return (
         <Base id="dashboard">
             <Head>
@@ -29,4 +29,6 @@ export default () => {
             />
         </Base>
     )
-}
+};
+
+export default ExplorePage;

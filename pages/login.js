@@ -170,54 +170,57 @@ function LoginPage(props) {
 
     return !isLoading && isLoaded ? (<LoginPageWrapper>
                <div id="login-card" className="text-center">
-               <img src={require('../images/logos/vidyut-dark-logo.png')}  className="logo" style={{ width: '100%' }}/>
                {authFail ? errorMessage : null}
-                <div className="social-login-buttons">
-                    <div onClick={() => setLoading(true)}>
-                        <NoSSR>
-                            <MicrosoftLogin
-                                clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
-                                authCallback={loginWithMicrosoft}
-                                redirectUri={url}
-                                children={<button className="login-button-microsoft">
-                                    <img src={require('../images/logos/microsoft.png')} />
-                                    Login with Amrita ID (For Amritapurians)
-                                </button>}
-                            />
-                        </NoSSR>
-                    </div>
-                    <div>{
-                            status.facebookSignIn ? <FacebookProvider appId="2427065454211076">
-                                <LoginButton
-                                    scope="email"
-                                    onCompleted={loginWithFacebook}
-                                    onError={(e) => console.log(e)}
-                                    className="login-button-microsoft"
-                                >
-                                    <div>
-                                        <img src={require('../images/logos/facebook.png')} />
-                                        Login with Facebook
-                                    </div>
-                                </LoginButton>
-                            </FacebookProvider> : null
-                    }
-                    </div>
-                    <div>
-                    {
-                        status.googleSignIn ? (
-                            <GoogleLogin
-                                clientId="929385656161-b49s4q6vuqmdvt8lvapq0tggu5rlmnrc.apps.googleusercontent.com"
-                                onSuccess={loginWithGoogle}
-                                icon={false}
-                                cookiePolicy={'single_host_origin'}
-                                className="login-button-google"
-                                children={<div>
-                                    <img src={require('../images/logos/google.png')} />
-                                    Login with Google
-                                </div>}
-                            />
-                        ) : null
-                    }
+                <div className="social-login-buttons" style={{ height: '100vh', top: 0, position: 'fixed', width: '100%'}}>
+                    <div className="d-flex h-100 align-items-center">
+                        <div>
+                            <div onClick={() => setLoading(true)}>
+                                <NoSSR>
+                                    <MicrosoftLogin
+                                        clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
+                                        authCallback={loginWithMicrosoft}
+                                        redirectUri={url}
+                                        children={<button className="login-button-microsoft">
+                                            <img src={require('../images/logos/microsoft.png')} />
+                                            Login with Amrita ID (For Amritapurians)
+                                        </button>}
+                                    />
+                                </NoSSR>
+                            </div>
+                            <div>{
+                                status.facebookSignIn ? <FacebookProvider appId="2427065454211076">
+                                    <LoginButton
+                                        scope="email"
+                                        onCompleted={loginWithFacebook}
+                                        onError={(e) => console.log(e)}
+                                        className="login-button-microsoft"
+                                    >
+                                        <div>
+                                            <img src={require('../images/logos/facebook.png')} />
+                                            Login with Facebook
+                                        </div>
+                                    </LoginButton>
+                                </FacebookProvider> : null
+                            }
+                            </div>
+                            <div>
+                                {
+                                    status.googleSignIn ? (
+                                        <GoogleLogin
+                                            clientId="929385656161-b49s4q6vuqmdvt8lvapq0tggu5rlmnrc.apps.googleusercontent.com"
+                                            onSuccess={loginWithGoogle}
+                                            icon={false}
+                                            cookiePolicy={'single_host_origin'}
+                                            className="login-button-google"
+                                            children={<div>
+                                                <img src={require('../images/logos/google.png')} />
+                                                Login with Google
+                                            </div>}
+                                        />
+                                    ) : null
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
            </div>

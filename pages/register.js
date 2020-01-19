@@ -170,8 +170,7 @@ function LoginPage(props) {
 
     return !isLoading && isLoaded ? (<LoginPageWrapper>
                <div id="login-card" style={{ maxWidth: '400px' }} className="text-center m-2">
-               <img alt="vidyut logo" src={require('../images/logos/vidyut-dark-logo.png')}  className="logo mb-0 pb-2" style={{ width: '100%' }}/>
-               <div className="text-dark">
+               <div className="text-dark py-4">
                    <h3 style={{ fontSize: `calc(1.2rem + 0.3vw)`}}>
                        NATIONAL LEVEL MULTIFEST <br />
                         <span style={{ color: '#E65100'}}>Jan 30 - Feb 1</span>
