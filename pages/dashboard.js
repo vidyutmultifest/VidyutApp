@@ -12,7 +12,7 @@ import Head from "next/head";
 
 export default () => {
     return (
-        <Base id="dashboard">
+        <Base id="dashboard" loginRequired>
             <Head>
                 <title> My Dashboard | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
             </Head>

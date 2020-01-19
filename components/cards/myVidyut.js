@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import classNames from 'classnames';
 import '../../styles/cards/myvidyut.sass';
 import dataFetch from "../../utils/dataFetch";
+import Link from "next/link";
 
 const MyVidyut = () => {
 
@@ -15,10 +16,15 @@ const MyVidyut = () => {
         tickets { name }
         competitions { name }
       }
+      myPermissions
+      {
+        adminAccess
+      }
     }`;
 
     const getMyVidyut = async () => await dataFetch({ query });
 
+    const [hasAdminAccess, setAdminAccesss] = useState(false);
     useEffect(() => {
         if(!isQueried)
         {
@@ -26,6 +32,7 @@ const MyVidyut = () => {
                 setQueried(true);
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.myVidyut);
+                    setAdminAccesss(response.data.myPermissions);
                 }
             })
         }
@@ -63,6 +70,14 @@ const MyVidyut = () => {
     return (
         <div className="my-vidyut-listing">
             <div className="my-event-type">
+                {
+                    hasAdminAccess ?
+                        <div className="admin-access-prompt card-shadow py-4 mx-0">
+                            <h3>You are an Admin Volunteer</h3>
+                            <Link href="/admin"><button className="btn btn-light px-4 py-2">Go to Admin</button></Link>
+                        </div> : null
+                }
+
                 <div className="type-title">
                     My Workshops
                 </div>

@@ -2,12 +2,23 @@ import React, {useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import {useRouter} from "next/router";
 import LoadingScreen from "./loadingScreen";
+import dataFetch from "../utils/dataFetch";
+import moment from "moment";
 
 const cookies = new Cookies();
 
 const ProtectedPage = ({ children }) => {
     const router = useRouter();
     const [hasVerified, setVerified] = useState(false);
+
+    const Mutation = `mutation verifyToken($token: String!){
+      verifyToken(token:$token)
+      {
+        payload
+      }
+    }`;
+
+    const verifyToken = async variables => await dataFetch({ query: Mutation, variables });
 
     useEffect(() => {
         if(!hasVerified)
@@ -17,7 +28,19 @@ const ProtectedPage = ({ children }) => {
                 router.push('/login');
             }
             else
-                setVerified(true);
+            {
+                verifyToken({ token }).then(  response => {
+                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                        if(moment().unix() > response.data.verifyToken.payload.exp){
+                            router.push('/logout');
+                        }
+                        setVerified(true);
+                    }
+                    else {
+                        router.push('/logout');
+                    }
+                })
+            }
         }
     });
 
