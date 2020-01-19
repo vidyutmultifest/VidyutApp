@@ -7,8 +7,9 @@ import '../../styles/common/bottombar.sass';
 import NotificationCard from "../cards/notifications";
 import MyVidyut from "../cards/myVidyut";
 import DeveloperCredits from "../cards/developerCredits";
+import ProtectedComponent from "../protectedComponent";
 
-const BottomBar = ({ currentTabName, currentTabIcon, showDashboardIcon }) => {
+const BottomBar = ({ currentTabName, currentTabIcon, showDashboardIcon, hideExploreTab }) => {
     const [tab, setTab] = useState('home');
 
     const renderProfileTab = () => (
@@ -40,58 +41,63 @@ const BottomBar = ({ currentTabName, currentTabIcon, showDashboardIcon }) => {
             </div>
             <div className="d-block d-md-none" id="bottom-bar">
                 <div className="tab-switcher">
-                    <div className="row m-0">
+                    <div className="d-flex justify-content-center">
+                        <div className="p-2">
+                            <button
+                                onClick={() => setTab('home')}
+                                className={classNames("plain-button tab-button", tab === 'home' ? 'selected' : null)}
+                            >
+                                <img
+                                    src={currentTabIcon ? currentTabIcon : require('../../images/icons/feed-icon.png')}
+                                    alt={`${currentTabName ? currentTabName : 'Page'} tab`}
+                                />
+                                <div>{currentTabName ? currentTabName : 'Page'}</div>
+                            </button>
+                        </div>
                         {
-                            !showDashboardIcon ?
-                                <div className="col-3 p-2">
+                            !hideExploreTab ?
+                            <div className="p-2">
+                                <a href="/explore">
                                     <button
                                         onClick={() => setTab('home')}
-                                        className={classNames("plain-button tab-button", tab === 'home' ? 'selected' : null)}
+                                        className={classNames("plain-button tab-button")}
                                     >
                                         <img
-                                            src={currentTabIcon ? currentTabIcon : require('../../images/icons/home-bottom-bar-icon.png')}
-                                            alt={`${currentTabName ? currentTabName : 'dashboard'} tab`}
+                                            src={require('../../images/icons/explore-icon.png')}
+                                            alt={`Explore tab`}
                                         />
-                                        <div>{currentTabName ? currentTabName : 'Dashboard'}</div>
+                                        <div>Explore</div>
                                     </button>
-                                </div> :
-                                <div className="col-3 p-2">
-                                    <a href="/dashboard">
-                                        <button
-                                            onClick={() => setTab('home')}
-                                            className={classNames("plain-button tab-button")}
-                                        >
-                                            <img src={require('../../images/icons/dashboard-bottom-bar-icon.png')} alt="dashboard tab" />
-                                            <div>Dashboard</div>
-                                        </button>
-                                    </a>
-                                </div>
+                                </a>
+                            </div> : null
                         }
-                        <div className="col-3 p-2">
-                            <button
-                                onClick={() => setTab('myvidyut')}
-                                className={classNames("plain-button tab-button", tab === 'myvidyut' ? 'selected' : null)}
-                            >
-                                <img src={require('../../images/icons/my-vidyut-bottom-bar-icon.png')} alt="my tab" />
-                                <div>My Vidyut</div>
-                            </button>
-                        </div>
-                        <div className="col-3 p-2">
-                            <button
-                                onClick={() => setTab('notification')}
-                                className={classNames("plain-button tab-button", tab === 'notification' ? 'selected' : null)}
-                            >
-                                <img src={require('../../images/icons/heart-bottom-bar-icon.png')} alt="notification tab" />
-                                <div>Notifications</div>
-                            </button>
-                        </div>
-                        <div className="col-3 p-2">
+                        <ProtectedComponent>
+                            <div className="p-2">
+                                <button
+                                    onClick={() => setTab('myvidyut')}
+                                    className={classNames("plain-button tab-button", tab === 'myvidyut' ? 'selected' : null)}
+                                >
+                                    <img src={require('../../images/icons/my-vidyut-bottom-bar-icon.png')} alt="my tab" />
+                                    <div>My Vidyut</div>
+                                </button>
+                            </div>
+                            <div className="p-2">
+                                <button
+                                    onClick={() => setTab('notification')}
+                                    className={classNames("plain-button tab-button", tab === 'notification' ? 'selected' : null)}
+                                >
+                                    <img src={require('../../images/icons/heart-bottom-bar-icon.png')} alt="notification tab" />
+                                    <div>Notifications</div>
+                                </button>
+                            </div>
+                        </ProtectedComponent>
+                        <div className="p-2">
                             <button
                                 onClick={() => setTab('profile')}
                                 className={classNames("plain-button tab-button", tab === 'profile' ? 'selected' : null)}
                             >
                                 <img src={require('../../images/icons/profile-bottom-bar-icon.png')} alt="profile tab" />
-                                <div>Navigation</div>
+                                <div>Profile</div>
                             </button>
                         </div>
                     </div>

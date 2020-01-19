@@ -8,7 +8,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default () => (
-    <Base loginRequired>
+    <Base>
         <Head>
             <title> My Orders | Vidyut 2020 | National Level Multifest - Amrita Vishwa Vidyapeetham, Amritapuri Campus</title>
         </Head>

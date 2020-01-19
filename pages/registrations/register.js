@@ -192,7 +192,7 @@ const RegisterPage = () => {
                          />
                      </div>
                  </div>
-                 <DashboardFooter />
+                 <BottomBar currentTabName="Register" />
              </React.Fragment>
             : isError ?
             <LoadingScreen
@@ -284,9 +284,7 @@ const RegisterPage = () => {
                     }
                     </PoseGroup>
                     </div>
-                    <BottomBar
-                        showDashboardIcon
-                    />
+                    <BottomBar currentTabName="Register" />
                 </React.Fragment>
             ) : <LoadingScreen text="Opening registration page" />
         }

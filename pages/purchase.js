@@ -122,7 +122,7 @@ const PurchasePage = () => {
                : null
             }
             <BottomBar
-                showDashboardIcon
+                currentTabName="Purchase"
             />
         </Base>
     )
