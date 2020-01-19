@@ -11,7 +11,7 @@ const MenuBar = ({ showProfileOnMobile }) => {
             <div className="container p-0">
                 <div className="row m-0">
                     <div className={classNames("col-lg-4 col-md-3 px-0", showProfileOnMobile ? 'col-9' : 'col-12 text-md-left text-center')}>
-                        <a href="/dashboard">
+                        <a href="/explore">
                             <img className="vidyut-logo" src={require('../../images/branding/vidyut_logo_light.png')} alt="Vidyut Logo, Dashboard Button" />
                         </a>
                     </div>

@@ -88,7 +88,7 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
             {/*    }*/}
             {/*</div>*/}
             {/*<hr style={{ margin: "0.25rem"}} />*/}
-            <div className="link"><Link href="/dashboard"><a>Dashboard</a></Link></div>
+            <div className="link"><Link href="/explore"><a>Dashboard</a></Link></div>
             <div className="link"><Link href="/profile/edit-profile"><a>Profile</a></Link></div>
             <div className="link" onClick={handleLogout}><a>Logout</a></div>
         </div> : null;
@@ -209,8 +209,8 @@ const TitleBar = ({ breadcrumbs, hideUserDropdown, hideLogo, className, style })
                 <div className="col-lg-2 col-md-3 col-8 d-flex align-items-center">
                     {
                         !hideLogo ?
-                            <Link href="/dashboard">
-                                <a href="/dashboard">
+                            <Link href="/explore">
+                                <a href="/explore">
                                     <img
                                         alt="vidyut-text-logo"
                                         id="vidyut-logo-topbar"
