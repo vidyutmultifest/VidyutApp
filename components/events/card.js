@@ -19,12 +19,12 @@ const EventCard = ({
             {
                 totalPrize ?
                     <div>
-                        <div className="key">Prizes Worth</div>
                         <div className="value value-num"><span style={{ fontFamily: 'Arial'}}>₹</span>{ totalPrize }</div>
+                        <div className="key">Total Cash Prize</div>
                     </div> : firstPrize ?
                     <div>
-                        <div className="key">First Prize</div>
                         <div className="value value-num"><span style={{ fontFamily: 'Arial'}}>₹</span>{ firstPrize }</div>
+                        <div className="key">First Prize</div>
                     </div> : null
             }
             {
