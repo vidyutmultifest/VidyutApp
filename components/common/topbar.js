@@ -18,9 +18,9 @@ const Topbar = () => {
                         </a>
                     </div>
                     <div className="topbar-quick-actions">
-                        <a href="/help">Support</a>
-                        <a href="/profile/edit-profile">Edit Profile</a>
-                        <a href="/logout">Logout</a>
+                        <a href="/explore">Explore Vidyut</a>
+                        <a href="https://www.amrita.edu/campus/amritapuri" target="_blank">About Amrita</a>
+                        <a href="/help">Get Help</a>
                     </div>
                 </div>
             </div>
