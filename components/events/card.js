@@ -9,7 +9,7 @@ const shortid = require('shortid');
 const EventCard = ({
    name, cover, text, price, detailsURL,
    isNew, isRecommended, alwaysShowCover, isTeamEvent,
-   isTotalRate, dept, organizer, products, firstPrize,
+   isTotalRate, dept, organizer, products, firstPrize, totalPrize,
    profileData, accreditedBy, registerText, showReason,
    KTUActivityPoints, listOnMobile, accreditorLogo
 }) => {
@@ -17,10 +17,14 @@ const EventCard = ({
     const renderExtraInfo = (
         <div className="px-2">
             {
-                firstPrize ?
+                totalPrize ?
                     <div>
-                        <div className="value value-num"><span style={{ fontFamily: 'Arial'}}>₹</span>{ firstPrize }</div>
+                        <div className="key">Prizes Worth</div>
+                        <div className="value value-num"><span style={{ fontFamily: 'Arial'}}>₹</span>{ totalPrize }</div>
+                    </div> : firstPrize ?
+                    <div>
                         <div className="key">First Prize</div>
+                        <div className="value value-num"><span style={{ fontFamily: 'Arial'}}>₹</span>{ firstPrize }</div>
                     </div> : null
             }
             {

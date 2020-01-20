@@ -121,6 +121,7 @@ const DashboardListing = () => {
         }
         isNew
         firstPrize
+        totalPrize
         department
         {
           label: name
@@ -348,6 +349,7 @@ const DashboardListing = () => {
                                                 profileData={profileData}
                                                 KTUActivityPoints={c.KTUActivityPoints}
                                                 firstPrize={c.firstPrize}
+                                                totalPrize={c.totalPrize}
                                                 isTotalRate={c.isTotalRate}
                                                 isTeamEvent={c.isTeamEvent}
                                                 alwaysShowCover
