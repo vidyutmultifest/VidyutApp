@@ -26,6 +26,8 @@ const UserSidebar = () => {
         lastName
         isAmritapurian
         photo
+        isSchoolStudent
+        isFaculty
       }
       myPermissions
       {
@@ -66,6 +68,13 @@ const UserSidebar = () => {
                         data ?
                             <div>
                                 <h4>Hi {data.firstName} {data.lastName}!</h4>
+                                <div className="account-type-text">
+                                    {
+                                        data.isFaculty ? 'Faculty Account'
+                                            : data.isSchoolStudent ? 'School Student Account'
+                                            : 'College Student Account'
+                                    }
+                                </div>
                                 <a href="/profile/edit-profile" className="plain-link">
                                     Edit Profile >
                                 </a>

@@ -303,7 +303,7 @@ const DashboardListing = () => {
                         type === 'workshop' ?
                             <div className="row m-0">
                                 {
-                                    getFilteredList(workshops, 'workshop').map(w =>
+                                    workshops.length > 0 ? getFilteredList(workshops, 'workshop').map(w =>
                                         <div key={shortid.generate()} className="col-lg-4 col-md-6 p-1">
                                             <EventCard
                                                 name={w.name}
@@ -324,13 +324,16 @@ const DashboardListing = () => {
                                                 listOnMobile
                                             />
                                         </div>
-                                    )
+                                    ) : <div className="d-flex w-100 p-2 align-items-center justify-content-center h-100">
+                                            No workshops listed for your account type. Please check your
+                                            account type.
+                                    </div>
                                 }
                             </div>
                         : type === 'competition' ?
                             <div className="row m-0">
                                 {
-                                    getFilteredList(competitions, 'competition').map(c =>
+                                   competitions.length > 0 ? getFilteredList(competitions, 'competition').map(c =>
                                         <div key={shortid.generate()} className="col-lg-4 col-md-6 p-1">
                                             <EventCard
                                                 name={c.name}
@@ -352,7 +355,10 @@ const DashboardListing = () => {
                                                 listOnMobile
                                             />
                                         </div>
-                                    )
+                                    ) : <div className="d-flex w-100 p-2 align-items-center justify-content-center h-100">
+                                        No competitions listed for your account type. Please check your
+                                        account type.
+                                    </div>
                                 }
                             </div>
                         : type === 'show' ?
