@@ -174,7 +174,7 @@ function LoginPage(props) {
                 <div
                     className="social-login-buttons d-flex align-items-center justify-content-center"
                     style={{
-                        height: '95vh',
+                        height: '90vh',
                         top: '0',
                         position: 'initial',
                         width: '100vw',
@@ -192,7 +192,7 @@ function LoginPage(props) {
                                         redirectUri={url}
                                         children={<button className="login-button-microsoft">
                                             <img src={require('../images/logos/microsoft.png')} />
-                                            Login with Amrita ID (For Amritapurians)
+                                            Login with Amrita ID
                                         </button>}
                                     />
                                 </NoSSR>
