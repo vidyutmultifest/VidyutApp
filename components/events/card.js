@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import classNames from 'classnames';
 
@@ -56,7 +55,7 @@ const EventCard = ({
     const renderListMode = (
         <div className="row m-0">
             <div className="col-5 col-md-12 p-0">
-                <Link href={detailsURL}>
+                <a href={detailsURL}>
                     <div
                         className={classNames('event-cover', !alwaysShowCover ? 'd-none d-md-block' : null)}
                         style={{
@@ -73,7 +72,7 @@ const EventCard = ({
                             { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
                         </div>
                     </div>
-                </Link>
+                </a>
             </div>
             <div className="col-7 col-md-12 p-0">
                 <div
@@ -85,9 +84,9 @@ const EventCard = ({
                             <div className="dept-name bg-warning p-2 small-text mb-2">{dept}</div>
                         </div> : null
                     }
-                    <Link href={detailsURL}>
+                    <a href={detailsURL} className="plain-link text-dark">
                         <h4>{name}</h4>
-                    </Link>
+                    </a>
                     { organizer ?  <div className="organizername font-weight-bold"> by {organizer}</div> : null }
                     <p>{text}</p>
                     <div className="text-center event-extra-info">
@@ -116,11 +115,9 @@ const EventCard = ({
                         <div className="d-flex align-items-center event-card-buttons">
                             {
                                 detailsURL || !profileData ?
-                                    <Link href={detailsURL}>
                                         <a href={detailsURL} className="btn btn-warning detail-button plain-link">
                                             Know More
-                                        </a>
-                                    </Link> : null
+                                        </a> : null
                             }
                             { products && profileData ?
                                 <PurchasesItems
@@ -133,11 +130,9 @@ const EventCard = ({
                                             src={require('../../images/icons/cart-icon-green.png')}
                                         />
                                     }
-                                /> : <Link href="/dashboard">
-                                    <a href="/dashboard" className="register-btn">
+                                /> : <a href="/login" className="register-btn">
                                         <img src={require('../../images/icons/cart-icon-green.png')}/>
                                     </a>
-                                </Link>
                             }
                         </div>
                     </div>
@@ -148,7 +143,7 @@ const EventCard = ({
 
     const renderGridMode = (
         <div>
-            <Link href={detailsURL}>
+            <a href={detailsURL}>
                 <div className="event-cover">
                     <Image
                         src={cover ? cover : require('../../images/assets/vidyut_placeholder.jpg')}
@@ -159,16 +154,16 @@ const EventCard = ({
                         { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
                     </div>
                 </div>
-            </Link>
+            </a>
             <div className="event-details">
                 { dept ?
                     <div className="d-flex justify-content-end">
                         <div className="dept-name bg-warning p-2 small-text mb-2">{dept}</div>
                     </div> : null
                 }
-                <Link href={detailsURL}>
+                <a href={detailsURL} className="plain-link text-dark">
                     <h4>{name}</h4>
-                </Link>
+                </a>
                 { organizer ?  <div className="organizername font-weight-bold"> by {organizer}</div> : null }
                 <p>{text}</p>
                 <div className="text-center event-extra-info">{renderExtraInfo}</div>
@@ -193,11 +188,9 @@ const EventCard = ({
                     <div className="d-flex align-items-center event-card-buttons">
                         {
                             detailsURL || !profileData ?
-                                <Link href={detailsURL}>
-                                    <a href={detailsURL} className="btn detail-button plain-link">
-                                        Know More
-                                    </a>
-                                </Link> : null
+                                <a href={detailsURL} className="btn detail-button plain-link">
+                                    Know More
+                                </a> : null
                         }
                         { products && profileData ?
                             <PurchasesItems
@@ -208,11 +201,9 @@ const EventCard = ({
                                 customText={
                                     <img src={require('../../images/icons/cart-icon-green.png')}/>
                                 }
-                            /> : <Link href="/dashboard">
-                                <a href="/dashboard" className="register-btn">
+                            /> : <a href="/login" className="register-btn">
                                     <img src={require('../../images/icons/cart-icon-green.png')}/>
                                 </a>
-                            </Link>
                         }
                     </div>
                 </div>

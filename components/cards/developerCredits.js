@@ -15,15 +15,11 @@ const DeveloperCredits = () => {
                     />
                 </a>
                 <div className="pb-4 pt-2">
-                    <Link href="/coc">
-                        <a>Code of Conduct</a>
-                    </Link>|
-                    <Link href="/terms">
-                        <a>Terms</a>
-                    </Link>|
-                    <Link href="/privacy">
-                        <a>Privacy</a>
-                    </Link>
+                    <div className="pb-4 pt-2">
+                        <a href="/coc">Code of Conduct</a>|
+                        <a href="/terms">Terms</a>|
+                        <a href="/privacy">Privacy</a>
+                    </div>
                 </div>
             </div>
         </div>

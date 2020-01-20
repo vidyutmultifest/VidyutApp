@@ -281,7 +281,6 @@ const DashboardListing = () => {
             }
         </div>
     );
-    console.log(type);
 
     return isLoaded ? (
       <div id="dashboard-listing">
