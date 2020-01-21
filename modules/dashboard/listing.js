@@ -31,6 +31,7 @@ const DashboardListing = () => {
         fee
         slug
         isRecommended
+        isTrending
         KTUActivityPoints
         products
         {
@@ -93,6 +94,7 @@ const DashboardListing = () => {
         fee
         slug
         isRecommended
+        isTrending
         KTUActivityPoints
         isTotalRate
         isTeamEvent
@@ -314,6 +316,7 @@ const DashboardListing = () => {
                                                 isNew={w.isNew}
                                                 dept={w.department ? w.department.label : null}
                                                 isRecommended={w.isRecommended}
+                                                isTrending={w.isTrending}
                                                 detailsURL={`/workshop/${w.slug}`}
                                                 products={w.products}
                                                 profileData={profileData}
@@ -344,6 +347,7 @@ const DashboardListing = () => {
                                                 dept={c.category ? c.category.label : null}
                                                 isNew={c.isNew}
                                                 isRecommended={c.isRecommended}
+                                                isTrending={c.isTrending}
                                                 detailsURL={`/competition/${c.slug}`}
                                                 products={c.products}
                                                 profileData={profileData}

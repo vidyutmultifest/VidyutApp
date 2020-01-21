@@ -8,7 +8,7 @@ const shortid = require('shortid');
 
 const EventCard = ({
    name, cover, text, price, detailsURL,
-   isNew, isRecommended, alwaysShowCover, isTeamEvent,
+   isNew, isRecommended, isTrending, alwaysShowCover, isTeamEvent,
    isTotalRate, dept, organizer, products, firstPrize, totalPrize,
    profileData, accreditedBy, registerText, showReason,
    KTUActivityPoints, listOnMobile, accreditorLogo
@@ -73,7 +73,8 @@ const EventCard = ({
                     >
                         <div className="event-card-badges">
                             { isNew ? <span className="new-badge">New</span> : null }
-                            { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
+                            { isRecommended ? <img alt="Recommended" className="mr-2" style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
+                            { isTrending ? <img alt="Trending" style={{ width: '24px' }} src={require('../../images/icons/bolt-icon.png')} /> : null}
                         </div>
                     </div>
                 </a>
@@ -155,7 +156,8 @@ const EventCard = ({
                     />
                     <div className="event-card-badges">
                         { isNew ? <span className="new-badge">New</span> : null }
-                        { isRecommended ? <img style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
+                        { isRecommended ? <img alt="Recommended" className="mr-2" style={{ width: '24px' }} src={require('../../images/icons/star.png')} /> : null}
+                        { isTrending ? <img alt="Trending" style={{ width: '24px' }} src={require('../../images/icons/bolt-icon.png')} /> : null}
                     </div>
                 </div>
             </a>
