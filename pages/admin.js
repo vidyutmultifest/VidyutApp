@@ -35,6 +35,7 @@ const AdminDashboard = () => {
         canAcceptPayment
         adminAccess
         canViewRegistrations
+        canCheckInUsers
       }
     }`;
 
@@ -90,6 +91,17 @@ const AdminDashboard = () => {
                                                     text="View registrations for events you manage"
                                                     title="View Registrations"
                                                     link="/auth/registrations/list"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.myPermissions.canCheckInUsers ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/qr-code.png')}
+                                                    text="Check-In Users"
+                                                    title="Check In"
+                                                    link="/restricted/view-sessions"
                                                 />
                                             </div> : null
                                     }

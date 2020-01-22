@@ -3,12 +3,9 @@ import Base from "../../components/base";
 import NoSSR from "../../components/noSSR";
 import dataFetch from "../../utils/dataFetch";
 import dynamic from "next/dynamic";
-import MenuBar from "../../components/common/menubar";
-import DashboardFooter from "../../components/common/footer";
-import Topbar from "../../components/common/topbar";
 
 import '../../styles/bootstrap.sass';
-import BottomBar from "../../components/common/bottombar";
+import {useRouter} from "next/router";
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -31,6 +28,7 @@ function useInterval(callback, delay) {
 }
 
 const VerifyTicket = () => {
+    const router = useRouter();
     const [hash, setHash] = useState();
     const [isQueried, setQueried] = useState(false);
     const [data, setData] = useState(false);
@@ -38,8 +36,8 @@ const VerifyTicket = () => {
 
     const [paused, setPause] = useState(false);
 
-    const query = `query validateTicket($hash: String!, $productID: String!){
-      validateTicket(hash: $hash, productID: $productID)
+    const query = `query validateTicket($hash: String!, $sessionID: String!){
+      validateTicket(hash: $hash, sessionID: $sessionID)
       {
         status
         userName
@@ -49,18 +47,38 @@ const VerifyTicket = () => {
       }
     }`;
 
+    const mutation = `mutation checkInUser($hash: String!, $sessionID: String!){
+      performCheckIn(hash: $hash, sessionID: $sessionID)
+    }`;
+
     const validateTicket = async variables => await dataFetch({ query, variables });
+    const checkInUser = async variables => await dataFetch({ query: mutation, variables });
 
     useEffect(() => {
         if(!isQueried && hash)
         {
-            validateTicket({ hash, productID: "158d6d73-3377-4d9f-b7d1-21ce58a7eec8"}).then(response => {
+            const sessionID = router.query.sessionID;
+            validateTicket({
+                hash, sessionID: sessionID
+            }).then(response => {
                 setData(response.data.validateTicket);
                 setQueried(true);
             })
         }
     });
 
+    const handleCheckIn = () => {
+        if(hash)
+        {
+            const sessionID = router.query.sessionID;
+            checkInUser({
+                hash,
+                sessionID
+            }).then(response => {
+                setHash(false);
+            })
+        }
+    };
 
     const handleScan = data => {
         if(data != null && data !== hash)
@@ -72,15 +90,25 @@ const VerifyTicket = () => {
     };
 
     useInterval(() => {
-        if(hash && !paused)
+        if(!paused)
         {
+            handleCheckIn();
             setData(false);
         }
     }, 3000);
 
+    const handleOnAccept = () => {
+        handleCheckIn();
+        setData(false);
+    };
+
+    const handleOnReject = () => {
+        setData(false);
+    };
+
     return (
         <Base loginRequired>
-            <div className="d-flex justify-content-center align-items-center bg-dark w-100" style={{ minHeight: '80vh'}}>
+            <div className="d-flex justify-content-center align-items-center bg-dark w-100" style={{ minHeight: '100vh'}}>
                 {
                     isQueried && data ?
                         <div className="card-shadow p-2">
@@ -116,10 +144,16 @@ const VerifyTicket = () => {
                                 {
                                     paused ?
                                         <div>
-                                            <div className="btn btn-success rounded-0 m-2">
+                                            <div
+                                                onClick={handleOnAccept}
+                                                className="btn btn-success rounded-0 m-2"
+                                            >
                                                 Approve
                                             </div>
-                                            <div className="btn btn-danger rounded-0 m-2">
+                                            <div
+                                                onClick={handleOnReject}
+                                                className="btn btn-danger rounded-0 m-2"
+                                            >
                                                 Reject
                                             </div>
                                         </div> : null
@@ -133,7 +167,7 @@ const VerifyTicket = () => {
                                 onScan={handleScan}
                                 onError={(e) => console.log(e)}
                                 facingMode="environment"
-                                style={{width: '90vw'}}
+                                style={{width: '90vw', maxWidth: "400px"}}
                             />
                         </NoSSR>
                     </div>
