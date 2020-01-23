@@ -20,11 +20,6 @@ const LanderSponsors = () => {
             "type": "Gadget Partner"
         },
         {
-            "logo": require('../../images/sponsors/redbull.png'),
-            "name": "Red Bull",
-            "type": "Energy Partner"
-        },
-        {
             "logo": require('../../images/sponsors/raviz.png'),
             "name": "Raviz",
             "type": "Hospitality Partner"
