@@ -17,6 +17,7 @@ const cookies = new Cookies();
 
 function LoginPage(props) {
     const router = useRouter();
+
     const [url, setURL] = useState();
     const [isLoading, setLoading] = useState(false);
     const [authFail, setAuthFail] = useState(false);
@@ -26,6 +27,12 @@ function LoginPage(props) {
     const [isLoaded, setLoaded] = useState(false);
     const [status, setStatus] = useState(false);
 
+    const [hasLoginIssues, setHasLoginIssues] = useState(false);
+    const [needsPassword, setNeedsPassword] = useState(false);
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     const query = `{
       status
       {
@@ -33,8 +40,6 @@ function LoginPage(props) {
         facebookSignIn
       }
     }`;
-
-
 
     const getStatus = async () => await dataFetch({ query });
 
@@ -101,22 +106,20 @@ function LoginPage(props) {
     const Login = async (query, variables) => await dataFetch({ query, variables });
 
     const handleSubmit = e => {
-        e.preventDefault();
-        props.form.validateFields((err, values) => {
-            if (!err) {
-                Login(NormalLogin, values).then( response => {
-                    console.log(response);
-                    if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
-                        cookies.set('token', response.data.tokenAuth.token, { path: '/' });
-                        cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
-                        cookies.set('username', values.username, { path: '/' });
-                        router.push('/explore');
-                    } else {
-                        setAuthFail(true);
-                        console.log(response);
-                        setLoading(false);
-                    }
-                });
+        Login(NormalLogin, {
+            username,
+            password
+        }).then(response => {
+            console.log(response);
+            if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                cookies.set('token', response.data.tokenAuth.token, { path: '/' });
+                cookies.set('refreshToken', response.data.tokenAuth.refreshToken, { path: '/' });
+                cookies.set('username', username, { path: '/' });
+                router.push('/explore');
+            } else {
+                setAuthFail(true);
+                console.log(response);
+                setLoading(false);
             }
         });
     };
@@ -168,14 +171,142 @@ function LoginPage(props) {
         });
     };
 
+    const NormalLoginCard = (
+        <div className="card-shadow px-2 py-4">
+            <h3 className="mb-4">
+                Login to Vidyut
+            </h3>
+            <div className="form-group">
+                <label htmlFor="username"/>
+                <input
+                    placeholder="Enter Username"
+                    className="p-2"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="password"/>
+                <input
+                    placeholder="Enter Password"
+                    className="p-2"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type="password"
+                />
+            </div>
+            <div className="px-4">
+                <button
+                    onClick={handleSubmit}
+                    className="btn btn-primary btn-block px-4 py-2 rounded-0 font-weight-bold"
+                >
+                    Login
+                </button>
+                <button
+                    onClick={() => setNeedsPassword(true)}
+                    className="plain-button font-weight-bold my-2 text-danger p-2"
+                >
+                    Forgot / Generate Password
+                </button>
+            </div>
+        </div>
+    );
+
+    const [email, setEmail] = useState('');
+    const resetQuery = `query emailPassword($email: String!){
+      emailPassword(email: $email)
+    }`;
+    const handleConfirmationRequest = () => {
+        setNeedsPassword(false);
+        Login(resetQuery, {email});
+    };
+
+    const renderForgotPassword = (
+        <div className="card-shadow px-2 py-4" style={{ minWidth: '300px' }}>
+            <h6 className="mb-4">
+                Forgot / Generate Password
+            </h6>
+            <div className="form-group">
+                <label htmlFor="email"/>
+                <input
+                    placeholder="Enter Registered Email"
+                    className="p-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    name="email"
+                />
+            </div>
+            <div className="px-4">
+                <button
+                    onClick={handleConfirmationRequest}
+                    className="btn btn-primary font-weight-bold btn-block my-2 rounded-0 p-2"
+                >
+                    Request Email
+                </button>
+            </div>
+        </div>
+    );
+
+    const SSOCards = (<React.Fragment>
+        <div className="my-2" onClick={() => setLoading(true)}>
+            <NoSSR>
+                <MicrosoftLogin
+                    clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
+                    authCallback={loginWithMicrosoft}
+                    redirectUri={url}
+                    children={<button className="login-button-microsoft">
+                        <img src={require('../images/logos/microsoft.png')}/>
+                        Login with Amrita ID
+                    </button>}
+                />
+            </NoSSR>
+        </div>
+        <div>{
+            status.facebookSignIn ? <FacebookProvider appId="2427065454211076">
+                <LoginButton
+                    scope="email"
+                    onCompleted={loginWithFacebook}
+                    onError={(e) => console.log(e)}
+                    className="login-button-microsoft"
+                >
+                    <div>
+                        <img src={require('../images/logos/facebook.png')}/>
+                        Login with Facebook
+                    </div>
+                </LoginButton>
+            </FacebookProvider> : null
+        }
+        </div>
+        <div>
+            {
+                status.googleSignIn ? (
+                    <GoogleLogin
+                        clientId="929385656161-b49s4q6vuqmdvt8lvapq0tggu5rlmnrc.apps.googleusercontent.com"
+                        onSuccess={loginWithGoogle}
+                        icon={false}
+                        cookiePolicy={'single_host_origin'}
+                        className="login-button-google"
+                        children={<div>
+                            <img src={require('../images/logos/google.png')}/>
+                            Login with Google
+                        </div>}
+                    />
+                ) : null
+            }
+        </div>
+    </React.Fragment>);
+
     return !isLoading && isLoaded ? (<LoginPageWrapper>
                <div id="login-card" className="text-center">
                {authFail ? errorMessage : null}
                 <div
-                    className="social-login-buttons d-flex align-items-center justify-content-center"
+                    className="social-login-buttons p-0"
                     style={{
                         height: '90vh',
-                        top: '0',
+                        top: 0,
+                        left: 0,
                         position: 'initial',
                         width: '100vw',
                         backgroundImage: `url('${require('../images/aoc/login-cover.jpg')}')`,
@@ -183,54 +314,29 @@ function LoginPage(props) {
                         backgroundPosition: 'center'
                     }}
                 >
-                        <div className="card-shadow p-4" style={{ backgroundColor: '#4A148C'}}>
-                            <div onClick={() => setLoading(true)}>
-                                <NoSSR>
-                                    <MicrosoftLogin
-                                        clientId="2e69cb85-310f-4339-aba9-1919ad5929b7"
-                                        authCallback={loginWithMicrosoft}
-                                        redirectUri={url}
-                                        children={<button className="login-button-microsoft">
-                                            <img src={require('../images/logos/microsoft.png')} />
-                                            Login with Amrita ID
-                                        </button>}
-                                    />
-                                </NoSSR>
-                            </div>
-                            <div>{
-                                status.facebookSignIn ? <FacebookProvider appId="2427065454211076">
-                                    <LoginButton
-                                        scope="email"
-                                        onCompleted={loginWithFacebook}
-                                        onError={(e) => console.log(e)}
-                                        className="login-button-microsoft"
-                                    >
-                                        <div>
-                                            <img src={require('../images/logos/facebook.png')} />
-                                            Login with Facebook
-                                        </div>
-                                    </LoginButton>
-                                </FacebookProvider> : null
-                            }
-                            </div>
-                            <div>
-                                {
-                                    status.googleSignIn ? (
-                                        <GoogleLogin
-                                            clientId="929385656161-b49s4q6vuqmdvt8lvapq0tggu5rlmnrc.apps.googleusercontent.com"
-                                            onSuccess={loginWithGoogle}
-                                            icon={false}
-                                            cookiePolicy={'single_host_origin'}
-                                            className="login-button-google"
-                                            children={<div>
-                                                <img src={require('../images/logos/google.png')} />
-                                                Login with Google
-                                            </div>}
-                                        />
-                                    ) : null
-                                }
-                            </div>
-                        </div>
+                    <div style={{ backgroundColor: 'rgba(0,0,0,0.4)', height: '100%' }} className="d-flex align-items-center justify-content-center">
+                        {
+                            !needsPassword ?
+                                <div className="card-shadow p-4" style={{backgroundColor: '#4A148C'}}>
+                                    {
+                                        hasLoginIssues ?
+                                            NormalLoginCard
+                                            : null
+                                    }
+                                    {SSOCards}
+                                    {
+                                        !hasLoginIssues ?
+                                            <button
+                                                onClick={() => setHasLoginIssues(true)}
+                                                className="font-weight-bold p-2 plain-button text-light"
+                                            >
+                                                Facing Login Issues ?
+                                            </button> : null
+                                    }
+                                </div>
+                            : renderForgotPassword
+                        }
+                    </div>
                 </div>
            </div>
     </LoginPageWrapper>) : <LoadingScreen text={setQueried ? "Logging you in. If it takes too long, please try again later." : "Hold on, while we are opening the login page"} />
