@@ -11,6 +11,9 @@ import '../styles/bootstrap.sass';
 import LoadingScreen from "../components/loadingScreen";
 import PaymentCollectionSummary from "../components/admin/PaymentCollectionSummary";
 import DashboardFooter from "../modules/dashboard/footer";
+import Topbar from "../components/common/topbar";
+import MenuBar from "../components/common/menubar";
+import BottomBar from "../components/common/bottombar";
 
 const AdminDashboard = () => {
     const [isQueried, setQueried] = useState(false);
@@ -62,12 +65,9 @@ const AdminDashboard = () => {
             isLoaded && data.myPermissions.adminAccess ?
                 (
                     <React.Fragment>
-                        <TitleBar />
+                        <Topbar/>
+                        <MenuBar />
                         <div>
-                            <DashboardHeader
-                                name={data.myProfile.firstName}
-                                message="Thank you for volunteering for Vidyut 2020. Let's work together, and strive hard to make Vidyut 2020 a grand success."
-                            />
                             <div className="container p-0">
                                 <div>
                                     <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
@@ -136,7 +136,10 @@ const AdminDashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <DashboardFooter />
+                        <BottomBar
+                            currentTabIcon={require('../images/icons/dashboard-bottom-bar-icon.png')}
+                            currentTabName="Admin"
+                        />
                     </React.Fragment>
                 ) : <LoadingScreen text="Loading Admin Dashboard"/>
         }

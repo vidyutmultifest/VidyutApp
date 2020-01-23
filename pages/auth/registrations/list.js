@@ -4,14 +4,15 @@ import { CSVLink } from "react-csv";
 
 import Base from "../../../components/base";
 import AdminRequired from "../../../components/adminRequired";
-import TitleBar from "../../../components/titleBar";
 import dataFetch from "../../../utils/dataFetch";
 import ContentCard from "../../../components/events/contentCard";
 import {useRouter} from "next/router";
 import RegProfileCard from "../../../components/admin/RegProfileCard";
 import TeamProfileCard from "../../../components/admin/TeamProfileCard";
-import DashboardFooter from "../../../modules/dashboard/footer";
 import RegStatOverview from "../../../components/admin/RegStatOverview";
+import Topbar from "../../../components/common/topbar";
+import MenuBar from "../../../components/common/menubar";
+import BottomBar from "../../../components/common/bottombar";
 const _ = require('lodash');
 
 const RegistrationList = () => {
@@ -197,7 +198,8 @@ const RegistrationList = () => {
             <title>Registration List | Vidyut 2020 | National Level Multifest</title>
         </Head>
         <AdminRequired>
-            <TitleBar />
+            <Topbar/>
+            <MenuBar/>
             <div className="container px-0 py-4">
                 { isLoaded && data ?
                     <div>
@@ -261,7 +263,10 @@ const RegistrationList = () => {
                     </div>
                     : null }
             </div>
-            <DashboardFooter />
+            <BottomBar
+                currentTabIcon={require('../../../images/icons/feed-icon.png')}
+                currentTabName="Stat"
+            />
         </AdminRequired>
     </Base>
 };

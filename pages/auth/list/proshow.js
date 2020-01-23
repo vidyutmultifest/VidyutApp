@@ -50,7 +50,7 @@ const ProshowList = () => {
         </div>
     );
 
-    return <Base adminRequired>
+    return <Base loginRequired>
         <Topbar />
         <MenuBar />
         <div className="container p-2">
