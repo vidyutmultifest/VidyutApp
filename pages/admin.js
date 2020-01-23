@@ -95,6 +95,17 @@ const AdminDashboard = () => {
                                             </div> : null
                                     }
                                     {
+                                        data.myPermissions.canViewRegistrations ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/check-list.png')}
+                                                    text="View Proshow Stats"
+                                                    title="View Proshow Stats"
+                                                    link="/auth/list/proshow"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
                                         data.myPermissions.canCheckInUsers ?
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
