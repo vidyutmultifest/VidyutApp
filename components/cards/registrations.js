@@ -78,7 +78,7 @@ const RegistrationsCard = () =>
                                         `/purchase?product=${r.event.productID}&qty=${r.team !== null  && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>
                                         <button className="btn btn-primary">
-                                            Pay {r.team !== null ? parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
+                                            Pay {r.team !== null ? r.event.product.details.isTotalRate ? parseInt(r.event.price) : parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
                                         </button>
                                     </Link>
                                     :  r.order.transaction && r.order.transaction.isPaid ? (
@@ -92,7 +92,7 @@ const RegistrationsCard = () =>
                                             <Link href={
                                                 `/purchase?product=${r.event.productID}&qty=${r.team !== null && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                             }>
-                                                <button className="btn btn-primary">Retry Payment</button>
+                                                <button className="btn btn-danger">Retry Payment</button>
                                             </Link>
                             }
                         </div>

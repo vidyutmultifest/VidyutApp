@@ -23,7 +23,7 @@ const MyRegistrations = () => {
            price
            productID
            product {
-              details
+            details
             {
               isTotalRate
             }
@@ -83,7 +83,7 @@ const MyRegistrations = () => {
                                     <Link href={
                                         `/purchase?product=${r.event.productID}&qty=${r.team !== null  && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>
-                                        <button className="btn btn-primary">
+                                        <button className="btn btn-danger">
                                             Pay {r.team !== null ? r.event.product.details.isTotalRate ? r.event.price : parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
                                         </button>
                                     </Link>
