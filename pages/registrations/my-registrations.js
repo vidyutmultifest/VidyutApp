@@ -84,7 +84,7 @@ const MyRegistrations = () => {
                                         `/purchase?product=${r.event.productID}&qty=${r.team !== null  && !r.event.product.details.isTotalRate ? r.team.membersCount : 1}&regID=${r.regID}`
                                     }>
                                         <button className="btn btn-primary">
-                                            Pay {r.team !== null ? parseInt(r.event.price * r.team.membersCount) : parseInt(r.event.price)} + GST
+                                            Pay for Registration
                                         </button>
                                     </Link>
                                     :  r.order.transaction && r.order.transaction.isPaid ? (
