@@ -1,9 +1,10 @@
 import Base from "../components/base";
 import Head from "next/head";
 import React from "react";
-import TitleBar from "../components/titleBar";
 
 import '../styles/initiatives.sass';
+import Topbar from "../components/common/topbar";
+import MenuBar from "../components/common/menubar";
 
 const InitiativesPage = () => {
 
@@ -11,7 +12,8 @@ const InitiativesPage = () => {
         <Head>
             <title>Vidyut Initiatives | Vidyut - National Level Multi Fest | Amrita Vishwa Vidyapeetham, Amritapuri</title>
         </Head>
-        <TitleBar />
+        <Topbar/>
+        <MenuBar/>
         <div id="initiatives-page">
             <section id="vsf">
                 <div className="row m-0">

@@ -11,6 +11,9 @@ import LoadingScreen from "../../components/loadingScreen";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import { WhatsappShareButton } from 'react-share';
 import fileUpload from "../../utils/fileUpload";
+import Topbar from "../../components/common/topbar";
+import MenuBar from "../../components/common/menubar";
+import BottomBar from "../../components/common/bottombar";
 
 const TeamViewPage = () => {
     const router = useRouter();
@@ -144,7 +147,8 @@ const TeamViewPage = () => {
         <Head>
             <title> {teamName} | Edit Team | Vidyut 2020 </title>
         </Head>
-        <TitleBar />
+        <Topbar/>
+        <MenuBar/>
         <div className="container p-0">
             <Card
                 title={`Your Team: ${teamName}`}
@@ -243,7 +247,10 @@ const TeamViewPage = () => {
                 }
             />
         </div>
-        <DashboardFooter/>
+        <BottomBar
+            currentTabIcon={require('../../images/icons/user-group-bottom-bar-icon.png')}
+            currentTabName="Team"
+        />
     </Base> : teamData === false ? <LoadingScreen
         title="Team Unreachable"
         text="This page either doesn't exist or you are forbidden from accessing it."
