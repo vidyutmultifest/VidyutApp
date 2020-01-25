@@ -93,12 +93,12 @@ const CrewPage = () => {
                                                     }}
                                                 >{ m.isFaculty ?
                                                     <div className="py-2"><div
-                                                        className="d-inline card-shadow mb-3 p-2 font-weight-bold small-text"
+                                                        className="d-inline card-shadow p-2 font-weight-bold small-text"
                                                         style={{
                                                             backgroundColor: '#64FFDA',
                                                             position: 'absolute',
-                                                            top: '0.5rem',
-                                                            left: '0.5rem'
+                                                            bottom: '0.5rem',
+                                                            left: '0.5rem',
                                                         }}
                                                     >
                                                         <img src={require('../images/icons/heart.png')} style={{ width: '20px'}}  className="mr-2" />
@@ -106,12 +106,12 @@ const CrewPage = () => {
                                                     </div></div>
                                                     : m.isCore ?
                                                     <div className="py-2"><div
-                                                        className="d-inline card-shadow mb-3 p-2 font-weight-bold small-text"
+                                                        className="d-inline card-shadow p-2 font-weight-bold small-text"
                                                         style={{
                                                             backgroundColor: '#FFF176',
                                                             position: 'absolute',
-                                                            top: '0.5rem',
-                                                            left: '0.5rem'
+                                                            bottom: '0.5rem',
+                                                            left: '0.5rem',
                                                         }}
                                                     >
                                                         <img src={require('../images/icons/diamond.png')} style={{ width: '20px'}}  className="mr-2" />
@@ -119,12 +119,12 @@ const CrewPage = () => {
                                                     </div></div>
                                                     : m.isHead ?
                                                         <div className="py-2"><div
-                                                            className="d-inline card-shadow mb-3 p-2  font-weight-bold small-text"
+                                                            className="d-inline card-shadow p-2  font-weight-bold small-text"
                                                             style={{
                                                                 backgroundColor: '#FFFFFF',
                                                                 position: 'absolute',
-                                                                top: '0.5rem',
-                                                                left: '0.5rem'
+                                                                bottom: '0.5rem',
+                                                                left: '0.5rem',
                                                             }}
                                                         >
                                                             <img src={require('../images/icons/star.png')} style={{ width: '20px'}}  className="mr-2" />
