@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import '../../styles/bootstrap.sass';
 import {useRouter} from "next/router";
 
+
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 
@@ -121,7 +122,9 @@ const VerifyTicket = () => {
                                     style={{
                                         backgroundImage: `url(${data.photo})`,
                                         width: '50vh',
-                                        height: '50vh'
+                                        height: '50vh',
+                                        backgroundSize: 'cover',
+                                        backgroundRepeat:'no-repeat'
                                     }}
                                 /> : null
                             }

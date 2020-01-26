@@ -35,8 +35,8 @@ const LanderSponsors = () => {
             "type": "Coupon Partner"
         },
         {
-            "logo": require('../../images/sponsors/udaya-samudra.jpg'),
-            "name": "Udaya Samudra",
+            "logo": require('../../images/sponsors/chungath.png'),
+            "name": "Chungath",
             "type": "Event Partner"
         },
         {

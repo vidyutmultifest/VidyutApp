@@ -9,6 +9,7 @@ import Slideshow from "../components/common/slideshow";
 import DashboardListing from "../modules/dashboard/listing";
 import BottomBar from "../components/common/bottombar";
 import Head from "next/head";
+import FeedStories from "../modules/dashboard/feedStories";
 
 const ExplorePage  = () => {
     return (
@@ -18,6 +19,7 @@ const ExplorePage  = () => {
             </Head>
             <Topbar/>
             <MenuBar/>
+            <FeedStories />
             <Slideshow feedSlug="home" />
             <div className="container p-0">
                 <DashboardListing/>

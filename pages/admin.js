@@ -32,12 +32,14 @@ const AdminDashboard = () => {
       status
       {
         offlinePayment
+        enableCheckIn
       }
       myPermissions
       {
         canAcceptPayment
         adminAccess
         canViewRegistrations
+        canIssueTickets
         canCheckInUsers
       }
     }`;
@@ -70,7 +72,6 @@ const AdminDashboard = () => {
                         <div>
                             <div className="container p-0">
                                 <div>
-                                    <h4 className="px-4 mt-4 section-heading">Quick Actions</h4>
                                     <div className="row m-0 pb-4">
                                     {
                                         data.status.offlinePayment && data.myPermissions.canAcceptPayment ?
@@ -106,13 +107,24 @@ const AdminDashboard = () => {
                                             </div> : null
                                     }
                                     {
-                                        data.myPermissions.canCheckInUsers ?
+                                        data.status.enableCheckIn && data.myPermissions.canCheckInUsers ?
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
-                                                    photo={require('../images/icons/qr-code.png')}
+                                                    photo={require('../images/icons/qr-scan.png')}
                                                     text="Check-In Users"
                                                     title="Check In"
                                                     link="/restricted/view-sessions"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.myPermissions.canIssueTickets ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/ticket-issue-icon.png')}
+                                                    text="Issue physical pro-show tickets to purchased students"
+                                                    title="Issue Tickets"
+                                                    link="/restricted/issue-ticket"
                                                 />
                                             </div> : null
                                     }
