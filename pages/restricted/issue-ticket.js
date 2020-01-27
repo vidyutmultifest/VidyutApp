@@ -145,7 +145,7 @@ const IssueTicket = () => {
                                             </React.Fragment> : null
                                     }
                                     <button
-                                        onClick={() => setQrScanned(false)}
+                                        onClick={() => { setQrScanned(false); setTicketData(false); }}
                                         className="btn btn-danger m-1 rounded-0 btn-shadow"
                                     >
                                          Scan Another
