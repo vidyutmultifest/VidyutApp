@@ -12,6 +12,9 @@ import '../../styles/style.sass';
 import LoadingScreen from "../../components/loadingScreen";
 import Link from "next/link";
 import Head from "next/head";
+import Topbar from "../../components/common/topbar";
+import MenuBar from "../../components/common/menubar";
+import BottomBar from "../../components/common/bottombar";
 
 const UploadSelfie = () => {
     const [isUploading, setUploading] = useState(false);
@@ -149,7 +152,8 @@ const UploadSelfie = () => {
         : isUploading ?
             <LoadingScreen text="Uploading Photo" />
          : <React.Fragment>
-        <TitleBar />
+        <Topbar />
+        <MenuBar/>
             <div id="update-selfie-page" className="container my-4">
                 <h3>Upload Selfie</h3>
                 <div className="alert alert-info my-2 p-2">
@@ -192,7 +196,11 @@ const UploadSelfie = () => {
                     }
                 </div>
             </div>
-        <Footer />
+        <BottomBar
+            currentTabName="Selfie"
+            currentTabIcon={require('../../images/icons/dashboard-bottom-bar-icon.png')}
+            hideExploreTab
+        />
         </React.Fragment>
         }
     </Base>

@@ -14,6 +14,7 @@ import LoadingScreen from "../../components/loadingScreen";
 
 import '../../styles/profile/college-id.sass';
 import Link from "next/link";
+import BottomBar from "../../components/common/bottombar";
 
 const UploadCollegeID = () => {
     const [isSubmitting, setSubmission] = useState(false);
@@ -229,7 +230,8 @@ const UploadCollegeID = () => {
                 <LoadingScreen text="Saving changes" />
                 : !isProfileLoaded ? <LoadingScreen text="Loading your profile" /> : (
                 <React.Fragment>
-                    <TitleBar />
+                    <Topbar />
+                    <MenuBar />
                     <div id="update-college-page" className="container my-4 ">
                         <div className="badge badge-primary">Experimental Feature</div>
                         <h3>Upload ID Card</h3>
@@ -291,7 +293,11 @@ const UploadCollegeID = () => {
                             </div>
                         </div>
                     </div>
-                    <DashboardFooter />
+                    <BottomBar
+                        currentTabIcon={require('../../images/icons/dashboard-bottom-bar-icon.png')}
+                        currentTabName="CollegeID"
+                        hideExploreTab
+                    />
                 </React.Fragment>
             )
         }
