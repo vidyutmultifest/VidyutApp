@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const API_URL = 'https://vidyut.rivivo.xyz/';
+const API_URL = 'https://vidyut.amrita.edu/api';
 
 export default ({ query, variables, token }) => {
     const body = {
