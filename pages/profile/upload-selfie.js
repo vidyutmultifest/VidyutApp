@@ -46,6 +46,7 @@ const UploadSelfie = () => {
         data.append('query', mutation);
         setUploading(true);
         uploadFile({data}).then((response) => {
+            setUploading(false);
             setUploaded(true);
         });
     };
