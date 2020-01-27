@@ -15,6 +15,8 @@ import LoadingScreen from "../../components/loadingScreen";
 import '../../styles/profile/college-id.sass';
 import Link from "next/link";
 import BottomBar from "../../components/common/bottombar";
+import Topbar from "../../components/common/topbar";
+import MenuBar from "../../components/common/menubar";
 
 const UploadCollegeID = () => {
     const [isSubmitting, setSubmission] = useState(false);

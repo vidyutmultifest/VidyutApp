@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 
 import Base from "../../components/base";
-import TitleBar from "../../components/titleBar";
-import Footer from "../../modules/dashboard/footer";
 import Webcam from "react-webcam";
 import fileUpload from "../../utils/fileUpload";
 import Boundingbox from "react-bounding-box";
