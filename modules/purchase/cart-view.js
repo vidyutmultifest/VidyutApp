@@ -150,8 +150,15 @@ const CartView = ({ productList, promocode, regID }) => {
     const renderPaymentButtons = () => {
         const flag = productList.filter(p => p.isAvailable === false).length > 0 ? true : false;
         return !flag ? (<div>
+            <p className="text-light">Until you pay successfully for your transaction, your registration/purchase is not considered valid. You will receive an email on confirmation.</p>
+            <p className="text-light my-2">Pay at counter option is for accepting payments at Vidyut registration desk put up in your campus, and not for on-spot registrations.</p>
             { isLoaded && status.onlinePayment ? <button onClick={() => { PayNow(true); }} className="payment-button card-shadow">Pay Online</button> : null }
-            { isLoaded && status.offlinePayment ? <button onClick={() => { PayNow(false); }} className="payment-button card-shadow">Pay at Counter</button> : null}
+            { isLoaded && status.offlinePayment ?
+                <button onClick={() => { PayNow(false); }} className="payment-button card-shadow">
+                    Pay at Counter
+                </button>
+                : null
+            }
         </div>) : <h6>Some items in your cart are unavailable right now. You cannot proceed with this order.</h6>
     };
 
