@@ -20,7 +20,7 @@ const ProfilePicture = ({ profilePhoto }) => {
             {
                 profilePhoto ?
                     <div className="edit-body">
-                        <img src={profilePhoto} />
+                        <img alt="my selfie" src={profilePhoto} />
                         <Link href="/profile/upload-selfie">
                             <button className="btn btn-primary px-4 py-2">Retake Selfie</button>
                         </Link>

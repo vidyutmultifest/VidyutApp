@@ -62,14 +62,17 @@ const IssueTicket = () => {
     const [isIssuingTicket, setIssuingTicket] = useState(false);
     const [issueData, setIssueData] = useState(false);
     const handleIssueTicket = () => {
-        setIssuingTicket(true);
-        issueTicket({
-            number: ticketNo,
-            hash: userHash
-        }).then(response => {
-            setIssuingTicket(false);
-            setIssueData(response.data.issueTicket);
-        })
+        if(ticketNo.length>3)
+        {
+            setIssuingTicket(true);
+            issueTicket({
+                number: ticketNo,
+                hash: userHash
+            }).then(response => {
+                setIssuingTicket(false);
+                setIssueData(response.data.issueTicket);
+            })
+        }
     };
 
     return <Base loginRequired>
@@ -133,6 +136,7 @@ const IssueTicket = () => {
                                                         className="form-control"
                                                         type="number" pattern="[0-9]*" inputmode="numeric"
                                                         placeholder="Enter Ticket No."
+                                                        required
                                                         onChange={(e) => setTicketNo(e.target.value)}
                                                     />
                                                 </div>
