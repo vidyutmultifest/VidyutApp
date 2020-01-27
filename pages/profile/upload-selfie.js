@@ -152,6 +152,9 @@ const UploadSelfie = () => {
         <TitleBar />
             <div id="update-selfie-page" className="container my-4">
                 <h3>Upload Selfie</h3>
+                <div className="alert alert-info my-2 p-2">
+                    Make sure you have enabled camera access for this website.
+                </div>
                 <div className="selfie-card card-shadow text-center">
                     { isUploaded ?
                         renderOnSuccess
