@@ -19,7 +19,7 @@ const EditPreferences = ({ shirtSize, foodPreference }) => {
     const handleSave = () => {
         const variables = {
             "details": {
-                "foodPreference": fPre,
+                // "foodPreference": fPre,
                 "shirtSize": sSize,
             }
         };
@@ -51,21 +51,21 @@ const EditPreferences = ({ shirtSize, foodPreference }) => {
                         <option value="XXL">XXL</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="foodPreference-select">Food Preference</label>
-                    <select
-                        className="form-control"
-                        name="foodPreference-select"
-                        id="foodPreference-select"
-                        onChange={(e) => setFPre(e.target.value)}
-                        value={fPre ? fPre : 'null'}
-                    >
-                        <option disabled value="null"> Select Preference</option>
-                        <option value="V">Vegetarian</option>
-                        <option value="N">Non-Vegetarian</option>
-                        <option value="A">Any</option>
-                    </select>
-                </div>
+                {/*<div className="form-group">*/}
+                {/*    <label htmlFor="foodPreference-select">Food Preference</label>*/}
+                {/*    <select*/}
+                {/*        className="form-control"*/}
+                {/*        name="foodPreference-select"*/}
+                {/*        id="foodPreference-select"*/}
+                {/*        onChange={(e) => setFPre(e.target.value)}*/}
+                {/*        value={fPre ? fPre : 'null'}*/}
+                {/*    >*/}
+                {/*        <option disabled value="null"> Select Preference</option>*/}
+                {/*        <option value="V">Vegetarian</option>*/}
+                {/*        <option value="N">Non-Vegetarian</option>*/}
+                {/*        <option value="A">Any</option>*/}
+                {/*    </select>*/}
+                {/*</div>*/}
                 {
                     !isSaving ? <button onClick={handleSave} className="btn px-4 py-2">Save</button>
                         : <div className="alert alert-info">Saving</div>
