@@ -24,6 +24,7 @@ const IssueTicket = () => {
         userName
         rollNo
         photo
+        tShirtSize
         isProfileComplete
       }
     }`;
@@ -120,6 +121,7 @@ const IssueTicket = () => {
                                     <div className="py-1">
                                         <div><b>Name:</b> {ticketData.userName}</div>
                                         <div><b>Roll No:</b> {ticketData.rollNo}</div>
+                                        <div><b>T-Shirt Size:</b> {ticketData.tShirtSize}</div>
                                         { ticketData.product ?  <div><b>Ticket Type:</b> {ticketData.productName}</div> : null}
                                     </div>
                                     {
