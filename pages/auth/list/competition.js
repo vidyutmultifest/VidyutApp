@@ -19,7 +19,9 @@ const CompetitionStatsList = () => {
       {
         name
         totalRegs
+        pulse
         paidRegs
+        pulsePaid
         unpaidRegs
         insiderPaid
         outsiderPaid
@@ -48,8 +50,8 @@ const CompetitionStatsList = () => {
     const renderWorkshop = (r) => (
         <tr>
             <td>{r.name}</td>
-            <td>{r.totalRegs}</td>
-            <td><b>{r.paidRegs}</b></td>
+            <td>{r.totalRegs} {r.pulse > 0 ? `(+${r.pulse})` : null}</td>
+            <td><b>{r.paidRegs} {r.pulsePaid > 0 ? `(+${r.pulsePaid})`: null}</b></td>
             <td>{r.unpaidRegs}</td>
             <td>{r.insiderPaid}</td>
             <td>{r.outsiderPaid}</td>
