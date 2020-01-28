@@ -82,6 +82,17 @@ const WorkshopStatsList = () => {
                 </thead>
                 {
                     isLoaded ?
+                        <tr className="font-weight-bold">
+                            <td scope="col">Total</td>
+                            <td scope="col">{_.sumBy(data, 'totalRegs')}</td>
+                            <td scope="col">{_.sumBy(data, 'paidRegs')}</td>
+                            <td scope="col">{_.sumBy(data, 'unpaidRegs')}</td>
+                            <td scope="col">{_.sumBy(data, 'insiderPaid')}</td>
+                            <td scope="col">{_.sumBy(data, 'outsiderPaid')}</td>
+                        </tr> : null
+                }
+                {
+                    isLoaded ?
                         sortedList(data).reverse().map(w => renderWorkshop(w))
                         : null
                 }
