@@ -62,7 +62,7 @@ const IssueTicket = () => {
     const [isIssuingTicket, setIssuingTicket] = useState(false);
     const [issueData, setIssueData] = useState(false);
     const handleIssueTicket = () => {
-        if(ticketNo.length>3)
+        if(ticketNo.length>2)
         {
             setIssuingTicket(true);
             issueTicket({

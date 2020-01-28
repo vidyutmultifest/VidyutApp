@@ -3,7 +3,7 @@ import QRCode from "qrcode.react";
 import classNames from 'classnames';
 
 import '../../styles/common/user-sidebar.sass';
-import dataFetch from "../../utils/CustomDataFetch";
+import dataFetch from "../../utils/dataFetch";
 import DeveloperCredits from "./developerCredits";
 import {useRouter} from "next/router";
 import Cookies from "universal-cookie";
@@ -15,6 +15,7 @@ const UserSidebar = () => {
     const router = useRouter();
 
     const [isQueried, setQueried] = useState(false);
+    const [isLoaded, setLoaded] = useState(false);
     const [data, setData] = useState(false);
 
     const query = `{
@@ -46,6 +47,7 @@ const UserSidebar = () => {
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setData(response.data.myProfile);
                     setAdmin(response.data.myPermissions ? response.data.myPermissions.adminAccess : false );
+                    setLoaded(true);
                 }
             })
         }
@@ -65,32 +67,35 @@ const UserSidebar = () => {
             <div className="row m-0">
                 <div className="col-9 d-flex align-items-center p-0">
                     {
-                        data ?
-                            <div>
-                                <h4>Hi {data.firstName} {data.lastName}!</h4>
-                                <div className="account-type-text">
-                                    {
-                                        data.isFaculty ? 'Faculty Account'
-                                            : data.isSchoolStudent ? 'School Student Account'
-                                            : 'College Student Account'
-                                    }
+                        isLoaded ?
+                            data ?
+                                <div>
+                                    <h4>Hi {data.firstName} {data.lastName}!</h4>
+                                    <div className="account-type-text">
+                                        {
+                                            data.isFaculty ? 'Faculty Account'
+                                                : data.isSchoolStudent ? 'School Student Account'
+                                                : 'College Student Account'
+                                        }
+                                    </div>
+                                    <a href="/profile/edit-profile" className="plain-link">
+                                        Edit Profile >
+                                    </a>
                                 </div>
-                                <a href="/profile/edit-profile" className="plain-link">
-                                    Edit Profile >
-                                </a>
-                            </div>
-                        : <div>
-                                <h4>Register for Vidyut</h4>
-                                <a href="/login" className="plain-link">
-                                    Log In
-                                </a>
+                            : <div>
+                                    <h4>Register for Vidyut</h4>
+                                    <a href="/login" className="plain-link">
+                                        Log In
+                                    </a>
+                                </div> : <div>
+                                <h4>Loading Profile</h4>
                             </div>
                     }
 
                 </div>
                 <div className="col-3 d-flex align-items-center p-0">
                     {
-                        data && data.photo ?
+                        isLoaded && data && data.photo ?
                             <div className="profile-photo">
                                 <img src={data.photo} alt="user-photo" />
                             </div> : null
