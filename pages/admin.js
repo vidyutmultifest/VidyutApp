@@ -106,6 +106,28 @@ const AdminDashboard = () => {
                                                 />
                                             </div> : null
                                     }
+                                        {
+                                            data.myPermissions.canViewRegistrations ?
+                                                <div className="col-md-3 col-6 p-2">
+                                                    <QuickActionCard
+                                                        photo={require('../images/icons/check-list.png')}
+                                                        text="View Competition Stats"
+                                                        title="View Competition Stats"
+                                                        link="/auth/list/competition"
+                                                    />
+                                                </div> : null
+                                        }
+                                        {
+                                            data.myPermissions.canViewRegistrations ?
+                                                <div className="col-md-3 col-6 p-2">
+                                                    <QuickActionCard
+                                                        photo={require('../images/icons/check-list.png')}
+                                                        text="View Workshop Stats"
+                                                        title="View Workshop Stats"
+                                                        link="/auth/list/workshop"
+                                                    />
+                                                </div> : null
+                                        }
                                     {
                                         data.status.enableCheckIn && data.myPermissions.canCheckInUsers ?
                                             <div className="col-md-3 col-6 p-2">
