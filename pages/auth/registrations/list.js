@@ -16,6 +16,7 @@ import BottomBar from "../../../components/common/bottombar";
 const _ = require('lodash');
 
 import '../../../styles/bootstrap.sass';
+import RegDetails from "../../../components/admin/RegDetails";
 
 const RegistrationList = () => {
     const [isQueried, setQueried] = useState(false);
@@ -25,10 +26,11 @@ const RegistrationList = () => {
     const [isPaidOnly, setPaidOnly] = useState('any');
     const [type, setType] = useState('any');
 
-    const query = `query registrationLister
+    const query = `query registrationLister($type: String)
     {
-    listRegistrations
+        listRegistrations(eventType: $type)
         {
+            id
             name
             count
             {
@@ -67,24 +69,6 @@ const RegistrationList = () => {
         }
     });
 
-    const getCSV = (r) => {
-      const list = [];
-      r.map(r => {
-          list.push({
-              name: r.userProfile ? r.userProfile.firstName + ' ' + r.userProfile.lastName : r.teamProfile.name,
-              college: r.userProfile ? r.userProfile.college ? r.userProfile.college.name : null : r.teamProfile.leader.college ?  r.teamProfile.leader.college.name : null,
-              email: r.userProfile ? r.userProfile.email : r.teamProfile.leader.email,
-              phone: r.userProfile ? r.userProfile.phone : r.teamProfile.leader.phone,
-              vidyutID: r.userProfile ? r.userProfile.vidyutID : r.teamProfile.leader.VidyutID,
-              regID: r.regID,
-              timestamp: r.registrationTimestamp,
-              transactionID: r.transaction ? r.transaction.transactionID : null,
-              transactionAmount: r.transaction ? r.transaction.amount : null,
-              transactionStatus: r.transaction ? r.transaction.isPaid ? 'Paid' : r.transaction.isProcessed ? 'Not Paid' : 'Unprocessed' : 'Not Attempted'
-          })
-      });
-      return list;
-    };
 
     const renderCard = (c) => (
         <div className="pt-4">
@@ -109,35 +93,7 @@ const RegistrationList = () => {
                             <li><b>Outside Campus Paid</b>: {c.count.paid - c.count.amritapurianPaid}</li>
                             <li><b>Inside Campus Paid</b>: {c.count.amritapurianPaid}</li>
                         </div>
-                        {/*<CSVLink data={getCSV(c.registrations)} filename={`export_${c.name}_registration_data.csv`}>*/}
-                        {/*    <button className="btn btn-warning btn-shadow rounded-0 m-2">Download Data</button>*/}
-                        {/*</CSVLink>*/}
-                        <div className="row mx-0 mt-4">
-                        {
-                            c.registrations ? c.registrations.map((r) =>
-                                 r.teamProfile ?
-                                     <div className="col-12 p-2">
-                                        <TeamProfileCard
-                                            teamProfile={r.teamProfile}
-                                            formData={r.formData}
-                                            transaction={r.transaction}
-                                            regID={r.regID}
-                                            timestamp={r.registrationTimestamp}
-                                        />
-                                     </div> : r.userProfile ?
-                                     <div className="col-md-6 col-12 p-2">
-                                         <RegProfileCard
-                                             profile={r.userProfile}
-                                             formData={r.formData}
-                                             transaction={r.transaction}
-                                             regID={r.regID}
-                                             timestamp={r.registrationTimestamp}
-                                             showTransactionDetails
-                                         />
-                                     </div> : null
-                            ) : null
-                        }
-                        </div>
+                        <RegDetails id={c.id} />
                     </div>
                 }
             />
@@ -145,9 +101,6 @@ const RegistrationList = () => {
 
     );
 
-    // const sortedList = () => {
-    //     return _.sortBy(data, [function(o) { return o.registrations.length; }]);
-    // };
 
     return <Base loginRequired>
         <Head>
