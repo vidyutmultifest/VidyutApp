@@ -64,23 +64,28 @@ const CompetitionStatsList = () => {
         <MenuBar/>
         <div className="container p-2">
             <h2>Competition Statistics</h2>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Total Regs</th>
-                    <th scope="col">Paid Regs</th>
-                    <th scope="col">Unpaid Regs</th>
-                    <th scope="col">Insider Paid</th>
-                    <th scope="col">Outsider Paid</th>
-                </tr>
-                </thead>
-                {
-                    isLoaded ?
-                        sortedList(data).reverse().map(w => renderWorkshop(w))
-                        : null
-                }
-            </table>
+            <div className="alert-info alert my-2 p-2">
+                <p>Please view in desktop-mode.</p>
+            </div>
+            <div className="card-shadow" style={{ overflow: 'auto' }}>
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Regs</th>
+                        <th scope="col">Paid Regs</th>
+                        <th scope="col">Unpaid Regs</th>
+                        <th scope="col">Insider Paid</th>
+                        <th scope="col">Outsider Paid</th>
+                    </tr>
+                    </thead>
+                    {
+                        isLoaded ?
+                            sortedList(data).reverse().map(w => renderWorkshop(w))
+                            : null
+                    }
+                </table>
+            </div>
         </div>
         <BottomBar
             currentTabIcon={require('../../../images/icons/dashboard-bottom-bar-icon.png')}

@@ -63,9 +63,13 @@ const WorkshopStatsList = () => {
         </Head>
         <Topbar/>
         <MenuBar/>
-        <div className="container p-2">
+        <div className="container p-0">
             <h2>Workshop Statistics</h2>
-            <table className="table">
+            <div className="alert-info alert my-2 p-2">
+                <p>Please view in desktop-mode.</p>
+            </div>
+            <div className="card-shadow" style={{ overflow: 'auto' }}>
+                <table className="table">
                 <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -82,6 +86,7 @@ const WorkshopStatsList = () => {
                         : null
                 }
             </table>
+            </div>
         </div>
         <BottomBar
             currentTabIcon={require('../../../images/icons/dashboard-bottom-bar-icon.png')}
