@@ -4,7 +4,7 @@ import { CSVLink } from "react-csv";
 
 import Base from "../../../components/base";
 import AdminRequired from "../../../components/adminRequired";
-import dataFetch from "../../../utils/dataFetch";
+import dataFetch from "../../../utils/CustomdDataFetch";
 import ContentCard from "../../../components/events/contentCard";
 import {useRouter} from "next/router";
 import RegProfileCard from "../../../components/admin/RegProfileCard";
@@ -14,6 +14,8 @@ import Topbar from "../../../components/common/topbar";
 import MenuBar from "../../../components/common/menubar";
 import BottomBar from "../../../components/common/bottombar";
 const _ = require('lodash');
+
+import '../../../styles/bootstrap.sass';
 
 const RegistrationList = () => {
     const [isQueried, setQueried] = useState(false);
@@ -201,26 +203,14 @@ const RegistrationList = () => {
             <Topbar/>
             <MenuBar/>
             <div className="container px-0 py-4">
+                <div>
+                    <div className="p-4">
+                        <h2>Registration List</h2>
+                    </div>
+                    <RegStatOverview />
+                </div>
                 { isLoaded && data ?
                     <div>
-                        <div className="p-4">
-                            <h2>Registration List</h2>
-                            <div>
-                                Showing registrations received for
-                                {
-                                    router.query.type === 'competition' ? <b> {data.length} competition{data.length > 1 ? 's' : ''} </b> :
-                                        router.query.type === 'workshop' ? <b>  {data.length} workshop{data.length > 1 ? 's' : ''} </b> :
-                                            null
-                                }
-                                that you have access to and which received registrations,
-                                {
-                                    router.query.isPaid === '1' ? <React.Fragment> with details of <b>paid</b> transactions.</React.Fragment> :
-                                        router.query.isPaid === '0' ? <React.Fragment> with details of <b>unpaid</b> transactions.</React.Fragment>
-                                            :  <React.Fragment> with details of <b>all</b> transactions.</React.Fragment>
-                                }
-                            </div>
-                        </div>
-                        <RegStatOverview />
                         <h4 className="px-4 my-4">Detailed List</h4>
                         <div className="row m-0">
                             <div className="col-md-3">
@@ -230,8 +220,8 @@ const RegistrationList = () => {
                                         <label htmlFor="shirtSize-select">Type</label>
                                         <select
                                             className="form-control"
-                                            name="shirtSize-select"
-                                            id="shirtSize-select"
+                                            name="type-select"
+                                            id="type-select"
                                             onChange={(e) => { setType(e.target.value); setQueried(false) }}
                                             value={type ? type : 'null'}
                                         >
@@ -261,7 +251,10 @@ const RegistrationList = () => {
                             </div>
                         </div>
                     </div>
-                    : null }
+                    : <div className="my-4 card-shadow p-2">
+                        <h3> Loading Detailed Stats </h3>
+                        <p>Please wait upto 2 minutes for the detailed report to come up.</p>
+                    </div> }
             </div>
             <BottomBar
                 currentTabIcon={require('../../../images/icons/feed-icon.png')}

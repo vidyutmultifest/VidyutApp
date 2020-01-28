@@ -330,7 +330,7 @@ function LoginPage(props) {
                                                 onClick={() => setHasLoginIssues(true)}
                                                 className="font-weight-bold p-2 plain-button text-light"
                                             >
-                                                Facing Login Issues ?
+                                                Login with Username & Password
                                             </button> : null
                                     }
                                 </div>

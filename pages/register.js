@@ -228,6 +228,12 @@ function LoginPage(props) {
                         ) : null
                     }
                     </div>
+                    <a
+                        href="/login"
+                        className="font-weight-bold p-2 plain-button mt-4 text-dark"
+                    >
+                        Login with Username & Password
+                    </a>
                 </div>
                <div className="text-dark px-3 pt-4 pb-3">
                    <img src={require('../images/logos/amrita-dark-logo.png')} />

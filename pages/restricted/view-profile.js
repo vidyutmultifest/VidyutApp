@@ -7,6 +7,8 @@ import TitleBar from "../../components/titleBar";
 import DashboardFooter from "../../modules/dashboard/footer";
 import dataFetch from "../../utils/dataFetch";
 import StatusContainer from "../../components/StatusContainer";
+import MenuBar from "../../components/common/menubar";
+import Topbar from "../../components/common/topbar";
 
 const ViewProfile = () => {
     const [isLoaded, setLoaded] = useState(true);
@@ -27,7 +29,13 @@ const ViewProfile = () => {
         phone
         email
         rollNo
-        hasEventsRegistered
+        gender
+        proshowTicket
+        profileCompletion
+        {
+          status
+          message
+        }
         college
         {
           name
@@ -76,36 +84,30 @@ const ViewProfile = () => {
         </div>
     );
 
-    const renderProfileCard = () => (
-        <div className="row m-0">
-            <div className="col-12">
-                <div className="card-shadow">
-                    <div className="d-flex p-4">
-                        <img src={data.photo ? data.photo : require('../../images/icons/user.png')} style={{ width: "150px" }} />
-                        <div className="p-4">
-                            <h3>{data.firstName} {data.lastName}</h3>
-                            <div className="font-weight-bold">
-                                VID: {data.vidyutID}
-                            {
-                                data.isAmritapurian ?
-                                    <span> | <div className="badge badge-success">Amritapurian</div> | Roll No.: {data.rollNo ? data.rollNo : "Not Entered"}</span> : null
-                            }
-                            </div>
-                            <div className="font-weight-bold">{data.college ? data.college.name : null}</div>
-                            {
-                                data.isFaculty ?
-                                    <div className="badge badge-primary">Faculty / Professional</div>
-                                : data.isSchoolStudent ?
-                                    <div className="badge badge-primary">School Student</div> :
-                                <div className="badge badge-primary">College Student</div>
-                            }
-                            {
-                                !data.isProfileComplete ?
-                                    <div className="badge badge-danger">Profile Incomplete</div>
-                                :  <div className="badge badge-success">Profile Complete</div>
-                            }
-                        </div>
-                    </div>
+    const renderProfileCard = () => <div className="container p-0">
+        <div className="row m-0 my-2">
+            <div className="col-lg-3 col-md-2 text-center p-1">
+                <img
+                    src={data.photo ? data.photo : require('../../images/icons/user.png')}
+                    style={{ maxHeight: "50vh" }}
+                />
+            </div>
+            <div className="col-lg-9 col-md-10 p-1">
+                <div className="card-shadow h-100 p-4">
+                    <h3>{data.firstName} {data.lastName}</h3>
+                    <div className="font-weight-bold">{data.college ? data.college.name : null}</div>
+                    {
+                        data.isFaculty ?
+                            <div className="badge badge-primary rounded-0">Faculty / Professional</div>
+                            : data.isSchoolStudent ?
+                            <div className="badge badge-primary rounded-0">School Student</div> :
+                            <div className="badge badge-primary rounded-0">College Student</div>
+                    }
+                    {
+                        !data.profileCompletion.status ?
+                            <div className="badge badge-danger rounded-0">Profile Incomplete</div>
+                            :  <div className="badge badge-success rounded-0">Profile Complete</div>
+                    }
                     <div className="p-2 text-center">
                         <button
                             className="btn btn-primary rounded-0 my-4 px-4 py-2"
@@ -116,8 +118,27 @@ const ViewProfile = () => {
                     </div>
                 </div>
             </div>
+            <div className="col-6 p-1">
+                <img src={data.idPhoto ? data.idPhoto : require('../../images/icons/user.png')} style={{ width: "150px" }} />
+            </div>
+            <div className="col-6 p-1">
+                <div className="card-shadow">
+                        <li>VID: {data.vidyutID}</li>
+                        <li>Email: {data.email}</li>
+                        <li>Phone: {data.email}</li>
+                        <li>Gender: {data.gender}</li>
+                        <li>Roll No: {data.rollNo}</li>
+                </div>
+            </div>
+            <div>
+                <div className="card-shadow">
+                    {
+                        data.map()
+                    }
+                </div>
+            </div>
         </div>
-    );
+    </div>;
 
     const handleTryAgain = () => {
         setError(false);
@@ -129,9 +150,9 @@ const ViewProfile = () => {
             <Head>
                 <title>View Profile | Admin | Vidyut 2020</title>
             </Head>
-            <TitleBar/>
+            <Topbar/>
+            <MenuBar />
             <AdminRequired>
-                <div className="container my-4">
                     { !error ?
                         isLoaded ?
                             !data ? renderSearchCard() : renderProfileCard()
@@ -158,7 +179,6 @@ const ViewProfile = () => {
                             </div>
                         </div>
                     }
-                </div>
             </AdminRequired>
             <DashboardFooter/>
         </Base>
