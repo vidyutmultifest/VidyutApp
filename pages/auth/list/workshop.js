@@ -79,7 +79,7 @@ const WorkshopStatsList = () => {
                     <th scope="col">Name</th>
                     <th scope="col">Total Regs</th>
                     <th scope="col">Paid Regs</th>
-                    <th scope="col">Slots</th>
+                    <th scope="col">Slots Remaining</th>
                     <th scope="col">Unpaid Regs</th>
                     <th scope="col">Insider Paid</th>
                     <th scope="col">Outsider Paid</th>
@@ -90,8 +90,8 @@ const WorkshopStatsList = () => {
                         <tr className="font-weight-bold">
                             <td scope="col">Total</td>
                             <td scope="col">{_.sumBy(data, 'totalRegs')}</td>
-                            <td scope="col">{_.sumBy(data, 'slots')} total slots</td>
                             <td scope="col">{_.sumBy(data, 'paidRegs')}</td>
+                            <td scope="col">{_.sumBy(data, 'slots') - _.sumBy(data, 'paidRegs')}/{_.sumBy(data, 'slots')}</td>
                             <td scope="col">{_.sumBy(data, 'unpaidRegs')}</td>
                             <td scope="col">{_.sumBy(data, 'insiderPaid')}</td>
                             <td scope="col">{_.sumBy(data, 'outsiderPaid')}</td>
