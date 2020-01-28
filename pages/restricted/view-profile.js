@@ -9,6 +9,7 @@ import dataFetch from "../../utils/dataFetch";
 import StatusContainer from "../../components/StatusContainer";
 import MenuBar from "../../components/common/menubar";
 import Topbar from "../../components/common/topbar";
+import Card from "../../components/dashboard/Card";
 
 const ViewProfile = () => {
     const [isLoaded, setLoaded] = useState(true);
@@ -31,6 +32,8 @@ const ViewProfile = () => {
         rollNo
         gender
         proshowTicket
+        physicalTicket
+        registrations
         profileCompletion
         {
           status
@@ -86,56 +89,96 @@ const ViewProfile = () => {
 
     const renderProfileCard = () => <div className="container p-0">
         <div className="row m-0 my-2">
-            <div className="col-lg-3 col-md-2 text-center p-1">
-                <img
-                    src={data.photo ? data.photo : require('../../images/icons/user.png')}
-                    style={{ maxHeight: "50vh" }}
-                />
-            </div>
-            <div className="col-lg-9 col-md-10 p-1">
-                <div className="card-shadow h-100 p-4">
-                    <h3>{data.firstName} {data.lastName}</h3>
-                    <div className="font-weight-bold">{data.college ? data.college.name : null}</div>
-                    {
-                        data.isFaculty ?
-                            <div className="badge badge-primary rounded-0">Faculty / Professional</div>
-                            : data.isSchoolStudent ?
-                            <div className="badge badge-primary rounded-0">School Student</div> :
-                            <div className="badge badge-primary rounded-0">College Student</div>
-                    }
-                    {
-                        !data.profileCompletion.status ?
-                            <div className="badge badge-danger rounded-0">Profile Incomplete</div>
-                            :  <div className="badge badge-success rounded-0">Profile Complete</div>
-                    }
-                    <div className="p-2 text-center">
-                        <button
-                            className="btn btn-primary rounded-0 my-4 px-4 py-2"
-                            onClick={handleTryAgain}
-                        >
-                            View Another Profile
-                        </button>
+            <div className="col-12 p-1">
+                <div className="card-shadow d-flex h-100 p-0">
+                    <img
+                        alt="profile photo"
+                        src={data.photo ? data.photo : require('../../images/icons/user.png')}
+                        style={{ height: "35vh", maxHeight: "200px" }}
+                    />
+                    <div className="p-3">
+                        <h3>{data.firstName} {data.lastName}</h3>
+                        <div className="font-weight-bold">{data.college ? data.college.name : null}</div>
+                        {
+                            data.isFaculty ?
+                                <div className="badge badge-primary p-2">Faculty / Professional</div>
+                                : data.isSchoolStudent ?
+                                <div className="badge badge-primary p-2">School Student</div> :
+                                <div className="badge badge-primary p-2">College Student</div>
+                        }
+                        <div className="p-2">
+                            {
+                                !data.profileCompletion.status ?
+                                    <div className="badge badge-danger p-2">Profile Incomplete</div>
+                                    :  <div className="badge badge-success p-2">Profile Complete</div>
+                            }
+                        </div>
+                        <div className="py-2">
+                            <button
+                                className="btn btn-primary btn-shadow mr-2 my-1 rounded-0 px-4 py-2"
+                            >
+                                Check-In User
+                            </button>
+                            <button
+                                className="btn btn-danger btn-shadow mr-2 my-1 rounded-0 px-4 py-2"
+                                onClick={handleTryAgain}
+                            >
+                                View Another Profile
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="col-6 p-1">
+            <div className="col-md-6 p-0">
+                <Card
+                    title="Registrations"
+                    content={
+                        <div className="p-2">
+                            {
+                                data.registrations.length >0 ? data.registrations.map(r =>
+                                    <div className="card-shadow p-4 my-2">
+                                        <h4>{r}</h4>
+                                    </div>
+                                ) : <div>No registrations found</div>
+                            }
+                        </div>
+                    }
+                />
+            </div>
+            <div className="col-md-6 p-0">
+                <Card
+                    title="Proshow Details"
+                    content={
+                        <div className="p-4">
+                            <div>
+                                <div className="font-weight-bold">Ticket Name</div>
+                                <h3>{ data.proshowTicket }</h3>
+                            </div>
+                            <div>
+                                <div className="font-weight-bold">Physical Ticket</div>
+                                <h3>{data.physicalTicket}</h3>
+                            </div>
+                        </div>
+                    }
+                />
+            </div>
+            <div className="col-md-4 p-1">
                 <img src={data.idPhoto ? data.idPhoto : require('../../images/icons/user.png')} style={{ width: "150px" }} />
             </div>
-            <div className="col-6 p-1">
-                <div className="card-shadow">
-                        <li>VID: {data.vidyutID}</li>
-                        <li>Email: {data.email}</li>
-                        <li>Phone: {data.email}</li>
-                        <li>Gender: {data.gender}</li>
-                        <li>Roll No: {data.rollNo}</li>
-                </div>
-            </div>
-            <div>
-                <div className="card-shadow">
-                    {
-                        data.map()
+            <div className="col-md-8 p-1">
+                <Card
+                    title="Profile Details"
+                    content={
+                        <div className="my-2 p-3">
+                            <div className="alert alert-info">{data.profileCompletion.message}</div>
+                            <div><b>VID</b>: {data.vidyutID}</div>
+                            <div><b>Email</b>: {data.email}</div>
+                            <div><b>Phone</b>: {data.phone}</div>
+                            <div><b>Gender</b>: {data.gender === 'M' ? "Male" : "Female"}</div>
+                            <div><b>Roll No</b>: {data.rollNo}</div>
+                        </div>
                     }
-                </div>
+                />
             </div>
         </div>
     </div>;

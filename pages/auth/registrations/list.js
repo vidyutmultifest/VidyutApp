@@ -25,65 +25,19 @@ const RegistrationList = () => {
     const [isPaidOnly, setPaidOnly] = useState('any');
     const [type, setType] = useState('any');
 
-    const query = `query registrationLister($type: String, $paidOnly: Boolean)
+    const query = `query registrationLister
     {
-      listRegistrations(eventType: $type)
-      {
-        name
-        count
+    listRegistrations
         {
-          total
-          paid
-          paymentPending
-          amritapurianPaid
-        }
-        registrations(isPaid: $paidOnly)
-        {
-          regID
-          formData
-          registrationTimestamp
-          teamProfile
-          {
             name
-            allowEditing
-            hash
-            leader
+            count
             {
-              firstName
-              lastName
-              phone
-              email
-              vidyutID
-              college
-              {
-                name
-              }
+                total
+                paid
+                paymentPending
+                amritapurianPaid
             }
-            members
-            {
-              firstName
-              lastName
-              vidyutID
-            }
-          }
-          transaction { 
-            isPaid
-            isProcessed
-            amount
-            transactionID
-          }
-          userProfile
-          {
-            firstName
-            lastName
-            email
-            phone
-            vidyutID
-            isAmritapurian
-            college { name }
-          }
         }
-      }
     }`;
 
     const getRegistrationList = async variables => await dataFetch({ query, variables });
@@ -132,7 +86,7 @@ const RegistrationList = () => {
       return list;
     };
 
-    const renderCard = (c) => c.registrations.length > 0 ? (
+    const renderCard = (c) => (
         <div className="pt-4">
             <ContentCard
                 title={
@@ -155,12 +109,12 @@ const RegistrationList = () => {
                             <li><b>Outside Campus Paid</b>: {c.count.paid - c.count.amritapurianPaid}</li>
                             <li><b>Inside Campus Paid</b>: {c.count.amritapurianPaid}</li>
                         </div>
-                        <CSVLink data={getCSV(c.registrations)} filename={`export_${c.name}_registration_data.csv`}>
-                            <button className="btn btn-warning btn-shadow rounded-0 m-2">Download Data</button>
-                        </CSVLink>
+                        {/*<CSVLink data={getCSV(c.registrations)} filename={`export_${c.name}_registration_data.csv`}>*/}
+                        {/*    <button className="btn btn-warning btn-shadow rounded-0 m-2">Download Data</button>*/}
+                        {/*</CSVLink>*/}
                         <div className="row mx-0 mt-4">
                         {
-                            c.registrations.map((r) =>
+                            c.registrations ? c.registrations.map((r) =>
                                  r.teamProfile ?
                                      <div className="col-12 p-2">
                                         <TeamProfileCard
@@ -181,7 +135,7 @@ const RegistrationList = () => {
                                              showTransactionDetails
                                          />
                                      </div> : null
-                            )
+                            ) : null
                         }
                         </div>
                     </div>
@@ -189,11 +143,11 @@ const RegistrationList = () => {
             />
         </div>
 
-    ) : null;
+    );
 
-    const sortedList = () => {
-        return _.sortBy(data, [function(o) { return o.registrations.length; }]);
-    };
+    // const sortedList = () => {
+    //     return _.sortBy(data, [function(o) { return o.registrations.length; }]);
+    // };
 
     return <Base loginRequired>
         <Head>
@@ -247,7 +201,7 @@ const RegistrationList = () => {
                                 </div>
                             </div>
                             <div className="col-md-9">
-                                { sortedList().reverse().map(c => renderCard(c)) }
+                                { data.reverse().map(c => renderCard(c)) }
                             </div>
                         </div>
                     </div>
