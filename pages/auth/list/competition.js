@@ -6,6 +6,7 @@ import Topbar from "../../../components/common/topbar";
 import MenuBar from "../../../components/common/menubar";
 import '../../../styles/bootstrap.sass';
 import BottomBar from "../../../components/common/bottombar";
+const _ = require('lodash');
 
 const CompetitionStatsList = () => {
     const [isQueried, setQueried] = useState(false);
@@ -25,8 +26,11 @@ const CompetitionStatsList = () => {
       }
     }`;
 
-    const getStats = async () => await dataFetch({ query });
+    const sortedList = (r) => {
+        return _.sortBy(data, [function(o) { return o.paidRegs; }]);
+    };
 
+    const getStats = async () => await dataFetch({ query });
 
     useEffect(() => {
         if(!isQueried)
@@ -45,7 +49,7 @@ const CompetitionStatsList = () => {
         <tr>
             <td>{r.name}</td>
             <td>{r.totalRegs}</td>
-            <td>{r.paidRegs}</td>
+            <td><b>{r.paidRegs}</b></td>
             <td>{r.unpaidRegs}</td>
             <td>{r.insiderPaid}</td>
             <td>{r.outsiderPaid}</td>
@@ -73,7 +77,7 @@ const CompetitionStatsList = () => {
                 </thead>
                 {
                     isLoaded ?
-                        data.map(w => renderWorkshop(w))
+                        sortedList(data).reverse().map(w => renderWorkshop(w))
                         : null
                 }
             </table>
