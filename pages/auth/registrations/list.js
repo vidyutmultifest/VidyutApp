@@ -4,7 +4,7 @@ import { CSVLink } from "react-csv";
 
 import Base from "../../../components/base";
 import AdminRequired from "../../../components/adminRequired";
-import dataFetch from "../../../utils/CustomdDataFetch";
+import dataFetch from "../../../utils/CustomDataFetch";
 import ContentCard from "../../../components/events/contentCard";
 import {useRouter} from "next/router";
 import RegProfileCard from "../../../components/admin/RegProfileCard";

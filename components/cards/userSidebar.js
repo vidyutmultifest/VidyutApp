@@ -3,7 +3,7 @@ import QRCode from "qrcode.react";
 import classNames from 'classnames';
 
 import '../../styles/common/user-sidebar.sass';
-import dataFetch from "../../utils/dataFetch";
+import dataFetch from "../../utils/CustomDataFetch";
 import DeveloperCredits from "./developerCredits";
 import {useRouter} from "next/router";
 import Cookies from "universal-cookie";

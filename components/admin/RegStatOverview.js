@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import dataFetch from "../../utils/CustomdDataFetch";
+import dataFetch from "../../utils/CustomDataFetch";
 
 const RegStatOverview = () => {
     const [isQueried, setQueried] = useState(false);

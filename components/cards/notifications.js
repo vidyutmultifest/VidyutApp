@@ -3,7 +3,7 @@ import classNames from 'classnames';
 const _ = require('lodash');
 import moment from "moment";
 
-import dataFetch from "../../utils/dataFetch";
+import dataFetch from "../../utils/CustomDataFetch";
 import '../../styles/cards/notification.sass';
 
 const NotificationCard = () => {
