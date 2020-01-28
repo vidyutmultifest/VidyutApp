@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 const shortid = require('shortid');
 import classNames from 'classnames';
 
-import dataFetch from "../../utils/CustomDataFetch";
+import dataFetch from "../../utils/dataFetch";
 import EventCard from "../../components/events/card"
 
 import '../../styles/dashboard/listing.sass';
