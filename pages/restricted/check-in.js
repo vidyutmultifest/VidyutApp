@@ -14,7 +14,7 @@ import dynamic from "next/dynamic";
 import NoSSR from "../../components/noSSR";
 import BottomBar from "../../components/common/bottombar";
 
-const ViewProfile = () => {
+const GeneralCheckIn = () => {
     const [isLoaded, setLoaded] = useState(true);
     const [data, setData] = useState(false);
     const [key, setKey] = useState(false);
@@ -72,6 +72,30 @@ const ViewProfile = () => {
        })
     };
 
+    const mutation = `mutation checkInUser($hash: String!){
+      performGeneralCheckIn(hash: $hash)
+    }`;
+    const checkInUser = async variables => await dataFetch({ query: mutation, variables });
+
+    const [isSubmitting, setSubmitting] = useState(false);
+
+    const handleCheckIn = () => {
+        if(hash)
+        {
+            setSubmitting(true);
+            checkInUser({
+                hash
+            }).then(response => {
+                if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
+                    setHash(false);
+                    setKey(false);
+                    setSubmitting(false);
+                    handleTryAgain();
+                }
+            })
+        }
+    };
+
     const handleScan = data => {
         if(data != null && data !== key)
         {
@@ -121,7 +145,7 @@ const ViewProfile = () => {
         </div>
     );
 
-    const renderProfileCard = () => <div className="container p-0">
+    const renderProfileCard = () => !isSubmitting ? <div className="container p-0">
         <div className="row m-0 my-md-2">
             <div className="col-12 p-0">
                 <div className="card-shadow p-0">
@@ -214,14 +238,27 @@ const ViewProfile = () => {
             </div>
             <div className="col-12 p-2">
                 <div className=" my-2 py-2">
+                    {
+                        !data.hasCheckedIn ?
+                            <button
+                                className="btn btn-success btn-shadow btn-block mr-2 mb-3 rounded-0 px-4 py-4"
+                                onClick={handleCheckIn}
+                            >
+                                Check-In User
+                            </button> : null
+                    }
                     <button
                         className="btn btn-danger btn-shadow btn-block mr-2 my-1 rounded-0 px-4 py-2"
                         onClick={handleTryAgain}
                     >
-                        View Another Profile
+                        Reject User
                     </button>
                 </div>
             </div>
+        </div>
+    </div> :  <div className="container p-0">
+        <div className="card-shadow p-2">
+            Performing Check-In
         </div>
     </div>;
 
@@ -235,7 +272,7 @@ const ViewProfile = () => {
     return (
         <Base loginRequired adminRequired>
             <Head>
-                <title>View Profile | Admin | Vidyut 2020</title>
+                <title>General CheckIn | Admin | Vidyut 2020</title>
             </Head>
             <Topbar/>
             <MenuBar />
@@ -272,7 +309,7 @@ const ViewProfile = () => {
             </AdminRequired>
             <BottomBar
                 hideExploreTab
-                currentTabName="View Profile"
+                currentTabName="General CheckIn"
                 currentTabIcon={require('../../images/icons/dashboard-bottom-bar-icon.png')}
             />
         </Base>
@@ -280,4 +317,4 @@ const ViewProfile = () => {
 
 };
 
-export default ViewProfile;
+export default GeneralCheckIn;

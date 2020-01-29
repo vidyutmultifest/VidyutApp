@@ -24,7 +24,7 @@ const QRPay = () => {
         <div className="container d-flex align-items-center justify-content-center my-4">
             <div className="card-shadow p-4" style={{ maxWidth: '500px' }}>
                 <p>Until you successfully pay for your registration/purchase is not considered valid.</p>
-                <p className="text-light my-2">Pay at counter option is for accepting payments at Vidyut registration desk put up in your campus, and not for on-spot registrations.</p>
+                <p className="my-2">Pay at counter option is for accepting payments at Vidyut registration desk put up in your campus, and not for on-spot registrations.</p>
                 <PayAtCounterQR transactionID={transactionID} vidyutID={vidyutID} />
             </div>
         </div>

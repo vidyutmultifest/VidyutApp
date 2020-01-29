@@ -39,6 +39,9 @@ const AdminDashboard = () => {
         canAcceptPayment
         adminAccess
         canViewRegistrations
+        canGeneralCheckIn
+        canViewProfiles
+        canViewAllTransactions
         canIssueTickets
         canCheckInUsers
       }
@@ -106,28 +109,39 @@ const AdminDashboard = () => {
                                                 />
                                             </div> : null
                                     }
-                                        {
-                                            data.myPermissions.canViewRegistrations ?
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/check-list.png')}
-                                                        text="View Competition Stats"
-                                                        title="View Competition Stats"
-                                                        link="/auth/list/competition"
-                                                    />
-                                                </div> : null
-                                        }
-                                        {
-                                            data.myPermissions.canViewRegistrations ?
-                                                <div className="col-md-3 col-6 p-2">
-                                                    <QuickActionCard
-                                                        photo={require('../images/icons/check-list.png')}
-                                                        text="View Workshop Stats"
-                                                        title="View Workshop Stats"
-                                                        link="/auth/list/workshop"
-                                                    />
-                                                </div> : null
-                                        }
+                                    {
+                                        data.myPermissions.canViewRegistrations ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/check-list.png')}
+                                                    text="View Competition Stats"
+                                                    title="View Competition Stats"
+                                                    link="/auth/list/competition"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.myPermissions.canViewRegistrations ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/check-list.png')}
+                                                    text="View Workshop Stats"
+                                                    title="View Workshop Stats"
+                                                    link="/auth/list/workshop"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.myPermissions.canViewAllTransactions ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/check-list.png')}
+                                                    text="View list of all transactions approved by a user"
+                                                    title="View Issuer Transactions"
+                                                    link="/auth/list/issuer-transactions"
+                                                />
+                                            </div> : null
+                                    }
                                     {
                                         data.status.enableCheckIn && data.myPermissions.canCheckInUsers ?
                                             <div className="col-md-3 col-6 p-2">
@@ -140,12 +154,23 @@ const AdminDashboard = () => {
                                             </div> : null
                                     }
                                     {
-                                        data.status.enableCheckIn && data.myPermissions.canCheckInUsers ?
+                                        data.status.enableCheckIn && data.myPermissions.canGeneralCheckIn ?
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
                                                     photo={require('../images/icons/qr-scan.png')}
                                                     text="General Check-In at registration desk"
                                                     title="General Check In"
+                                                    link="/restricted/check-in"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.status.canViewProfiles ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/qr-scan.png')}
+                                                    text="View Vidyut profile of an user"
+                                                    title="View Profile"
                                                     link="/restricted/view-profile"
                                                 />
                                             </div> : null
