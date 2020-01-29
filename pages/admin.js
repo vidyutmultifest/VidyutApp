@@ -133,9 +133,20 @@ const AdminDashboard = () => {
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
                                                     photo={require('../images/icons/qr-scan.png')}
-                                                    text="Check-In Users"
-                                                    title="Check In"
+                                                    text="Check-In for proshow, and other events"
+                                                    title="Event Check In"
                                                     link="/restricted/view-sessions"
+                                                />
+                                            </div> : null
+                                    }
+                                    {
+                                        data.status.enableCheckIn && data.myPermissions.canCheckInUsers ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/qr-scan.png')}
+                                                    text="General Check-In at registration desk"
+                                                    title="General Check In"
+                                                    link="/restricted/view-profile"
                                                 />
                                             </div> : null
                                     }

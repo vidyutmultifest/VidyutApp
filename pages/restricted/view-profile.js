@@ -105,10 +105,9 @@ const ViewProfile = () => {
     const renderSearchCard = () => (
         <div className="card-shadow d-flex align-items-center p-2" style={{ minHeight: '75vh' }}>
             <div className="w-100">
-                <h5 className="text-center my-4">Event Check-In</h5>
                 <div className="row m-0">
                     <div className="col-md-8 d-flex justify-content-center align-items-center">
-                        <div className="form-group">
+                        <div className="form-group w-100">
                             <input
                                 className="form-control rounded-0"
                                 placeholder="Enter VidyutID / Email / Username"
@@ -123,7 +122,7 @@ const ViewProfile = () => {
                                 onScan={handleScan}
                                 onError={(e) => console.log(e)}
                                 facingMode="environment"
-                                style={{width: '80%', maxWidth: "300px"}}
+                                style={{width: '100%', maxWidth: "300px", maxHeight: '50vh'}}
                             />
                         </NoSSR>
                     </div>
