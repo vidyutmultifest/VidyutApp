@@ -54,12 +54,12 @@ const ViewProfile = () => {
       }
     }`;
 
-    const getProfile = async () => await dataFetch({ query, variables: { key } });
+    const getProfile = async variables => await dataFetch({ query, variables });
 
     const [hash, setHash] = useState(false);
-    const handleSearch = () => {
-        setLoaded(false);
-       getProfile().then((response) => {
+    const handleSearch = (data) => {
+       setLoaded(false);
+       getProfile({ key: data}).then((response) => {
            if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                setData(response.data.getProfile);
                setHash(response.data.getProfile.vidyutHash);
@@ -88,9 +88,10 @@ const ViewProfile = () => {
             }).then(response => {
                 if (!Object.prototype.hasOwnProperty.call(response, 'errors')) {
                     setHash(false);
+                    setKey(false);
                     setSubmitting(false);
                     handleTryAgain();
-                };
+                }
             })
         }
     };
@@ -99,6 +100,7 @@ const ViewProfile = () => {
         if(data != null && data !== key)
         {
             setKey(data);
+            handleSearch(data);
         }
     };
 
@@ -131,7 +133,7 @@ const ViewProfile = () => {
                             key && key.length > 3 ?
                                 <button
                                     className="btn btn-primary rounded-0 my-2 px-4 py-2"
-                                    onClick={handleSearch}
+                                    onClick={() => handleSearch(key)}
                                 >
                                     View Profile
                                 </button>
@@ -157,7 +159,7 @@ const ViewProfile = () => {
                         </div>
                         <div className="col p-0">
                             <div className="p-3 text-center text-md-left">
-                                <h3>{data.firstName} {data.lastName}</h3>
+                                <h3 className={data.hasCheckedIn ? "text-danger" : null}>{data.firstName} {data.lastName}</h3>
                                 <div className="font-weight-bold">{data.college ? data.college.name : null}</div>
                                 <div className="p-2">
                                     {
@@ -178,24 +180,28 @@ const ViewProfile = () => {
                                             :  <span className="badge badge-success mr-2 p-2">Profile Complete</span>
                                     }
                                 </div>
-                                <div className="py-2">
-                                    <button
-                                        className="btn btn-success btn-shadow btn-block mr-2 mb-3 rounded-0 px-4 py-4"
-                                        onClick={handleCheckIn}
-                                    >
-                                        Check-In User
-                                    </button>
-                                    <button
-                                        className="btn btn-danger btn-shadow btn-block mr-2 my-1 rounded-0 px-4 py-2"
-                                        onClick={handleTryAgain}
-                                    >
-                                        Reject User
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="col-md-4 p-1">
+                <img src={data.idPhoto ? data.idPhoto : require('../../images/icons/user.png')} style={{ width: "150px" }} />
+            </div>
+            <div className="col-md-8 p-1">
+                <Card
+                    title="Profile Details"
+                    content={
+                        <div className="my-2 p-3">
+                            <div className="alert alert-info">{data.profileCompletion.message}</div>
+                            <div><b>VID</b>: {data.vidyutID}</div>
+                            <div><b>Email</b>: {data.email}</div>
+                            <div><b>Phone</b>: {data.phone}</div>
+                            <div><b>Gender</b>: {data.gender === 'M' ? "Male" : "Female"}</div>
+                            <div><b>Roll No</b>: {data.rollNo}</div>
+                        </div>
+                    }
+                />
             </div>
             <div className="col-md-6 p-0">
                 <Card
@@ -230,23 +236,24 @@ const ViewProfile = () => {
                     }
                 />
             </div>
-            <div className="col-md-4 p-1">
-                <img src={data.idPhoto ? data.idPhoto : require('../../images/icons/user.png')} style={{ width: "150px" }} />
-            </div>
-            <div className="col-md-8 p-1">
-                <Card
-                    title="Profile Details"
-                    content={
-                        <div className="my-2 p-3">
-                            <div className="alert alert-info">{data.profileCompletion.message}</div>
-                            <div><b>VID</b>: {data.vidyutID}</div>
-                            <div><b>Email</b>: {data.email}</div>
-                            <div><b>Phone</b>: {data.phone}</div>
-                            <div><b>Gender</b>: {data.gender === 'M' ? "Male" : "Female"}</div>
-                            <div><b>Roll No</b>: {data.rollNo}</div>
-                        </div>
+            <div className="col-12 p-2">
+                <div className=" my-2 py-2">
+                    {
+                        !data.hasCheckedIn ?
+                            <button
+                                className="btn btn-success btn-shadow btn-block mr-2 mb-3 rounded-0 px-4 py-4"
+                                onClick={handleCheckIn}
+                            >
+                                Check-In User
+                            </button> : null
                     }
-                />
+                    <button
+                        className="btn btn-danger btn-shadow btn-block mr-2 my-1 rounded-0 px-4 py-2"
+                        onClick={handleTryAgain}
+                    >
+                        Reject User
+                    </button>
+                </div>
             </div>
         </div>
     </div> :  <div className="container p-0">
@@ -256,6 +263,8 @@ const ViewProfile = () => {
     </div>;
 
     const handleTryAgain = () => {
+        setKey(false);
+        setHash(false);
         setError(false);
         setData(false);
     };
