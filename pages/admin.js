@@ -186,6 +186,17 @@ const AdminDashboard = () => {
                                                 />
                                             </div> : null
                                     }
+                                    {
+                                        data.myPermissions.canGeneralCheckIn ?
+                                            <div className="col-md-3 col-6 p-2">
+                                                <QuickActionCard
+                                                    photo={require('../images/icons/ticket-issue-icon.png')}
+                                                    text="Change between events"
+                                                    title="Change Event"
+                                                    link="/restricted/change-event"
+                                                />
+                                            </div> : null
+                                    }
                                     </div>
                                 </div>
                                 <div>

@@ -3,8 +3,6 @@ import Head from "next/head";
 
 import Base from "../../components/base";
 import AdminRequired from "../../components/adminRequired";
-import TitleBar from "../../components/titleBar";
-import DashboardFooter from "../../modules/dashboard/footer";
 import dataFetch from "../../utils/dataFetch";
 import StatusContainer from "../../components/StatusContainer";
 import MenuBar from "../../components/common/menubar";
