@@ -155,6 +155,26 @@ const Workshop = () => {
                             icon={require('../../images/icons/check-icon.png')}
                             classNames="mb-4"
                         />
+                        <div className="card-shadow p-4 small-text mt-4">
+                            <h6>Disclaimer</h6>
+                            <div>
+                                <div className="mb-2">
+                                    The number of participants is limited in order to ensure an efficient realization
+                                    of the events. Registrations are considered in the order of their payment.
+                                    An early registration with successful payment is therefore recommended.
+                                </div>
+                                <div className="mb-2">
+                                    The organizers reserve the right to cancel an event (inc. workshops / competitions)
+                                    for organisational reasons (e.g. if the minimum number of participants is not achieved).
+                                </div>
+                                <div className="mb-2">
+                                    We reserve the right to exclude any participant who have not done payment.
+                                    Though you may prefer for on-spot payment, no slot is reserved against you until
+                                    your payment is successful. We strictly allocate slots based on first-pay
+                                    first serve basis.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-5 col-xl-4 py-md-4 mb-4">
                         <PrizesCard
