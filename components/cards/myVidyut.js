@@ -83,7 +83,7 @@ const MyVidyut = () => {
         <div className="my-event-card">
             <h6>{e.name}</h6>
             {e.contact ?
-                <div className="mt-2 small-text">Contact: {e.contact}</div>
+                <div className="mt-2 small-text">{e.contact}</div>
                 : null
             }
             {
