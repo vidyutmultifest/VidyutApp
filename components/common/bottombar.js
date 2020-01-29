@@ -109,9 +109,9 @@ const BottomBar = ({ currentTabName, currentTabIcon, hideDeveloperCredits, hideE
                     </div>
                 </div>
             </div>
-            { renderProfileTab() }
-            { renderNotificationTab() }
-            { renderMyVidyutTab() }
+            { tab === 'profile' ? renderProfileTab() : null }
+            { tab === 'notification' ? renderNotificationTab() : null }
+            { tab === 'myvidyut' ? renderMyVidyutTab() : null}
         </React.Fragment>
     )
 };

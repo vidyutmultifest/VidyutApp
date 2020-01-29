@@ -12,9 +12,27 @@ const MyVidyut = () => {
     const query = `{
       myVidyut
       {
-        workshops { name }
+        workshops { 
+            name 
+            contact
+            schedule
+            {
+               venue
+               start
+               end
+            }
+        }
         tickets { name }
-        competitions { name }
+        competitions { 
+            name 
+            contact
+            schedule
+            {
+               venue
+               start
+               end
+            }
+        }
       }
       myPermissions
       {
@@ -64,6 +82,16 @@ const MyVidyut = () => {
     const renderEvent = (e) => (
         <div className="my-event-card">
             <h6>{e.name}</h6>
+            {e.contact ?
+                <div className="mt-2 small-text">Contact: {e.contact}</div>
+                : null
+            }
+            {
+                e.schedule ? e.schedule.map(s => (
+                    <div className="mt-2 small-text">{s.start} - {s.end} { s.venue ? `at ${s.venue}` : null}</div>
+                )) : null
+            }
+
         </div>
     );
 

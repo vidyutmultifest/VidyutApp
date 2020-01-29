@@ -208,7 +208,8 @@ const AdminDashboard = () => {
                         </div>
                         <BottomBar
                             currentTabIcon={require('../images/icons/dashboard-bottom-bar-icon.png')}
-                            currentTabName="Admin"
+                            currentTabName="Dashboard"
+                            hideExploreTab
                         />
                     </React.Fragment>
                 ) : <LoadingScreen text="Loading Admin Dashboard"/>
