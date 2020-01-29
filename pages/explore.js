@@ -19,6 +19,9 @@ const ExplorePage  = () => {
             </Head>
             <Topbar/>
             <MenuBar/>
+            <div style={{ backgroundColor: '#311B92' }} className="font-weight-bold text-light p-2 text-center">
+                Reporting time for Proshow/Revel is 04:00 PM. Please bring your QR Code + ID Card + Ticket.
+            </div>
             <FeedStories />
             <Slideshow feedSlug="home" />
             <div className="container p-0">

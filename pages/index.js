@@ -19,6 +19,9 @@ const LandingPage = () => {
         <LazyLoad height="100vh" unmountIfInvisible >
             <LanderCover  />
         </LazyLoad>
+        <div style={{ backgroundColor: '#311B92' }} className="font-weight-bold text-light p-2 text-center">
+            Reporting time for Proshow/Revel is 04:00 PM. Please bring your QR Code + ID Card + Ticket.
+        </div>
         <LazyLoad height="100vh" unmountIfInvisible  >
             <LanderAboutVidyut />
         </LazyLoad>

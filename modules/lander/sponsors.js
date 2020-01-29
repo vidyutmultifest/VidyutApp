@@ -20,8 +20,8 @@ const LanderSponsors = () => {
             "type": "Gadget Partner"
         },
         {
-            "logo": require('../../images/sponsors/raviz.png'),
-            "name": "Raviz",
+            "logo": require('../../images/sponsors/regant-lake-palace.jpg'),
+            "name": "Regant Lake Palace",
             "type": "Hospitality Partner"
         },
         {
@@ -53,6 +53,11 @@ const LanderSponsors = () => {
             "logo": require('../../images/logos/acrd-logo.jpg'),
             "name": "ACRD",
             "type": "Payment Partner"
+        },
+        {
+            "logo": require('../../images/sponsors/hotel-aryaas.jpg'),
+            "name": "Hotel Aryaas",
+            "type": "Event Partner"
         }
     ];
 
