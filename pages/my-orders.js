@@ -20,6 +20,7 @@ export default () => (
         </div>
         <div style={{ height: '20vh' }} />
         <BottomBar
+            hideExploreTab
             currentTabIcon={require('../images/icons/order-bottom-bar-icon.png')}
             currentTabName="Orders"
         />

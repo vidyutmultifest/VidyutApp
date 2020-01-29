@@ -2,10 +2,12 @@ import React, {useState} from "react";
 const shortid = require('shortid');
 
 import '../../styles/dashboard/purchase.sass';
+import '../../styles/bootstrap.sass';
 import Modal from "react-modal";
 import moment from "moment";
 import Lottie from "react-lottie";
 import dataFetch from "../../utils/dataFetch";
+import QRCode from "qrcode.react";
 
 const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, products, amount, timestamp, status, issuer }) => {
     const [isOpen, setOpen] = useState(false);
@@ -151,6 +153,12 @@ const PurchasedItem = ({ transactionID, orderID, transaction, handleRefresh, pro
                                     }
                                 </div>
                             ) : null
+                        }
+                        {
+                            transaction && !transaction.isPaid ?
+                                <div className="d-flex justify-content-center">
+                                    <QRCode value={transaction ? transactionID : null} size={150} />
+                                </div> : null
                         }
                         <div>
                             <h5 className="py-3">Order Items</h5>
