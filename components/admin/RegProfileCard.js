@@ -3,6 +3,7 @@ import ContentCard from "../events/contentCard";
 import dataFetch from "../../utils/dataFetch";
 
 const RegProfileCard = ({ profile, transaction , formData, showTransactionDetails, regID, timestamp }) => {
+    console.log(transaction);
 
     const getStatus = `query getStatus($transactionID: String){
       getOnlinePaymentStatus(transactionID: $transactionID)
@@ -24,9 +25,15 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
         })
     };
 
-    let form = [];
-    if(formData && formData !== null && formData !== "false")
-        form = JSON.parse(formData.replace(/'/g, '"'));
+    const getFormData = (form) => {
+        if(form && form !== null && form !== "false")
+            try {
+                return JSON.parse(form.replace(/'/g, '"'));
+            } catch (e) {
+                return []
+            }
+    };
+
 
     return <ContentCard
         classNames="bg-light text-dark"
@@ -91,12 +98,12 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                         </div> : null
                 }
                 {
-                    form.length > 0 ?
+                    getFormData(formData).length > 0 ?
                         <div className="alert alert-secondary">
                             <div className="font-weight-bold mb-2">Form Data</div>
                             <div className="small-text" style={{ lineHeight: '1.35'}}>
                                 {
-                                    form.map(f => <div className="pt-2">
+                                    getFormData(formData).map(f => <div className="pt-2">
                                         <div className="font-weight-bold pb-2">{f.label}</div>
                                         <div>{f.value ? f.value : 'no response'}</div>
                                     </div>)
