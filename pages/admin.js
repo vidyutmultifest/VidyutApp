@@ -61,13 +61,13 @@ const AdminDashboard = () => {
             })
         }
     });
-
+    
     return <Base loginRequired>
         <Head>
             <title>Admin Dashboard | Vidyut 2020</title>
         </Head>
         {
-            isLoaded && data.myPermissions.adminAccess ?
+            isLoaded && data.myPermissions ?
                 (
                     <React.Fragment>
                         <Topbar/>
@@ -165,7 +165,7 @@ const AdminDashboard = () => {
                                             </div> : null
                                     }
                                     {
-                                        data.status.canViewProfiles ?
+                                        data.myPermissions.canViewProfiles ?
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
                                                     photo={require('../images/icons/qr-scan.png')}
