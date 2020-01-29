@@ -3,7 +3,6 @@ import ContentCard from "../events/contentCard";
 import dataFetch from "../../utils/dataFetch";
 
 const RegProfileCard = ({ profile, transaction , formData, showTransactionDetails, regID, timestamp }) => {
-    console.log(transaction);
 
     const getStatus = `query getStatus($transactionID: String){
       getOnlinePaymentStatus(transactionID: $transactionID)
@@ -98,7 +97,7 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                         </div> : null
                 }
                 {
-                   formData ? getFormData(formData).length > 0 ?
+                   formData ? getFormData(formData) && getFormData(formData).length > 0 ?
                         <div className="alert alert-secondary">
                             <div className="font-weight-bold mb-2">Form Data</div>
                             <div className="small-text" style={{ lineHeight: '1.35'}}>
