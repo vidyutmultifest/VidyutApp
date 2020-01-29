@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import '../../styles/bootstrap.sass';
 import {useRouter} from "next/router";
 
+import classNames from 'classnames';
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
@@ -42,7 +43,9 @@ const VerifyTicket = () => {
       {
         status
         userName
-        productName
+        ticketNo
+        isHeadBanger
+        message
         rollNo
         photo
       }
@@ -90,14 +93,6 @@ const VerifyTicket = () => {
         }
     };
 
-    useInterval(() => {
-        if(!paused)
-        {
-            handleCheckIn();
-            setData(false);
-        }
-    }, 3000);
-
     const handleOnAccept = () => {
         handleCheckIn();
         setData(false);
@@ -113,54 +108,49 @@ const VerifyTicket = () => {
                 {
                     isQueried && data ?
                         <div className="card-shadow p-2">
-                            <div className="font-weight-bold">{data.productName}</div>
-                            <h3 className="mb-0">{data.userName}</h3>
-                            <div>{data.rollNo ? data.rollNo : 'Roll No. Unavailable'}</div>
-                            {
-                                data.photo ?
-                                <div
-                                    style={{
-                                        backgroundImage: `url(${data.photo})`,
-                                        width: '50vh',
-                                        height: '50vh',
-                                        backgroundSize: 'cover',
-                                        backgroundRepeat:'no-repeat'
-                                    }}
-                                /> : null
-                            }
-                            <div className="p-4 text-center">
+                            <div className="text-center">
                                 {
-                                    !paused ?
+                                    data.photo ?
                                         <div
-                                            onClick={() => setPause(true)}
-                                            className="btn btn-danger rounded-0 m-2 p-2"
-                                        >
-                                            Stop Auto Pass
-                                        </div>
-                                    : <div
-                                        onClick={() => setPause(false)}
-                                        className="btn btn-success rounded-0 m-2 p-2"
-                                    >
-                                            Resume Auto Pass
-                                    </div>
+                                            style={{
+                                                backgroundImage: `url(${data.photo})`,
+                                                width: '100%',
+                                                backgroundPosition: 'center',
+                                                height: '40vh',
+                                                backgroundSize: 'cover',
+                                                backgroundRepeat:'no-repeat'
+                                            }}
+                                        /> : null
                                 }
-                                {
-                                    paused ?
-                                        <div>
+                            </div>
+                            <div className={classNames('font-weight-bold mt-3 text-center h2', data.status ? 'text-success' : 'text-danger' )}>{data.message}</div>
+                            {
+                                data.isHeadBanger ?
+                                    <div className="h3 text-center text-primary font-weight-bold">HEADBANGERS</div>
+                                    : null
+                            }
+                            <div className="h2 font-weight-bold text-center">{data.ticketNo}</div>
+                            <div className="text-center font-weight-bold mb-0">{data.userName}</div>
+                            <div className="text-center">{data.rollNo ? data.rollNo : 'Roll No. Unavailable'}</div>
+
+                            <div className="p-4 text-center">
+                                <div className="d-flex justify-content-center">
+                                    {
+                                        data.status ?
                                             <div
                                                 onClick={handleOnAccept}
-                                                className="btn btn-success rounded-0 m-2"
+                                                className="btn btn-block  font-weight-bold w-50 btn-success rounded-0 p-4 my-2 mr-4"
                                             >
                                                 Approve
-                                            </div>
-                                            <div
-                                                onClick={handleOnReject}
-                                                className="btn btn-danger rounded-0 m-2"
-                                            >
-                                                Reject
-                                            </div>
-                                        </div> : null
-                                }
+                                            </div> : null
+                                    }
+                                    <div
+                                        onClick={handleOnReject}
+                                        className="btn btn-danger font-weight-bold btn-block w-50 rounded-0 p-4 m-2"
+                                    >
+                                        Reject
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     : <div className="p-2">
