@@ -98,7 +98,7 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                         </div> : null
                 }
                 {
-                    getFormData(formData).length > 0 ?
+                   formData ? getFormData(formData).length > 0 ?
                         <div className="alert alert-secondary">
                             <div className="font-weight-bold mb-2">Form Data</div>
                             <div className="small-text" style={{ lineHeight: '1.35'}}>
@@ -109,7 +109,7 @@ const RegProfileCard = ({ profile, transaction , formData, showTransactionDetail
                                     </div>)
                                 }
                             </div>
-                        </div> : null
+                        </div> : null : null
                 }
             </div>
         }
