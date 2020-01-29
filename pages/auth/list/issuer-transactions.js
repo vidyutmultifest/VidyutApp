@@ -44,7 +44,7 @@ const IssuerTransactions = () => {
     };
 
     const renderTransTable = () => (
-        <div className="card-shadow p-2">
+        <div className="card-shadow p-2" style={{ overflow: 'auto' }}>
             <table className="table">
                 <thead>
                 <th>User</th>
@@ -53,6 +53,17 @@ const IssuerTransactions = () => {
                 <th>Time</th>
                 <th>Trans #</th>
                 </thead>
+                {
+                    data ?
+                        <tr className="font-weight-bold">
+                            <td scope="col">Total</td>
+                            <td scope="col">{_.sumBy(data, function(o) { return parseInt(o.amount); })}</td>
+                            <td scope="col">~</td>
+                            <td scope="col">~</td>
+                            <td scope="col">~</td>
+                            <td scope="col">~</td>
+                        </tr> : null
+                }
                 {
                     data && data.length > 0?
                         data.map(i =>

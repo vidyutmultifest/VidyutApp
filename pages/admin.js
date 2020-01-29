@@ -61,7 +61,7 @@ const AdminDashboard = () => {
             })
         }
     });
-    
+
     return <Base loginRequired>
         <Head>
             <title>Admin Dashboard | Vidyut 2020</title>
@@ -169,7 +169,7 @@ const AdminDashboard = () => {
                                             <div className="col-md-3 col-6 p-2">
                                                 <QuickActionCard
                                                     photo={require('../images/icons/qr-scan.png')}
-                                                    text="View Vidyut profile of an user"
+                                                    text="View profile of an user"
                                                     title="View Profile"
                                                     link="/restricted/view-profile"
                                                 />

@@ -15,7 +15,7 @@ const WorkshopStatsList = () => {
     const [data, setData] = useState(false);
 
     const query = `
-        {
+    {
       getWorkshopStats
       {
         name
@@ -33,7 +33,7 @@ const WorkshopStatsList = () => {
     const getStats = async () => await dataFetch({ query });
 
     const sortedList = (r) => {
-        return _.sortBy(data, [function(o) { return o.paidRegs; }]);
+        return _.sortBy(r, [function(o) { return o.paidRegs; }]);
     };
 
     useEffect(() => {
@@ -63,7 +63,7 @@ const WorkshopStatsList = () => {
 
     return <Base loginRequired>
         <Head>
-            <title>Workshop Stats | vidyut 2020</title>
+            <title>Workshop Stats | Vidyut 2020</title>
         </Head>
         <Topbar/>
         <MenuBar/>

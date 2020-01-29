@@ -14,7 +14,7 @@ const CompetitionStatsList = () => {
     const [data, setData] = useState(false);
 
     const query = `
-        {
+    {
       getCompetitionStats
       {
         name
@@ -29,7 +29,7 @@ const CompetitionStatsList = () => {
     }`;
 
     const sortedList = (r) => {
-        return _.sortBy(data, [function(o) { return o.paidRegs; }]);
+        return _.sortBy(r, [function(o) { return o.paidRegs; }]);
     };
 
     const getStats = async () => await dataFetch({ query });
@@ -60,7 +60,7 @@ const CompetitionStatsList = () => {
 
     return <Base loginRequired>
         <Head>
-            <title>Competition Stats | vidyut 2020</title>
+            <title>Competition Stats | Vidyut 2020</title>
         </Head>
         <Topbar/>
         <MenuBar/>

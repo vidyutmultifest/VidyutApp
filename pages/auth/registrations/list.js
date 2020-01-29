@@ -102,6 +102,11 @@ const RegistrationList = () => {
     );
 
 
+    const sortedList = (r) => {
+        return _.sortBy(r, [function(o) { return o.count.paid; }]);
+    };
+
+
     return <Base loginRequired>
         <Head>
             <title>Registration List | Vidyut 2020 | National Level Multifest</title>
@@ -154,7 +159,7 @@ const RegistrationList = () => {
                                 </div>
                             </div>
                             <div className="col-md-9">
-                                { data.reverse().map(c => renderCard(c)) }
+                                { data ? sortedList(data).reverse().map(c => renderCard(c)) : null }
                             </div>
                         </div>
                     </div>
