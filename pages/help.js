@@ -21,6 +21,7 @@ export default () => (
                     At Vidyut, V care.  You can view our FAQ page to read about common queries, and issues.
                     We also have dedicated support group on telegram, where our tech team will be always
                     awake to help you out. Count on us!
+                    <h4>Phone No: +91 9539932846</h4>
                 </p>
                 <div className="d-inline-block text-center">
                     <Link href="/faq">
