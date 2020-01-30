@@ -68,7 +68,6 @@ const LanderSponsors = () => {
 
     return (
         <section id="lander-sponsors" className="d-flex align-items-center justify-content-center">
-            <div className="container">
                 <div className="sponsor-card text-dark animated slideInLeft h-100">
                     <h4>Our Sponsors</h4>
                     <div className="row mx-0 mt-2">
@@ -88,7 +87,6 @@ const LanderSponsors = () => {
                         }
                     </div>
                 </div>
-            </div>
         </section>
     );
 };

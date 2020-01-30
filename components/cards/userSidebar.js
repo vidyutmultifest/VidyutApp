@@ -137,6 +137,10 @@ const UserSidebar = () => {
                                     Admin Dashboard
                                 </a> : null
                         }
+                        <a target="_blank" href="https://drive.google.com/file/d/10j6LTVvQ8UkyuwTW5NXEyPh4EnoVBWz7/view?usp=drivesdk">
+                            <img src={require('../../images/icons/calendar-icon.png')} />
+                            Event Schedule
+                        </a>
                         <a href="/explore">
                             <img src={require('../../images/icons/explore-icon.png')} />
                             Explore Vidyut
@@ -152,6 +156,10 @@ const UserSidebar = () => {
                         <a href="/my-teams">
                             <img src={require('../../images/icons/user-group-bottom-bar-icon.png')} />
                             Teams
+                        </a>
+                        <a href="/sponsors">
+                            <img src={require('../../images/icons/heart-icon.png')} />
+                            Sponsors
                         </a>
                     </React.Fragment>
                   ) : (
