@@ -40,12 +40,23 @@ const ViewSessions = () => {
                     data && data.length > 0 ?
                         data.map(i =>
                             <div className="my-2 p-2">
-                                <a href={`/restricted/verify-ticket?sessionID=${i.sessionID}`} className="plain-link">
                                     <div className="card-shadow d-block p-2">
                                         <div className="row m-0">
                                             <div className="col-md-8 p-2">
                                                 <h5>{i.name}</h5>
                                                 <div className="small-text">{ i.products.map(p => <span>{p}, </span>) }</div>
+                                                <div>
+                                                    <a href={`/restricted/verify-ticket?sessionID=${i.sessionID}`} className="plain-link">
+                                                        <div className="btn btn-primary px-4 py-2 m-2">
+                                                            Main Server
+                                                        </div>
+                                                    </a>
+                                                    <a href={`/restricted/verify-ticket-2?sessionID=${i.sessionID}`} className="plain-link">
+                                                        <div className="btn btn-warning px-4 py-2 m-2">
+                                                            Standby Server
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             </div>
                                             <di className="col-md-4 p-2">
                                                 <div className="row m-0 text-center">
@@ -61,7 +72,6 @@ const ViewSessions = () => {
                                             </di>
                                         </div>
                                     </div>
-                                </a>
                             </div>
                         ) : null
                 }
