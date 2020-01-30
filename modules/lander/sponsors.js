@@ -25,6 +25,11 @@ const LanderSponsors = () => {
             "type": "Hospitality Partner"
         },
         {
+            "logo": require('../../images/sponsors/canara-bank.JPG'),
+            "name": "Canara Bank",
+            "type": "Technology Partner"
+        },
+        {
             "logo": require('../../images/sponsors/myg.jpg'),
             "name": "MyG",
             "type": "Technology Partner"
