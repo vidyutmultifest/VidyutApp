@@ -10,14 +10,34 @@ const LanderSponsors = () => {
             "type": "Event Partner"
         },
         {
-            "logo": require('../../images/sponsors/hyndai.png'),
-            "name": "Hyundai",
+            "logo": require('../../images/sponsors/sbi.png'),
+            "name": "SBI",
+            "type": "Event Partner"
+        },
+        {
+            "logo": require('../../images/sponsors/red_fm.jpg'),
+            "name": "Red FM",
+            "type": "Event Partner"
+        },
+        {
+            "logo": require('../../images/sponsors/federal_bank.png'),
+            "name": "Federal Bank",
             "type": "Event Partner"
         },
         {
             "logo": require('../../images/sponsors/zebronics.png'),
             "name": "Zebronics",
             "type": "Gadget Partner"
+        },
+        {
+            "logo": require('../../images/sponsors/byjus.png'),
+            "name": "Byjus",
+            "type": "E-learning Partner"
+        },
+        {
+            "logo": require('../../images/sponsors/hyndai.png'),
+            "name": "Hyundai",
+            "type": "Event Partner"
         },
         {
             "logo": require('../../images/sponsors/regant-lake-palace.jpg'),
