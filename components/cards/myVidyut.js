@@ -142,7 +142,7 @@ const MyVidyut = () => {
                     <div className="empty-listing-card card-shadow my-2 p-3">
                         Oh! You have not snapped up the tickets for Vidyut Pro- shows yet.This year, at Vidyut
                         we are on to you with three renowned artists :  The Agam Band, Mentalism ft. Arjun Guru,
-                        Electronic music by Nucleya , and enriched with other stunning performances.
+                        Electronic music by Sunburn artists , and enriched with other stunning performances.
                         Don’t miss it ! grab your tickets now!
                         <a href="/shows">
                             <button className="btn-primary mt-2 rounded-0 btn">Purchase Tickets</button>
