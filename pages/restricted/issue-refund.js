@@ -36,6 +36,8 @@ const IssueRefund = () => {
         product
         amount
         isOnline
+        originalAmount
+        photo
         hasRefunded
         userName
         transaction
@@ -84,28 +86,41 @@ const IssueRefund = () => {
         <div id="accept-payment-confirmation">
             {
                 !data.hasRefunded ?
-                    <div className="p-4">
-                        <h2 className="text-success">Allow Refund</h2>
-                        <h1 className="mb-0">₹{data.amount}</h1>
-                        <h3>{data.product}</h3>
-                        <h4>{data.userName}</h4>
-                        <div
-                            onClick={() => confirmRefund(data.transaction, data.amount)}
-                            className="btn btn-success px-4 py-2"
-                        >
-                            Pay Refund
+                    <div className="p-0">
+                        <div className="row m-0">
+                            {
+                                data.photo ?
+                                    <div className="col-md-3">
+                                        <img src={data.photo} />
+                                    </div> : null
+                            }
+                            <div className="col">
+                                <h2 className="text-success">Allow Refund</h2>
+                                <h1 className="mb-0">₹{data.amount}</h1>
+                                <h3>{data.product}</h3>
+                                <div><b>Name:</b> {data.userName}</div>
+                                <div><b>Amount Collected:</b> {data.originalAmount}</div>
+                            </div>
+                            <div className="col-12 p-0 d-flex">
+                                <div
+                                    onClick={() => confirmRefund(data.transaction, data.amount)}
+                                    className="btn btn-success m-2 px-4 py-2"
+                                >
+                                    Pay Refund
+                                </div>
+                                <button
+                                    className="btn btn-danger py-2 m-2 px-4"
+                                    onClick={() => {
+                                        setQrScanned(false);
+                                        setLoaded(false);
+                                        setData(false);
+                                    }}
+                                >
+                                    Rescan QR
+                                </button>
+                            </div>
                         </div>
-                        <button
-                            className="btn btn-danger py-2 m-2 px-4"
-                            onClick={() => {
-                                setQrScanned(false);
-                                setLoaded(false);
-                                setData(false);
-                            }}
-                        >
-                            Rescan QR
-                        </button>
-                    </div> :
+                    </div>:
                     <div className="p-4">
                         <h1>Already Refunded / Not Valid</h1>
                         <button
