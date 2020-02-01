@@ -87,6 +87,17 @@ const AdminDashboard = () => {
                                                 />
                                             </div> : null
                                     }
+                                        {
+                                            data.status.offlinePayment && data.myPermissions.canAcceptPayment ?
+                                                <div className="col-md-3 col-6 p-2">
+                                                    <QuickActionCard
+                                                        photo={require('../images/icons/receive-cash.png')}
+                                                        text="Refund Payments"
+                                                        title="Issue Refund"
+                                                        link="/restricted/issue-refund"
+                                                    />
+                                                </div> : null
+                                        }
                                     {
                                         data.myPermissions.canViewRegistrations ?
                                             <div className="col-md-3 col-6 p-2">
