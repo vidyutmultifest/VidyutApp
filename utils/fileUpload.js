@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const API_URL = 'https://dinkan.rivivo.xyz/';
+const API_URL = 'https://vidyut.rivivo.xyz/';
 
 export default ({ data }) => {
     const token = cookies.get('token');
