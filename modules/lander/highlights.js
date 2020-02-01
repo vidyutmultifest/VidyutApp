@@ -12,7 +12,7 @@ const LanderHighlights = () => {
                         </div>
                         <div className="d-flex justify-content-center w-100">
                             <span className="tagline animated slideInUp">
-                                Ft. Sunburn, The Agam Band, The Mentalist + more
+                                Ft. The Agam Band, The Mentalist + more
                             </span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ const LanderHighlights = () => {
                         <div className="col-4 animated fadeInRight">
                             <div className="date">Day 3 - Feb 01</div>
                             <div className="name">
-                                Sunburn
+                                Proshow
                             </div>
                         </div>
                     </div>
