@@ -45,7 +45,7 @@
     "next-compose-plugins": "2.2.0",
     "next-optimized-images": "2.5.4",
     "next-videos": "1.1.3",
-    "node-sass": "4.13.0",
+    "node-sass": "latest",
     "nuka-carousel": "^4.6.0",
     "qrcode.react": "1.0.0",
     "query-string": "6.9.0",
